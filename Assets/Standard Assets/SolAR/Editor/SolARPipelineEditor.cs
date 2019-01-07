@@ -111,48 +111,51 @@ namespace SolAR
 
                 GUILayout.EndHorizontal();
 
-                if (target.m_pipelinesName.Length > 0 && target.m_selectedPipeline>=0)
+                if (target.m_pipelinesName != null)
                 {
-                    using (var scope = new EditorGUI.ChangeCheckScope())
+                    if (target.m_pipelinesName.Length > 0 && target.m_selectedPipeline >= 0)
                     {
-                        int popupFontSize = EditorStyles.popup.fontSize;
-                        EditorStyles.popup.fontSize = 12;
-                        float popupFixedeight = EditorStyles.popup.fixedHeight;
-                        EditorStyles.popup.fixedHeight = 15.0f;
-
-                        target.m_selectedPipeline = EditorGUILayout.Popup(target.m_selectedPipeline, target.m_pipelinesName);
-
-                        EditorStyles.popup.fontSize = popupFontSize;
-                        EditorStyles.popup.fixedHeight = popupFixedeight;
-
-                        if (scope.changed)
+                        using (var scope = new EditorGUI.ChangeCheckScope())
                         {
-                            SelectPipeline(target.m_selectedPipeline);
+                            int popupFontSize = EditorStyles.popup.fontSize;
+                            EditorStyles.popup.fontSize = 12;
+                            float popupFixedeight = EditorStyles.popup.fixedHeight;
+                            EditorStyles.popup.fixedHeight = 15.0f;
+
+                            target.m_selectedPipeline = EditorGUILayout.Popup(target.m_selectedPipeline, target.m_pipelinesName);
+
+                            EditorStyles.popup.fontSize = popupFontSize;
+                            EditorStyles.popup.fixedHeight = popupFixedeight;
+
+                            if (scope.changed)
+                            {
+                                SelectPipeline(target.m_selectedPipeline);
+                            }
+                        }
+
+                        var conf = serializedObject.FindProperty("conf");
+
+                        bool modified = false;
+                        if (conf != null)
+                            OnConfGUI(conf, out modified);
+
+                        serializedObject.ApplyModifiedProperties();
+
+                        if (modified)
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(ConfXml));
+                            StreamWriter writer = new StreamWriter(target.m_configurationPath);
+                            serializer.Serialize(writer.BaseStream, target.conf);
+                            writer.Close();
                         }
                     }
-
-                    var conf = serializedObject.FindProperty("conf");
-                    
-                    bool modified = false;
-                    if (conf != null)
-                        OnConfGUI(conf, out modified);
-
-                    serializedObject.ApplyModifiedProperties();
-
-                    if (modified)
+                    else
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof(ConfXml));
-                        StreamWriter writer = new StreamWriter(target.m_configurationPath);
-                        serializer.Serialize(writer.BaseStream, target.conf);
-                        writer.Close();
+                        target.m_uuid = "";
+                        target.m_configurationPath = "";
+                        target.conf = null;
+                        serializedObject.Update();
                     }
-                }
-                else
-                {
-                    target.m_uuid = "";
-                    target.m_configurationPath = "";
-                    target.conf = null;
-                    serializedObject.Update();
                 }
             }
            
