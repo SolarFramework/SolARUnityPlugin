@@ -340,6 +340,9 @@ class SolARPipelineManagerPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_udpate")]
   public static extern bool PipelineManager_udpate(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_stop")]
+  public static extern bool PipelineManager_stop(global::System.Runtime.InteropServices.HandleRef jarg1);
 }
 
 }

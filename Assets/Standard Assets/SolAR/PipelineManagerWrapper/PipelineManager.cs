@@ -211,6 +211,11 @@ public class PipelineManager : global::System.IDisposable {
     return ret;
   }
 
+  public bool stop() {
+    bool ret = SolARPipelineManagerPINVOKE.PipelineManager_stop(swigCPtr);
+    return ret;
+  }
+
 }
 
 }
