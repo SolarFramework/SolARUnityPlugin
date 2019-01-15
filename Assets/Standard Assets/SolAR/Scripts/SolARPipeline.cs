@@ -17,7 +17,7 @@ namespace SolAR
     {
         public Camera m_camera;
         private Canvas m_canvas;
-        private Texture2D m_texture;
+        public Texture2D m_texture;
         private Material m_material;
 
         [HideInInspector]
@@ -51,32 +51,32 @@ namespace SolAR
 
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
-        /*
-            [DllImport("SolARPipelineManager")]
-            private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
-          */
+ /*      
+        [DllImport("SolARPipelineManager")]
+        private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
+   */       
 
 
         void OnEnable()
         {
-            // LogInFile("F:\\Dev\\SolAR\\sources\\Plugins\\SolARUnityPluginJR\\SolARPipelineManager.log", true);
             if (m_showDebugConsole)
                 RedirectIOToConsole(true);
+ //           else
+ //               LogInFile("F:\\Dev\\SolAR\\sources\\Plugins\\Unity\\SolARPipelineManager.log", true);
+
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
                 m_pipelineManager.init(m_configurationPath, m_uuid);
+            
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 
                 GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
                 goCanvas.transform.SetParent(m_camera.transform);
 
-                m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
-                m_texture.filterMode = FilterMode.Point;
-                m_texture.Apply();
-
-                m_material = new Material(Shader.Find("Unlit/Texture"));
-                m_material.mainTexture = m_texture;
+                //m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
+                //m_texture.filterMode = FilterMode.Point;
+                //m_texture.Apply();
 
                 m_canvas = goCanvas.GetComponent<Canvas>();
                 m_canvas.worldCamera = m_camera;
@@ -94,6 +94,7 @@ namespace SolAR
 
                 RawImage image = goCanvas.GetComponent<RawImage>();
                 image.texture = m_texture;
+                m_material = new Material(Shader.Find("Unlit/Texture"));
                 image.material = m_material;
                 image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
 
@@ -105,6 +106,7 @@ namespace SolAR
 
         void OnDisable()
         {
+            m_pipelineManager.stop();
             m_pipelineManager.Dispose();
             if (m_showDebugConsole)
                 RedirectIOToConsole(false);
@@ -121,10 +123,9 @@ namespace SolAR
         void Update()
         {
             PipelineManager.Pose pose = new PipelineManager.Pose();
-            m_pipelineManager.udpate(pose);
-            float toto = pose.translation(0);
-            // Debug.Log("Translation = " + pose.T.ToString());
-            // Debug.Log("Rotation = " + pose.R.ToString());
+            if (m_pipelineManager.udpate(pose))
+                Debug.Log("Translation = (" + pose.translation(0) + ", " + pose.translation(1) + ", " + pose.translation(2) + ")");
+            m_texture.Apply();
         }
     }
 
