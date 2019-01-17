@@ -317,6 +317,18 @@ class SolARPipelineManagerPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_CamParams_focalY_get")]
   public static extern float PipelineManager_CamParams_focalY_get(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_CamParams_centerX_set")]
+  public static extern void PipelineManager_CamParams_centerX_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_CamParams_centerX_get")]
+  public static extern int PipelineManager_CamParams_centerX_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_CamParams_centerY_set")]
+  public static extern void PipelineManager_CamParams_centerY_set(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_CamParams_centerY_get")]
+  public static extern int PipelineManager_CamParams_centerY_get(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_new_PipelineManager_CamParams")]
   public static extern global::System.IntPtr new_PipelineManager_CamParams();
 
@@ -339,7 +351,10 @@ class SolARPipelineManagerPINVOKE {
   public static extern bool PipelineManager_start(global::System.Runtime.InteropServices.HandleRef jarg1, System.IntPtr jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_udpate")]
-  public static extern bool PipelineManager_udpate(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+  public static extern int PipelineManager_udpate(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_updateFrameDataOGL")]
+  public static extern void PipelineManager_updateFrameDataOGL(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
 
   [global::System.Runtime.InteropServices.DllImport("SolARPipelineManager", EntryPoint="CSharp_SolAR_PipelineManager_stop")]
   public static extern bool PipelineManager_stop(global::System.Runtime.InteropServices.HandleRef jarg1);

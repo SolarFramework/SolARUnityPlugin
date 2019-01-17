@@ -181,6 +181,26 @@ public class PipelineManager : global::System.IDisposable {
       } 
     }
   
+    public int centerX {
+      set {
+        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerX_set(swigCPtr, value);
+      } 
+      get {
+        int ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerX_get(swigCPtr);
+        return ret;
+      } 
+    }
+  
+    public int centerY {
+      set {
+        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerY_set(swigCPtr, value);
+      } 
+      get {
+        int ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerY_get(swigCPtr);
+        return ret;
+      } 
+    }
+  
     public CamParams() : this(SolARPipelineManagerPINVOKE.new_PipelineManager_CamParams(), true) {
     }
   
@@ -205,10 +225,14 @@ public class PipelineManager : global::System.IDisposable {
     return ret;
   }
 
-  public bool udpate(PipelineManager.Pose pose) {
-    bool ret = SolARPipelineManagerPINVOKE.PipelineManager_udpate(swigCPtr, PipelineManager.Pose.getCPtr(pose));
+  public PIPELINEMANAGER_RETURNCODE udpate(PipelineManager.Pose pose) {
+    PIPELINEMANAGER_RETURNCODE ret = (PIPELINEMANAGER_RETURNCODE)SolARPipelineManagerPINVOKE.PipelineManager_udpate(swigCPtr, PipelineManager.Pose.getCPtr(pose));
     if (SolARPipelineManagerPINVOKE.SWIGPendingException.Pending) throw SolARPipelineManagerPINVOKE.SWIGPendingException.Retrieve();
     return ret;
+  }
+
+  public void updateFrameDataOGL(int eventID) {
+    SolARPipelineManagerPINVOKE.PipelineManager_updateFrameDataOGL(swigCPtr, eventID);
   }
 
   public bool stop() {

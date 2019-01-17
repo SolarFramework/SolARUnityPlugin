@@ -2,6 +2,12 @@ echo off
 :: remove existing dll and pdb files
 del .\*.dll
 del .\*.pdb
+:: remove existing pipeline manager C# wrapper files
+echo Delete following pipeline manager wrapper files ?
+del ".\Assets\Standard Assets\SolAR\PipelineManagerWrapper\*.*"
+
+:: copy csharp interfaces
+xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.1.0\CSharp\*" ".\Assets\Standard Assets\SolAR\PipelineManagerWrapper\"
 
 :: copy dll
 SET mode="release"

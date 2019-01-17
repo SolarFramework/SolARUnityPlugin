@@ -17,7 +17,7 @@ namespace SolAR
     {
         public Camera m_camera;
         private Canvas m_canvas;
-        public Texture2D m_texture;
+        private Texture2D m_texture;
         private Material m_material;
 
         [HideInInspector]
@@ -47,7 +47,10 @@ namespace SolAR
         public ConfXml conf;
 
         [HideInInspector]
-        public PipelineManager m_pipelineManager = new PipelineManager();
+        public PipelineManager m_pipelineManager;
+
+        private delegate void eventCallbackDelegate(int eventID);
+        eventCallbackDelegate m_eventCallback = null;
 
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
@@ -74,12 +77,15 @@ namespace SolAR
                 GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
                 goCanvas.transform.SetParent(m_camera.transform);
 
-                //m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
-                //m_texture.filterMode = FilterMode.Point;
-                //m_texture.Apply();
+                m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
+                m_texture.filterMode = FilterMode.Point;
+                m_texture.Apply();
 
                 m_canvas = goCanvas.GetComponent<Canvas>();
+                m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
+                m_canvas.pixelPerfect = true;
                 m_canvas.worldCamera = m_camera;
+                m_canvas.planeDistance = m_camera.farClipPlane *0.95f;
 
                 CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                 scaler.referenceResolution = new Vector2(camParams.width, camParams.height);
@@ -87,18 +93,30 @@ namespace SolAR
                 scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
                 scaler.referencePixelsPerUnit = 1;
 
-                m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                m_canvas.pixelPerfect = true;
-                m_canvas.worldCamera = Camera.main;
-                m_canvas.planeDistance = Camera.main.farClipPlane - 100;
-
                 RawImage image = goCanvas.GetComponent<RawImage>();
-                image.texture = m_texture;
+                //image.texture = m_texture;
                 m_material = new Material(Shader.Find("Unlit/Texture"));
+                m_material.mainTexture = m_texture;
                 image.material = m_material;
                 image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
 
-                m_camera.fieldOfView = Mathf.Rad2Deg * 2 * Mathf.Atan(camParams.width / (2 * camParams.focalX)); 
+                // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
+                Matrix4x4 projectionMatrix = new Matrix4x4();
+                float near = m_camera.nearClipPlane;
+                float far = m_camera.farClipPlane;
+
+                Vector4 row0 = new Vector4(2.0f * camParams.focalX / camParams.width, 0, 1.0f - 2.0f * camParams.centerX / camParams.width, 0);
+                Vector4 row1 = new Vector4(0, 2.0f * camParams.focalY / camParams.height, 2.0f * camParams.centerY / camParams.height - 1.0f, 0);
+                Vector4 row2 = new Vector4(0, 0, (far + near) / (near - far), 2.0f * far * near / (near - far));
+                Vector4 row3 = new Vector4(0, 0, -1, 0);
+
+                projectionMatrix.SetRow(0, row0);
+                projectionMatrix.SetRow(1, row1);
+                projectionMatrix.SetRow(2, row2);
+                projectionMatrix.SetRow(3, row3);
+
+                m_camera.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(camParams.width / (2 * camParams.focalX))) - 10;
+                m_camera.projectionMatrix = projectionMatrix;
             }
             else
                 Debug.Log("A canvas must be specified for the SolAR Pipeline component");
@@ -106,26 +124,73 @@ namespace SolAR
 
         void OnDisable()
         {
+            StopCoroutine("CallPluginAtEndOfFrames");
             m_pipelineManager.stop();
             m_pipelineManager.Dispose();
+            m_pipelineManager = null;
             if (m_showDebugConsole)
                 RedirectIOToConsole(false);
         }
 
         // Use this for initialization
-        void Start()
+        IEnumerator Start()
         {
+            m_eventCallback = new eventCallbackDelegate(m_pipelineManager.updateFrameDataOGL);
+
             if (m_texture != null)
+            {
                 m_pipelineManager.start(m_texture.GetNativeTexturePtr());
+            }
+            yield return StartCoroutine("CallPluginAtEndOfFrames");
         }
+
+        private IEnumerator CallPluginAtEndOfFrames()
+        {
+            if (m_eventCallback != null)
+            {
+                while (m_pipelineManager != null)
+                {
+                    yield return new WaitForEndOfFrame();
+
+                    GL.IssuePluginEvent(Marshal.GetFunctionPointerForDelegate(m_eventCallback), 1);
+
+                    if (m_pipelineManager != null)
+                    {
+                        PipelineManager.Pose pose = new PipelineManager.Pose();
+                        if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                        {
+                            Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
+
+                            cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
+                            cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
+                            cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
+                            cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
+
+                            Matrix4x4 invertMatrix = new Matrix4x4();
+                            invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
+                            invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
+                            invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
+                            invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
+                            Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
+
+                            Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
+                            Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
+
+                            m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
+                            m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
+                        }
+                    }
+                }
+
+            }
+        }
+
 
         // Update is called once per frame
         void Update()
         {
-            PipelineManager.Pose pose = new PipelineManager.Pose();
-            if (m_pipelineManager.udpate(pose))
-                Debug.Log("Translation = (" + pose.translation(0) + ", " + pose.translation(1) + ", " + pose.translation(2) + ")");
-            m_texture.Apply();
+           
+           // m_texture.Apply();
         }
     }
 

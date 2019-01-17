@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camera: {fileID: 1386490711}
-  m_pipelineFolder: F:/Dev/SolAR/sources/Plugins/SolARUnityPluginJR/Assets/StreamingAssets/Pipelines
+  m_pipelineFolder: F:/Dev/SolAR/sources/Plugins/Unity/Assets/StreamingAssets/Pipelines
   m_pipelinesName:
   - PipelineFiducialMarker
   - PipelineFiducialMarkerOriginal
@@ -219,17 +219,17 @@ MonoBehaviour:
   - 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
   - 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
   m_pipelinesPath:
-  - F:/Dev/SolAR/sources/Plugins/SolARUnityPluginJR/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
-  - F:/Dev/SolAR/sources/Plugins/SolARUnityPluginJR/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker_original.xml
+  - F:/Dev/SolAR/sources/Plugins/Unity/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
+  - F:/Dev/SolAR/sources/Plugins/Unity/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker_original.xml
   m_selectedPipeline: 0
-  m_configurationPath: F:/Dev/SolAR/sources/Plugins/SolARUnityPluginJR/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
+  m_configurationPath: F:/Dev/SolAR/sources/Plugins/Unity/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
   m_uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
-  m_showDebugConsole: 1
+  m_showDebugConsole: 0
   conf:
     modules:
     - uuid: 63b4282f-94cf-44d0-8ec0-9e8b0639fff6
-      name: FiducialMarkerModule
-      path: PipelineFiducialMarker
+      name: PipelineFiducialMarker
+      path: 
       description: The module embedding a pipeline to estimate the pose based on a
         squared fiducial marker
       components:
@@ -242,10 +242,10 @@ MonoBehaviour:
           description: IComponentIntrospect
         - uuid: b5a6225e-6a91-4050-b298-886f4c17d9d2
           name: IPipeline
-          description: The interface to define a video see-throuh pipeline
+          description: The interface to define a video see-through pipeline
     - uuid: 15e1990b-86b2-445c-8194-0cbe80ede970
       name: SolARModuleOpenCV
-      path: $BCOMDEVROOT/bcomBuild/SolARModuleOpenCV/0.5.1/lib/x86_64/shared
+      path: 
       description: OpenCV
       components:
       - uuid: 5B7396F4-A804-4F3C-A0EB-FB1D56042BB4
@@ -366,8 +366,8 @@ MonoBehaviour:
           description: I3DTransformFinder
     - uuid: 28b89d39-41bd-451d-b19e-d25a3d7c5797
       name: SolARModuleTools
-      path: $BCOMDEVROOT/bcomBuild/SolARModuleTools/0.5.1/lib/x86_64/shared
-      description: Module Tools
+      path: 
+      description: Tools
       components:
       - uuid: a2ef5542-029e-4fce-9974-0aea14b29d6f
         name: SolARSBPatternReIndexer
@@ -391,8 +391,8 @@ MonoBehaviour:
           description: IImage2WorldMapper
     - uuid: 6e960df6-9a36-11e8-9eb6-529269fb1459
       name: SolARModuleOpenGL
-      path: $BCOMDEVROOT/bcomBuild/SolARModuleOpenGL/0.5.1/lib/x86_64/shared
-      description: Module OpenGL
+      path: 
+      description: SolARModuleOpenGL module
       components:
       - uuid: 3af7813c-4647-4d70-9cc6-e3cedd8dd77c
         name: SinkPoseTextureBuffer
@@ -415,7 +415,7 @@ MonoBehaviour:
         properties:
         - name: calibrationFile
           type: string
-          value: Assets/Streaming Assets/CameraCalibration/camera_calibration.yml
+          value: ./Assets/StreamingAssets/CameraCalibration/camera_calibration.yml
           description: path of the .yml file describing the calibration parameter
             of the camera.
           values: []
@@ -431,7 +431,7 @@ MonoBehaviour:
         properties:
         - name: filePath
           type: string
-          value: Assets/Streaming Assets/Markers/fiducialMarker.yml
+          value: ./Assets/StreamingAssets/Markers/fiducialMarker.yml
           description: Path of the .yml file describing the fiducial marker.
           values: []
       - type: SolARImageFilterBinaryOpencv
