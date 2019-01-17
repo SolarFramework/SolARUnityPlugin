@@ -98,6 +98,7 @@ namespace SolAR
                 m_material = new Material(Shader.Find("Unlit/Texture"));
                 m_material.mainTexture = m_texture;
                 image.material = m_material;
+                image.uvRect = new Rect(0.0f, 1.0f, 1.0f, -1.0f);
                 image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
 
                 // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
