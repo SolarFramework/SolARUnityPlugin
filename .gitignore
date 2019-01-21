@@ -26,6 +26,8 @@ PluginDll/x64/
 PluginDll/x86/
 Assets/AssetStoreTools*
 Assets/Plugins/
+*.dll
+*.so
 
 # Visual Studio 2015 cache directory
 .vs/
@@ -54,7 +56,7 @@ Packages/
 
 # Unity3D generated meta files
 *.pidb.meta
-*/*.meta
+*.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
