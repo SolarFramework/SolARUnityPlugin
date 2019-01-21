@@ -90,7 +90,7 @@ namespace SolAR
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 
                 GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
-                goCanvas.transform.SetParent(m_camera.transform);
+                //goCanvas.transform.SetParent(m_camera.transform);
 
                 m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
                 m_texture.filterMode = FilterMode.Point;
