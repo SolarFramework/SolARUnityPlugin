@@ -1,12 +1,20 @@
 <?xml version="1.0"?>
 <xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<<<<<<< HEAD
   <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="PipelineFiducialMarker" path="./Assets/Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
+=======
+  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="PipelineFiducialMarker" path="./Assets/Plugins/SolAR" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
+>>>>>>> dc376b68fed19b3c950797e72f5679bb66620f81
     <component uuid="3898cc3b-3986-4edc-b7c8-f4fba0f6c22a" name="PipelineFiducialMarker" description="A pipeline to estimate the pose based on a squared fiducial marker">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-through pipeline" />
     </component>
   </module>
+<<<<<<< HEAD
   <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./Assets/Plugins" description="OpenCV">
+=======
+  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./Assets/Plugins/SolAR" description="OpenCV">
+>>>>>>> dc376b68fed19b3c950797e72f5679bb66620f81
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
@@ -54,7 +62,11 @@
       <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinder" description="I3DTransformFinder" />
     </component>
   </module>
+<<<<<<< HEAD
   <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./Assets/Plugins" description="Tools">
+=======
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./Assets/Plugins/SolAR" description="Tools">
+>>>>>>> dc376b68fed19b3c950797e72f5679bb66620f81
     <component uuid="a2ef5542-029e-4fce-9974-0aea14b29d6f" name="SolARSBPatternReIndexer" description="SolARSBPatternReIndexer">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="79c5b810-d557-11e7-9296-cec278b6b50a" name="ISBPatternReIndexer" description="ISBPatternReIndexer" />
@@ -64,7 +76,11 @@
       <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper" />
     </component>
   </module>
+<<<<<<< HEAD
   <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="./Assets/Plugins" description="SolARModuleOpenGL module">
+=======
+  <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="./Assets/Plugins/SolAR" description="SolARModuleOpenGL module">
+>>>>>>> dc376b68fed19b3c950797e72f5679bb66620f81
     <component uuid="3af7813c-4647-4d70-9cc6-e3cedd8dd77c" name="SinkPoseTextureBuffer" description="A Sink component for a synchronized pose and texture buffer based on OpenGL texture buffer">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="8b220946-34ab-4fba-9aa7-ea8da807a2cf" name="ISinkPoseTextureBuffer" description="An interface allowing to to make available a pose to a third party application and to update a texture buffer with a new image" />
@@ -73,7 +89,7 @@
   <configuration>
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4">
       <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
-      <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
+      <property name="deviceID" type="UnsignedInteger" value="1" description="ID of the camera (default = 0)" />
       <!--SolARCameraOpencv-->
     </component>
     <component uuid="5d2b8da9-528e-4e5e-96c1-f883edcf3b1c">
