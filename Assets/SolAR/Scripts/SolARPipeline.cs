@@ -16,6 +16,8 @@ namespace SolAR
     public class SolARPipeline : MonoBehaviour
     {
         public Camera m_camera;
+
+        
         private Canvas m_canvas;
         private Texture2D m_texture;
         private Material m_material;
@@ -41,6 +43,9 @@ namespace SolAR
         [HideInInspector]
         public string m_uuid;
 
+        [HideInInspector]
+        public int m_webCamNum;
+
         public bool m_showDebugConsole = true;
 
         [HideInInspector]
@@ -59,19 +64,29 @@ namespace SolAR
         private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
    */       
 
+        void OnDestroy()
+        {
+            StopCoroutine("CallPluginAtEndOfFrames");
+            m_pipelineManager.stop();
+            m_pipelineManager.Dispose();
+            m_pipelineManager = null;
+            if (m_showDebugConsole)
+                RedirectIOToConsole(false);
+        }
 
-        void OnEnable()
+        // Use this for initialization
+        IEnumerator Start()
         {
             if (m_showDebugConsole)
                 RedirectIOToConsole(true);
- //           else
- //               LogInFile("F:\\Dev\\SolAR\\sources\\Plugins\\Unity\\SolARPipelineManager.log", true);
+            //           else
+            //               LogInFile("F:\\Dev\\SolAR\\sources\\Plugins\\Unity\\SolARPipelineManager.log", true);
 
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
                 m_pipelineManager.init(m_configurationPath, m_uuid);
-            
+
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 
                 GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
@@ -85,7 +100,7 @@ namespace SolAR
                 m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                 m_canvas.pixelPerfect = true;
                 m_canvas.worldCamera = m_camera;
-                m_canvas.planeDistance = m_camera.farClipPlane *0.95f;
+                m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
 
                 CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                 scaler.referenceResolution = new Vector2(camParams.width, camParams.height);
@@ -95,10 +110,10 @@ namespace SolAR
 
                 RawImage image = goCanvas.GetComponent<RawImage>();
                 //image.texture = m_texture;
-                m_material = new Material(Shader.Find("Unlit/Texture"));
+                m_material = new Material(Shader.Find("Custom/SolarImageShader"));
                 m_material.mainTexture = m_texture;
                 image.material = m_material;
-                image.uvRect = new Rect(0.0f, 1.0f, 1.0f, -1.0f);
+                image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
                 image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
 
                 // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
@@ -118,31 +133,14 @@ namespace SolAR
 
                 m_camera.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(camParams.width / (2 * camParams.focalX))) - 10;
                 m_camera.projectionMatrix = projectionMatrix;
+
+                m_eventCallback = new eventCallbackDelegate(m_pipelineManager.updateFrameDataOGL);
+
+                m_pipelineManager.start(m_texture.GetNativeTexturePtr());
+                yield return StartCoroutine("CallPluginAtEndOfFrames");
             }
             else
-                Debug.Log("A canvas must be specified for the SolAR Pipeline component");
-        }
-
-        void OnDisable()
-        {
-            StopCoroutine("CallPluginAtEndOfFrames");
-            m_pipelineManager.stop();
-            m_pipelineManager.Dispose();
-            m_pipelineManager = null;
-            if (m_showDebugConsole)
-                RedirectIOToConsole(false);
-        }
-
-        // Use this for initialization
-        IEnumerator Start()
-        {
-            m_eventCallback = new eventCallbackDelegate(m_pipelineManager.updateFrameDataOGL);
-
-            if (m_texture != null)
-            {
-                m_pipelineManager.start(m_texture.GetNativeTexturePtr());
-            }
-            yield return StartCoroutine("CallPluginAtEndOfFrames");
+                Debug.Log("A camera must be specified for the SolAR Pipeline component");
         }
 
         private IEnumerator CallPluginAtEndOfFrames()

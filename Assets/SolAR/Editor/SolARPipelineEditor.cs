@@ -23,8 +23,6 @@ namespace SolAR
 
         readonly AnimBool animConfiguration = new AnimBool(true);
 
-        bool firstSelection = true;
-
         protected void OnEnable()
         {
             animConfiguration.valueChanged.AddListener(new UnityAction(Repaint));
@@ -55,6 +53,19 @@ namespace SolAR
             // Don't make child fields be indented
             //var indent = EditorGUI.indentLevel;
             //EditorGUI.indentLevel = 0;
+
+            WebCamDevice[] webCams = WebCamTexture.devices;
+            List<string> webCamNames = new List<string>();
+            webCamNames.Add("No webcam, handled by pipeline itself");
+            foreach (WebCamDevice webCam in webCams)
+            {
+                string webCamName = webCam.name;
+                if (webCam.isFrontFacing)
+                    webCamName += " (front)";
+                webCamNames.Add(webCamName);
+            }
+            GUIContent label = new GUIContent("Video Camera");
+            target.m_webCamNum = EditorGUILayout.Popup(label, target.m_webCamNum, webCamNames.ToArray());
 
             //EditorGUI.PropertyField(position, property, new GUIContent("Conf"), true);
             using (new GUILayout.VerticalScope(new GUIContent("<b>Pipelines</b>"), windowStyle, GUILayout.ExpandHeight(false)))
