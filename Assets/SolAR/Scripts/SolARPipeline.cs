@@ -16,7 +16,7 @@ namespace SolAR
     public class SolARPipeline : MonoBehaviour
     {
         public Camera m_camera;
-        
+
         public Canvas m_canvas;
         private Texture2D m_texture;
         public Material m_material;
@@ -58,10 +58,10 @@ namespace SolAR
 
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
- /*      
-        [DllImport("SolARPipelineManager")]
-        private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
-   */       
+        /*      
+               [DllImport("SolARPipelineManager")]
+               private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
+          */
 
         void OnDisable()
         {
@@ -78,7 +78,7 @@ namespace SolAR
         {
             if (m_showDebugConsole)
                 RedirectIOToConsole(true);
-            
+
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
@@ -131,33 +131,30 @@ namespace SolAR
 
                     GL.IssuePluginEvent(Marshal.GetFunctionPointerForDelegate(m_eventCallback), 1);
 
-                    if (m_pipelineManager != null)
+                    PipelineManager.Pose pose = new PipelineManager.Pose();
+                    if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
-                        PipelineManager.Pose pose = new PipelineManager.Pose();
-                        if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
-                        {
-                            m_camera.cullingMask = -1;
+                        m_camera.cullingMask = -1;
 
-                            Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
+                        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
-                            cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
-                            cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
-                            cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
-                            cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
+                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
+                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
+                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
+                        cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
 
-                            Matrix4x4 invertMatrix = new Matrix4x4();
-                            invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
-                            invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
-                            invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
-                            invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
-                            Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
+                        Matrix4x4 invertMatrix = new Matrix4x4();
+                        invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
+                        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
+                        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
+                        invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
+                        Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
 
-                            Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
-                            Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
+                        Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
+                        Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
 
-                            m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
-                            m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-                        }
+                        m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
+                        m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
                     }
                 }
 
@@ -168,8 +165,8 @@ namespace SolAR
         // Update is called once per frame
         void Update()
         {
-           
-           // m_texture.Apply();
+
+            // m_texture.Apply();
         }
     }
 
