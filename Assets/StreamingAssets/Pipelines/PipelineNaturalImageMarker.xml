@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <module uuid="5bbc1452-8d7f-4512-83f1-7bf48453809f" name="PipelineNaturalImageMarker" path="./Assets/Plugins/SolAR" description="The module embedding a pipeline to estimate the pose based on a natural Image marker">
+    <component uuid="6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1" name="PipelineNaturalImageMarker" description="A pipeline to estimate the pose based on a natural Image marker">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
+    </component>
+  </module>
+   <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./Assets/Plugins/SolAR" description="OpenCV">
+    <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
+    </component>
+    <component uuid="fa4a780a-9720-11e8-9eb6-529269fb1459" name="SolARVideoAsCameraOpencv" description="SolARVideoAsCameraOpencv">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
+    </component>
+	<component uuid="efcdb590-c570-11e7-abc4-cec278b6b50a" name="SolARMarker2DNaturalImageOpencv" description="SolARMarker2DNaturalImageOpencv">
+		<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+		<interface uuid="3c9cee8a-e9ca-4c16-851a-669a94c2a68d" name="IMarker" description="IMarker"/>
+		<interface uuid="e9cdcf6e-c54c-11e7-abc4-cec278b6b50a" name="IMarker2Dquared" description="IMarker2Dquared"/>
+		<interface uuid="8fed06f8-c54d-11e7-abc4-cec278b6b50a" name="IMarker2DNaturalImage" description="IMarker2DNaturalImage"/>
+	</component>
+	<component uuid="e81c7e4e-7da6-476a-8eba-078b43071272" name="SolARKeypointDetectorOpencv" description="SolARKeypointDetectorOpencv" >
+		<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+		<interface uuid="0eadc8b7-1265-434c-a4c6-6da8a028e06e" name="IKeypointDetector" description="IKeypointDetector"/>
+	</component>
+	<component uuid="7823dac8-1597-41cf-bdef-59aa22f3d40a" name="SolARDescriptorMatcherKNNOpencv" description="SolARDescriptorMatcherKNNOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="dda38a40-c50a-4e7d-8433-0f04c7c98518" name="IDescriptorMatcher" description="IDescriptorMatcher"/>
+	</component>
+	<component uuid="3731691e-2c4c-4d37-a2ce-06d1918f8d41" name="SolARGeometricMatchesFilterOpencv" description="SolARGeometricMatchesFilterOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" name="IMatchesFilter" description="IMatchesFilter"/>
+	</component>
+	<component uuid="fb9dac20-2a44-44b2-aa42-2871eec31427" name="SolARHomographyEstimationOpencv" description="SolARHomographyEstimationOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="45dd370a-0eab-4a7f-93d0-43453b4c7517" name="Transform2DFinder" description="Transform2DFinder"/>
+	</component>
+	<component uuid="0753ade1-7932-4e29-a71c-66155e309a53" name="SolARPoseEstimationPnpOpencv" description="SolARPoseEstimationPnpOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinder" description="I3DTransformFinder"/>
+	</component>
+	<component uuid="a38edf79-f0dc-45ca-92fc-2b336fceedf9" name="SolARPoseEstimationPnpEPFL" description="SolARPoseEstimationPnpEPFL" >
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D"/>
+	</component>
+	<component uuid="cc51d685-9797-4ffd-a9dd-cec4f367fa6a" name="SolAR2DOverlayOpencv" description="SolAR2DOverlayOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" name="I2DOverlay" description="I2DOverlay"/>
+	</component>
+	<component uuid="e95302be-3fe1-44e0-97bf-a98380464af9" name="SolARSideBySideOverlayOpencv" description="SolARSideBySideOverlayOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="a801354a-3e00-467c-b390-48c76fa8c53a" name="ISideBySideOverlay" description="ISideBySideOverlay"/>
+	</component>
+	<component uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" name="SolAR3DOverlayOpencv" description="SolAR3DOverlayOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="81a20f52-6bf9-4949-b914-df2f614bc945" name="I3DOverlay" description="I3DOverlay"/>
+	</component>
+	<component uuid="c8cc68db-9abd-4dab-9204-2fe4e9d010cd" name="SolARDescriptorsExtractorAKAZEOpencv" description="SolARDescriptorsExtractorAKAZEOpencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e" name="IDescriptorsExtractor" description="IDescriptorsExtractor"/>
+	</component>
+	<component uuid="21238c00-26dd-11e8-b467-0ed5f89f718b" name="SolARDescriptorsExtractorAKAZE2Opencv" description="SolARDescriptorsExtractorAKAZE2Opencv">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e" name="IDescriptorsExtractor" description="IDescriptorsExtractor"/>
+	</component>
+  </module>
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./Assets/Plugins/SolAR" description="Module Tools">
+    <component uuid="a2ef5542-029e-4fce-9974-0aea14b29d6f" name="SolARSBPatternReIndexer" description="SolARSBPatternReIndexer">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="79c5b810-d557-11e7-9296-cec278b6b50a" name="ISBPatternReIndexer" description="ISBPatternReIndexer" />
+    </component>
+    <component uuid="6fed0169-4f01-4545-842a-3e2425bee248" name="SolARImage2WorldMapper4Marker2D" description="SolARImage2WorldMapper4Marker2D">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper" />
+    </component>
+   <component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
+    </component>
+	<component uuid="cbb620c3-a7fc-42d7-bcbf-f59b475b23b0" name="SolARBasicMatchesFilter" description="SolARBasicMatchesFilter">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" name="IMatchesFilter" description= "IMatchesFilter"/>
+	</component>
+	<component uuid="112f9f03-79c1-4393-b8f3-e02227bebfed" name="SolARHomographyValidation" description="SolARHomographyValidation">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="e95e8f70-dd32-11e7-9296-cec278b6b50a" name="IHomographyValidation" description="IHomographyValidation"/>
+	</component>
+	<component uuid="c2836cc0-0344-4956-8959-84936fb4bcf2" name="SolARKeypointsReIndexer" description="SolARKeypointsReIndexer">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description= "IComponentIntrospect"/>
+			<interface uuid="920e64a2-df17-11e7-80c1-9a214cf093ae" name="IKeypointsReIndexer" description= "IKeypointsReIndexer"/>
+	</component>
+	<component uuid="edcedc0a-9841-4377-aea1-9fa9fdb46fde" name="SolAR2DTransform" description="SolAR2DTransform">
+			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+			<interface uuid="dbf5a8a1-cbcb-4a95-8dfd-4d9d5877e56f" name="I2DTransform" description="I2DTransform" />
+	</component>	
+  </module>
+  <configuration>
+    <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4">  <!--SolARCameraOpencv-->
+      <property name="calibrationFile" type="string" value="C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
+    </component>
+	<component uuid="efcdb590-c570-11e7-abc4-cec278b6b50a"> <!-- SolARMarker2DNaturalImageOpencv -->
+      <property name="filePath" type="string" value="C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Markers/NaturalImageMarker.yml" description="Path of the .yml file describing the natural image marker." />
+    </component>
+	<component uuid="e81c7e4e-7da6-476a-8eba-078b43071272"> <!-- SolARKeypointDetectorOpencv -->
+		<property name="type" type="string" value="AKAZE2"/>
+		<property name="nbDescriptors" type="Integer" value="1000"/>
+	</component>
+	<component uuid="7823dac8-1597-41cf-bdef-59aa22f3d40a"> <!-- SolARDescriptorMatcherKNNOpencv -->
+		<property name="distanceRatio" type="Float" value="0.75"/>
+	</component>
+	<component uuid="3731691e-2c4c-4d37-a2ce-06d1918f8d41"> <!-- SolARGeometricMatchesFilterOpencv -->
+		<property name="m_confidenceLevel" type="Double" value="0.99"/>
+		<property name="m_outlierDistanceRatio" type="Double" value="0.006"/>
+	</component>
+	<component uuid="fb9dac20-2a44-44b2-aa42-2871eec31427"> <!-- SolARHomographyEstimationOpencv -->
+		<property name="ransacReprojThreshold" type="Double" value="8.0"/>
+	</component>
+	<component uuid="0753ade1-7932-4e29-a71c-66155e309a53"> <!-- SolARPoseEstimationPnpOpencv -->
+		<property name="iterationsCount" type="Integer" value="1000"/>
+		<property name="reprojError" type="Float" value="4.0"/>
+		<property name="confidence" type="Float" value="0.99"/>
+	</component>
+	<component uuid="a38edf79-f0dc-45ca-92fc-2b336fceedf9"> <!-- SolARPoseEstimationPnpEPFL -->
+		<property name="maxNumberCorrespondences" type="Integer" value="200"/>
+	</component>
+	<component uuid="21238c00-26dd-11e8-b467-0ed5f89f718b"> <!-- SolARDescriptorsExtractorAKAZE2Opencv -->
+		<property name="threshold" type="Float" value="3e-4"/>
+	</component>
+
+  </configuration>
+</xpcf-registry>
