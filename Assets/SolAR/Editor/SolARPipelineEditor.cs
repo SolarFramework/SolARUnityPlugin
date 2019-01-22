@@ -25,6 +25,8 @@ namespace SolAR
 
         protected void OnEnable()
         {
+            LoadPipelines();
+            SelectPipeline(target.m_selectedPipeline);
             animConfiguration.valueChanged.AddListener(new UnityAction(Repaint));
         }
 
@@ -33,15 +35,76 @@ namespace SolAR
             animConfiguration.valueChanged.RemoveAllListeners();
         }
 
-        private void SelectPipeline (int num_pipeline)
+        protected void SelectPipeline(int num_pipeline)
         {
+            serializedObject.ApplyModifiedProperties();
             var serializer = new XmlSerializer(typeof(ConfXml));
+            if (target.m_pipelinesPath.Length <= 0)
+                return;
+            if (target.m_pipelinesPath.Length <= num_pipeline)
+                num_pipeline = target.m_pipelinesPath.Length - 1;
             string selectedPipelinePath = target.m_pipelinesPath.ElementAt(num_pipeline);
             using (var stream = File.OpenRead(selectedPipelinePath))
             {
                 target.conf = (ConfXml)serializer.Deserialize(stream);
                 target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
                 target.m_configurationPath = selectedPipelinePath;
+            }
+            serializedObject.Update();
+        }
+
+        protected void LoadPipelines()
+        {
+            serializedObject.ApplyModifiedProperties();
+            string[] files = Directory.GetFiles(target.m_pipelineFolder, "*.xml");
+            List<string> namesList = new List<string>();
+            List<string> uuidList = new List<string>();
+            List<string> pathList = new List<string>();
+            foreach (var file in files)
+            {
+                string file_temp = file.Replace("\\", "/");
+                XElement root = null;
+                try
+                {
+                    root = XElement.Load(file_temp);
+                }
+                catch (System.Xml.XmlException e)
+                {
+                    Debug.Log("Configuration file " + file_temp + " has an error:" + e.Message);
+                }
+
+                if (root != null)
+                {
+                    foreach (XElement component_interface in root.Descendants("interface"))
+                    {
+                        if (component_interface.Attributes("name").First().Value == "IPipeline")
+                        {
+                            XElement component = component_interface.Ancestors("component").First();
+                            string pipelineName = component.Attribute("name").Value;
+                            string pipelineUuid = component.Attribute("uuid").Value;
+                            if (!string.IsNullOrEmpty(pipelineName))
+                            {
+                                namesList.Add(pipelineName);
+                                uuidList.Add(pipelineUuid);
+                                pathList.Add(file_temp);
+                            }
+                        }
+                    }
+                }
+
+            }
+            target.m_pipelinesName = namesList.ToArray();
+            target.m_pipelinesPath = pathList.ToArray();
+            target.m_pipelinesUUID = uuidList.ToArray();
+
+            if (namesList.Count == 0)
+            {
+                target.m_selectedPipeline = -1;
+            }
+            else
+            {
+                target.m_selectedPipeline = 0;
+                SelectPipeline(0);
             }
             serializedObject.Update();
         }
@@ -76,58 +139,7 @@ namespace SolAR
                 {
                     //target.SelectFolder();
                     target.m_pipelineFolder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
-                    string[] files = Directory.GetFiles(target.m_pipelineFolder, "*.xml");
-                    List<string> namesList = new List<string>();
-                    List<string> uuidList = new List<string>();
-                    List<string> pathList = new List<string>();
-                    foreach (var file in files)
-                    {
-                        string file_temp = file.Replace("\\", "/");
-                        XElement root = null;
-                        try
-                        {
-                            root = XElement.Load(file_temp); 
-                        }
-                        catch (System.Xml.XmlException e)
-                        {
-                            Debug.Log("Configuration file " + file_temp + " has an error:" + e.Message);
-                        }
-
-                        if (root != null)
-                        {
-                            foreach (XElement component_interface in root.Descendants("interface"))
-                            {
-                                if (component_interface.Attributes("name").First().Value == "IPipeline")
-                                {
-                                    XElement component = component_interface.Ancestors("component").First();
-                                    string pipelineName = component.Attribute("name").Value;
-                                    string pipelineUuid = component.Attribute("uuid").Value;
-                                    if (!string.IsNullOrEmpty(pipelineName))
-                                    {
-                                        namesList.Add(pipelineName);
-                                        uuidList.Add(pipelineUuid);
-                                        pathList.Add(file_temp);
-                                    }
-                                }
-                            }
-                        }
-                       
-                    }
-                    target.m_pipelinesName = namesList.ToArray();
-                    target.m_pipelinesPath = pathList.ToArray();
-                    target.m_pipelinesUUID = uuidList.ToArray();
-
-                    if (namesList.Count == 0)
-                    {
-                        target.m_selectedPipeline = -1;
-                        serializedObject.Update();
-                    }
-                    else
-                    {
-                        target.m_selectedPipeline = 0;
-                        SelectPipeline(0);
-                    }
-                    
+                    LoadPipelines();
                 }
 
                 GUILayout.EndHorizontal();
@@ -179,7 +191,6 @@ namespace SolAR
                     }
                 }
             }
-           
         }
 
         void OnConfGUI(SerializedProperty conf, out bool modified)
