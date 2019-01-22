@@ -82,7 +82,7 @@ namespace SolAR
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
-                m_pipelineManager.init(m_configurationPath, m_uuid);
+                m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid);
 
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 
