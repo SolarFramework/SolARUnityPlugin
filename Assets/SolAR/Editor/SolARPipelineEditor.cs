@@ -230,7 +230,8 @@ namespace SolAR
                     .SelectMany(m => m.components)
                     .FirstOrDefault(c => c.uuid == _uuid);
                 type.stringValue = component?.name ?? "<color=red><b>???</b></color>";
-                description.stringValue = component.description;
+                if (component != null)
+                    description.stringValue = component.description;
             }
 
             var label = string.Format("<b>{0}</b> ({1})", type.stringValue, name.stringValue);
