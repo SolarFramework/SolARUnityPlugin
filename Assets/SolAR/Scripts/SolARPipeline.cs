@@ -16,11 +16,10 @@ namespace SolAR
     public class SolARPipeline : MonoBehaviour
     {
         public Camera m_camera;
-
         
-        private Canvas m_canvas;
+        public Canvas m_canvas;
         private Texture2D m_texture;
-        private Material m_material;
+        public Material m_material;
 
         [HideInInspector]
         public string m_pipelineFolder;
@@ -64,7 +63,7 @@ namespace SolAR
         private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
    */       
 
-        void OnDestroy()
+        void OnDisable()
         {
             StopCoroutine("CallPluginAtEndOfFrames");
             m_pipelineManager.stop();
@@ -79,9 +78,7 @@ namespace SolAR
         {
             if (m_showDebugConsole)
                 RedirectIOToConsole(true);
-            //           else
-            //               LogInFile("F:\\Dev\\SolAR\\sources\\Plugins\\Unity\\SolARPipelineManager.log", true);
-
+            
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
@@ -89,32 +86,13 @@ namespace SolAR
 
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 
-                GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
-                //goCanvas.transform.SetParent(m_camera.transform);
-
                 m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
                 m_texture.filterMode = FilterMode.Point;
                 m_texture.Apply();
 
-                m_canvas = goCanvas.GetComponent<Canvas>();
-                m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                m_canvas.pixelPerfect = true;
-                m_canvas.worldCamera = m_camera;
-                m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
-
-                CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
-                scaler.referenceResolution = new Vector2(camParams.width, camParams.height);
-                scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-                scaler.referencePixelsPerUnit = 1;
-
-                RawImage image = goCanvas.GetComponent<RawImage>();
-                //image.texture = m_texture;
-                m_material = new Material(Shader.Find("Custom/SolarImageShader"));
                 m_material.mainTexture = m_texture;
-                image.material = m_material;
-                image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-                image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
+                m_canvas.transform.GetChild(0).GetComponent<RawImage>().material = m_material;
+                m_canvas.transform.GetChild(0).GetComponent<RawImage>().texture = m_texture;
 
                 // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
                 Matrix4x4 projectionMatrix = new Matrix4x4();
