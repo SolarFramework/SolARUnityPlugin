@@ -13,7 +13,7 @@ using System.IO;
 namespace SolAR
 {
 
-    public class SolARPipeline : MonoBehaviour
+    public class SolARPipelineImageBuffer : MonoBehaviour
     {
         public Camera m_camera;
 
@@ -115,7 +115,7 @@ namespace SolAR
 
                 RawImage image = goCanvas.GetComponent<RawImage>();
                 //image.texture = m_texture;
-                m_material = new Material(Shader.Find("Custom/SolarImageShader"));
+                m_material = new Material(Shader.Find("Custom/SolARImageShader"));
                 m_material.mainTexture = m_texture;
                 image.material = m_material;
                 image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);

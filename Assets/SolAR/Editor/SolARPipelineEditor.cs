@@ -83,7 +83,16 @@ namespace SolAR
                     foreach (var file in files)
                     {
                         string file_temp = file.Replace("\\", "/");
-                        XElement root = XElement.Load(file_temp);
+                        XElement root = null;
+                        try
+                        {
+                            root = XElement.Load(file_temp); 
+                        }
+                        catch (System.Xml.XmlException e)
+                        {
+                            Debug.Log("Configuration file " + file_temp + " has an error:" + e.Message);
+                        }
+
                         if (root != null)
                         {
                             foreach (XElement component_interface in root.Descendants("interface"))
@@ -102,6 +111,7 @@ namespace SolAR
                                 }
                             }
                         }
+                       
                     }
                     target.m_pipelinesName = namesList.ToArray();
                     target.m_pipelinesPath = pathList.ToArray();
@@ -229,8 +239,9 @@ namespace SolAR
                 var component = target.conf.modules
                     .SelectMany(m => m.components)
                     .FirstOrDefault(c => c.uuid == _uuid);
-                type.stringValue = component?.name ?? "<color=red><b>???</b></color>";
-                description.stringValue = component.description;
+                type.stringValue = component?.name ?? "<color=red><b>Component not declared !</b></color>";
+                if (component != null)
+                    description.stringValue = component.description;
             }
 
             var label = string.Format("<b>{0}</b> ({1})", type.stringValue, name.stringValue);
