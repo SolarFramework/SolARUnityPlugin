@@ -43,12 +43,12 @@ namespace SolAR
                 return;
             if (target.m_pipelinesPath.Length <= num_pipeline)
                 num_pipeline = target.m_pipelinesPath.Length - 1;
-            string selectedPipelinePath = target.m_pipelinesPath.ElementAt(num_pipeline);
+            string selectedPipelinePath = Application.dataPath + target.m_pipelinesPath.ElementAt(num_pipeline);
             using (var stream = File.OpenRead(selectedPipelinePath))
             {
                 target.conf = (ConfXml)serializer.Deserialize(stream);
                 target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
-                target.m_configurationPath = selectedPipelinePath;
+                target.m_configurationPath = target.m_pipelinesPath.ElementAt(num_pipeline);
             }
             serializedObject.Update();
         }
@@ -56,37 +56,43 @@ namespace SolAR
         protected void LoadPipelines()
         {
             serializedObject.ApplyModifiedProperties();
-            string[] files = Directory.GetFiles(target.m_pipelineFolder, "*.xml");
+            string[] files = Directory.GetFiles(Application.dataPath + target.m_pipelineFolder, "*.xml");
             List<string> namesList = new List<string>();
             List<string> uuidList = new List<string>();
             List<string> pathList = new List<string>();
             foreach (var file in files)
             {
-                string file_temp = file.Replace("\\", "/");
-                XElement root = null;
-                try
+                int index = file.IndexOf(Application.dataPath);
+                if (index == 0)
                 {
-                    root = XElement.Load(file_temp);
-                }
-                catch (System.Xml.XmlException e)
-                {
-                    Debug.Log("Configuration file " + file_temp + " has an error:" + e.Message);
-                }
-
-                if (root != null)
-                {
-                    foreach (XElement component_interface in root.Descendants("interface"))
+                    string file_temp = file.Replace("\\", "/");
+                    string relative_file_temp = file_temp.Remove(0, Application.dataPath.Length);
+                    
+                    XElement root = null;
+                    try
                     {
-                        if (component_interface.Attributes("name").First().Value == "IPipeline")
+                        root = XElement.Load(file_temp);
+                    }
+                    catch (System.Xml.XmlException e)
+                    {
+                        Debug.Log("Configuration file " + file_temp + " has an error:" + e.Message);
+                    }
+
+                    if (root != null)
+                    {
+                        foreach (XElement component_interface in root.Descendants("interface"))
                         {
-                            XElement component = component_interface.Ancestors("component").First();
-                            string pipelineName = component.Attribute("name").Value;
-                            string pipelineUuid = component.Attribute("uuid").Value;
-                            if (!string.IsNullOrEmpty(pipelineName))
+                            if (component_interface.Attributes("name").First().Value == "IPipeline")
                             {
-                                namesList.Add(pipelineName);
-                                uuidList.Add(pipelineUuid);
-                                pathList.Add(file_temp);
+                                XElement component = component_interface.Ancestors("component").First();
+                                string pipelineName = component.Attribute("name").Value;
+                                string pipelineUuid = component.Attribute("uuid").Value;
+                                if (!string.IsNullOrEmpty(pipelineName))
+                                {
+                                    namesList.Add(pipelineName);
+                                    uuidList.Add(pipelineUuid);
+                                    pathList.Add(relative_file_temp);
+                                }
                             }
                         }
                     }
@@ -138,8 +144,15 @@ namespace SolAR
                 if (GUILayout.Button("Select Pipelines Folder"))
                 {
                     //target.SelectFolder();
-                    target.m_pipelineFolder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
-                    LoadPipelines();
+                    string folder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
+                    int index = folder.IndexOf(Application.dataPath);
+                    if (index != 0)
+                        EditorUtility.DisplayDialog("Pipelines folder selction error", "The folder for your pipelines must be under the Asset folder of your Unity project.", "OK");
+                    else
+                    {
+                        target.m_pipelineFolder = folder.Remove(index, Application.dataPath.Length);
+                        LoadPipelines();
+                    }
                 }
 
                 GUILayout.EndHorizontal();
