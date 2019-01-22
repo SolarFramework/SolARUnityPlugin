@@ -37,6 +37,7 @@ xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.1\lib\x86_64\shared\%mode%\*
 
 echo --------------copy pipelines dll--------------
 xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.1.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\SolAR\
+xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.1.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\SolAR\
 
 IF "%1"=="-debug" (GOTO Debug)
 exit /B 0
@@ -69,5 +70,6 @@ xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.1\lib\x86_64\shared\%mode%\*
 
 echo --------------copy pipelines pdb--------------
 xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.1.0\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\SolAR\
+xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.1.0\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\SolAR\
 
 exit /B 0
