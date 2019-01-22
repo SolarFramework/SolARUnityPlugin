@@ -158,10 +158,6 @@ namespace SolAR
                             m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                             m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
                         }
-                        else
-                        {
-                            m_camera.cullingMask = ~(1 << 8);
-                        }
                     }
                 }
 
