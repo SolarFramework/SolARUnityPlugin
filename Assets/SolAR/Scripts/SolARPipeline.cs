@@ -136,6 +136,8 @@ namespace SolAR
                         PipelineManager.Pose pose = new PipelineManager.Pose();
                         if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                         {
+                            m_camera.cullingMask = -1;
+
                             Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
                             cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
