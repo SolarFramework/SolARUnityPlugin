@@ -63,6 +63,10 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper" />
     </component>
+    <component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
+    </component>
   </module>
   <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="./Assets/Plugins/SolAR" description="SolARModuleOpenGL module">
     <component uuid="3af7813c-4647-4d70-9cc6-e3cedd8dd77c" name="SinkPoseTextureBuffer" description="A Sink component for a synchronized pose and texture buffer based on OpenGL texture buffer">
@@ -72,12 +76,12 @@
   </module>
   <configuration>
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4">
-      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
-      <property name="deviceID" type="UnsignedInteger" value="1" description="ID of the camera (default = 0)" />
+      <property name="calibrationFile" type="string" value="C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
       <!--SolARCameraOpencv-->
     </component>
     <component uuid="5d2b8da9-528e-4e5e-96c1-f883edcf3b1c">
-      <property name="filePath" type="string" value="./Assets/StreamingAssets/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
       <!--SolARMarker2DSquaredBinaryOpencv-->
     </component>
     <component uuid="e5fd7e9a-fcae-4f86-bfc7-ea8584c298b2">
