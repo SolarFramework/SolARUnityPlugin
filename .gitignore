@@ -49,14 +49,8 @@ ExportedObj/
 *.opendb
 Assembly-CSharp*
 
-#Unty generated folder
-ProjectSettings/
+#Unity generated folder
 Temp/
-Packages/
-
-# Unity3D generated meta files
-*.pidb.meta
-*.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
