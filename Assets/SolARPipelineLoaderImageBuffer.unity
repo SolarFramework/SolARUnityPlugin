@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 3e389b2ccd139cf4397667218e9cb33f, type: 2}
+  m_Material: {fileID: 2100000, guid: 8e4692da20048c64295f1c5ad27b833b, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camera: {fileID: 1386490711}
-  m_pipelineFolder: C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines
+  m_pipelineFolder: D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines
   m_pipelinesName:
   - PipelineFiducialMarker
   - PipelineFiducialMarkerImageBuffer
@@ -295,15 +295,15 @@ MonoBehaviour:
   - 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
   - 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
   m_pipelinesPath:
-  - C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
-  - C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarkerImageBuffer.xml
-  - C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
-  - C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineNaturalImageMarkerImageBuffer.xml
+  - D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
+  - D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarkerImageBuffer.xml
+  - D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
+  - D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineNaturalImageMarkerImageBuffer.xml
   m_selectedPipeline: 1
-  m_configurationPath: C:/Users/jrault/work/Projets/I2/Argo/SolAR/GitHub/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarkerImageBuffer.xml
+  m_configurationPath: D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarkerImageBuffer.xml
   m_uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
-  m_webCamNum: 0
-  m_showDebugConsole: 1
+  m_webCamNum: 1
+  m_showDebugConsole: 0
   conf:
     modules:
     - uuid: 63b4282f-94cf-44d0-8ec0-9e8b0639fff6
@@ -811,7 +811,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f2b957849c6a7845b9adfd63d4d2296, type: 2}
+  - {fileID: 2100000, guid: 5d40fcf69a5130e4c8fb39243ff8c0a1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

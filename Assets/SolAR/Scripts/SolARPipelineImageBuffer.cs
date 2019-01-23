@@ -61,14 +61,10 @@ namespace SolAR
 
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
- /*      
-        [DllImport("SolARPipelineManager")]
-        private static extern System.IntPtr LogInFile([MarshalAs(UnmanagedType.LPStr)]string logFilePath, bool rewind);
-   */       
+   
 
         void OnDestroy()
         {
- //           StopCoroutine("CallPluginAtEndOfFrames");
             m_pipelineManager.stop();
             m_pipelineManager.Dispose();
             m_pipelineManager = null;
@@ -76,14 +72,10 @@ namespace SolAR
                 RedirectIOToConsole(false);
         }
 
-        // Use this for initialization
 		void Start()
-//		IEnumerator Start()
         {
             if (m_showDebugConsole)
                 RedirectIOToConsole(true);
-            //           else
-            //               LogInFile("F:\\Dev\\SolAR\\sources\\Plugins\\Unity\\SolARPipelineManager.log", true);
 
             if (m_camera)
             {
@@ -93,34 +85,38 @@ namespace SolAR
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 				array_imageData = new byte[camParams.width* camParams.height*3];
 
+                if (true)
+                {
+                    GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
 
-                GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
-                //goCanvas.transform.SetParent(m_camera.transform);
+                    m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
+                    m_texture.filterMode = FilterMode.Point;
+                    m_texture.Apply();
 
-                m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
-                m_texture.filterMode = FilterMode.Point;
-                m_texture.Apply();
+                    m_canvas = goCanvas.GetComponent<Canvas>();
+                    m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
+                    m_canvas.pixelPerfect = true;
+                    m_canvas.worldCamera = m_camera;
+                    m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
 
-                m_canvas = goCanvas.GetComponent<Canvas>();
-                m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
-                m_canvas.pixelPerfect = true;
-                m_canvas.worldCamera = m_camera;
-                m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
+                    CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
+                    scaler.referenceResolution = new Vector2(camParams.width, camParams.height);
+                    scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                    scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+                    scaler.referencePixelsPerUnit = 1;
 
-                CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
-                scaler.referenceResolution = new Vector2(camParams.width, camParams.height);
-                scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-                scaler.referencePixelsPerUnit = 1;
+                    RawImage image = goCanvas.GetComponent<RawImage>();
+                    m_material = new Material(Shader.Find("Custom/SolARImageShader"));
+                    m_material.mainTexture = m_texture;
+                    image.material = m_material;
+                    image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+                    image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
+                }
+                else
+                {
 
-                RawImage image = goCanvas.GetComponent<RawImage>();
-                //image.texture = m_texture;
-                m_material = new Material(Shader.Find("Custom/SolARImageShader"));
-                m_material.mainTexture = m_texture;
-                image.material = m_material;
-                image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-                image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
-
+                }
+                
                 // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
                 Matrix4x4 projectionMatrix = new Matrix4x4();
                 float near = m_camera.nearClipPlane;
@@ -139,11 +135,8 @@ namespace SolAR
                 m_camera.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(camParams.width / (2 * camParams.focalX))) - 10;
                 m_camera.projectionMatrix = projectionMatrix;
 
-              //  m_eventCallback = new eventCallbackDelegate(m_pipelineManager.updateFrameDataOGL);
-
 				IntPtr ptr = Marshal.UnsafeAddrOfPinnedArrayElement(array_imageData,0);
 				m_pipelineManager.start(ptr);  //IntPtr
-//				yield return StartCoroutine("CallPluginAtEndOfFrames");
             }
             else
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
@@ -190,11 +183,8 @@ namespace SolAR
             }
         }
 
-
-        // Update is called once per frame
         void Update()
         {
-
 			if (m_pipelineManager != null)
 			{
 				PipelineManager.Pose pose = new PipelineManager.Pose();
@@ -221,13 +211,9 @@ namespace SolAR
 					m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
 				}
 			}
-
 			m_texture.LoadRawTextureData(array_imageData);
 			m_texture.Apply();
-
 			m_material.SetTexture("_MainTex",m_texture);
-
-           // m_texture.Apply();
         }
     }
 

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections;
 using System.Runtime.InteropServices;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Xml.Linq;
-using System.Linq;
-using System.IO;
 
 namespace SolAR
 {
@@ -127,7 +120,7 @@ namespace SolAR
             {
                 while (m_pipelineManager != null)
                 {
-                    yield return new WaitForEndOfFrame();
+                    yield return null;
 
                     GL.IssuePluginEvent(Marshal.GetFunctionPointerForDelegate(m_eventCallback), 1);
 
@@ -160,14 +153,5 @@ namespace SolAR
 
             }
         }
-
-
-        // Update is called once per frame
-        void Update()
-        {
-
-            // m_texture.Apply();
-        }
     }
-
 }
