@@ -50,13 +50,21 @@ namespace SolAR
         {
             base.OnInspectorGUI();
 
-            // Don't make child fields be indented
-            //var indent = EditorGUI.indentLevel;
-            //EditorGUI.indentLevel = 0;
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            target.m_DynamicCanvas = EditorGUILayout.Toggle("DynamicCanvas", target.m_DynamicCanvas);
+
+            if (target.m_DynamicCanvas)
+            {
+                target.m_canvas =   (Canvas) EditorGUILayout.ObjectField( "Static Canvas UI",       target.m_canvas,    typeof(Canvas), true);
+                target.m_material = (Material)EditorGUILayout.ObjectField("Static Canvas Material", target.m_material,  typeof(Material), true);
+            }
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
 
             WebCamDevice[] webCams = WebCamTexture.devices;
             List<string> webCamNames = new List<string>();
             webCamNames.Add("No webcam, handled by pipeline itself");
+
             foreach (WebCamDevice webCam in webCams)
             {
                 string webCamName = webCam.name;
@@ -66,6 +74,8 @@ namespace SolAR
             }
             GUIContent label = new GUIContent("Video Camera");
             target.m_webCamNum = EditorGUILayout.Popup(label, target.m_webCamNum, webCamNames.ToArray());
+
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
             //EditorGUI.PropertyField(position, property, new GUIContent("Conf"), true);
             using (new GUILayout.VerticalScope(new GUIContent("<b>Pipelines</b>"), windowStyle, GUILayout.ExpandHeight(false)))

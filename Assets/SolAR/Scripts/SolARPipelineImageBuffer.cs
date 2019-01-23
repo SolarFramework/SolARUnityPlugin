@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using System.Runtime.InteropServices;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Xml.Linq;
-using System.Linq;
-using System.IO;
 
 namespace SolAR
 {
-
     public class SolARPipelineImageBuffer : MonoBehaviour
     {
         public Camera m_camera;
 
-        
-        private Canvas m_canvas;
-        private Texture2D m_texture;
-        private Material m_material;
+        [HideInInspector]
+        public bool m_DynamicCanvas = false;
 
-		byte[] array_imageData;
+        [HideInInspector]
+        public Canvas m_canvas;
+        [HideInInspector]
+        public Material m_material;
+
+        private Texture2D m_texture;
+        private byte[] array_imageData;
 
         [HideInInspector]
         public string m_pipelineFolder;
@@ -48,7 +45,7 @@ namespace SolAR
         [HideInInspector]
         public int m_webCamNum;
 
-        public bool m_showDebugConsole = true;
+        //public bool m_showDebugConsole = true;
 
         [HideInInspector]
         public ConfXml conf;
@@ -62,20 +59,19 @@ namespace SolAR
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
    
-
         void OnDestroy()
         {
             m_pipelineManager.stop();
             m_pipelineManager.Dispose();
             m_pipelineManager = null;
-            if (m_showDebugConsole)
-                RedirectIOToConsole(false);
+            //if (m_showDebugConsole)
+            //    RedirectIOToConsole(false);
         }
 
 		void Start()
         {
-            if (m_showDebugConsole)
-                RedirectIOToConsole(true);
+            //if (m_showDebugConsole)
+            //    RedirectIOToConsole(true);
 
             if (m_camera)
             {
@@ -85,14 +81,14 @@ namespace SolAR
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
 				array_imageData = new byte[camParams.width* camParams.height*3];
 
-                if (true)
+                m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
+                m_texture.filterMode = FilterMode.Point;
+                m_texture.Apply();
+
+                if (!m_DynamicCanvas)
                 {
                     GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
-
-                    m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
-                    m_texture.filterMode = FilterMode.Point;
-                    m_texture.Apply();
-
+                 
                     m_canvas = goCanvas.GetComponent<Canvas>();
                     m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     m_canvas.pixelPerfect = true;
@@ -114,7 +110,9 @@ namespace SolAR
                 }
                 else
                 {
-
+                    RawImage img = m_canvas.transform.GetChild(0).GetComponent<RawImage>();
+                    img.texture = m_texture;
+                    img.material = m_material;
                 }
                 
                 // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
