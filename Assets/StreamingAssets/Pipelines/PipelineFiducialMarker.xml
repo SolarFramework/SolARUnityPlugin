@@ -63,11 +63,9 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper" />
     </component>
-  </module>
-  <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="./Assets/Plugins/SolAR" description="SolARModuleOpenGL module">
-    <component uuid="3af7813c-4647-4d70-9cc6-e3cedd8dd77c" name="SinkPoseTextureBuffer" description="A Sink component for a synchronized pose and texture buffer based on OpenGL texture buffer">
+    <component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="8b220946-34ab-4fba-9aa7-ea8da807a2cf" name="ISinkPoseTextureBuffer" description="An interface allowing to to make available a pose to a third party application and to update a texture buffer with a new image" />
+      <interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
     </component>
   </module>
   <configuration>

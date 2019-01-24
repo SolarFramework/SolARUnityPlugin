@@ -235,10 +235,6 @@ public class PipelineManager : global::System.IDisposable {
     SolARPipelineManagerPINVOKE.PipelineManager_udpatePose(swigCPtr,  pose );
   }
 
-  public void updateFrameDataOGL(int eventID) {
-    SolARPipelineManagerPINVOKE.PipelineManager_updateFrameDataOGL(swigCPtr, eventID);
-  }
-
   public bool stop() {
     bool ret = SolARPipelineManagerPINVOKE.PipelineManager_stop(swigCPtr);
     return ret;
