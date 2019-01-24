@@ -32,7 +32,6 @@ xcopy "%BCOMDEVROOT%\bcomBuild\SolARPipelineManager\0.1.0\lib\x86_64\shared\%mod
 
 echo ---------------copy modules dll---------------
 xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenCV\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\SolAR\
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenGL\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\SolAR\
 xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\SolAR\
 
 echo --------------copy pipelines dll--------------
