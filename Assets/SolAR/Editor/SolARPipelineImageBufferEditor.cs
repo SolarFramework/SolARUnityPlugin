@@ -51,9 +51,9 @@ namespace SolAR
             base.OnInspectorGUI();
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-            target.m_DynamicCanvas = EditorGUILayout.Toggle("DynamicCanvas", target.m_DynamicCanvas);
+            target.m_CustomCanvas = EditorGUILayout.Toggle("Custom_Canvas", target.m_CustomCanvas);
 
-            if (target.m_DynamicCanvas)
+            if (target.m_CustomCanvas)
             {
                 target.m_canvas =   (Canvas) EditorGUILayout.ObjectField( "Static Canvas UI",       target.m_canvas,    typeof(Canvas), true);
                 target.m_material = (Material)EditorGUILayout.ObjectField("Static Canvas Material", target.m_material,  typeof(Material), true);

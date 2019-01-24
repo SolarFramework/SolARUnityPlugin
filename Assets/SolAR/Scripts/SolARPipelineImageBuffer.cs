@@ -11,7 +11,7 @@ namespace SolAR
         public Camera m_camera;
 
         [HideInInspector]
-        public bool m_DynamicCanvas = false;
+        public bool m_CustomCanvas = false;
 
         [HideInInspector]
         public Canvas m_canvas;
@@ -85,7 +85,7 @@ namespace SolAR
                 m_texture.filterMode = FilterMode.Point;
                 m_texture.Apply();
 
-                if (!m_DynamicCanvas)
+                if (!m_CustomCanvas)
                 {
                     GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
                  
