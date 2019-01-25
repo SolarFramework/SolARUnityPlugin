@@ -231,6 +231,11 @@ public class PipelineManager : global::System.IDisposable {
     return ret;
   }
 
+  public PIPELINEMANAGER_RETURNCODE loadSourceImage(System.IntPtr sourceTextureHandle, int width, int height) {
+    PIPELINEMANAGER_RETURNCODE ret = (PIPELINEMANAGER_RETURNCODE)SolARPipelineManagerPINVOKE.PipelineManager_loadSourceImage(swigCPtr,  sourceTextureHandle , width, height);
+    return ret;
+  }
+
   public void udpatePose(System.IntPtr pose) {
     SolARPipelineManagerPINVOKE.PipelineManager_udpatePose(swigCPtr,  pose );
   }

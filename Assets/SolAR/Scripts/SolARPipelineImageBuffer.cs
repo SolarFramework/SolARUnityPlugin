@@ -53,9 +53,6 @@ namespace SolAR
         [HideInInspector]
         public PipelineManager m_pipelineManager;
 
-        private delegate void eventCallbackDelegate(int eventID);
-        eventCallbackDelegate m_eventCallback = null;
-
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
 
