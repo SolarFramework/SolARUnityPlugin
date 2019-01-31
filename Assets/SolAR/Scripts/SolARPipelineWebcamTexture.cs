@@ -57,6 +57,12 @@ namespace SolAR
         [HideInInspector]
         public WebCamTexture m_webCamTexture;
 
+        public bool m_UseExternal_Image_Source = false;
+
+        private IntPtr sourceTexture;
+        private int sourceWidth;
+        private int sourceHeight;
+
         void OnDestroy()
         {
             m_pipelineManager.stop();
@@ -108,12 +114,29 @@ namespace SolAR
                     img.material = m_material;
                 }
 
-                m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum - 1].name, 640, 480);
-                m_webCamTexture.Play();
+                if (m_UseExternal_Image_Source)
+                {
+                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum - 1].name, camParams.width, camParams.height);
+                    m_webCamTexture.Play();
 
-                IntPtr ptrLoad = Marshal.UnsafeAddrOfPinnedArrayElement(m_webCamTexture.GetPixels32(), 0);
-                m_pipelineManager.loadSourceImage(ptrLoad, 640,480);
+                    sourceWidth = m_webCamTexture.width;
+                    sourceHeight = m_webCamTexture.height;
 
+                    Color32[] data = new Color32[sourceWidth * sourceHeight];
+                    byte[] m_vidframe_byte = new byte[sourceWidth * sourceHeight * 3];
+
+                    m_webCamTexture.GetPixels32(data);
+
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        m_vidframe_byte[3 * i] = data[i].b;
+                        m_vidframe_byte[3 * i + 1] = data[i].g;
+                        m_vidframe_byte[3 * i + 2] = data[i].r;
+                    }
+
+                    sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
+                    m_pipelineManager.loadSourceImage(sourceTexture, sourceWidth, sourceHeight);
+                }
                 // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
                 Matrix4x4 projectionMatrix = new Matrix4x4();
                 float near = m_camera.nearClipPlane;
@@ -137,55 +160,57 @@ namespace SolAR
             }
             else
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
-
-
-            //##################### Debug WebCamTexture
-            //m_texture = new Texture2D(m_webCamTexture.width, m_webCamTexture.height);
-            //RawImage img = m_canvas.transform.GetChild(0).GetComponent<RawImage>();
-            //img.texture = m_texture;
-            //img.material = new Material(Shader.Find("Unlit/Texture"));
-            //####################################################
-
         }
 
         void Update()
         {
-            //##################### Debug WebCamTexture
-            //m_texture.SetPixels(m_webCamTexture.GetPixels());
-            //m_texture.Apply();
-            //m_material.SetTexture("_MainTex", m_texture);
-            //####################################################
+            if (m_pipelineManager != null)
+            {
+                if (m_UseExternal_Image_Source)
+                {
+                    Color32[] data = new Color32[sourceWidth * sourceHeight];
+                    byte[] m_vidframe_byte = new byte[sourceWidth * sourceHeight * 3];
 
-            //if (m_pipelineManager != null)
-            //{
-            //    PipelineManager.Pose pose = new PipelineManager.Pose();
-            //    if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
-            //    {
-            //        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
+                    m_webCamTexture.GetPixels32(data);
 
-            //        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
-            //        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
-            //        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
-            //        cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        m_vidframe_byte[3 * i] = data[i].b;
+                        m_vidframe_byte[3 * i + 1] = data[i].g;
+                        m_vidframe_byte[3 * i + 2] = data[i].r;
+                    }
 
-            //        Matrix4x4 invertMatrix = new Matrix4x4();
-            //        invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
-            //        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
-            //        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
-            //        invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
-            //        Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
+                    sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
+                    m_pipelineManager.loadSourceImage(sourceTexture, sourceWidth, sourceHeight);
+                }
+                PipelineManager.Pose pose = new PipelineManager.Pose();
+                if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                {
+                    Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
-            //        Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
-            //        Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
+                    cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
+                    cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
+                    cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
+                    cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
 
-            //        m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
-            //        m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-            //    }
-            //}
-            //m_texture.LoadRawTextureData(array_imageData);
-            //m_texture.Apply();
-            //m_material.SetTexture("_MainTex", m_texture);
+                    Matrix4x4 invertMatrix = new Matrix4x4();
+                    invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
+                    invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
+                    invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
+                    invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
+                    Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
+
+                    Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
+                    Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
+
+                    m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
+                    m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
+                }
+            }
+            m_texture.LoadRawTextureData(array_imageData);
+            m_texture.Apply();
+            m_material.SetTexture("_MainTex", m_texture);
         }
     }
-
+   
 }
