@@ -505,6 +505,16 @@ MonoBehaviour:
           name: ISinkPoseImage
           description: An interface allowing to store a synchronized pose and image
             from the pipeline to make it available to a third party application
+      - uuid: 1e43cda9-7850-4a8a-a32b-f3f31ea94902
+        name: SolARBasicSource
+        description: Source component
+        interfaces:
+        - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+          name: IComponentIntrospect
+          description: IComponentIntrospect
+        - uuid: 06e2fc5d-39da-4486-b2a6-1d8bd788fa13
+          name: ISourceImage
+          description: Interface source component
       - uuid: cbb620c3-a7fc-42d7-bcbf-f59b475b23b0
         name: SolARBasicMatchesFilter
         description: SolARBasicMatchesFilter
