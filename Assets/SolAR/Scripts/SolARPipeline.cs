@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SolAR
@@ -8,7 +9,7 @@ namespace SolAR
     public class SolARPipeline : MonoBehaviour
     {
         public Camera m_camera;
-
+        public Button m_EventButton;
         [HideInInspector]
         public bool m_CustomCanvas = false;
 
@@ -61,6 +62,7 @@ namespace SolAR
         private IntPtr sourceTexture;
         private int sourceWidth;
         private int sourceHeight;
+        private UnityAction m_myAction;
 
         void OnDestroy()
         {
@@ -159,6 +161,9 @@ namespace SolAR
             }
             else
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
+
+            m_myAction += MyEvent;
+            m_EventButton.onClick.AddListener(m_myAction);
         }
 
         void Update()
@@ -212,6 +217,11 @@ namespace SolAR
             m_texture.Apply();
             m_material.SetTexture("_MainTex", m_texture);
         }
+
+        void MyEvent()
+        {
+            Debug.Log(Input.mousePosition.x + "  " + Input.mousePosition.y);
+        }
     }
-   
+
 }
