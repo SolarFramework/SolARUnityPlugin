@@ -57,7 +57,8 @@ namespace SolAR
         [HideInInspector]
         public WebCamTexture m_webCamTexture;
 
-        public bool m_UseExternal_Image_Source = false;
+        [HideInInspector]
+        public bool m_Unity_Webcam = false;
 
         private IntPtr sourceTexture;
         private int sourceWidth;
@@ -76,7 +77,7 @@ namespace SolAR
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
-                m_pipelineManager.init(m_configurationPath, m_uuid);
+                m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid);
 
                 PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
                 array_imageData = new byte[camParams.width * camParams.height * 3];
@@ -115,9 +116,9 @@ namespace SolAR
                     img.material = m_material;
                 }
 
-                if (m_UseExternal_Image_Source)
+                if (m_Unity_Webcam)
                 {
-                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum - 1].name, camParams.width, camParams.height);
+                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum].name, camParams.width, camParams.height);
                     m_webCamTexture.Play();
 
                     sourceWidth = camParams.width;
@@ -170,7 +171,7 @@ namespace SolAR
         {
             if (m_pipelineManager != null)
             {
-                if (m_UseExternal_Image_Source)
+                if (m_Unity_Webcam)
                 {
                     Color32[] data = new Color32[sourceWidth * sourceHeight];
                     byte[] m_vidframe_byte = new byte[sourceWidth * sourceHeight * 3];

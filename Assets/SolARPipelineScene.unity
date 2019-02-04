@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -288,7 +288,7 @@ MonoBehaviour:
   m_CustomCanvas: 1
   m_canvas: {fileID: 1577110658}
   m_material: {fileID: 2100000, guid: 8e4692da20048c64295f1c5ad27b833b, type: 2}
-  m_pipelineFolder: D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines
+  m_pipelineFolder: /StreamingAssets/Pipelines
   m_pipelinesName:
   - PipelineFiducialMarker
   - PipelineNaturalImageMarker
@@ -296,10 +296,10 @@ MonoBehaviour:
   - 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
   - 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
   m_pipelinesPath:
-  - D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineFiducialMarker.xml
-  - D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
+  - /StreamingAssets/Pipelines/PipelineFiducialMarker.xml
+  - /StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
   m_selectedPipeline: 1
-  m_configurationPath: D:/tlesaunier/SolARFramework/sources/SolARUnityPlugin/Assets/StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
+  m_configurationPath: /StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
   m_uuid: 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
   m_webCamNum: 1
   conf:
@@ -582,7 +582,7 @@ MonoBehaviour:
           values: []
         - name: deviceID
           type: UnsignedInteger
-          value: 0
+          value: 1
           description: ID of the camera (default = 0)
           values: []
       - type: SolARMarker2DNaturalImageOpencv
@@ -686,7 +686,7 @@ MonoBehaviour:
           description: 
           values: []
   m_webCamTexture: {fileID: 0}
-  m_UseExternal_Image_Source: 1
+  m_Unity_Webcam: 1
 --- !u!4 &595490254
 Transform:
   m_ObjectHideFlags: 0
