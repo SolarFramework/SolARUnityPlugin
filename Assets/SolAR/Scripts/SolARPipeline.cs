@@ -116,7 +116,7 @@ namespace SolAR
 
                 if (m_Unity_Webcam)
                 {
-                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum - 1].name, camParams.width, camParams.height);
+                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum].name, camParams.width, camParams.height);
                     m_webCamTexture.Play();
 
                     sourceWidth = camParams.width;

@@ -125,7 +125,6 @@ namespace SolAR
             {
                 WebCamDevice[] webCams = WebCamTexture.devices;
                 List<string> webCamNames = new List<string>();
-                webCamNames.Add("No webcam, handled by pipeline itself");
 
                 foreach (WebCamDevice webCam in webCams)
                 {
