@@ -155,13 +155,16 @@ namespace SolAR
                 if (GUILayout.Button("Select Pipelines Folder"))
                 {
                     string folder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
-                    int index = folder.IndexOf(Application.dataPath);
-                    if (index != 0)
-                        EditorUtility.DisplayDialog("Pipelines folder selction error", "The folder for your pipelines must be under the Asset folder of your Unity project.", "OK");
-                    else
+                    if (!string.IsNullOrEmpty(folder))
                     {
-                        target.m_pipelineFolder = folder.Remove(index, Application.dataPath.Length);
-                        LoadPipelines();
+                        int index = folder.IndexOf(Application.dataPath);
+                        if (index != 0)
+                            EditorUtility.DisplayDialog("Pipelines folder selction error", "The folder for your pipelines must be under the Asset folder of your Unity project.", "OK");
+                        else
+                        {
+                            target.m_pipelineFolder = folder.Remove(index, Application.dataPath.Length);
+                            LoadPipelines();
+                        }
                     }
                 }
 
