@@ -26,7 +26,6 @@ namespace SolAR
 
         void Update()
         {
-            Debug.Log(focalX + "   " + focalY + "   " + centerX + "    "  + centerY + "   " +width + "   " +height);
             Matrix4x4 projectionMatrix = new Matrix4x4();
             float near = Camera.main.nearClipPlane;
             float far = Camera.main.farClipPlane;
