@@ -84,6 +84,8 @@ namespace SolAR
         private IntPtr sourceTexture;
         private UnityAction m_myAction;
 
+        private byte[] m_vidframe_byte;
+        private Color32[] data;
         #endregion
 
         void OnDestroy()
@@ -105,8 +107,8 @@ namespace SolAR
                     m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum].name, width, height);
                     m_webCamTexture.Play();
 
-                    Color32[] data = new Color32[width * height];
-                    byte[] m_vidframe_byte = new byte[width * height * 3];
+                    data = new Color32[width * height];
+                    m_vidframe_byte = new byte[width * height * 3];
 
                     m_webCamTexture.GetPixels32(data);
 
@@ -155,8 +157,10 @@ namespace SolAR
                     scaler.referencePixelsPerUnit = 1;
 
                     RawImage image = goCanvas.GetComponent<RawImage>();
-                    m_material = new Material(Shader.Find("Custom/SolARImageShader"));
-                    m_material.mainTexture = m_texture;
+                    m_material = new Material(Shader.Find("Custom/SolARImageShader"))
+                    {
+                        mainTexture = m_texture
+                    };
                     image.material = m_material;
                     image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
                     image.rectTransform.sizeDelta = new Vector2(width, height);
@@ -184,9 +188,6 @@ namespace SolAR
             {
                 if (m_Unity_Webcam)
                 {
-                    Color32[] data = new Color32[width * height];
-                    byte[] m_vidframe_byte = new byte[width * height * 3];
-
                     m_webCamTexture.GetPixels32(data);
 
                     for (int i = 0; i < data.Length; i++)
@@ -232,7 +233,7 @@ namespace SolAR
 
         void MyEvent()
         {
-            Debug.Log(Input.mousePosition.x + "  " + Input.mousePosition.y);
+            Debug.Log("Event");
         }
 
         void SendParamtersToCameraProjectionMatrix()
