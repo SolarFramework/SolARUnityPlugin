@@ -53,7 +53,7 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinder" description="I3DTransformFinder" />
     </component>
-		<component uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" name="SolARImageConvertorUnity" description="SolARImageConvertorUnity">
+    <component uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" name="SolARImageConvertorUnity" description="SolARImageConvertorUnity">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" name="IImageConvertor" description="IImageConvertor" />
     </component>
@@ -85,11 +85,6 @@
     <component uuid="5d2b8da9-528e-4e5e-96c1-f883edcf3b1c">
       <property name="filePath" type="string" value="./Assets/StreamingAssets/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
       <!--SolARMarker2DSquaredBinaryOpencv-->
-    </component>
-    <component uuid="e5fd7e9a-fcae-4f86-bfc7-ea8584c298b2">
-      <property name="min" type="Integer" value="-1" description="minimum threshold (-1 to automatically compute it on the global image" />
-      <property name="max" type="Integer" value="255" description="maximum threshold" />
-      <!--SolARImageFilterBinaryOpencv-->
     </component>
     <component uuid="6acf8de2-cc63-11e7-abc4-cec278b6b50a">
       <property name="minContourEdges" type="Integer" value="4" description="Minimum number of edge to validate a contour (default = 4)" />
