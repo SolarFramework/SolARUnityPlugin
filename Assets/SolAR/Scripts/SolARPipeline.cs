@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,6 +11,27 @@ namespace SolAR
 {
     public class SolARPipeline : MonoBehaviour
     {
+
+        #region Variables
+        //#####################################################
+        [HideInInspector]
+        public float focalX;
+
+        [HideInInspector]
+        public float focalY;
+
+        [HideInInspector]
+        public int width;
+
+        [HideInInspector]
+        public int height;
+
+        [HideInInspector]
+        public float centerX;
+
+        [HideInInspector]
+        public float centerY;
+        //#####################################################
         public Camera m_camera;
         public Button m_EventButton;
         [HideInInspector]
@@ -61,10 +85,13 @@ namespace SolAR
         public bool m_Unity_Webcam = false;
 
         private IntPtr sourceTexture;
-        private int sourceWidth;
-        private int sourceHeight;
         private UnityAction m_myAction;
 
+        private byte[] m_vidframe_byte;
+        private Color32[] data;
+        private bool UpdateReady = false;
+
+        #endregion
         void OnDestroy()
         {
             m_pipelineManager.stop();
@@ -74,15 +101,51 @@ namespace SolAR
 
         void Start()
         {
+            StartCoroutine(BuildPathConstructor());
+        }
+
+        void StartPipeline()
+        {
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
                 m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid);
 
-                PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
-                array_imageData = new byte[camParams.width * camParams.height * 3];
+                if (m_Unity_Webcam)
+                {
+                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum].name, width, height);
+                    m_webCamTexture.Play();
 
-                m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
+                    data = new Color32[width * height];
+                    m_vidframe_byte = new byte[width * height * 3];
+
+                    m_webCamTexture.GetPixels32(data);
+
+                    for (int i = 0; i < data.Length; i++)
+                    {
+                        m_vidframe_byte[3 * i] = data[i].b;
+                        m_vidframe_byte[3 * i + 1] = data[i].g;
+                        m_vidframe_byte[3 * i + 2] = data[i].r;
+                    }
+                    m_texture = new Texture2D(width, height, TextureFormat.RGB24, false);
+
+                    sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
+                    m_pipelineManager.loadSourceImage(sourceTexture, width, height);
+                }
+                else
+                {
+                    PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
+                    m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
+                    width = camParams.width;
+                    height = camParams.height;
+                    focalX = camParams.focalX;
+                    focalY = camParams.focalY;
+                    centerX = camParams.centerX;
+                    centerY = camParams.centerY;
+                }
+
+                SendParamtersToCameraProjectionMatrix();
+                array_imageData = new byte[width * height * 3];
                 m_texture.filterMode = FilterMode.Point;
                 m_texture.Apply();
 
@@ -97,17 +160,19 @@ namespace SolAR
                     m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
 
                     CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
-                    scaler.referenceResolution = new Vector2(camParams.width, camParams.height);
+                    scaler.referenceResolution = new Vector2(width, height);
                     scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
                     scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
                     scaler.referencePixelsPerUnit = 1;
 
                     RawImage image = goCanvas.GetComponent<RawImage>();
-                    m_material = new Material(Shader.Find("Custom/SolARImageShader"));
-                    m_material.mainTexture = m_texture;
+                    m_material = new Material(Shader.Find("Custom/SolARImageShader"))
+                    {
+                        mainTexture = m_texture
+                    };
                     image.material = m_material;
                     image.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-                    image.rectTransform.sizeDelta = new Vector2(camParams.width, camParams.height);
+                    image.rectTransform.sizeDelta = new Vector2(width, height);
                 }
                 else
                 {
@@ -115,47 +180,6 @@ namespace SolAR
                     img.texture = m_texture;
                     img.material = m_material;
                 }
-
-                if (m_Unity_Webcam)
-                {
-                    m_webCamTexture = new WebCamTexture(WebCamTexture.devices[m_webCamNum].name, camParams.width, camParams.height);
-                    m_webCamTexture.Play();
-
-                    sourceWidth = camParams.width;
-                    sourceHeight = camParams.height;
-
-                    Color32[] data = new Color32[sourceWidth * sourceHeight];
-                    byte[] m_vidframe_byte = new byte[sourceWidth * sourceHeight * 3];
-
-                    m_webCamTexture.GetPixels32(data);
-
-                    for (int i = 0; i < data.Length; i++)
-                    {
-                        m_vidframe_byte[3 * i] = data[i].b;
-                        m_vidframe_byte[3 * i + 1] = data[i].g;
-                        m_vidframe_byte[3 * i + 2] = data[i].r;
-                    }
-
-                    sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
-                    m_pipelineManager.loadSourceImage(sourceTexture, sourceWidth, sourceHeight);
-                }
-                // Set Camera projection matrix according to calibration parameters provided by SolAR Pipeline
-                Matrix4x4 projectionMatrix = new Matrix4x4();
-                float near = m_camera.nearClipPlane;
-                float far = m_camera.farClipPlane;
-
-                Vector4 row0 = new Vector4(2.0f * camParams.focalX / camParams.width, 0, 1.0f - 2.0f * camParams.centerX / camParams.width, 0);
-                Vector4 row1 = new Vector4(0, 2.0f * camParams.focalY / camParams.height, 2.0f * camParams.centerY / camParams.height - 1.0f, 0);
-                Vector4 row2 = new Vector4(0, 0, (far + near) / (near - far), 2.0f * far * near / (near - far));
-                Vector4 row3 = new Vector4(0, 0, -1, 0);
-
-                projectionMatrix.SetRow(0, row0);
-                projectionMatrix.SetRow(1, row1);
-                projectionMatrix.SetRow(2, row2);
-                projectionMatrix.SetRow(3, row3);
-
-                m_camera.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(camParams.width / (2 * camParams.focalX))) - 10;
-                m_camera.projectionMatrix = projectionMatrix;
 
                 IntPtr ptr = Marshal.UnsafeAddrOfPinnedArrayElement(array_imageData, 0);
                 m_pipelineManager.start(ptr);  //IntPtr
@@ -165,63 +189,132 @@ namespace SolAR
 
             m_myAction += MyEvent;
             m_EventButton.onClick.AddListener(m_myAction);
+
+            UpdateReady = true;
         }
 
         void Update()
         {
-            if (m_pipelineManager != null)
+            if(UpdateReady)
             {
-                if (m_Unity_Webcam)
+                if (m_pipelineManager != null)
                 {
-                    Color32[] data = new Color32[sourceWidth * sourceHeight];
-                    byte[] m_vidframe_byte = new byte[sourceWidth * sourceHeight * 3];
-
-                    m_webCamTexture.GetPixels32(data);
-
-                    for (int i = 0; i < data.Length; i++)
+                    if (m_Unity_Webcam)
                     {
-                        m_vidframe_byte[3 * i] = data[i].b;
-                        m_vidframe_byte[3 * i + 1] = data[i].g;
-                        m_vidframe_byte[3 * i + 2] = data[i].r;
+                        m_webCamTexture.GetPixels32(data);
+
+                        for (int i = 0; i < data.Length; i++)
+                        {
+                            m_vidframe_byte[3 * i] = data[i].b;
+                            m_vidframe_byte[3 * i + 1] = data[i].g;
+                            m_vidframe_byte[3 * i + 2] = data[i].r;
+                        }
+
+                        sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
+                        m_pipelineManager.loadSourceImage(sourceTexture, width, height);
                     }
+                    PipelineManager.Pose pose = new PipelineManager.Pose();
+                    if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                    {
+                        GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = true;
+                        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
+                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
+                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
+                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
+                        cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
 
-                    sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
-                    m_pipelineManager.loadSourceImage(sourceTexture, sourceWidth, sourceHeight);
+                        Matrix4x4 invertMatrix = new Matrix4x4();
+                        invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
+                        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
+                        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
+                        invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
+                        Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
+
+                        Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
+                        Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
+
+                        m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
+                        m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
+                    }
+                    else GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = false;
+
                 }
-                PipelineManager.Pose pose = new PipelineManager.Pose();
-                if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
-                {
-                    GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = true;
-                    Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
-                    cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
-                    cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
-                    cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
-                    cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
-
-                    Matrix4x4 invertMatrix = new Matrix4x4();
-                    invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
-                    invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
-                    invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
-                    invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
-                    Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
-
-                    Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
-                    Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
-
-                    m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
-                    m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-                }
-                else GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = false;
-
+                m_texture.LoadRawTextureData(array_imageData);
+                m_texture.Apply();
+                m_material.SetTexture("_MainTex", m_texture);
             }
-            m_texture.LoadRawTextureData(array_imageData);
-            m_texture.Apply();
-            m_material.SetTexture("_MainTex", m_texture);
+
         }
 
         void MyEvent()
         {
-            Debug.Log(Input.mousePosition.x + "  " + Input.mousePosition.y);
+            Debug.Log("Event");
+        }
+
+        void SendParamtersToCameraProjectionMatrix()
+        {
+            Matrix4x4 projectionMatrix = new Matrix4x4();
+            float near = Camera.main.nearClipPlane;
+            float far = Camera.main.farClipPlane;
+
+            Vector4 row0 = new Vector4(2.0f * focalX / width, 0, 1.0f - 2.0f * centerX / width, 0);
+            Vector4 row1 = new Vector4(0, 2.0f * focalY / height, 2.0f * centerY / height - 1.0f, 0);
+            Vector4 row2 = new Vector4(0, 0, (far + near) / (near - far), 2.0f * far * near / (near - far));
+            Vector4 row3 = new Vector4(0, 0, -1, 0);
+
+            projectionMatrix.SetRow(0, row0);
+            projectionMatrix.SetRow(1, row1);
+            projectionMatrix.SetRow(2, row2);
+            projectionMatrix.SetRow(3, row3);
+
+            Camera.main.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(width / (2 * focalX))) - 10;
+            Camera.main.projectionMatrix = projectionMatrix;
+        }
+
+
+        IEnumerator BuildPathConstructor()
+        {        
+            string folder_path =  Application.streamingAssetsPath + m_configurationPath.Substring(m_configurationPath.IndexOf("/StreamingAssets") + ("/StreamingAssets").Length);
+            StreamReader input = new StreamReader(folder_path);
+            var doc = XDocument.Parse(input.ReadToEnd());
+
+            var module = doc.Element("xpcf-registry").Elements("module");
+            foreach (var attribute in module.Attributes())
+            {
+                if (attribute.Name == "path")
+                {
+                    if (attribute.Value.Contains("Plugins"))
+                    {
+                        string new_value = attribute.Value;
+                        new_value = attribute.Value.Substring(attribute.Value.IndexOf("Plugins"));
+                        new_value = Application.dataPath + '/' + new_value;
+                        attribute.SetValue(new_value);
+                    }
+                }
+            }
+            var configComp = doc.Element("xpcf-registry").Elements("configuration").Elements("component");
+            foreach (var attrib in configComp.Elements("property").Attributes())
+            {
+                if (attrib.Value.Contains("Markers"))
+                {
+                    string new_value = attrib.Value;
+                    new_value = attrib.Value.Substring(attrib.Value.IndexOf("Markers"));
+                    new_value = Application.streamingAssetsPath + '/' + new_value;
+                    attrib.SetValue(new_value);
+                }
+                if (attrib.Value.Contains("CameraCalibration"))
+                {
+                    string new_value = attrib.Value;
+                    new_value = attrib.Value.Substring(attrib.Value.IndexOf("CameraCalibration"));
+                    new_value = Application.streamingAssetsPath + '/' + new_value;
+                    attrib.SetValue(new_value);
+                }
+            }
+
+            input.Close();
+            doc.Save(folder_path);
+            yield return new WaitForSeconds(1);
+            StartPipeline();
         }
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -283,6 +283,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac39db92edef3d64ab7a17016f4f1e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focalX: 643.0679
+  focalY: 641.993
+  width: 640
+  height: 480
+  centerX: 320
+  centerY: 240
   m_camera: {fileID: 1386490711}
   m_EventButton: {fileID: 1361218597}
   m_CustomCanvas: 1
@@ -301,12 +307,12 @@ MonoBehaviour:
   m_selectedPipeline: 1
   m_configurationPath: /StreamingAssets/Pipelines/PipelineNaturalImageMarker.xml
   m_uuid: 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
-  m_webCamNum: 1
+  m_webCamNum: 0
   conf:
     modules:
     - uuid: 5bbc1452-8d7f-4512-83f1-7bf48453809f
       name: PipelineNaturalImageMarker
-      path: ./Assets/Plugins/SolAR
+      path: ./Assets/Plugins
       description: The module embedding a pipeline to estimate the pose based on a
         natural Image marker
       components:
@@ -322,7 +328,7 @@ MonoBehaviour:
           description: The interface to define a video see-throuh pipeline
     - uuid: 15e1990b-86b2-445c-8194-0cbe80ede970
       name: SolARModuleOpenCV
-      path: ./Assets/Plugins/SolAR
+      path: ./Assets/Plugins
       description: OpenCV
       components:
       - uuid: 5B7396F4-A804-4F3C-A0EB-FB1D56042BB4
@@ -483,7 +489,7 @@ MonoBehaviour:
           description: IImageConvertor
     - uuid: 28b89d39-41bd-451d-b19e-d25a3d7c5797
       name: SolARModuleTools
-      path: ./Assets/Plugins/SolAR
+      path: ./Assets/Plugins
       description: Module Tools
       components:
       - uuid: a2ef5542-029e-4fce-9974-0aea14b29d6f
@@ -582,7 +588,7 @@ MonoBehaviour:
           values: []
         - name: deviceID
           type: UnsignedInteger
-          value: 1
+          value: 0
           description: ID of the camera (default = 0)
           values: []
       - type: SolARMarker2DNaturalImageOpencv
@@ -816,8 +822,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -302.5002, y: 223.5}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: -166.48, y: 223.5}
+  m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1361218597
 MonoBehaviour:
@@ -910,6 +916,8 @@ GameObject:
   - component: {fileID: 1386490711}
   - component: {fileID: 1386490709}
   - component: {fileID: 1386490708}
+  - component: {fileID: 1386490710}
+  - component: {fileID: 1386490713}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -933,6 +941,24 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386490707}
   m_Enabled: 1
+--- !u!114 &1386490710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386490707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f5582bc9ae66e4ea381009d0d05aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focalX: 0
+  focalY: 0
+  width: 0
+  height: 0
+  centerX: 0
+  centerY: 0
 --- !u!20 &1386490711
 Camera:
   m_ObjectHideFlags: 0
@@ -989,6 +1015,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386490713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386490707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ccd123d30b34f43a80db7c4e3e5157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1577110655
 GameObject:
   m_ObjectHideFlags: 0

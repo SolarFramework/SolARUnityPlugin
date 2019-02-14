@@ -135,6 +135,14 @@ namespace SolAR
                 }
                 GUIContent label = new GUIContent("Video Camera");
                 target.m_webCamNum = EditorGUILayout.Popup(label, target.m_webCamNum, webCamNames.ToArray());
+
+                target.focalX  = EditorGUILayout.FloatField("focalX ", target.focalX);
+                target.focalY  = EditorGUILayout.FloatField("focalY ", target.focalY);
+                target.centerX = EditorGUILayout.FloatField("centerX ", target.centerX);
+                target.centerY = EditorGUILayout.FloatField("centerY ", target.centerY);
+                target.width   = EditorGUILayout.IntField("width ", target.width);
+                target.height  = EditorGUILayout.IntField("height ", target.height);
+
             }
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
