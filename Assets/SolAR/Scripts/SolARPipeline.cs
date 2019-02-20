@@ -101,7 +101,8 @@ namespace SolAR
 
         void Start()
         {
-            StartCoroutine(BuildPathConstructor());
+            //StartCoroutine(BuildPathConstructor());
+            StartPipeline();
         }
 
         void StartPipeline()
@@ -272,50 +273,50 @@ namespace SolAR
         }
 
 
-        IEnumerator BuildPathConstructor()
-        {        
-            string folder_path =  Application.streamingAssetsPath + m_configurationPath.Substring(m_configurationPath.IndexOf("/StreamingAssets") + ("/StreamingAssets").Length);
-            StreamReader input = new StreamReader(folder_path);
-            var doc = XDocument.Parse(input.ReadToEnd());
+        //IEnumerator BuildPathConstructor()
+        //{        
+        //    string folder_path =  Application.streamingAssetsPath + m_configurationPath.Substring(m_configurationPath.IndexOf("/StreamingAssets") + ("/StreamingAssets").Length);
+        //    StreamReader input = new StreamReader(folder_path);
+        //    var doc = XDocument.Parse(input.ReadToEnd());
 
-            var module = doc.Element("xpcf-registry").Elements("module");
-            foreach (var attribute in module.Attributes())
-            {
-                if (attribute.Name == "path")
-                {
-                    if (attribute.Value.Contains("Plugins"))
-                    {
-                        string new_value = attribute.Value;
-                        new_value = attribute.Value.Substring(attribute.Value.IndexOf("Plugins"));
-                        new_value = Application.dataPath + '/' + new_value;
-                        attribute.SetValue(new_value);
-                    }
-                }
-            }
-            var configComp = doc.Element("xpcf-registry").Elements("configuration").Elements("component");
-            foreach (var attrib in configComp.Elements("property").Attributes())
-            {
-                if (attrib.Value.Contains("Markers"))
-                {
-                    string new_value = attrib.Value;
-                    new_value = attrib.Value.Substring(attrib.Value.IndexOf("Markers"));
-                    new_value = Application.streamingAssetsPath + '/' + new_value;
-                    attrib.SetValue(new_value);
-                }
-                if (attrib.Value.Contains("CameraCalibration"))
-                {
-                    string new_value = attrib.Value;
-                    new_value = attrib.Value.Substring(attrib.Value.IndexOf("CameraCalibration"));
-                    new_value = Application.streamingAssetsPath + '/' + new_value;
-                    attrib.SetValue(new_value);
-                }
-            }
+        //    var module = doc.Element("xpcf-registry").Elements("module");
+        //    foreach (var attribute in module.Attributes())
+        //    {
+        //        if (attribute.Name == "path")
+        //        {
+        //            if (attribute.Value.Contains("Plugins"))
+        //            {
+        //                string new_value = attribute.Value;
+        //                new_value = attribute.Value.Substring(attribute.Value.IndexOf("Plugins"));
+        //                new_value = Application.dataPath + '/' + new_value;
+        //                attribute.SetValue(new_value);
+        //            }
+        //        }
+        //    }
+        //    var configComp = doc.Element("xpcf-registry").Elements("configuration").Elements("component");
+        //    foreach (var attrib in configComp.Elements("property").Attributes())
+        //    {
+        //        if (attrib.Value.Contains("Markers"))
+        //        {
+        //            string new_value = attrib.Value;
+        //            new_value = attrib.Value.Substring(attrib.Value.IndexOf("Markers"));
+        //            new_value = Application.streamingAssetsPath + '/' + new_value;
+        //            attrib.SetValue(new_value);
+        //        }
+        //        if (attrib.Value.Contains("CameraCalibration"))
+        //        {
+        //            string new_value = attrib.Value;
+        //            new_value = attrib.Value.Substring(attrib.Value.IndexOf("CameraCalibration"));
+        //            new_value = Application.streamingAssetsPath + '/' + new_value;
+        //            attrib.SetValue(new_value);
+        //        }
+        //    }
 
-            input.Close();
-            doc.Save(folder_path);
-            yield return new WaitForSeconds(1);
-            StartPipeline();
-        }
+        //    input.Close();
+        //    doc.Save(folder_path);
+        //    yield return new WaitForSeconds(1);
+        //    StartPipeline();
+        //}
     }
 
 }
