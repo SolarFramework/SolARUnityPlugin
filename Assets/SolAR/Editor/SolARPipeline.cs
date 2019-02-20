@@ -107,7 +107,7 @@ namespace SolAR
             {
                 target.m_selectedPipeline = -1;
             }
-            else if (target.m_selectedPipeline >= namesList.Count())
+            else if ((target.m_selectedPipeline >= namesList.Count()) || target.m_selectedPipeline == -1)
             {
                 target.m_selectedPipeline = 0;
             }
@@ -161,17 +161,25 @@ namespace SolAR
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Select Pipelines Folder"))
                 {
-                    string folder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
-                    if (!string.IsNullOrEmpty(folder))
+                    bool folderSelected = false;
+                    while (!folderSelected)
                     {
-                        int index = folder.IndexOf(Application.dataPath);
-                        if (index != 0)
-                            EditorUtility.DisplayDialog("Pipelines folder selction error", "The folder for your pipelines must be under the Asset folder of your Unity project.", "OK");
-                        else
+                        string folder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
+                        if (!string.IsNullOrEmpty(folder))
                         {
-                            target.m_pipelineFolder = folder.Remove(index, Application.dataPath.Length);
-                            LoadPipelines();
+                            int indexApplicationDataPath = folder.IndexOf(Application.dataPath);
+                            int indexStreamingAssetsPath = folder.IndexOf(Application.streamingAssetsPath);
+                            if (indexApplicationDataPath != 0 || indexStreamingAssetsPath != -1)
+                                EditorUtility.DisplayDialog("Pipelines folder selction error", "The folder for your pipelines must be under the Asset folder of your Unity project, but not in the StreamingAssets directory.", "OK");
+                            else
+                            {
+                                target.m_pipelineFolder = folder.Remove(indexApplicationDataPath, Application.dataPath.Length);
+                                LoadPipelines();
+                                folderSelected = true;
+                            }
                         }
+                        else
+                            folderSelected = true;
                     }
                 }
 
