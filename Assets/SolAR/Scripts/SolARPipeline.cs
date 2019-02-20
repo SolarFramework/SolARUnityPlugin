@@ -101,16 +101,24 @@ namespace SolAR
 
         void Start()
         {
-            //StartCoroutine(BuildPathConstructor());
-            StartPipeline();
-        }
-
-        void StartPipeline()
-        {
             if (m_camera)
             {
                 m_pipelineManager = new PipelineManager();
-                m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid);
+#if UNITY_EDITOR
+                // If in editor mode, the pipeline configuration file are stored in the unity assets folder but not in the streaminAssets folder
+                if (!m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid))
+                {
+                    Debug.Log("Cannot init pipeline manager " + Application.dataPath + m_configurationPath + " with uuid " + m_uuid);
+                    return;
+                }
+#else
+                // When the application is built, only the pipeline configuration files used by the application are moved to the streamingAssets folder
+                if (!m_pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid))
+                 {
+                    Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
+                    return;
+                }
+#endif
 
                 if (m_Unity_Webcam)
                 {
@@ -271,52 +279,6 @@ namespace SolAR
             Camera.main.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(width / (2 * focalX))) - 10;
             Camera.main.projectionMatrix = projectionMatrix;
         }
-
-
-        //IEnumerator BuildPathConstructor()
-        //{        
-        //    string folder_path =  Application.streamingAssetsPath + m_configurationPath.Substring(m_configurationPath.IndexOf("/StreamingAssets") + ("/StreamingAssets").Length);
-        //    StreamReader input = new StreamReader(folder_path);
-        //    var doc = XDocument.Parse(input.ReadToEnd());
-
-        //    var module = doc.Element("xpcf-registry").Elements("module");
-        //    foreach (var attribute in module.Attributes())
-        //    {
-        //        if (attribute.Name == "path")
-        //        {
-        //            if (attribute.Value.Contains("Plugins"))
-        //            {
-        //                string new_value = attribute.Value;
-        //                new_value = attribute.Value.Substring(attribute.Value.IndexOf("Plugins"));
-        //                new_value = Application.dataPath + '/' + new_value;
-        //                attribute.SetValue(new_value);
-        //            }
-        //        }
-        //    }
-        //    var configComp = doc.Element("xpcf-registry").Elements("configuration").Elements("component");
-        //    foreach (var attrib in configComp.Elements("property").Attributes())
-        //    {
-        //        if (attrib.Value.Contains("Markers"))
-        //        {
-        //            string new_value = attrib.Value;
-        //            new_value = attrib.Value.Substring(attrib.Value.IndexOf("Markers"));
-        //            new_value = Application.streamingAssetsPath + '/' + new_value;
-        //            attrib.SetValue(new_value);
-        //        }
-        //        if (attrib.Value.Contains("CameraCalibration"))
-        //        {
-        //            string new_value = attrib.Value;
-        //            new_value = attrib.Value.Substring(attrib.Value.IndexOf("CameraCalibration"));
-        //            new_value = Application.streamingAssetsPath + '/' + new_value;
-        //            attrib.SetValue(new_value);
-        //        }
-        //    }
-
-        //    input.Close();
-        //    doc.Save(folder_path);
-        //    yield return new WaitForSeconds(1);
-        //    StartPipeline();
-        //}
     }
 
 }
