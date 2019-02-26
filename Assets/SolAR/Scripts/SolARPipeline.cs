@@ -33,7 +33,7 @@ namespace SolAR
         public float centerY;
         //#####################################################
         public Camera m_camera;
-        public Button m_EventButton;
+        //public Button m_EventButton;
         [HideInInspector]
         public bool m_CustomCanvas = false;
 
@@ -85,7 +85,7 @@ namespace SolAR
         public bool m_Unity_Webcam = false;
 
         private IntPtr sourceTexture;
-        private UnityAction m_myAction;
+        //private readonly UnityAction m_myAction;
 
         private byte[] m_vidframe_byte;
         private Color32[] data;
@@ -153,7 +153,7 @@ namespace SolAR
                     centerY = camParams.centerY;
                 }
 
-                SendParamtersToCameraProjectionMatrix();
+                SendParametersToCameraProjectionMatrix();
                 array_imageData = new byte[width * height * 3];
                 m_texture.filterMode = FilterMode.Point;
                 m_texture.Apply();
@@ -196,8 +196,8 @@ namespace SolAR
             else
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
 
-            m_myAction += MyEvent;
-            m_EventButton.onClick.AddListener(m_myAction);
+            //m_myAction += MyEvent;
+            //m_EventButton.onClick.AddListener(m_myAction);
 
             UpdateReady = true;
         }
@@ -246,21 +246,19 @@ namespace SolAR
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
                     }
                     else GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = false;
-
                 }
                 m_texture.LoadRawTextureData(array_imageData);
                 m_texture.Apply();
                 m_material.SetTexture("_MainTex", m_texture);
             }
-
         }
 
-        void MyEvent()
-        {
-            Debug.Log("Event");
-        }
+        //void MyEvent()
+        //{
+        //    Debug.Log("Event");
+        //}
 
-        void SendParamtersToCameraProjectionMatrix()
+        void SendParametersToCameraProjectionMatrix()
         {
             Matrix4x4 projectionMatrix = new Matrix4x4();
             float near = Camera.main.nearClipPlane;

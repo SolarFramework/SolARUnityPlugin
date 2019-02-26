@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -275,14 +275,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac39db92edef3d64ab7a17016f4f1e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focalX: 643.0679
+  focalX: 643.068
   focalY: 641.993
   width: 640
   height: 480
   centerX: 320
   centerY: 240
   m_camera: {fileID: 1386490711}
-  m_EventButton: {fileID: 1361218597}
   m_CustomCanvas: 1
   m_canvas: {fileID: 1577110658}
   m_material: {fileID: 2100000, guid: 8e4692da20048c64295f1c5ad27b833b, type: 2}
@@ -299,7 +298,7 @@ MonoBehaviour:
   m_selectedPipeline: 0
   m_configurationPath: /SolAR/Pipelines/PipelineFiducialMarker.xml
   m_uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
-  m_webCamNum: 0
+  m_webCamNum: 1
   conf:
     modules:
     - uuid: 63b4282f-94cf-44d0-8ec0-9e8b0639fff6
@@ -594,7 +593,7 @@ MonoBehaviour:
           description: The width in pixels of the corrected image.
           values: []
   m_webCamTexture: {fileID: 0}
-  m_Unity_Webcam: 1
+  m_Unity_Webcam: 0
 --- !u!4 &595490254
 Transform:
   m_ObjectHideFlags: 0
@@ -612,8 +611,7 @@ Transform:
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1073578782}
@@ -629,8 +627,7 @@ GameObject:
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1073578780}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -641,8 +638,7 @@ MonoBehaviour:
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1073578780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -743,7 +739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1361218596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -849,7 +845,6 @@ GameObject:
   - component: {fileID: 1386490711}
   - component: {fileID: 1386490709}
   - component: {fileID: 1386490708}
-  - component: {fileID: 1386490710}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -871,23 +866,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1386490707}
   m_Enabled: 1
---- !u!114 &1386490710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1386490707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f5582bc9ae66e4ea381009d0d05aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focalX: 0
-  focalY: 0
-  width: 0
-  height: 0
-  centerX: 0
-  centerY: 0
 --- !u!20 &1386490711
 Camera:
   m_ObjectHideFlags: 0
