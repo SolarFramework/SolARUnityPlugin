@@ -84,12 +84,12 @@
       <!--PipelineFiducialMarker-->
     </component>
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4">
-      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
       <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
       <!--SolARCameraOpencv-->
     </component>
     <component uuid="5d2b8da9-528e-4e5e-96c1-f883edcf3b1c">
-      <property name="filePath" type="string" value="./Assets/StreamingAssets/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
       <!--SolARMarker2DSquaredBinaryOpencv-->
     </component>
     <component uuid="6acf8de2-cc63-11e7-abc4-cec278b6b50a">

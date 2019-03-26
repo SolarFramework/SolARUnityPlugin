@@ -86,6 +86,7 @@ namespace SolAR
 
         private IntPtr sourceTexture;
         //private readonly UnityAction m_myAction;
+        [SerializeField] private GameObject myObject;
 
         private byte[] m_vidframe_byte;
         private Color32[] data;
@@ -225,7 +226,7 @@ namespace SolAR
                     PipelineManager.Pose pose = new PipelineManager.Pose();
                     if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
-                        GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = true;
+                        myObject.GetComponent<Renderer>().enabled = true;
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
                         cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
                         cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
@@ -245,7 +246,7 @@ namespace SolAR
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
                     }
-                    else GameObject.Find("AR_Cube").GetComponent<Renderer>().enabled = false;
+                    else myObject.GetComponent<Renderer>().enabled = false;
                 }
                 m_texture.LoadRawTextureData(array_imageData);
                 m_texture.Apply();

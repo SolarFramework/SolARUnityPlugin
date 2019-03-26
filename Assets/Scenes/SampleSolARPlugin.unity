@@ -524,7 +524,7 @@ MonoBehaviour:
         properties:
         - name: calibrationFile
           type: string
-          value: ./Assets/StreamingAssets/CameraCalibration/camera_calibration.yml
+          value: ./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml
           description: path of the .yml file describing the calibration parameter
             of the camera.
           values: []
@@ -540,7 +540,7 @@ MonoBehaviour:
         properties:
         - name: filePath
           type: string
-          value: ./Assets/StreamingAssets/Markers/fiducialMarker.yml
+          value: ./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml
           description: Path of the .yml file describing the fiducial marker.
           values: []
       - type: SolARContoursExtractorOpencv
@@ -594,6 +594,7 @@ MonoBehaviour:
           values: []
   m_webCamTexture: {fileID: 0}
   m_Unity_Webcam: 0
+  myObject: {fileID: 984393285}
 --- !u!4 &595490254
 Transform:
   m_ObjectHideFlags: 0
@@ -607,6 +608,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &984393285 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 78cd29cc8e2d81b409aab836e1e04229,
+    type: 3}
+  m_PrefabInternal: {fileID: 1201687997}
 --- !u!1 &1073578780
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +653,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1201687997
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+  m_IsPrefabAsset: 0
 --- !u!1 &1253571546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &1660492756
 MeshRenderer:
   m_ObjectHideFlags: 0

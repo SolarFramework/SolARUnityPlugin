@@ -106,12 +106,12 @@
   </module>
   <configuration>
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4">
-      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
       <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
       <!--SolARCameraOpencv-->
     </component>
     <component uuid="efcdb590-c570-11e7-abc4-cec278b6b50a">
-      <property name="filePath" type="string" value="./Assets/StreamingAssets/Markers/NaturalImageMarker.yml" description="Path of the .yml file describing the natural image marker." />
+      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/NaturalImageMarker.yml" description="Path of the .yml file describing the natural image marker." />
       <!--SolARMarker2DNaturalImageOpencv-->
     </component>
     <component uuid="e81c7e4e-7da6-476a-8eba-078b43071272">
