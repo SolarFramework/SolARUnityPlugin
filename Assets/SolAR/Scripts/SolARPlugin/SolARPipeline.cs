@@ -73,7 +73,7 @@ namespace SolAR
         public ConfXml conf;
 
         [HideInInspector]
-        public PipelineManager m_pipelineManager;
+        public SolARPluginPipelineManager m_pipelineManager;
 
         [DllImport("SolARPipelineManager")]
         private static extern System.IntPtr RedirectIOToConsole(bool activate);
@@ -104,7 +104,7 @@ namespace SolAR
         {
             if (m_camera)
             {
-                m_pipelineManager = new PipelineManager();
+                m_pipelineManager = new SolARPluginPipelineManager();
 #if UNITY_EDITOR
                 // If in editor mode, the pipeline configuration file are stored in the unity assets folder but not in the streaminAssets folder
                 if (!m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid))
@@ -144,7 +144,7 @@ namespace SolAR
                 }
                 else
                 {
-                    PipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
+                    SolARPluginPipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
                     m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
                     width = camParams.width;
                     height = camParams.height;
@@ -223,7 +223,7 @@ namespace SolAR
                         sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
                         m_pipelineManager.loadSourceImage(sourceTexture, width, height);
                     }
-                    PipelineManager.Pose pose = new PipelineManager.Pose();
+                    SolARPluginPipelineManager.Pose pose = new SolARPluginPipelineManager.Pose();
                     if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
                         myObject.GetComponent<Renderer>().enabled = true;
