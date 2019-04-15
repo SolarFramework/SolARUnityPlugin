@@ -2,11 +2,11 @@ echo off
 
 :: remove existing pipeline manager C# wrapper files
 echo Delete following pipeline manager wrapper files ?
-del ".\Assets\SolAR\PipelineManagerWrapper\*.*"
+del ".\Assets\SolAR\Scripts\SolARPlugin\Swig\*.*"
 del ".\Assets\Plugins\*.*"
 
 :: copy csharp interfaces
-xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.1.0\CSharp\*" ".\Assets\SolAR\PipelineManagerWrapper\"
+xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.1.0\CSharp\*" ".\Assets\SolAR\Scripts\SolARPlugin\Swig\"
 
 :: copy dll
 SET mode="release"
@@ -25,18 +25,27 @@ xcopy "%BCOMDEVROOT%\thirdParties\opencv\3.4.3\lib\x86_64\shared\%mode%\opencv_w
 xcopy "%BCOMDEVROOT%\thirdParties\freeglut\3.0.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
 
 echo --------------copy framework dll--------------
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARFramework\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARFramework\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
 
 echo -----------copy pipeline Manager dll----------
 xcopy "%BCOMDEVROOT%\bcomBuild\SolARPipelineManager\0.1.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
 
 echo ---------------copy modules dll---------------
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenCV\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenCV\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenGL\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenGV\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleCeres\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleFBOW\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleNonFreeOpenCV\0.5.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+
 
 echo --------------copy pipelines dll--------------
-xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.1.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
-xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.1.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+
+echo -----------copy SolAR Wrapper dll----------
+xcopy "%BCOMDEVROOT%\..\build\release\SolARWrapper\Release\*.dll" .\Assets\Plugins\
 
 IF "%1"=="-debug" (GOTO Debug)
 exit /B 0
@@ -57,18 +66,22 @@ xcopy "%BCOMDEVROOT%\thirdParties\opencv\3.4.3\lib\x86_64\shared\%mode%\opencv_w
 xcopy "%BCOMDEVROOT%\thirdParties\freeglut\3.0.0\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
 
 echo --------------copy framework pdb--------------
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARFramework\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARFramework\0.5.2\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
 
 echo -----------copy pipeline Manager pdb----------
 xcopy "%BCOMDEVROOT%\bcomBuild\SolARPipelineManager\0.1.0\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
 
 echo ---------------copy modules pdb---------------
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenCV\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenGL\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenCV\0.5.2\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenGL\0.5.2\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleTools\0.5.2\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleOpenGV\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleCeres\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleFBOW\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARModuleNonFreeOpenCV\0.5.1\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
 
 echo --------------copy pipelines pdb--------------
-xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.1.0\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
-xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.1.0\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.5.2\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.5.2\lib\x86_64\shared\%mode%\*.pdb" .\Assets\Plugins\
 
 exit /B 0
