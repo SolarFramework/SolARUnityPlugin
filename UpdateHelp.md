@@ -9,7 +9,8 @@
 			|
 			|--> if PipelineManager is rebuilt, execute _"BuildCSharp.bat" in [SolARFramework/sources/SolARPipelineManager/]
 		
-		--> Execute _"_build.bat" in [SolARFramework/sources/SolARFramework/SolARWrapper/]
+		    |
+			|--> if SolARWrapper is rebuilt, execute _"_build.bat" in [SolARFramework/sources/SolARFramework/SolARWrapper/]
 		
 		--> Go to [SolARFramework/], open a BASH window here (Git Bash for exemaple) 
 			|
@@ -24,6 +25,6 @@
 	
 	  _build.bat    --> Wrap SolAR code from C++ to C# using SWIG	(ExpertVersion of Unity plugin)
 
-	  copydll.bat 	--> copy all Dlls need in UnityPlugin from there SolAR location to Unity "./Assets/Plugin" folder.
+	  copydll.bat 	--> copy all Dlls and C# scripts need in UnityPlugin from there SolAR location to Unity "./Assets/Plugin" folder.
 	
 	cmake-build-SolARWrapper.sh  --> compile and build the results of _build.bat for the expert version of unity plugin.

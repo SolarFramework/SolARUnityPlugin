@@ -3,10 +3,12 @@ echo off
 :: remove existing pipeline manager C# wrapper files
 echo Delete following pipeline manager wrapper files ?
 del ".\Assets\SolAR\Scripts\SolARPlugin\Swig\*.*"
+del ".\Assets\SolAR\Scripts\SolARFullWrapper\Swig\*.*"
 del ".\Assets\Plugins\*.*"
 
 :: copy csharp interfaces
-xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.1.0\CSharp\*" ".\Assets\SolAR\Scripts\SolARPlugin\Swig\"
+xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.5.2\CSharp\*" ".\Assets\SolAR\Scripts\SolARPlugin\Swig\"
+xcopy "%BCOMDEVROOT%\..\sources\SolARFramework\SolARWrapper\out\csharp*" ".\Assets\SolAR\Scripts\SolARFullWrapper\Swig\"
 
 :: copy dll
 SET mode="release"

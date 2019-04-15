@@ -32,7 +32,7 @@ public class SolARPluginPipelineManager : global::System.IDisposable {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
         if (swigCMemOwn) {
           swigCMemOwn = false;
-          SolARPipelineManagerPINVOKE.delete_PipelineManager(swigCPtr);
+          SolARPipelineManagerPINVOKE.delete_SolARPluginPipelineManager(swigCPtr);
         }
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
@@ -62,7 +62,7 @@ public class SolARPluginPipelineManager : global::System.IDisposable {
         if (swigCPtr.Handle != global::System.IntPtr.Zero) {
           if (swigCMemOwn) {
             swigCMemOwn = false;
-            SolARPipelineManagerPINVOKE.delete_PipelineManager_Pose(swigCPtr);
+            SolARPipelineManagerPINVOKE.delete_SolARPluginPipelineManager_Pose(swigCPtr);
           }
           swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
         }
@@ -72,10 +72,10 @@ public class SolARPluginPipelineManager : global::System.IDisposable {
   
     public SWIGTYPE_p_float T {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_Pose_T_set(swigCPtr, SWIGTYPE_p_float.getCPtr(value));
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_T_set(swigCPtr, SWIGTYPE_p_float.getCPtr(value));
       } 
       get {
-        global::System.IntPtr cPtr = SolARPipelineManagerPINVOKE.PipelineManager_Pose_T_get(swigCPtr);
+        global::System.IntPtr cPtr = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_T_get(swigCPtr);
         SWIGTYPE_p_float ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_float(cPtr, false);
         return ret;
       } 
@@ -83,30 +83,30 @@ public class SolARPluginPipelineManager : global::System.IDisposable {
   
     public SWIGTYPE_p_a_3__float R {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_Pose_R_set(swigCPtr, SWIGTYPE_p_a_3__float.getCPtr(value));
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_R_set(swigCPtr, SWIGTYPE_p_a_3__float.getCPtr(value));
       } 
       get {
-        global::System.IntPtr cPtr = SolARPipelineManagerPINVOKE.PipelineManager_Pose_R_get(swigCPtr);
+        global::System.IntPtr cPtr = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_R_get(swigCPtr);
         SWIGTYPE_p_a_3__float ret = (cPtr == global::System.IntPtr.Zero) ? null : new SWIGTYPE_p_a_3__float(cPtr, false);
         return ret;
       } 
     }
   
     public void reset() {
-      SolARPipelineManagerPINVOKE.PipelineManager_Pose_reset(swigCPtr);
+      SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_reset(swigCPtr);
     }
   
     public float translation(int i) {
-      float ret = SolARPipelineManagerPINVOKE.PipelineManager_Pose_translation(swigCPtr, i);
+      float ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_translation(swigCPtr, i);
       return ret;
     }
   
     public float rotation(int i, int j) {
-      float ret = SolARPipelineManagerPINVOKE.PipelineManager_Pose_rotation(swigCPtr, i, j);
+      float ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_Pose_rotation(swigCPtr, i, j);
       return ret;
     }
   
-    public Pose() : this(SolARPipelineManagerPINVOKE.new_PipelineManager_Pose(), true) {
+    public Pose() : this(SolARPipelineManagerPINVOKE.new_SolARPluginPipelineManager_Pose(), true) {
     }
   
   }
@@ -133,7 +133,7 @@ public class SolARPluginPipelineManager : global::System.IDisposable {
         if (swigCPtr.Handle != global::System.IntPtr.Zero) {
           if (swigCMemOwn) {
             swigCMemOwn = false;
-            SolARPipelineManagerPINVOKE.delete_PipelineManager_CamParams(swigCPtr);
+            SolARPipelineManagerPINVOKE.delete_SolARPluginPipelineManager_CamParams(swigCPtr);
           }
           swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
         }
@@ -143,105 +143,105 @@ public class SolARPluginPipelineManager : global::System.IDisposable {
   
     public int width {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_width_set(swigCPtr, value);
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_width_set(swigCPtr, value);
       } 
       get {
-        int ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_width_get(swigCPtr);
+        int ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_width_get(swigCPtr);
         return ret;
       } 
     }
   
     public int height {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_height_set(swigCPtr, value);
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_height_set(swigCPtr, value);
       } 
       get {
-        int ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_height_get(swigCPtr);
+        int ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_height_get(swigCPtr);
         return ret;
       } 
     }
   
     public float focalX {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_focalX_set(swigCPtr, value);
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_focalX_set(swigCPtr, value);
       } 
       get {
-        float ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_focalX_get(swigCPtr);
+        float ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_focalX_get(swigCPtr);
         return ret;
       } 
     }
   
     public float focalY {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_focalY_set(swigCPtr, value);
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_focalY_set(swigCPtr, value);
       } 
       get {
-        float ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_focalY_get(swigCPtr);
+        float ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_focalY_get(swigCPtr);
         return ret;
       } 
     }
   
     public int centerX {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerX_set(swigCPtr, value);
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_centerX_set(swigCPtr, value);
       } 
       get {
-        int ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerX_get(swigCPtr);
+        int ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_centerX_get(swigCPtr);
         return ret;
       } 
     }
   
     public int centerY {
       set {
-        SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerY_set(swigCPtr, value);
+        SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_centerY_set(swigCPtr, value);
       } 
       get {
-        int ret = SolARPipelineManagerPINVOKE.PipelineManager_CamParams_centerY_get(swigCPtr);
+        int ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_CamParams_centerY_get(swigCPtr);
         return ret;
       } 
     }
   
-    public CamParams() : this(SolARPipelineManagerPINVOKE.new_PipelineManager_CamParams(), true) {
+    public CamParams() : this(SolARPipelineManagerPINVOKE.new_SolARPluginPipelineManager_CamParams(), true) {
     }
   
   }
 
-  public SolARPluginPipelineManager() : this(SolARPipelineManagerPINVOKE.new_PipelineManager(), true) {
+  public SolARPluginPipelineManager() : this(SolARPipelineManagerPINVOKE.new_SolARPluginPipelineManager(), true) {
   }
 
   public bool init(string conf_path, string pipelineUUID) {
-    bool ret = SolARPipelineManagerPINVOKE.PipelineManager_init(swigCPtr, conf_path, pipelineUUID);
+    bool ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_init(swigCPtr, conf_path, pipelineUUID);
     if (SolARPipelineManagerPINVOKE.SWIGPendingException.Pending) throw SolARPipelineManagerPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public SolARPluginPipelineManager.CamParams getCameraParameters() {
-            SolARPluginPipelineManager.CamParams ret = new SolARPluginPipelineManager.CamParams(SolARPipelineManagerPINVOKE.PipelineManager_getCameraParameters(swigCPtr), true);
+    SolARPluginPipelineManager.CamParams ret = new SolARPluginPipelineManager.CamParams(SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_getCameraParameters(swigCPtr), true);
     return ret;
   }
 
   public bool start(System.IntPtr textureHandle) {
-    bool ret = SolARPipelineManagerPINVOKE.PipelineManager_start(swigCPtr,  textureHandle );
+    bool ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_start(swigCPtr,  textureHandle );
     return ret;
   }
 
   public PIPELINEMANAGER_RETURNCODE udpate(SolARPluginPipelineManager.Pose pose) {
-    PIPELINEMANAGER_RETURNCODE ret = (PIPELINEMANAGER_RETURNCODE)SolARPipelineManagerPINVOKE.PipelineManager_udpate(swigCPtr, SolARPluginPipelineManager.Pose.getCPtr(pose));
+    PIPELINEMANAGER_RETURNCODE ret = (PIPELINEMANAGER_RETURNCODE)SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_udpate(swigCPtr, SolARPluginPipelineManager.Pose.getCPtr(pose));
     if (SolARPipelineManagerPINVOKE.SWIGPendingException.Pending) throw SolARPipelineManagerPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
   public PIPELINEMANAGER_RETURNCODE loadSourceImage(System.IntPtr sourceTextureHandle, int width, int height) {
-    PIPELINEMANAGER_RETURNCODE ret = (PIPELINEMANAGER_RETURNCODE)SolARPipelineManagerPINVOKE.PipelineManager_loadSourceImage(swigCPtr,  sourceTextureHandle , width, height);
+    PIPELINEMANAGER_RETURNCODE ret = (PIPELINEMANAGER_RETURNCODE)SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_loadSourceImage(swigCPtr,  sourceTextureHandle , width, height);
     return ret;
   }
 
   public void udpatePose(System.IntPtr pose) {
-    SolARPipelineManagerPINVOKE.PipelineManager_udpatePose(swigCPtr,  pose );
+    SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_udpatePose(swigCPtr,  pose );
   }
 
   public bool stop() {
-    bool ret = SolARPipelineManagerPINVOKE.PipelineManager_stop(swigCPtr);
+    bool ret = SolARPipelineManagerPINVOKE.SolARPluginPipelineManager_stop(swigCPtr);
     return ret;
   }
 
