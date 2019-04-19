@@ -25,6 +25,7 @@ namespace SolAR {
     using SolAR.Api.Solver.Map;
     using SolAR.Api.Solver.Pose;
     using SolAR.Api.Source;
+	using SolAR.Api.Tracking;
 
 public class solar {
   public static IConfigurable bindTo_IConfigurable(IComponentIntrospect component) {
@@ -125,6 +126,13 @@ public class solar {
     return ret;
   }
 
+  public static IKeypointDetectorRegion bindTo_IKeypointDetectorRegion(IComponentIntrospect component) {
+    global::System.IntPtr cPtr = solarPINVOKE.bindTo_IKeypointDetectorRegion(IComponentIntrospect.getCPtr(component));
+    IKeypointDetectorRegion ret = (cPtr == global::System.IntPtr.Zero) ? null : new IKeypointDetectorRegion(cPtr, true);
+    if (solarPINVOKE.SWIGPendingException.Pending) throw solarPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
   public static IKeypointsReIndexer bindTo_IKeypointsReIndexer(IComponentIntrospect component) {
     global::System.IntPtr cPtr = solarPINVOKE.bindTo_IKeypointsReIndexer(IComponentIntrospect.getCPtr(component));
     IKeypointsReIndexer ret = (cPtr == global::System.IntPtr.Zero) ? null : new IKeypointsReIndexer(cPtr, true);
@@ -156,6 +164,20 @@ public class solar {
   public static I2DTransform bindTo_I2DTransform(IComponentIntrospect component) {
     global::System.IntPtr cPtr = solarPINVOKE.bindTo_I2DTransform(IComponentIntrospect.getCPtr(component));
     I2DTransform ret = (cPtr == global::System.IntPtr.Zero) ? null : new I2DTransform(cPtr, true);
+    if (solarPINVOKE.SWIGPendingException.Pending) throw solarPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static IProject bindTo_IProject(IComponentIntrospect component) {
+    global::System.IntPtr cPtr = solarPINVOKE.bindTo_IProject(IComponentIntrospect.getCPtr(component));
+    IProject ret = (cPtr == global::System.IntPtr.Zero) ? null : new IProject(cPtr, true);
+    if (solarPINVOKE.SWIGPendingException.Pending) throw solarPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static IUnproject bindTo_IUnproject(IComponentIntrospect component) {
+    global::System.IntPtr cPtr = solarPINVOKE.bindTo_IUnproject(IComponentIntrospect.getCPtr(component));
+    IUnproject ret = (cPtr == global::System.IntPtr.Zero) ? null : new IUnproject(cPtr, true);
     if (solarPINVOKE.SWIGPendingException.Pending) throw solarPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
@@ -380,6 +402,13 @@ public class solar {
   public static ISourceImage bindTo_ISourceImage(IComponentIntrospect component) {
     global::System.IntPtr cPtr = solarPINVOKE.bindTo_ISourceImage(IComponentIntrospect.getCPtr(component));
     ISourceImage ret = (cPtr == global::System.IntPtr.Zero) ? null : new ISourceImage(cPtr, true);
+    if (solarPINVOKE.SWIGPendingException.Pending) throw solarPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public static IOpticalFlowEstimator bindTo_IOpticalFlowEstimator(IComponentIntrospect component) {
+    global::System.IntPtr cPtr = solarPINVOKE.bindTo_IOpticalFlowEstimator(IComponentIntrospect.getCPtr(component));
+    IOpticalFlowEstimator ret = (cPtr == global::System.IntPtr.Zero) ? null : new IOpticalFlowEstimator(cPtr, true);
     if (solarPINVOKE.SWIGPendingException.Pending) throw solarPINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

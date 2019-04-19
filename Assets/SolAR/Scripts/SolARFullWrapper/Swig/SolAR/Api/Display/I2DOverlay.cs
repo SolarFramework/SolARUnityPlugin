@@ -60,6 +60,11 @@ public class I2DOverlay : IComponentIntrospect {
     if (solar_api_displayPINVOKE.SWIGPendingException.Pending) throw solar_api_displayPINVOKE.SWIGPendingException.Retrieve();
   }
 
+  public virtual void drawContour(Point2DfList contours, Image displayImage) {
+    solar_api_displayPINVOKE.I2DOverlay_drawContour(swigCPtr, Point2DfList.getCPtr(contours), Image.getCPtr(displayImage));
+    if (solar_api_displayPINVOKE.SWIGPendingException.Pending) throw solar_api_displayPINVOKE.SWIGPendingException.Retrieve();
+  }
+
   public virtual void drawContours(Contour2DfList contours, Image displayImage) {
     solar_api_displayPINVOKE.I2DOverlay_drawContours(swigCPtr, Contour2DfList.getCPtr(contours), Image.getCPtr(displayImage));
     if (solar_api_displayPINVOKE.SWIGPendingException.Pending) throw solar_api_displayPINVOKE.SWIGPendingException.Retrieve();

@@ -102,7 +102,7 @@ namespace SolAR
                     break;
             }
 
-            overlay3D = xpcfComponentManager.Create("SolAR3DOverlayBoxOpencv").BindTo<I3DOverlay>().AddTo(subscriptions);
+            overlay3D = xpcfComponentManager.Create("SolAR3DOverlayOpencv").BindTo<I3DOverlay>().AddTo(subscriptions);
 
             switch (source)
             {
@@ -188,8 +188,8 @@ namespace SolAR
                     break;
             }
             count++;
-
-            var isTracking = pipeline.Proceed(inputImage, pose) == FrameworkReturnCode._SUCCESS;
+            
+            var isTracking = pipeline.Proceed(inputImage, pose, camera) == FrameworkReturnCode._SUCCESS;
             //transform.gameObject.SetActive(isTracking);
             if (isTracking)
             {
@@ -218,6 +218,7 @@ namespace SolAR
             double duration = (double)(end - start) / CLOCKS_PER_SEC;
             printf("Elasped time is {0} seconds.", duration);
             printf("Number of processed frames per second : {0}", count / duration);
+            camera.Dispose();
             base.OnDisable();
         }
 

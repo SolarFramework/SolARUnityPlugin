@@ -7,8 +7,9 @@ del ".\Assets\SolAR\Scripts\SolARFullWrapper\Swig\*.*"
 del ".\Assets\Plugins\*.*"
 
 :: copy csharp interfaces
+echo ---------------- copy c# ----------------------
 xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.5.2\CSharp\*" ".\Assets\SolAR\Scripts\SolARPlugin\Swig\"
-xcopy "%BCOMDEVROOT%\..\sources\SolARFramework\SolARWrapper\out\csharp*" ".\Assets\SolAR\Scripts\SolARFullWrapper\Swig\"
+xcopy "%BCOMDEVROOT%\..\sources\SolARFramework\SolARWrapper\out\csharp\*" ".\Assets\SolAR\Scripts\SolARFullWrapper\Swig\" /S
 
 :: copy dll
 SET mode="release"

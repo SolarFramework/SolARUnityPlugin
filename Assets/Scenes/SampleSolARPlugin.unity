@@ -289,19 +289,16 @@ MonoBehaviour:
   m_pipelinesName:
   - PipelineFiducialMarker
   - PipelineNaturalImageMarker
-  - PipelineNaturalImageMarkerold
   m_pipelinesUUID:
   - 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
-  - 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
   - 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
   m_pipelinesPath:
   - /SolAR/Pipelines/PipelineFiducialMarker.xml
   - /SolAR/Pipelines/PipelineNaturalImageMarker.xml
-  - /SolAR/Pipelines/PipelineNaturalImageMarkerold.xml
   m_selectedPipeline: 1
   m_configurationPath: /SolAR/Pipelines/PipelineNaturalImageMarker.xml
   m_uuid: 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
-  m_webCamNum: 0
+  m_webCamNum: 1
   conf:
     modules:
     - uuid: 5bbc1452-8d7f-4512-83f1-7bf48453809f
@@ -614,7 +611,7 @@ MonoBehaviour:
         properties:
         - name: calibrationFile
           type: string
-          value: camera_calibration.yml
+          value: ./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml
           description: path of the .yml file describing the calibration parameter
             of the camera.
           values: []
@@ -630,7 +627,7 @@ MonoBehaviour:
         properties:
         - name: filePath
           type: string
-          value: ./Assets/Plugins/NaturalImageMarker.yml
+          value: ./Assets/StreamingAssets/SolAR/Markers/NaturalImageMarker.yml
           description: 
           values: []
       - type: SolARKeypointDetectorOpencv
@@ -939,7 +936,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
@@ -1339,7 +1336,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1836254882
 BoxCollider:
   m_ObjectHideFlags: 0

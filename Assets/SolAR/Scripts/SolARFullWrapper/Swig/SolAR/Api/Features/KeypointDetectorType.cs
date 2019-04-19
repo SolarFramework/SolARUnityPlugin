@@ -20,7 +20,8 @@ public enum KeypointDetectorType {
   AKAZE2,
   AKAZEUP,
   BRISK,
-  BRIEF
+  BRIEF,
+  FEATURE_TO_TRACK
 }
 
 }

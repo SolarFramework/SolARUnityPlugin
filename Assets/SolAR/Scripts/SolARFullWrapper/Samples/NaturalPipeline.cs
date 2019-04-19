@@ -18,12 +18,19 @@ using System.Linq;
 using SolAR.Api.Display;
 using SolAR.Api.Features;
 using SolAR.Api.Geom;
+using SolAR.Api.Tracking;
 using SolAR.Api.Input.Files;
 using SolAR.Api.Solver.Pose;
 using SolAR.Core;
 using SolAR.Datastructure;
 using UniRx;
 using XPCF.Api;
+using SolAR.Api.Image;
+using SolAR.Api.Sink;
+using System;
+using System.Runtime.InteropServices;
+using UnityEngine;
+using SolAR.Api.Input.Devices;
 
 namespace SolAR.Samples
 {
@@ -35,22 +42,26 @@ namespace SolAR.Samples
             imageViewerResult = Create<IImageViewer>("SolARImageViewerOpencv");
             marker = Create<IMarker2DNaturalImage>("SolARMarker2DNaturalImageOpencv");
             kpDetector = Create<IKeypointDetector>("SolARKeypointDetectorOpencv");
+            kpDetectorRegion = Create<IKeypointDetectorRegion>("SolARKeypointDetectorRegionOpencv");
+            descriptorExtractor = Create<IDescriptorsExtractor>("SolARDescriptorsExtractorAKAZE2Opencv");
             matcher = Create<IDescriptorMatcher>("SolARDescriptorMatcherKNNOpencv");
-            basicMatchesFilter = Create<IMatchesFilter>("SolARBasicMatchesFilter");
             geomMatchesFilter = Create<IMatchesFilter>("SolARGeometricMatchesFilterOpencv");
-            homographyEstimation = Create<I2DTransformFinder>("SolARHomographyEstimationOpencv");
-            homographyValidation = Create<IHomographyValidation>("SolARHomographyValidation");
-            keypointsReindexer = Create<IKeypointsReIndexer>("SolARKeypointsReIndexer");
-            poseEstimation = Create<I3DTransformFinderFrom2D3D>("SolARPoseEstimationPnpOpencv");
-            //poseEstimation = Create<I3DTransformFinderFrom2D3D>("SolARPoseEstimationPnpEPFL");
+            poseEstimationPlanar = Create<I3DTransformSACFinderFrom2D3D>("SolARPoseEstimationPlanarPointsOpencv");
+            opticalFlow = Create<IOpticalFlowEstimator>("SolAROpticalFlowPyrLKOpencv");
+            projection = Create<IProject>("SolARProjectOpencv");
+            unprojection = Create<IUnproject>("SolARUnprojectPlanarPointsOpencv");
             overlay2DComponent = Create<I2DOverlay>("SolAR2DOverlayOpencv");
             img_mapper = Create<IImage2WorldMapper>("SolARImage2WorldMapper4Marker2D");
+            basicMatchesFilter = Create<IMatchesFilter>("SolARBasicMatchesFilter");
+            homographyValidation = Create<IHomographyValidation>("SolARHomographyValidation");
+            keypointsReindexer = Create<IKeypointsReIndexer>("SolARKeypointsReIndexer");
             transform2D = Create<I2DTransform>("SolAR2DTransform");
-            descriptorExtractor = Create<IDescriptorsExtractor>("SolARDescriptorsExtractorAKAZE2Opencv");
-
+            overlay3DComponent = Create<I3DOverlay>("SolAR3DOverlayOpencv");
             /* in dynamic mode, we need to check that components are well created*/
             /* this is needed in dynamic mode */
-            if (new object[] { imageViewerKeypoints, imageViewerResult, marker, kpDetector, descriptorExtractor, matcher, basicMatchesFilter, geomMatchesFilter, homographyEstimation, homographyValidation, keypointsReindexer, poseEstimation, overlay2DComponent, img_mapper, transform2D }.Contains(null))
+            if (new object[] { imageViewerKeypoints, imageViewerResult, marker, kpDetector , kpDetectorRegion , descriptorExtractor , matcher,
+                                geomMatchesFilter, poseEstimationPlanar, opticalFlow, projection, unprojection,overlay2DComponent, img_mapper,
+                                basicMatchesFilter, homographyValidation,keypointsReindexer,transform2D, overlay3DComponent }.Contains(null))
             {
                 LOG_ERROR("One or more component creations have failed");
                 return;
@@ -59,29 +70,31 @@ namespace SolAR.Samples
 
             // Declare data structures used to exchange information between components
             refImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
+            previousCamImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
+
             //kpImageCam = SharedPtr.Alloc<Image>().AddTo(subscriptions);
             refDescriptors = SharedPtr.Alloc<DescriptorBuffer>().AddTo(subscriptions);
             camDescriptors = SharedPtr.Alloc<DescriptorBuffer>().AddTo(subscriptions);
             matches = new DescriptorMatchVector().AddTo(subscriptions);
 
-            Hm = new Transform2Df().AddTo(subscriptions);
             // where to store detected keypoints in ref image and camera image
             refKeypoints = new KeypointList().AddTo(subscriptions);
             camKeypoints = new KeypointList().AddTo(subscriptions);
 
+            markerWorldCorners = new Point3DfList().AddTo(subscriptions);
+
             // load marker
-            LOG_INFO("LOAD MARKER IMAGE ");
             marker.loadMarker().Check();
+            marker.getWorldCorners(markerWorldCorners).Check();
             marker.getImage(refImage).Check();
 
             // detect keypoints in reference image
-            LOG_INFO("DETECT MARKER KEYPOINTS ");
             kpDetector.detect(refImage, refKeypoints);
 
             // extract descriptors in reference image
-            LOG_INFO("EXTRACT MARKER DESCRIPTORS ");
             descriptorExtractor.extract(refImage, refKeypoints, refDescriptors);
-            LOG_INFO("EXTRACT MARKER DESCRIPTORS COMPUTED");
+
+           
 
             // initialize image mapper with the reference image size and marker size
             var img_mapper_config = img_mapper.BindTo<IConfigurable>().AddTo(subscriptions);
@@ -108,7 +121,7 @@ namespace SolAR.Samples
         public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distorsion)
         {
             // initialize pose estimation
-            poseEstimation.setCameraParameters(intrinsics, distorsion);
+            poseEstimationPlanar.setCameraParameters(intrinsics, distorsion);
         }
 
         public override Sizef GetMarkerSize()
@@ -120,105 +133,175 @@ namespace SolAR.Samples
             };
         }
 
-        public override FrameworkReturnCode Proceed(Image camImage, Transform3Df pose)
+        public override FrameworkReturnCode Proceed(Image camImage, Transform3Df pose, ICamera camera)
         {
-            //var matchesImage = new Image(refImage.getWidth() + camImage.getWidth(), refImage.getHeight(), refImage.getImageLayout(), refImage.getPixelOrder(), refImage.getDataType());
-            //var matchImage = matchesImage;
+            // initialize overlay 3D component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
+            overlay3DComponent.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
 
-            // detect keypoints in camera image
-            kpDetector.detect(camImage, camKeypoints);
-            // Not working, C2664 : cannot convert argument 1 from std::vector<boost_shared_ptr<Keypoint>> to std::vector<boost_shared_ptr<Point2Df>> !
-            /* you can either draw keypoints */
-            //kpDetector.drawKeypoints(camImage, camKeypoints, kpImageCam);
+            // initialize pose estimation based on planar points with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
+            poseEstimationPlanar.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
 
-            /* extract descriptors in camera image*/
+            // initialize projection component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
+            projection.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
 
-            descriptorExtractor.extract(camImage, camKeypoints, camDescriptors);
-
-            /*compute matches between reference image and camera image*/
-            matcher.match(refDescriptors, camDescriptors, matches);
-
-            /* filter matches to remove redundancy and check geometric validity */
-            basicMatchesFilter.filter(matches, matches, refKeypoints, camKeypoints);
-            geomMatchesFilter.filter(matches, matches, refKeypoints, camKeypoints);
-
-            /* we declare here the Solar datastucture we will need for homography*/
-            var ref2Dpoints = new Point2DfList();
-            var cam2Dpoints = new Point2DfList();
-            //Point2Df point;
-            var ref3Dpoints = new Point3DfList();
-            //var output2Dpoints = new Point2DfList();
-            var markerCornersinCamImage = new Point2DfList();
-            var markerCornersinWorld = new Point3DfList();
-
-            /*we consider that, if we have less than 10 matches (arbitrarily), we can't compute homography for the current frame */
-
-            if (matches.Count > 10)
+            // initialize unprojection component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
+            unprojection.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+            if (!isTrack)
             {
-                // reindex the keypoints with established correspondence after the matching
-                keypointsReindexer.reindex(refKeypoints, camKeypoints, matches, ref2Dpoints, cam2Dpoints).Check();
+                kpDetector.detect(camImage, camKeypoints);
+                descriptorExtractor.extract(camImage, camKeypoints, camDescriptors);
+                matcher.match(refDescriptors, camDescriptors, matches);
+                basicMatchesFilter.filter(matches, matches, refKeypoints, camKeypoints);
+                geomMatchesFilter.filter(matches, matches, refKeypoints, camKeypoints);
 
-                // mapping to 3D points
-                img_mapper.map(ref2Dpoints, ref3Dpoints).Check();
+                var ref2Dpoints = new Point2DfList();
+                var cam2Dpoints = new Point2DfList();
+                var ref3Dpoints = new Point3DfList();
 
-                var res = homographyEstimation.find(ref2Dpoints, cam2Dpoints, Hm);
-                //test if a meaningful matrix has been obtained
-                if (res == Api.Solver.Pose.RetCode.TRANSFORM2D_ESTIMATION_OK)
+                if (matches.Count > 10)
                 {
-                    //poseEstimation.poseFromHomography(Hm, pose, objectCorners, sceneCorners);
-                    // vector of 2D corners in camera image
-                    transform2D.transform(refImgCorners, Hm, markerCornersinCamImage).Check();
-                    // draw circles on corners in camera image
-                    overlay2DComponent.drawCircles(markerCornersinCamImage, camImage); //DEBUG
-
-                    /* we verify is the estimated homography is valid*/
-                    if (homographyValidation.isValid(refImgCorners, markerCornersinCamImage))
+                    keypointsReindexer.reindex(refKeypoints, camKeypoints, matches, ref2Dpoints, cam2Dpoints).Check();
+                    img_mapper.map(ref2Dpoints, ref3Dpoints).Check();
+                    if (poseEstimationPlanar.estimate(cam2Dpoints, ref3Dpoints, imagePoints_inliers , worldPoints_inliers, pose) != FrameworkReturnCode._SUCCESS)
                     {
-                        // from the homography we create 4 points at the corners of the reference image
-                        // map corners in 3D world coordinates
-                        img_mapper.map(refImgCorners, markerCornersinWorld).Check();
-
-                        // pose from solvePNP using 4 points.
-                        /* The pose could also be estimated from all the points used to estimate the homography */
-                        poseEstimation.estimate(markerCornersinCamImage, markerCornersinWorld, pose).Check();
-
-                        return FrameworkReturnCode._SUCCESS;
+                        valid_pose = false;
+                        //LOG_DEBUG("Wrong homography for this frame");
                     }
-                    else /* when homography is not valid*/
-                        LOG_INFO("Wrong homography for this frame");
+                    else
+                    {
+                        isTrack = true;
+                        needNewTrackedPoints = true;
+                        valid_pose = true;
+                        previousCamImage = camImage.copy();
+                        //LOG_INFO("Start tracking", pose.matrix());
+                    }
                 }
             }
-            return FrameworkReturnCode._ERROR_;
+            else
+            {
+                // initialize points to track
+                if (needNewTrackedPoints)
+                {
+                    imagePoints_track.Clear();
+                    worldPoints_track.Clear();
+                    KeypointList newKeypoints = new KeypointList();
+                    // Get the projection of the corner of the marker in the current image
+                    projection.project(markerWorldCorners, projectedMarkerCorners, pose);
+
+                    // Detect the keypoints within the contours of the marker defined by the projected corners
+                    kpDetectorRegion.detect(previousCamImage, projectedMarkerCorners, newKeypoints);
+
+                    if (newKeypoints.Count > updateTrackedPointThreshold)
+                    {
+                        foreach(var keypoint in newKeypoints)
+                            //imagePoints_track.push_back(xpcf::utils::make_shared<Point2Df>(keypoint->getX(), keypoint->getY()));
+                              imagePoints_track.Add(new Point2Df(keypoint.getX(), keypoint.getY()));
+                        // get back the 3D positions of the detected keypoints in world space
+                        unprojection.unproject(imagePoints_track, worldPoints_track, pose);
+                        //LOG_DEBUG("Reinitialize points to track");
+                    }
+                    else
+                    {
+                        isTrack = false;
+                        //LOG_DEBUG("Cannot reinitialize points to track");
+                    }
+                    needNewTrackedPoints = false;
+                }
+
+                // Tracking mode
+                if (isTrack)
+                {
+                    Point2DfList trackedPoints = new Point2DfList();
+                    Point2DfList pts2D = new Point2DfList();
+                    Point3DfList pts3D = new Point3DfList();
+
+                    UCharList status = new UCharList();
+                    FloatList err = new FloatList();
+
+                    // tracking 2D-2D
+                    opticalFlow.estimate(previousCamImage, camImage, imagePoints_track, trackedPoints, status, err);
+
+                    for (int i = 0; i < status.Count; i++)
+                    {
+                        if (status[i] == 1)
+                        {
+                            pts2D.Add(trackedPoints[i]);
+                            pts3D.Add(worldPoints_track[i]);
+                        }
+                    }
+                    // calculate camera pose
+                    // Estimate the pose from the 2D-3D planar correspondence
+                    if (poseEstimationPlanar.estimate(pts2D, pts3D, imagePoints_track, worldPoints_track, pose) != FrameworkReturnCode._SUCCESS)
+                    {
+                        isTrack = false;
+                        valid_pose = false;
+                        needNewTrackedPoints = false;
+                        //LOG_INFO("Tracking lost");
+                    }
+                    else
+                    {
+                        valid_pose = true;
+                        previousCamImage = camImage.copy();
+                        if (worldPoints_track.Count < updateTrackedPointThreshold)
+                            needNewTrackedPoints = true;
+                    }
+                }
+                //else
+                    //LOG_INFO("Tracking lost");
+            }
+
+            if (valid_pose)
+            {
+                // We draw a box on the place of the recognized natural marker
+                overlay3DComponent.draw(pose, camImage);
+            }
+            //if (imageViewerResult.display(camImage) == FrameworkReturnCode._STOP) return FrameworkReturnCode._STOP;
+            return FrameworkReturnCode._SUCCESS;
         }
+
+        int updateTrackedPointThreshold = 300;
+
+        Point2DfList projectedMarkerCorners = new Point2DfList();   
+        Point2DfList imagePoints_inliers = new Point2DfList();
+        Point3DfList worldPoints_inliers = new Point3DfList();
+        Point2DfList imagePoints_track = new Point2DfList();
+        Point3DfList worldPoints_track = new Point3DfList();
+        bool isTrack = false;
+        bool valid_pose = false;
+        bool needNewTrackedPoints = false;
 
         // structures
         readonly Image refImage;
+        Image previousCamImage;
         //readonly Image kpImageCam;
         readonly DescriptorBuffer refDescriptors;
         readonly DescriptorBuffer camDescriptors;
         readonly DescriptorMatchVector matches;
-        readonly Transform2Df Hm;
         readonly KeypointList refKeypoints;
         readonly KeypointList camKeypoints;
+
+        readonly Point3DfList markerWorldCorners;
 
         // components
         readonly IImageViewer imageViewerKeypoints;
         readonly IImageViewer imageViewerResult;
         readonly IMarker2DNaturalImage marker;
         readonly IKeypointDetector kpDetector;
+        readonly IKeypointDetectorRegion kpDetectorRegion;
         readonly IDescriptorMatcher matcher;
         readonly IMatchesFilter basicMatchesFilter;
         readonly IMatchesFilter geomMatchesFilter;
-        readonly I2DTransformFinder homographyEstimation;
         readonly IHomographyValidation homographyValidation;
         readonly IKeypointsReIndexer keypointsReindexer;
-        readonly I3DTransformFinderFrom2D3D poseEstimation;
-        //readonly I3DTransformFinderFrom2D3D poseEstimation;
         readonly I2DOverlay overlay2DComponent;
+        readonly I3DOverlay overlay3DComponent;
         readonly IImage2WorldMapper img_mapper;
         readonly I2DTransform transform2D;
         readonly IDescriptorsExtractor descriptorExtractor;
-
+        readonly I3DTransformSACFinderFrom2D3D poseEstimationPlanar;
+        readonly IOpticalFlowEstimator opticalFlow;
+        readonly IProject projection;
+        readonly IUnproject unprojection;
         readonly Point2DfList refImgCorners;
     }
 }

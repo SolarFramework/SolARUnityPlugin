@@ -68,6 +68,18 @@ public class IMarker2DSquared : IMarker {
     return ret;
   }
 
+  public virtual FrameworkReturnCode getImageCorners(Point2DfList imageCorners) {
+    FrameworkReturnCode ret = (FrameworkReturnCode)solar_api_input_filesPINVOKE.IMarker2DSquared_getImageCorners(swigCPtr, Point2DfList.getCPtr(imageCorners));
+    if (solar_api_input_filesPINVOKE.SWIGPendingException.Pending) throw solar_api_input_filesPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
+  public virtual FrameworkReturnCode getWorldCorners(Point3DfList worldCorners) {
+    FrameworkReturnCode ret = (FrameworkReturnCode)solar_api_input_filesPINVOKE.IMarker2DSquared_getWorldCorners(swigCPtr, Point3DfList.getCPtr(worldCorners));
+    if (solar_api_input_filesPINVOKE.SWIGPendingException.Pending) throw solar_api_input_filesPINVOKE.SWIGPendingException.Retrieve();
+    return ret;
+  }
+
 }
 
 }

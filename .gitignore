@@ -56,3 +56,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/SolAR/Scripts/SolARFullWrapper/Swig/
+Assets/SolAR/Scripts/SolARPlugin/Swig/

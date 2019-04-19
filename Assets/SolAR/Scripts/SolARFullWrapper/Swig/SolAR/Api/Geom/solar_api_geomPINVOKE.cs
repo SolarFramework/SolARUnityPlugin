@@ -214,6 +214,42 @@ class solar_api_geomPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_I2DTransform_transform___")]
   public static extern int I2DTransform_transform(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
 
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_delete_IProject___")]
+  public static extern void delete_IProject(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IProject_setCameraParameters___")]
+  public static extern void IProject_setCameraParameters(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IProject_project__SWIG_0___")]
+  public static extern int IProject_project__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IProject_project__SWIG_1___")]
+  public static extern int IProject_project__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IProject_project__SWIG_2___")]
+  public static extern int IProject_project__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IProject_project__SWIG_3___")]
+  public static extern int IProject_project__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_delete_IUnproject___")]
+  public static extern void delete_IUnproject(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IUnproject_setCameraParameters___")]
+  public static extern void IUnproject_setCameraParameters(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IUnproject_unproject__SWIG_0___")]
+  public static extern int IUnproject_unproject__SWIG_0(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IUnproject_unproject__SWIG_1___")]
+  public static extern int IUnproject_unproject__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IUnproject_unproject__SWIG_2___")]
+  public static extern int IUnproject_unproject__SWIG_2(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IUnproject_unproject__SWIG_3___")]
+  public static extern int IUnproject_unproject__SWIG_3(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_delete_I3DTransform___")]
   public static extern void delete_I3DTransform(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -240,6 +276,12 @@ class solar_api_geomPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_I2DTransform_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr I2DTransform_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IProject_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr IProject_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_IUnproject_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr IUnproject_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifGeom_I3DTransform_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr I3DTransform_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);

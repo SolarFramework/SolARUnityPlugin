@@ -14,7 +14,7 @@ namespace SolAR.Datastructure {
     using SolAR.Core;
 
 public class Contour2DfList : global::System.IDisposable, global::System.Collections.IEnumerable
-    , global::System.Collections.Generic.IEnumerable<Point2DfArray>
+    , global::System.Collections.Generic.IEnumerable<Point2DfList>
  {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
@@ -48,7 +48,7 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
   public Contour2DfList(global::System.Collections.ICollection c) : this() {
     if (c == null)
       throw new global::System.ArgumentNullException("c");
-    foreach (Point2DfArray element in c) {
+    foreach (Point2DfList element in c) {
       this.Add(element);
     }
   }
@@ -65,7 +65,7 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     }
   }
 
-  public Point2DfArray this[int index]  {
+  public Point2DfList this[int index]  {
     get {
       return getitem(index);
     }
@@ -97,17 +97,17 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     }
   }
 
-  public void CopyTo(Point2DfArray[] array)
+  public void CopyTo(Point2DfList[] array)
   {
     CopyTo(0, array, 0, this.Count);
   }
 
-  public void CopyTo(Point2DfArray[] array, int arrayIndex)
+  public void CopyTo(Point2DfList[] array, int arrayIndex)
   {
     CopyTo(0, array, arrayIndex, this.Count);
   }
 
-  public void CopyTo(int index, Point2DfArray[] array, int arrayIndex, int count)
+  public void CopyTo(int index, Point2DfList[] array, int arrayIndex, int count)
   {
     if (array == null)
       throw new global::System.ArgumentNullException("array");
@@ -125,7 +125,7 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
       array.SetValue(getitemcopy(index+i), arrayIndex+i);
   }
 
-  global::System.Collections.Generic.IEnumerator<Point2DfArray> global::System.Collections.Generic.IEnumerable<Point2DfArray>.GetEnumerator() {
+  global::System.Collections.Generic.IEnumerator<Point2DfList> global::System.Collections.Generic.IEnumerable<Point2DfList>.GetEnumerator() {
     return new Contour2DfListEnumerator(this);
   }
 
@@ -143,7 +143,7 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
   /// collection but not when one of the elements of the collection is modified as it is a bit
   /// tricky to detect unmanaged code that modifies the collection under our feet.
   public sealed class Contour2DfListEnumerator : global::System.Collections.IEnumerator
-    , global::System.Collections.Generic.IEnumerator<Point2DfArray>
+    , global::System.Collections.Generic.IEnumerator<Point2DfList>
   {
     private Contour2DfList collectionRef;
     private int currentIndex;
@@ -158,7 +158,7 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     }
 
     // Type-safe iterator Current
-    public Point2DfArray Current {
+    public Point2DfList Current {
       get {
         if (currentIndex == -1)
           throw new global::System.InvalidOperationException("Enumeration not started.");
@@ -166,7 +166,7 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
           throw new global::System.InvalidOperationException("Enumeration finished.");
         if (currentObject == null)
           throw new global::System.InvalidOperationException("Collection modified.");
-        return (Point2DfArray)currentObject;
+        return (Point2DfList)currentObject;
       }
     }
 
@@ -208,8 +208,8 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public void Add(Point2DfArray x) {
-    solar_datastructurePINVOKE.Contour2DfList_Add(swigCPtr, Point2DfArray.getCPtr(x));
+  public void Add(Point2DfList x) {
+    solar_datastructurePINVOKE.Contour2DfList_Add(swigCPtr, Point2DfList.getCPtr(x));
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -242,22 +242,22 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  private Point2DfArray getitemcopy(int index) {
+  private Point2DfList getitemcopy(int index) {
     global::System.IntPtr cPtr = solar_datastructurePINVOKE.Contour2DfList_getitemcopy(swigCPtr, index);
-    Point2DfArray ret = (cPtr == global::System.IntPtr.Zero) ? null : new Point2DfArray(cPtr, true);
+    Point2DfList ret = (cPtr == global::System.IntPtr.Zero) ? null : new Point2DfList(cPtr, true);
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  private Point2DfArray getitem(int index) {
+  private Point2DfList getitem(int index) {
     global::System.IntPtr cPtr = solar_datastructurePINVOKE.Contour2DfList_getitem(swigCPtr, index);
-    Point2DfArray ret = (cPtr == global::System.IntPtr.Zero) ? null : new Point2DfArray(cPtr, true);
+    Point2DfList ret = (cPtr == global::System.IntPtr.Zero) ? null : new Point2DfList(cPtr, true);
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  private void setitem(int index, Point2DfArray val) {
-    solar_datastructurePINVOKE.Contour2DfList_setitem(swigCPtr, index, Point2DfArray.getCPtr(val));
+  private void setitem(int index, Point2DfList val) {
+    solar_datastructurePINVOKE.Contour2DfList_setitem(swigCPtr, index, Point2DfList.getCPtr(val));
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -273,8 +273,8 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     return ret;
   }
 
-  public void Insert(int index, Point2DfArray x) {
-    solar_datastructurePINVOKE.Contour2DfList_Insert(swigCPtr, index, Point2DfArray.getCPtr(x));
+  public void Insert(int index, Point2DfList x) {
+    solar_datastructurePINVOKE.Contour2DfList_Insert(swigCPtr, index, Point2DfList.getCPtr(x));
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
   }
 
@@ -293,8 +293,8 @@ public class Contour2DfList : global::System.IDisposable, global::System.Collect
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
   }
 
-  public static Contour2DfList Repeat(Point2DfArray value, int count) {
-    global::System.IntPtr cPtr = solar_datastructurePINVOKE.Contour2DfList_Repeat(Point2DfArray.getCPtr(value), count);
+  public static Contour2DfList Repeat(Point2DfList value, int count) {
+    global::System.IntPtr cPtr = solar_datastructurePINVOKE.Contour2DfList_Repeat(Point2DfList.getCPtr(value), count);
     Contour2DfList ret = (cPtr == global::System.IntPtr.Zero) ? null : new Contour2DfList(cPtr, true);
     if (solar_datastructurePINVOKE.SWIGPendingException.Pending) throw solar_datastructurePINVOKE.SWIGPendingException.Retrieve();
     return ret;

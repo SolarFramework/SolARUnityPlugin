@@ -220,6 +220,9 @@ class solar_api_displayPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifDisplay_I2DOverlay_drawCircles__SWIG_1___")]
   public static extern void I2DOverlay_drawCircles__SWIG_1(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifDisplay_I2DOverlay_drawContour___")]
+  public static extern void I2DOverlay_drawContour(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
+
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifDisplay_I2DOverlay_drawContours___")]
   public static extern void I2DOverlay_drawContours(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 

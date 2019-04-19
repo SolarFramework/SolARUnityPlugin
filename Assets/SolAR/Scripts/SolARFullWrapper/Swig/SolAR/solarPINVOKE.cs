@@ -250,6 +250,9 @@ class solarPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_IKeypointDetector")]
   public static extern global::System.IntPtr bindTo_IKeypointDetector(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_IKeypointDetectorRegion")]
+  public static extern global::System.IntPtr bindTo_IKeypointDetectorRegion(global::System.Runtime.InteropServices.HandleRef jarg1);
+
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_IKeypointsReIndexer")]
   public static extern global::System.IntPtr bindTo_IKeypointsReIndexer(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -264,6 +267,12 @@ class solarPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_I2DTransform")]
   public static extern global::System.IntPtr bindTo_I2DTransform(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_IProject")]
+  public static extern global::System.IntPtr bindTo_IProject(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_IUnproject")]
+  public static extern global::System.IntPtr bindTo_IUnproject(global::System.Runtime.InteropServices.HandleRef jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_I3DTransform")]
   public static extern global::System.IntPtr bindTo_I3DTransform(global::System.Runtime.InteropServices.HandleRef jarg1);
@@ -360,6 +369,9 @@ class solarPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_ISourceImage")]
   public static extern global::System.IntPtr bindTo_ISourceImage(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolAR_bindTo_IOpticalFlowEstimator")]
+  public static extern global::System.IntPtr bindTo_IOpticalFlowEstimator(global::System.Runtime.InteropServices.HandleRef jarg1);
 }
 
 }

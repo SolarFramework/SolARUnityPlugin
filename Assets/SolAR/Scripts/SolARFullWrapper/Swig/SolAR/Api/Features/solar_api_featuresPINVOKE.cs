@@ -259,6 +259,18 @@ class solar_api_featuresPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointDetector_detect___")]
   public static extern void IKeypointDetector_detect(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3);
 
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_delete_IKeypointDetectorRegion___")]
+  public static extern void delete_IKeypointDetectorRegion(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointDetectorRegion_setType___")]
+  public static extern void IKeypointDetectorRegion_setType(global::System.Runtime.InteropServices.HandleRef jarg1, int jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointDetectorRegion_getType___")]
+  public static extern int IKeypointDetectorRegion_getType(global::System.Runtime.InteropServices.HandleRef jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointDetectorRegion_detect___")]
+  public static extern void IKeypointDetectorRegion_detect(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2, global::System.Runtime.InteropServices.HandleRef jarg3, global::System.Runtime.InteropServices.HandleRef jarg4);
+
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_delete_IKeypointsReIndexer___")]
   public static extern void delete_IKeypointsReIndexer(global::System.Runtime.InteropServices.HandleRef jarg1);
 
@@ -294,6 +306,9 @@ class solar_api_featuresPINVOKE {
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointDetector_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr IKeypointDetector_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointDetectorRegion_SWIGSmartPtrUpcast___")]
+  public static extern global::System.IntPtr IKeypointDetectorRegion_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);
 
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifFeatures_IKeypointsReIndexer_SWIGSmartPtrUpcast___")]
   public static extern global::System.IntPtr IKeypointsReIndexer_SWIGSmartPtrUpcast(global::System.IntPtr jarg1);

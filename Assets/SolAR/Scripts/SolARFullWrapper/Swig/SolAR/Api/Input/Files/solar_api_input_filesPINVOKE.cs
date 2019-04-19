@@ -229,6 +229,12 @@ class solar_api_input_filesPINVOKE {
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifInputfFiles_IMarker2DSquared_getSize___")]
   public static extern global::System.IntPtr IMarker2DSquared_getSize(global::System.Runtime.InteropServices.HandleRef jarg1);
 
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifInputfFiles_IMarker2DSquared_getImageCorners___")]
+  public static extern int IMarker2DSquared_getImageCorners(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
+  [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifInputfFiles_IMarker2DSquared_getWorldCorners___")]
+  public static extern int IMarker2DSquared_getWorldCorners(global::System.Runtime.InteropServices.HandleRef jarg1, global::System.Runtime.InteropServices.HandleRef jarg2);
+
   [global::System.Runtime.InteropServices.DllImport("SolARWrapper", EntryPoint="CSharp_SolARfApifInputfFiles_delete_IMarker2DSquaredBinary___")]
   public static extern void delete_IMarker2DSquaredBinary(global::System.Runtime.InteropServices.HandleRef jarg1);
 

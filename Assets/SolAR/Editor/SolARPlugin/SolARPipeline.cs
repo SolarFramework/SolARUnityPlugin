@@ -8,6 +8,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SolAR
 {
@@ -364,7 +365,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 double f;
-                                double.TryParse(v.stringValue, out f);
+                                double.TryParse(v.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.DelayedDoubleField(content, f);
                                 if (scope.changed)
                                 {
@@ -384,7 +385,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 float f;
-                                float.TryParse(value.stringValue, out f);
+                                float.TryParse(value.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.FloatField(content, f);
                                 if (scope.changed)
                                 {
@@ -468,7 +469,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 int f;
-                                int.TryParse(value.stringValue, out f);
+                                int.TryParse(value.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.IntField(content, f);
                                 if (scope.changed)
                                 {

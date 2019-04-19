@@ -21,6 +21,7 @@ using SolAR.Api.Display;
 using SolAR.Api.Features;
 using SolAR.Api.Geom;
 using SolAR.Api.Image;
+using SolAR.Api.Input.Devices;
 using SolAR.Api.Input.Files;
 using SolAR.Api.Solver.Pose;
 using SolAR.Core;
@@ -100,7 +101,7 @@ namespace SolAR.Samples
             PnP.setCameraParameters(intrinsics, distorsion);
         }
 
-        public override FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose)
+        public override FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose, ICamera camera)
         {
             // Convert Image from RGB to grey
             imageConvertor.convert(inputImage, greyImage, Image.ImageLayout.LAYOUT_GREY).Check();

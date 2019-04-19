@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SolAR;
+using SolAR.Api.Input.Devices;
 using SolAR.Core;
 using SolAR.Datastructure;
 using UniRx;
@@ -49,5 +50,5 @@ public abstract class AbstractPipeline : IPipeline
 
     public abstract Sizef GetMarkerSize();
     public abstract void SetCameraParameters(Matrix3x3f intrinsic, Vector5f distorsion);
-    public abstract FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose);
+    public abstract FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose, ICamera camera);
 }

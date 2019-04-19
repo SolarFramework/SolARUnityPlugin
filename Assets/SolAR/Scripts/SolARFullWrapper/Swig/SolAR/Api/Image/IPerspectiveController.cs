@@ -51,8 +51,8 @@ public class IPerspectiveController : IComponentIntrospect {
     return ret;
   }
 
-  public virtual FrameworkReturnCode correct(Image inputImg, Point2DfArray contour, Image patch) {
-    FrameworkReturnCode ret = (FrameworkReturnCode)solar_api_imagePINVOKE.IPerspectiveController_correct__SWIG_1(swigCPtr, Image.getCPtr(inputImg), Point2DfArray.getCPtr(contour), Image.getCPtr(patch));
+  public virtual FrameworkReturnCode correct(Image inputImg, Point2DfList contour, Image patch) {
+    FrameworkReturnCode ret = (FrameworkReturnCode)solar_api_imagePINVOKE.IPerspectiveController_correct__SWIG_1(swigCPtr, Image.getCPtr(inputImg), Point2DfList.getCPtr(contour), Image.getCPtr(patch));
     if (solar_api_imagePINVOKE.SWIGPendingException.Pending) throw solar_api_imagePINVOKE.SWIGPendingException.Retrieve();
     return ret;
   }

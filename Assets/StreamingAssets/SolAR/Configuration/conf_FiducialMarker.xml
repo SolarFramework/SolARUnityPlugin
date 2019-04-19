@@ -1,5 +1,5 @@
 <xpcf-registry>
-  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="Assets\Plugins" description="OpenCV">
+  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./Assets/Plugins" description="OpenCV">
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
@@ -59,7 +59,7 @@
       <interface uuid="81a20f52-6bf9-4949-b914-df2f614bc945" name="I3DOverlay" description="I3DOverlay" />
     </component>
   </module>
-  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="Assets\Plugins" description="Tools">
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./Assets/Plugins" description="Tools">
     <component uuid="a2ef5542-029e-4fce-9974-0aea14b29d6f" name="SolARSBPatternReIndexer" description="SolARSBPatternReIndexer">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="79c5b810-d557-11e7-9296-cec278b6b50a" name="ISBPatternReIndexer" description="ISBPatternReIndexer" />
@@ -71,17 +71,17 @@
   </module>
   <configuration>
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4">
-      <property name="calibrationFile" type="string" value="Assets\StreamingAssets\SolAR\CameraCalibration\camera_calibration.yml" />
+      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" />
       <property name="deviceID" type="UnsignedInteger" value="0" />
       <!--SolARCameraOpencv-->
     </component>
     <component uuid="fa4a780a-9720-11e8-9eb6-529269fb1459">
-      <property name="calibrationFile" type="string" value="Assets\StreamingAssets\SolAR\CameraCalibration\camera_calibration.yml" />
+      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" />
       <property name="videoPath" type="string" value="video.mp4" />
       <!--SolARVideoAsCameraOpencv-->
     </component>
     <component uuid="5d2b8da9-528e-4e5e-96c1-f883edcf3b1c">
-      <property name="filePath" type="string" value="Assets\StreamingAssets\SolAR\Markers\fiducialMarker.yml" />
+      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" />
       <!--SolARMarker2DSquaredBinaryOpencv-->
     </component>
     <component uuid="e5fd7e9a-fcae-4f86-bfc7-ea8584c298b2">
