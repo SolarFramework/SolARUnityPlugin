@@ -44,6 +44,7 @@ namespace SolAR.Samples
             imageViewerContours = Create<IImageViewer>("SolARImageViewerOpencv", "contours");
             imageViewerFilteredContours = Create<IImageViewer>("SolARImageViewerOpencv", "filteredContours");
 #endif
+            overlay3DComponent = Create<I3DOverlay>("SolAR3DOverlayOpencv");
 
             imageFilterBinary = Create<IImageFilter>("SolARImageFilterBinaryOpencv");
             imageConvertor = Create<IImageConvertor>("SolARImageConvertorOpencv");
@@ -103,6 +104,8 @@ namespace SolAR.Samples
 
         public override FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose, ICamera camera)
         {
+            overlay3DComponent.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+
             // Convert Image from RGB to grey
             imageConvertor.convert(inputImage, greyImage, Image.ImageLayout.LAYOUT_GREY).Check();
 
@@ -218,6 +221,7 @@ namespace SolAR.Samples
                     // Compute the pose of the camera using a Perspective n Points algorithm using only the 4 corners of the marker
                     if (PnP.estimate(img2DPoints, pattern3DPoints, pose) == FrameworkReturnCode._SUCCESS)
                     {
+                        overlay3DComponent.draw(pose, inputImage);
                         return FrameworkReturnCode._SUCCESS;
                     }
                 }
@@ -243,7 +247,7 @@ namespace SolAR.Samples
         readonly Point2DfList pattern2DPoints;
         readonly Point2DfList img2DPoints;
         readonly Point3DfList pattern3DPoints;
-
+        readonly I3DOverlay overlay3DComponent;
         // components
         readonly IMarker2DSquaredBinary binaryMarker;
 
