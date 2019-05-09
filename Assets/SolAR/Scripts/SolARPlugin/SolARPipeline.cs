@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SolAR.Datastructure;
+using SolARPipelineManager;
+using System;
 using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -224,6 +226,7 @@ namespace SolAR
                         m_pipelineManager.loadSourceImage(sourceTexture, width, height);
                     }
                     SolARPluginPipelineManager.Pose pose = new SolARPluginPipelineManager.Pose();
+                    
                     if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
                         myObject.GetComponent<Renderer>().enabled = true;

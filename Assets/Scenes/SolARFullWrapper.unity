@@ -546,8 +546,8 @@ MonoBehaviour:
             name: I2DOverlay
             description: I2DOverlay
         - uuid: 2db01f59-9793-4cd5-8e13-b25d0ed5735b
-          name: SolAR3DOverlayBoxOpencv
-          description: SolAR3DOverlayBoxOpencv
+          name: SolAR3DOverlayOpencv
+          description: SolAR3DOverlayOpencv
           interfaces:
           - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
             name: IComponentIntrospect
@@ -720,7 +720,7 @@ MonoBehaviour:
             value: 1
             description: 
             values: []
-        - type: SolAR3DOverlayBoxOpencv
+        - type: SolAR3DOverlayOpencv
           uuid: 2db01f59-9793-4cd5-8e13-b25d0ed5735b
           name: 
           description: 

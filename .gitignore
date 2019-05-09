@@ -58,3 +58,5 @@ sysinfo.txt
 *.unitypackage
 Assets/SolAR/Scripts/SolARFullWrapper/Swig/
 Assets/SolAR/Scripts/SolARPlugin/Swig/
+Assets/SolAR/Swig/
+Assets/SolAR/Swig.meta

@@ -8,8 +8,8 @@ del ".\Assets\Plugins\*.*"
 
 :: copy csharp interfaces
 echo ---------------- copy c# ----------------------
-xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.5.2\CSharp\*" ".\Assets\SolAR\Scripts\SolARPlugin\Swig\"
-xcopy "%BCOMDEVROOT%\..\sources\SolARFramework\SolARWrapper\out\csharp\*" ".\Assets\SolAR\Scripts\SolARFullWrapper\Swig\" /S
+::xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.5.2\CSharp\*" ".\Assets\SolAR\Scripts\SolARPlugin\Swig\"
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARWrapper\csharp\*" ".\Assets\SolAR\Swig\" /S
 
 :: copy dll
 SET mode="release"
@@ -48,7 +48,7 @@ xcopy "%BCOMDEVROOT%\bcomBuild\PipelineFiducialMarker\0.5.2\lib\x86_64\shared\%m
 xcopy "%BCOMDEVROOT%\bcomBuild\PipelineNaturalImageMarker\0.5.2\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
 
 echo -----------copy SolAR Wrapper dll----------
-xcopy "%BCOMDEVROOT%\..\build\release\SolARWrapper\Release\*.dll" .\Assets\Plugins\
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARWrapper\build\Release\*.dll" .\Assets\Plugins\
 
 IF "%1"=="-debug" (GOTO Debug)
 exit /B 0
