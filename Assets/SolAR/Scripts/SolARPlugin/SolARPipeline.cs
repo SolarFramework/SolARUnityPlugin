@@ -1,12 +1,6 @@
-﻿using SolAR.Datastructure;
-using SolARPipelineManager;
-using System;
-using System.Collections;
-using System.IO;
+﻿using System;
 using System.Runtime.InteropServices;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace SolAR

@@ -746,9 +746,9 @@ MonoBehaviour:
             value: 
             description: 
             values:
-            - 0.157
-            - 0.157
-            - 0.157
+            - 0.085
+            - 0.085
+            - 0.1
         - type: SolARImageViewerOpencv
           uuid: 19ea4e13-7085-4e3f-92ca-93f200ffb01b
           name: 
