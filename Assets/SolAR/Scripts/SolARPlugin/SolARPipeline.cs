@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
+using SolAR.Datastructure;
+using SolAR.Api.Pipeline;
 
 namespace SolAR
 {
@@ -140,14 +142,15 @@ namespace SolAR
                 }
                 else
                 {
-                    SolARPluginPipelineManager.CamParams camParams = m_pipelineManager.getCameraParameters();
-                    m_texture = new Texture2D(camParams.width, camParams.height, TextureFormat.RGB24, false);
-                    width = camParams.width;
-                    height = camParams.height;
-                    focalX = camParams.focalX;
-                    focalY = camParams.focalY;
-                    centerX = camParams.centerX;
-                    centerY = camParams.centerY;
+                    Matrix3x3f camParams = m_pipelineManager.getCameraParameters();
+                    m_texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+                    width = Screen.width;
+                    height = Screen.height;
+                    focalX = camParams.coeff(0, 0); // focalX;
+                    focalY = camParams.coeff(1,1);  // focalY;
+                    centerX = camParams.coeff(0,2); // centerX;
+                    centerY = camParams.coeff(1, 2);// centerY;
+
                 }
 
                 SendParametersToCameraProjectionMatrix();
@@ -218,16 +221,17 @@ namespace SolAR
 
                         sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
                         m_pipelineManager.loadSourceImage(sourceTexture, width, height);
-                    }
-                    SolARPluginPipelineManager.Pose pose = new SolARPluginPipelineManager.Pose();
+                    }    
+                    Transform3Df pose = new Transform3Df();
                     
                     if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
                         myObject.GetComponent<Renderer>().enabled = true;
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
-                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation(0, 0), pose.rotation(0, 1), pose.rotation(0, 2), pose.translation(0)));
-                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation(1, 0), pose.rotation(1, 1), pose.rotation(1, 2), pose.translation(1)));
-                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation(2, 0), pose.rotation(2, 1), pose.rotation(2, 2), pose.translation(2)));
+
+                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0,0)));
+                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation().coeff(1, 0), pose.rotation().coeff(1, 1), pose.rotation().coeff(1, 2), pose.translation().coeff(1,0)));
+                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation().coeff(2, 0), pose.rotation().coeff(2, 1), pose.rotation().coeff(2, 2), pose.translation().coeff(2,0)));
                         cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
 
                         Matrix4x4 invertMatrix = new Matrix4x4();
