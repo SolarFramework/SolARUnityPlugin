@@ -10,7 +10,7 @@ del ".\Assets\SolAR\Swig\*.*" /S /Q
 echo ---------------- copy c# ----------------------
 timeout 2
 xcopy "%BCOMDEVROOT%\bcombuild\SolARPipelineManager\0.5.2\CSharp\*" ".\Assets\SolAR\Swig\SolARPluginNovice\"
-xcopy "%BCOMDEVROOT%\bcomBuild\SolARWrapper\csharp\*" ".\Assets\SolAR\Swig\" /S
+xcopy "%BCOMDEVROOT%\bcomBuild\SolARWrapper\csharp\*" ".\Assets\SolAR\Swig\SolARPluginExpert" /S
 
 :: copy dll
 SET mode="release"
