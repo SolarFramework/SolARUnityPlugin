@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
+using System;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SolAR
 {
@@ -364,8 +366,8 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 double f;
-                                double.TryParse(v.stringValue, out f);
-                                f = EditorGUILayout.DelayedDoubleField(content, f);
+                                Double.TryParse(v.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
+                                f = EditorGUILayout.DoubleField(content, f);
                                 if (scope.changed)
                                 {
                                     v.stringValue = f.ToString();
@@ -384,7 +386,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 float f;
-                                float.TryParse(value.stringValue, out f);
+                                float.TryParse(value.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.FloatField(content, f);
                                 if (scope.changed)
                                 {
@@ -400,7 +402,7 @@ namespace SolAR
                                 for (int i = 0; i < 2; ++i)
                                 {
                                     float f;
-                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 v = EditorGUILayout.Vector2Field(content, v);
@@ -421,7 +423,7 @@ namespace SolAR
                                 for (int i = 0; i < 3; ++i)
                                 {
                                     float f;
-                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 v = EditorGUILayout.Vector3Field(content, v);
@@ -468,7 +470,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 int f;
-                                int.TryParse(value.stringValue, out f);
+                                int.TryParse(value.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.IntField(content, f);
                                 if (scope.changed)
                                 {
@@ -484,7 +486,7 @@ namespace SolAR
                                 for (int i = 0; i < 2; ++i)
                                 {
                                     int f;
-                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 v = EditorGUILayout.Vector2IntField(content, v);
@@ -505,7 +507,7 @@ namespace SolAR
                                 for (int i = 0; i < 3; ++i)
                                 {
                                     int f;
-                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 if (content.text.ToLowerInvariant().Contains("color"))
