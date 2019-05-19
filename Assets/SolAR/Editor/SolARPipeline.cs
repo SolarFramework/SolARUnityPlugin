@@ -13,11 +13,11 @@ using System.Globalization;
 
 namespace SolAR
 {
-    [CustomEditor(typeof(SolARPipeline), true)]
+    [CustomEditor(typeof(SolARPipelineLoader), true)]
     public class SolARPipelineEditor : Editor
     {
 #pragma warning disable IDE1006 // Styles d'affectation de noms
-        new SolARPipeline target { get { return (SolARPipeline)base.target; } }
+        new SolARPipelineLoader target { get { return (SolARPipelineLoader)base.target; } }
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 
         GUIStyle _windowStyle;
