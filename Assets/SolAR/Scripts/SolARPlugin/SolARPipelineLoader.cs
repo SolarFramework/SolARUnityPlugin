@@ -238,8 +238,8 @@ namespace SolAR
 
                         Matrix4x4 invertMatrix = new Matrix4x4();
                         invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
-                        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
-                        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
+                        invertMatrix.SetRow(1, new Vector4(0, 0, -1, 0));
+                        invertMatrix.SetRow(2, new Vector4(0, -1, 0, 0));
                         invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
                         Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
 
@@ -248,6 +248,8 @@ namespace SolAR
 
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
+
+
                     }
                     else
                     {
