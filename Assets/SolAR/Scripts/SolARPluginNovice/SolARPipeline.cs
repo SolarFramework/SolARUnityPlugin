@@ -3,8 +3,6 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using SolAR.Datastructure;
-using SolAR.Api.Pipeline;
-
 namespace SolAR
 {
     public class SolARPipeline : MonoBehaviour
@@ -166,7 +164,7 @@ namespace SolAR
                     m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     m_canvas.pixelPerfect = true;
                     m_canvas.worldCamera = m_camera;
-                    m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
+                    m_canvas.planeDistance = m_camera.farClipPlane ;
 
                     CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                     scaler.referenceResolution = new Vector2(width, height);
