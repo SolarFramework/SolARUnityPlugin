@@ -296,6 +296,66 @@ Prefab:
       propertyPath: myObject
       value: 
       objectReference: {fileID: 984393285}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[0].type
+      value: PipelineFiducialMarker
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[0].description
+      value: A pipeline to estimate the pose based on a squared fiducial marker
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[1].type
+      value: SolARCameraOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[1].description
+      value: SolARCameraOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[2].type
+      value: SolARMarker2DSquaredBinaryOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[2].description
+      value: SolARMarker2DSquaredBinaryOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[3].type
+      value: SolARContoursExtractorOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[3].description
+      value: SolARContoursExtractorOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[4].type
+      value: SolARContoursFilterBinaryMarkerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[4].description
+      value: SolARContoursFilterBinaryMarkerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[5].type
+      value: SolARPerspectiveControllerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: conf.configuration.components.Array.data[5].description
+      value: SolARPerspectiveControllerOpencv
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37f082361edc9064ba18b144c5e661ce, type: 2}
   m_IsPrefabAsset: 0
