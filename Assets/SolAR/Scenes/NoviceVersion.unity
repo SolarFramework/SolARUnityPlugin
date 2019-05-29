@@ -356,6 +356,16 @@ Prefab:
       propertyPath: conf.configuration.components.Array.data[5].description
       value: SolARPerspectiveControllerOpencv
       objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: m_webCamNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: m_Unity_Webcam
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37f082361edc9064ba18b144c5e661ce, type: 2}
   m_IsPrefabAsset: 0
