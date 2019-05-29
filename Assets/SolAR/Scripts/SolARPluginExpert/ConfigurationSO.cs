@@ -16,7 +16,9 @@ namespace SolAR
 
         protected void Reset()
         {
-            path = UnityEditor.AssetDatabase.GetAssetPath(this);
+#if UNITY_EDITOR
+            path = UnityEditor.AssetDatabase.GetAssetPath(this); 
+#endif
             path = Path.ChangeExtension(path, ".xml");
         }
 

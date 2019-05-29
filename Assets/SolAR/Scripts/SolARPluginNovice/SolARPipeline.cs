@@ -115,6 +115,7 @@ namespace SolAR
                     Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
                     return;
                 }
+                m_Unity_Webcam = true;
 #endif
 
                 if (m_Unity_Webcam)
@@ -194,9 +195,6 @@ namespace SolAR
             else
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
 
-            //m_myAction += MyEvent;
-            //m_EventButton.onClick.AddListener(m_myAction);
-
             UpdateReady = true;
         }
 
@@ -252,11 +250,6 @@ namespace SolAR
                 m_material.SetTexture("_MainTex", m_texture);
             }
         }
-
-        //void MyEvent()
-        //{
-        //    Debug.Log("Event");
-        //}
 
         void SendParametersToCameraProjectionMatrix()
         {

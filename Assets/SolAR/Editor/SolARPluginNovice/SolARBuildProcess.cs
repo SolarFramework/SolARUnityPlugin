@@ -38,6 +38,10 @@ namespace SolAR {
                             windowsPipelineConfPath = windowsPipelineConfPath.Insert(windowsPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
                             if (!System.IO.File.Exists(Application.dataPath + windowsPipelineConfPath))
                             {
+
+                                //verifier: si deja la, remplacer !
+
+                                if (File.Exists(Application.streamingAssetsPath + pipeline.m_configurationPath)) File.Delete(Application.streamingAssetsPath + pipeline.m_configurationPath);
                                 FileUtil.CopyFileOrDirectory(Application.dataPath + pipeline.m_configurationPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
                                 // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
                                 ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
@@ -88,7 +92,7 @@ namespace SolAR {
                             case BuildTarget.StandaloneWindows:
                             case BuildTarget.StandaloneWindows64:
                                 // For windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
-                                new_value = "./" + Application.productName + "_Data/Plugins/";
+                                new_value = "./" + Application.productName + "_Data/Plugins";
                                 break;
                             case BuildTarget.StandaloneOSX:
                                 break;
