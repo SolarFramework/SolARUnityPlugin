@@ -18,35 +18,39 @@ namespace SolAR {
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            SolARPipeline[] solARPipelines = (SolARPipeline[])GameObject.FindObjectsOfType<SolARPipeline>();
-            foreach (SolARPipeline pipeline in solARPipelines)
+            SolARPipelineLoader[] solARPipelineLoaders = (SolARPipelineLoader[])GameObject.FindObjectsOfType<SolARPipelineLoader>();
+            foreach (SolARPipelineLoader solarPipelineLoader in solARPipelineLoaders)
             {
                 switch (report.summary.platform)
                 {
                     case BuildTarget.StandaloneWindows:
                     case BuildTarget.StandaloneWindows64:
                         {
-                            string windowsPipelineConfPath = pipeline.m_configurationPath;
+                            string windowsPipelineConfPath = solarPipelineLoader.m_configurationPath;
                             // Create a directory in the streamingAssets folder to copy the pipeline configuration files
-                            if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath)))
+                            if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + solarPipelineLoader.m_configurationPath)))
                             {
-                                Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
+                                Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + solarPipelineLoader.m_configurationPath));
                                 // Store the folders to remove it after the build process
-                                createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
+                                createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + solarPipelineLoader.m_configurationPath));
                             }
                             // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
                             windowsPipelineConfPath = windowsPipelineConfPath.Insert(windowsPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
                             if (!System.IO.File.Exists(Application.dataPath + windowsPipelineConfPath))
                             {
+<<<<<<< HEAD:Assets/SolAR/Editor/SolARPluginNovice/SolARBuildProcess.cs
                                 if (File.Exists(Application.streamingAssetsPath + pipeline.m_configurationPath)) File.Delete(Application.streamingAssetsPath + pipeline.m_configurationPath);
                                 FileUtil.CopyFileOrDirectory(Application.dataPath + pipeline.m_configurationPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
+=======
+                                FileUtil.CopyFileOrDirectory(Application.dataPath + solarPipelineLoader.m_configurationPath, Application.streamingAssetsPath + solarPipelineLoader.m_configurationPath);
+>>>>>>> develop:Assets/SolAR/Editor/SolARBuildProcess.cs
                                 // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
-                                ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
+                                ReplacePluginPaths(Application.streamingAssetsPath + solarPipelineLoader.m_configurationPath, report);
                             }
                             // If there is a pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move it to the streamingAssets folder
                             else
                             {
-                                FileUtil.CopyFileOrDirectory(Application.dataPath + windowsPipelineConfPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
+                                FileUtil.CopyFileOrDirectory(Application.dataPath + windowsPipelineConfPath, Application.streamingAssetsPath + solarPipelineLoader.m_configurationPath);
                             }
                             break;
                         }

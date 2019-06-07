@@ -5,8 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+<<<<<<< HEAD
   - enabled: 0
     path: Assets/SolAR/Scenes/NoviceVersion.unity
+=======
+  - enabled: 1
+    path: Assets/SolAR/Scenes/SolARPipelineScene.unity
+>>>>>>> develop
     guid: 8c477acf40243cc43a4cdfe42ee59d4b
   - enabled: 1
     path: Assets/SolAR/Scenes/ExpertVersion.unity

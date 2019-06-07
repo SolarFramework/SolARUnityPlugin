@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
+using System;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using System.Linq;
@@ -12,11 +13,11 @@ using System.Globalization;
 
 namespace SolAR
 {
-    [CustomEditor(typeof(SolARPipeline), true)]
+    [CustomEditor(typeof(SolARPipelineLoader), true)]
     public class SolARPipelineEditor : Editor
     {
 #pragma warning disable IDE1006 // Styles d'affectation de noms
-        new SolARPipeline target { get { return (SolARPipeline)base.target; } }
+        new SolARPipelineLoader target { get { return (SolARPipelineLoader)base.target; } }
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 
         GUIStyle _windowStyle;
@@ -365,8 +366,13 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 double f;
+<<<<<<< HEAD:Assets/SolAR/Editor/SolARPluginNovice/SolARPipeline.cs
                                 double.TryParse(v.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.DelayedDoubleField(content, f);
+=======
+                                Double.TryParse(v.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
+                                f = EditorGUILayout.DoubleField(content, f);
+>>>>>>> develop:Assets/SolAR/Editor/SolARPipeline.cs
                                 if (scope.changed)
                                 {
                                     v.stringValue = f.ToString();
@@ -401,7 +407,7 @@ namespace SolAR
                                 for (int i = 0; i < 2; ++i)
                                 {
                                     float f;
-                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 v = EditorGUILayout.Vector2Field(content, v);
@@ -422,7 +428,7 @@ namespace SolAR
                                 for (int i = 0; i < 3; ++i)
                                 {
                                     float f;
-                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    float.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 v = EditorGUILayout.Vector3Field(content, v);
@@ -485,7 +491,7 @@ namespace SolAR
                                 for (int i = 0; i < 2; ++i)
                                 {
                                     int f;
-                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 v = EditorGUILayout.Vector2IntField(content, v);
@@ -506,7 +512,7 @@ namespace SolAR
                                 for (int i = 0; i < 3; ++i)
                                 {
                                     int f;
-                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, out f);
+                                    int.TryParse(values.GetArrayElementAtIndex(i).stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                     v[i] = f;
                                 }
                                 if (content.text.ToLowerInvariant().Contains("color"))

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1621083152133652111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621083152133652109}
+  - component: {fileID: 8433377329211912895}
+  m_Layer: 0
+  m_Name: SolARPipelineLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621083152133652109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621083152133652111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8433377329211912895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621083152133652111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95b14cd248f4ed4c8030064e5de5822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focalX: 0
+  focalY: 0
+  width: 0
+  height: 0
+  centerX: 0
+  centerY: 0
+  m_camera: {fileID: 0}
+  m_CustomCanvas: 0
+  m_canvas: {fileID: 0}
+  m_material: {fileID: 0}
+  m_pipelineFolder: 
+  m_pipelinesName: []
+  m_pipelinesUUID: []
+  m_pipelinesPath: []
+  m_selectedPipeline: -1
+  m_configurationPath: 
+  m_uuid: 
+  m_webCamNum: 0
+  conf:
+    modules: []
+    configuration:
+      components: []
+  m_webCamTexture: {fileID: 0}
+  m_Unity_Webcam: 0
