@@ -45,7 +45,7 @@ namespace SolAR
 
             var path = serializedObject.FindProperty("conf.path");
             EditorGUILayout.PropertyField(path);
-
+            
             var conf = serializedObject.FindProperty("conf.conf");
             OnConfGUI(conf);
 

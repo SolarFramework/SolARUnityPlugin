@@ -191,6 +191,7 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 7764f57812546c4428b0563f514790b5, type: 2}
   property: _MainTex
+  m_shader: {fileID: 4800000, guid: c4c55970e9f9ad546bea2f47c5fbe7a1, type: 3}
 --- !u!1 &306338999
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solARManager: {fileID: 760057294}
+  m_shader: {fileID: 4800000, guid: 340982dedbfdd6b42b0f3ccfb222fdd9, type: 3}
 --- !u!114 &571934194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +418,86 @@ Prefab:
     - target: {fileID: 4676945017873958, guid: f716dbe4588a48d489f9bcc1aed64c3d, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[0].type
+      value: SolARCameraOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[1].type
+      value: SolARVideoAsCameraOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[2].type
+      value: SolARMarker2DSquaredBinaryOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[3].type
+      value: SolARImageFilterBinaryOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[4].type
+      value: SolARContoursExtractorOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[5].type
+      value: SolARContoursFilterBinaryMarkerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[6].type
+      value: SolARPerspectiveControllerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[7].type
+      value: SolAR2DOverlayOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[8].type
+      value: SolAR2DOverlayOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[9].type
+      value: SolAR3DOverlayOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[10].type
+      value: SolARImageViewerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[11].type
+      value: SolARImageViewerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[12].type
+      value: SolARImageViewerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[13].type
+      value: SolARImageViewerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[14].type
+      value: SolARImageViewerOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: source
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f716dbe4588a48d489f9bcc1aed64c3d, type: 2}

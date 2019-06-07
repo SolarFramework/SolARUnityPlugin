@@ -9,6 +9,8 @@ using UniRx;
 using UnityEngine;
 using XPCF.Api;
 using XPCF.Core;
+using System.IO;
+using System.Xml.Linq;
 
 namespace SolAR
 {
@@ -49,34 +51,6 @@ namespace SolAR
         }
         public PIPELINE mode;
 
-        /*
-        PIPELINE _mode;
-
-        protected void Awake() { _mode = mode; }
-
-        protected void OnValidate()
-        {
-            if (!Application.isPlaying) return;
-            if (!isActiveAndEnabled) return;
-            if (_mode != mode)
-            {
-                _mode = mode;
-
-                pipeline?.Dispose();
-
-                switch (mode)
-                {
-                    case PIPELINE.Fiducial:
-                        pipeline = new FiducialPipeline(xpcfComponentManager).AddTo(subscriptions);
-                        break;
-                    case PIPELINE.Natural:
-                        pipeline = new FiducialPipeline(xpcfComponentManager).AddTo(subscriptions);
-                        break;
-                }
-            }
-        }
-        */
-
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -85,6 +59,9 @@ namespace SolAR
             Disposable.Create(xpcfComponentManager.clear).AddTo(subscriptions);
             xpcfComponentManager.AddTo(subscriptions);
 
+#if !UNITY_EDITOR    
+            conf.path = File.ReadAllText("confPath.txt");
+#endif
             if (xpcfComponentManager.load(conf.path) != XPCFErrorCode._SUCCESS)
             {
                 Debug.LogErrorFormat("Failed to load the configuration file {0}", conf.path);
@@ -188,7 +165,7 @@ namespace SolAR
                     break;
             }
             count++;
-            
+
             var isTracking = pipeline.Proceed(inputImage, pose, camera) == FrameworkReturnCode._SUCCESS;
             //transform.gameObject.SetActive(isTracking);
             if (isTracking)
@@ -231,5 +208,11 @@ namespace SolAR
             }
         }
         */
+
+        public void PipelineMngchangePath(string t)
+        {
+            conf.path = t;
+        }
+
     }
 }

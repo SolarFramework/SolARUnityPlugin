@@ -14,6 +14,7 @@ namespace SolAR
         Material material;
         int layoutId;
         int propertyId;
+        public Shader m_shader;
 
         RenderTexture rTex;
 
@@ -22,9 +23,8 @@ namespace SolAR
             Assert.IsNotNull(solARManager);
             //GetComponent<Renderer>().material;
 
-            var shader = Shader.Find("SolAR/ImageEffectShader");
-            Assert.IsNotNull(shader);
-            material = new Material(shader)
+            Assert.IsNotNull(m_shader);
+            material = new Material(m_shader)
             {
                 mainTextureOffset = new Vector2(0, 1),
                 mainTextureScale = new Vector2(1, -1),

@@ -14,6 +14,7 @@ namespace SolAR
         GameObject quad;
         Material material;
         int layoutId;
+        public Shader m_shader;
 
         protected void Awake()
         {
@@ -35,9 +36,9 @@ namespace SolAR
 
             var renderer = quad.GetComponent<Renderer>();
             Assert.IsNotNull(renderer);
-            var shader = Shader.Find("SolAR/UnlitShader");
-            Assert.IsNotNull(shader);
-            material = new Material(shader)
+           
+            Assert.IsNotNull(m_shader);
+            material = new Material(m_shader)
             {
                 mainTextureOffset = new Vector2(0, 1),
                 mainTextureScale = new Vector2(1, -1),
