@@ -168,6 +168,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
+      propertyPath: m_TagString
+      value: SolARObject
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cd29cc8e2d81b409aab836e1e04229, type: 3}
   m_IsPrefabAsset: 0
@@ -189,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   solARManager: {fileID: 760057294}
   materials:
-  - {fileID: 2100000, guid: 7764f57812546c4428b0563f514790b5, type: 2}
+  - {fileID: 2100000, guid: 4f069693b8ea8be4f80c4452c1bfcf16, type: 2}
   property: _MainTex
   m_shader: {fileID: 4800000, guid: c4c55970e9f9ad546bea2f47c5fbe7a1, type: 3}
 --- !u!1 &306338999
@@ -498,6 +502,31 @@ Prefab:
         type: 2}
       propertyPath: source
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.modules.Array.data[0].path
+      value: ./Assets/Plugins
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.modules.Array.data[1].path
+      value: ./Assets/Plugins
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[0].properties.Array.data[0].value
+      value: ./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[1].properties.Array.data[0].value
+      value: ./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059770637415076, guid: f716dbe4588a48d489f9bcc1aed64c3d,
+        type: 2}
+      propertyPath: conf.conf.configuration.components.Array.data[2].properties.Array.data[0].value
+      value: ./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f716dbe4588a48d489f9bcc1aed64c3d, type: 2}

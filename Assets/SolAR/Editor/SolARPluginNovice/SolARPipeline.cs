@@ -13,11 +13,11 @@ using System.Globalization;
 
 namespace SolAR
 {
-    [CustomEditor(typeof(SolARPipelineLoader), true)]
+    [CustomEditor(typeof(SolARPipeline), true)]
     public class SolARPipelineEditor : Editor
     {
 #pragma warning disable IDE1006 // Styles d'affectation de noms
-        new SolARPipelineLoader target { get { return (SolARPipelineLoader)base.target; } }
+        new SolARPipeline target { get { return (SolARPipeline)base.target; } }
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 
         GUIStyle _windowStyle;
@@ -366,13 +366,8 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 double f;
-<<<<<<< HEAD:Assets/SolAR/Editor/SolARPluginNovice/SolARPipeline.cs
                                 double.TryParse(v.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
                                 f = EditorGUILayout.DelayedDoubleField(content, f);
-=======
-                                Double.TryParse(v.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out f);
-                                f = EditorGUILayout.DoubleField(content, f);
->>>>>>> develop:Assets/SolAR/Editor/SolARPipeline.cs
                                 if (scope.changed)
                                 {
                                     v.stringValue = f.ToString();
