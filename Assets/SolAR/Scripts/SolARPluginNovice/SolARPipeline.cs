@@ -82,7 +82,7 @@ namespace SolAR
 
         private IntPtr sourceTexture;
         //private readonly UnityAction m_myAction;
-        [SerializeField] private GameObject myObject;
+        public GameObject myObject;
 
         private byte[] m_vidframe_byte;
         private Color32[] data;
@@ -141,7 +141,7 @@ namespace SolAR
                 }
                 else
                 {
-                    Matrix3x3f camParams = m_pipelineManager.getCameraParameters();
+                    Matrix3x3f camParams = m_pipelineManager.getCameraParameters().intrinsic;
                     m_texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
                     width = Screen.width;
                     height = Screen.height;
@@ -149,7 +149,7 @@ namespace SolAR
                     focalY = camParams.coeff(1,1);  // focalY;
                     centerX = camParams.coeff(0,2); // centerX;
                     centerY = camParams.coeff(1, 2);// centerY;
-
+                    
                 }
 
                 SendParametersToCameraProjectionMatrix();

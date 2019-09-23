@@ -102,7 +102,7 @@ namespace SolAR {
                     }
                 }
             }
-            var configComp = doc.Element("xpcf-registry").Elements("configuration").Elements("component");
+            var configComp = doc.Element("xpcf-registry").Elements("properties").Elements("configure");
             foreach (var element in configComp.Elements("property"))
             {
                 var attriName = element.Attribute("name");

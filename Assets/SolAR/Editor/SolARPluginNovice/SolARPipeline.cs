@@ -240,7 +240,7 @@ namespace SolAR
         void OnConfGUI(SerializedProperty conf, out bool modified)
         {
             modified = false;
-            var configuration = conf.FindPropertyRelative("configuration");
+            var configuration = conf.FindPropertyRelative("properties");
 
             OnConfigurationGUI(configuration, out modified);
         }
@@ -256,7 +256,7 @@ namespace SolAR
                 {
                     if (scope.visible)
                     {
-                        var componentsConf = configuration.FindPropertyRelative("components");
+                        var componentsConf = configuration.FindPropertyRelative("configure");
                         OnComponentsConfGUI(componentsConf, out modified);
                     }
                 }
