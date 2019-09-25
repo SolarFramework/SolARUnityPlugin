@@ -18,7 +18,7 @@ We offer two mods :
 3° Build    SolARWrapper
             SolARPipelineManager
             
-4° Build    necessary module (OpenCV, Tools, FBOW... dependending on pipelines you want to use)
+4° Build    necessary module (OpenCV, Tools, FBOW... depending on pipelines you want to use)
 
 5° Build    Pipelines (Fiducial, Natural Image, SLAM ...)
 
