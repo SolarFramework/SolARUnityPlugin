@@ -8,8 +8,23 @@ We offer two mods :
 -Expert
     We give you the opportunity to modify and create your pipeline in C# directly in Unity. (Wrapping of our SolAR C++ framework)
 
+## How build it with source :
 
-## We follow this hierarchie (Unity) (only folders) :
+1° Build    xpcf
+            SolARFramework
+            
+2° Execute  SolARFramework / SolARWrapper / _build.bat
+
+3° Build    SolARWrapper
+            SolARPipelineManager
+            
+4° Build    necessary module (OpenCV, Tools, FBOW... dependending on pipelines you want to use)
+
+5° Build    Pipelines (Fiducial, Natural Image, SLAM ...)
+
+6° Execute  SolARUnityPlugin / update.bat
+
+## We follow this hierarchy (Unity) (only folders) :
 
   Assets
     ==> Objects   (3D models)
