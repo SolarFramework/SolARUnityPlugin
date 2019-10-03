@@ -61,7 +61,7 @@ namespace SolAR
         void OnConfGUI(SerializedProperty conf)
         {
             var modules = conf.FindPropertyRelative("modules");
-            var configuration = conf.FindPropertyRelative("configuration");
+            var configuration = conf.FindPropertyRelative("properties");
 
             OnModulesGUI(modules);
             OnConfigurationGUI(configuration);
@@ -92,6 +92,7 @@ namespace SolAR
         {
             //var uuid = module.FindPropertyRelative("uuid");
             var name = module.FindPropertyRelative("name");
+            
             //var path = module.FindPropertyRelative("path");
             var description = module.FindPropertyRelative("description");
 
@@ -160,7 +161,7 @@ namespace SolAR
             {
                 if (scope.visible)
                 {
-                    var componentsConf = configuration.FindPropertyRelative("components");
+                    var componentsConf = configuration.FindPropertyRelative("configure");
                     OnComponentsConfGUI(componentsConf);
                 }
             }
@@ -181,21 +182,19 @@ namespace SolAR
 
         void OnComponentConfGUI(SerializedProperty componentConf)
         {
-            var uuid = componentConf.FindPropertyRelative("uuid");
-            var name = componentConf.FindPropertyRelative("name");
+            var name = componentConf.FindPropertyRelative("component");
             var properties = componentConf.FindPropertyRelative("properties");
 
             var type = componentConf.FindPropertyRelative("type");
             if (string.IsNullOrEmpty(type.stringValue))
             {
-                var _uuid = uuid.stringValue;
                 var component = target.conf.conf.modules
                     .SelectMany(m => m.components)
-                    .FirstOrDefault(c => c.uuid == _uuid);
+                    .FirstOrDefault(c => c.name == name.stringValue);
                 type.stringValue = component?.name ?? "<color=red><b>???</b></color>";
             }
 
-            var label = string.Format("<b>{0}</b> ({1})", name.stringValue, type.stringValue);
+            var label = string.Format("<b>{0}</b>", name.stringValue);
             //var tooltip = string.Format("{0}: {1}", uuid.stringValue, description.stringValue);
             var content = new GUIContent(label);
             using (new GUILayout.VerticalScope(content, windowStyle, GUILayout.ExpandHeight(false)))

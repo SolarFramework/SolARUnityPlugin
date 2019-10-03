@@ -66,16 +66,16 @@ namespace SolAR.Samples
             greyImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
             binaryImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
 
-            contours = new Contour2DfList().AddTo(subscriptions);
-            filtered_contours = new Contour2DfList().AddTo(subscriptions);
+            contours = new Contour2DfArray().AddTo(subscriptions);
+            filtered_contours = new Contour2DfArray().AddTo(subscriptions);
             patches = new ImageList().AddTo(subscriptions);
-            recognizedContours = new Contour2DfList().AddTo(subscriptions);
+            recognizedContours = new Contour2DfArray().AddTo(subscriptions);
             recognizedPatternsDescriptors = new DescriptorBuffer().AddTo(subscriptions);
             markerPatternDescriptor = new DescriptorBuffer().AddTo(subscriptions);
             patternMatches = new DescriptorMatchVector().AddTo(subscriptions);
-            pattern2DPoints = new Point2DfList().AddTo(subscriptions);
-            img2DPoints = new Point2DfList().AddTo(subscriptions);
-            pattern3DPoints = new Point3DfList().AddTo(subscriptions);
+            pattern2DPoints = new Point2DfArray().AddTo(subscriptions);
+            img2DPoints = new Point2DfArray().AddTo(subscriptions);
+            pattern3DPoints = new Point3DfArray().AddTo(subscriptions);
             //CamCalibration K;
 
             // components initialisation
@@ -192,7 +192,7 @@ namespace SolAR.Samples
 #endif
 
                 // From extracted squared binary pattern, match the one corresponding to the squared binary marker
-                if (patternMatcher.match(markerPatternDescriptor, recognizedPatternsDescriptors, patternMatches) == Api.Features.RetCode.DESCRIPTORS_MATCHER_OK)
+                if (patternMatcher.match(markerPatternDescriptor, recognizedPatternsDescriptors, patternMatches) == Api.Features.IDescriptorMatcher.RetCode.DESCRIPTORS_MATCHER_OK)
                 {
 #if !NDEBUG
                     std__cout.Append("Matches :").AppendLine();
@@ -236,17 +236,17 @@ namespace SolAR.Samples
         // structures
         readonly Image greyImage;
         readonly Image binaryImage;
-
-        readonly Contour2DfList contours;
-        readonly Contour2DfList filtered_contours;
+        
+        readonly Contour2DfArray contours;
+        readonly Contour2DfArray filtered_contours;
         readonly ImageList patches;
-        readonly Contour2DfList recognizedContours;
+        readonly Contour2DfArray recognizedContours;
         readonly DescriptorBuffer recognizedPatternsDescriptors;
         readonly DescriptorBuffer markerPatternDescriptor;
         readonly DescriptorMatchVector patternMatches;
-        readonly Point2DfList pattern2DPoints;
-        readonly Point2DfList img2DPoints;
-        readonly Point3DfList pattern3DPoints;
+        readonly Point2DfArray pattern2DPoints;
+        readonly Point2DfArray img2DPoints;
+        readonly Point3DfArray pattern3DPoints;
         readonly I3DOverlay overlay3DComponent;
         // components
         readonly IMarker2DSquaredBinary binaryMarker;

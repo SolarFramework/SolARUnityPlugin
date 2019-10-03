@@ -167,7 +167,10 @@ namespace SolAR
             count++;
 
             var isTracking = pipeline.Proceed(inputImage, pose, camera) == FrameworkReturnCode._SUCCESS;
-            //transform.gameObject.SetActive(isTracking);
+
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("SolARObject"))
+                g.transform.GetComponent<Renderer>().enabled = isTracking;
+            
             if (isTracking)
             {
                 if (mogrify)
@@ -198,16 +201,6 @@ namespace SolAR
             camera.Dispose();
             base.OnDisable();
         }
-
-        /*
-        protected void OnGUI()
-        {
-            if (inputTex != null)
-            {
-                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), inputTex);
-            }
-        }
-        */
 
         public void PipelineMngchangePath(string t)
         {

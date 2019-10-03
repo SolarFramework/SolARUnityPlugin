@@ -50,12 +50,13 @@ namespace SolAR
             }
         }
 
-        public Configuration configuration;
+        [XmlElement("properties")]
+        public Properties properties;
         [Serializable]
-        public class Configuration
+        public class Properties
         {
-            [XmlElement("component")]
-            public ComponentConf[] components;
+            [XmlElement("configure")]
+            public ComponentConf[] configure;
             [Serializable]
             public class ComponentConf
             {
@@ -74,7 +75,7 @@ namespace SolAR
                 public string uuid;
                 [XmlAttribute]
                 [DefaultValue("")]
-                public string name;
+                public string component;
 
                 [XmlIgnore]
                 public string description;

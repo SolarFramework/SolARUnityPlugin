@@ -282,18 +282,18 @@ namespace SolAR
         void OnComponentConfGUI(SerializedProperty componentConf, out bool modified)
         {
             modified = false;
-            var uuid = componentConf.FindPropertyRelative("uuid");
-            var name = componentConf.FindPropertyRelative("name");
+            //var uuid = componentConf.FindPropertyRelative("uuid");
+            var name = componentConf.FindPropertyRelative("component");
             var properties = componentConf.FindPropertyRelative("properties");
             var description = componentConf.FindPropertyRelative("description");
 
             var type = componentConf.FindPropertyRelative("type");
             if (string.IsNullOrEmpty(type.stringValue))
             {
-                var _uuid = uuid.stringValue;
+                var test = name.stringValue;
                 var component = target.conf.modules
                     .SelectMany(m => m.components)
-                    .FirstOrDefault(c => c.uuid == _uuid);
+                    .FirstOrDefault(c => c.name == test);
                 type.stringValue = component?.name ?? "<color=red><b>Component not declared !</b></color>";
                 if (component != null)
                     description.stringValue = component.description;

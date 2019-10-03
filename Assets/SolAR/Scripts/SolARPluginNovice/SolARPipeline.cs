@@ -29,7 +29,7 @@ namespace SolAR
         public float centerY;
         //#####################################################
         public Camera m_camera;
-        //public Button m_EventButton;
+
         [HideInInspector]
         public bool m_CustomCanvas = false;
 
@@ -81,7 +81,7 @@ namespace SolAR
         public bool m_Unity_Webcam = false;
 
         private IntPtr sourceTexture;
-        //private readonly UnityAction m_myAction;
+
         public GameObject myObject;
 
         private byte[] m_vidframe_byte;
@@ -217,17 +217,19 @@ namespace SolAR
 
                         sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
                         m_pipelineManager.loadSourceImage(sourceTexture, width, height);
-                    }    
+                    }
                     Transform3Df pose = new Transform3Df();
-                    
+
                     if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
-                        myObject.GetComponent<Renderer>().enabled = true;
+                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
+                            child.GetComponent<Renderer>().enabled = true;
+
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
-                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0,0)));
-                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation().coeff(1, 0), pose.rotation().coeff(1, 1), pose.rotation().coeff(1, 2), pose.translation().coeff(1,0)));
-                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation().coeff(2, 0), pose.rotation().coeff(2, 1), pose.rotation().coeff(2, 2), pose.translation().coeff(2,0)));
+                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0, 0)));
+                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation().coeff(1, 0), pose.rotation().coeff(1, 1), pose.rotation().coeff(1, 2), pose.translation().coeff(1, 0)));
+                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation().coeff(2, 0), pose.rotation().coeff(2, 1), pose.rotation().coeff(2, 2), pose.translation().coeff(2, 0)));
                         cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
 
                         Matrix4x4 invertMatrix = new Matrix4x4();
@@ -243,7 +245,11 @@ namespace SolAR
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
                     }
-                    else myObject.GetComponent<Renderer>().enabled = false;
+                    else
+                    {
+                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
+                            child.GetComponent<Renderer>().enabled = false;
+                    }
                 }
                 m_texture.LoadRawTextureData(array_imageData);
                 m_texture.Apply();

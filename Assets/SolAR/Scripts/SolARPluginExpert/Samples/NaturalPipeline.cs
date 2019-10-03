@@ -50,18 +50,15 @@ namespace SolAR.Samples
             opticalFlow = Create<IOpticalFlowEstimator>("SolAROpticalFlowPyrLKOpencv");
             projection = Create<IProject>("SolARProjectOpencv");
             unprojection = Create<IUnproject>("SolARUnprojectPlanarPointsOpencv");
-            overlay2DComponent = Create<I2DOverlay>("SolAR2DOverlayOpencv");
             img_mapper = Create<IImage2WorldMapper>("SolARImage2WorldMapper4Marker2D");
             basicMatchesFilter = Create<IMatchesFilter>("SolARBasicMatchesFilter");
-            homographyValidation = Create<IHomographyValidation>("SolARHomographyValidation");
             keypointsReindexer = Create<IKeypointsReIndexer>("SolARKeypointsReIndexer");
-            transform2D = Create<I2DTransform>("SolAR2DTransform");
             overlay3DComponent = Create<I3DOverlay>("SolAR3DOverlayOpencv");
             /* in dynamic mode, we need to check that components are well created*/
             /* this is needed in dynamic mode */
             if (new object[] { imageViewerKeypoints, imageViewerResult, marker, kpDetector , kpDetectorRegion , descriptorExtractor , matcher,
-                                geomMatchesFilter, poseEstimationPlanar, opticalFlow, projection, unprojection,overlay2DComponent, img_mapper,
-                                basicMatchesFilter, homographyValidation,keypointsReindexer,transform2D, overlay3DComponent }.Contains(null))
+                                geomMatchesFilter, poseEstimationPlanar, opticalFlow, projection, unprojection, img_mapper,
+                                basicMatchesFilter,keypointsReindexer, overlay3DComponent }.Contains(null))
             {
                 LOG_ERROR("One or more component creations have failed");
                 return;
@@ -78,10 +75,10 @@ namespace SolAR.Samples
             matches = new DescriptorMatchVector().AddTo(subscriptions);
 
             // where to store detected keypoints in ref image and camera image
-            refKeypoints = new KeypointList().AddTo(subscriptions);
-            camKeypoints = new KeypointList().AddTo(subscriptions);
+            refKeypoints = new KeypointArray().AddTo(subscriptions);
+            camKeypoints = new KeypointArray().AddTo(subscriptions);
 
-            markerWorldCorners = new Point3DfList().AddTo(subscriptions);
+            markerWorldCorners = new Point3DfArray().AddTo(subscriptions);
 
             // load marker
             marker.loadMarker().Check();
@@ -106,7 +103,7 @@ namespace SolAR.Samples
             img_mapper_config.getProperty("worldHeight").setFloatingValue(mkSize.height);
 
             // vector of 4 corners in the marker
-            refImgCorners = new Point2DfList();
+            refImgCorners = new Point2DfArray();
             float w = refImage.getWidth(), h = refImage.getHeight();
             Point2Df corner0 = new Point2Df(0, 0);
             Point2Df corner1 = new Point2Df(w, 0);
@@ -154,9 +151,9 @@ namespace SolAR.Samples
                 basicMatchesFilter.filter(matches, matches, refKeypoints, camKeypoints);
                 geomMatchesFilter.filter(matches, matches, refKeypoints, camKeypoints);
 
-                var ref2Dpoints = new Point2DfList();
-                var cam2Dpoints = new Point2DfList();
-                var ref3Dpoints = new Point3DfList();
+                var ref2Dpoints = new Point2DfArray();
+                var cam2Dpoints = new Point2DfArray();
+                var ref3Dpoints = new Point3DfArray();
 
                 if (matches.Count > 10)
                 {
@@ -184,7 +181,7 @@ namespace SolAR.Samples
                 {
                     imagePoints_track.Clear();
                     worldPoints_track.Clear();
-                    KeypointList newKeypoints = new KeypointList();
+                    KeypointArray newKeypoints = new KeypointArray();
                     // Get the projection of the corner of the marker in the current image
                     projection.project(markerWorldCorners, projectedMarkerCorners, pose);
 
@@ -211,9 +208,9 @@ namespace SolAR.Samples
                 // Tracking mode
                 if (isTrack)
                 {
-                    Point2DfList trackedPoints = new Point2DfList();
-                    Point2DfList pts2D = new Point2DfList();
-                    Point3DfList pts3D = new Point3DfList();
+                    Point2DfArray trackedPoints = new Point2DfArray();
+                    Point2DfArray pts2D = new Point2DfArray();
+                    Point3DfArray pts3D = new Point3DfArray();
 
                     UCharList status = new UCharList();
                     FloatList err = new FloatList();
@@ -261,11 +258,11 @@ namespace SolAR.Samples
 
         int updateTrackedPointThreshold = 300;
 
-        Point2DfList projectedMarkerCorners = new Point2DfList();   
-        Point2DfList imagePoints_inliers = new Point2DfList();
-        Point3DfList worldPoints_inliers = new Point3DfList();
-        Point2DfList imagePoints_track = new Point2DfList();
-        Point3DfList worldPoints_track = new Point3DfList();
+        Point2DfArray projectedMarkerCorners = new Point2DfArray();
+        Point2DfArray imagePoints_inliers = new Point2DfArray();
+        Point3DfArray worldPoints_inliers = new Point3DfArray();
+        Point2DfArray imagePoints_track = new Point2DfArray();
+        Point3DfArray worldPoints_track = new Point3DfArray();
         bool isTrack = false;
         bool valid_pose = false;
         bool needNewTrackedPoints = false;
@@ -277,10 +274,10 @@ namespace SolAR.Samples
         readonly DescriptorBuffer refDescriptors;
         readonly DescriptorBuffer camDescriptors;
         readonly DescriptorMatchVector matches;
-        readonly KeypointList refKeypoints;
-        readonly KeypointList camKeypoints;
+        readonly KeypointArray refKeypoints;
+        readonly KeypointArray camKeypoints;
 
-        readonly Point3DfList markerWorldCorners;
+        readonly Point3DfArray markerWorldCorners;
 
         // components
         readonly IImageViewer imageViewerKeypoints;
@@ -291,17 +288,14 @@ namespace SolAR.Samples
         readonly IDescriptorMatcher matcher;
         readonly IMatchesFilter basicMatchesFilter;
         readonly IMatchesFilter geomMatchesFilter;
-        readonly IHomographyValidation homographyValidation;
         readonly IKeypointsReIndexer keypointsReindexer;
-        readonly I2DOverlay overlay2DComponent;
         readonly I3DOverlay overlay3DComponent;
         readonly IImage2WorldMapper img_mapper;
-        readonly I2DTransform transform2D;
         readonly IDescriptorsExtractor descriptorExtractor;
         readonly I3DTransformSACFinderFrom2D3D poseEstimationPlanar;
         readonly IOpticalFlowEstimator opticalFlow;
         readonly IProject projection;
         readonly IUnproject unprojection;
-        readonly Point2DfList refImgCorners;
+        readonly Point2DfArray refImgCorners;
     }
 }
