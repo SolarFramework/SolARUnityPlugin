@@ -19,8 +19,14 @@ xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\boost\1.70.0\lib\x86_64\sh
 xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\boost\1.70.0\lib\x86_64\shared\%mode%\boost_system.dll" .\Assets\Plugins\
 xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\boost\1.70.0\lib\x86_64\shared\%mode%\boost_thread.dll" .\Assets\Plugins\
 
+xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\opencv\3.4.3\lib\x86_64\shared\%mode%\opencv_ffmpeg343.dll" .\Assets\Plugins\
+xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\opencv\3.4.3\lib\x86_64\shared\%mode%\opencv_ffmpeg343_64.dll" .\Assets\Plugins\
+xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\opencv\3.4.3\lib\x86_64\shared\%mode%\opencv_img_hash343.dll" .\Assets\Plugins\
 xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\opencv\3.4.3\lib\x86_64\shared\%mode%\opencv_world343.dll" .\Assets\Plugins\
+
 xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\freeglut\3.0.0\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
+
+xcopy "%REMAKENROOT%\packages\thirdParties\%compiler%\fbowSolAR\0.0.1\lib\x86_64\shared\%mode%\*.dll" .\Assets\Plugins\
 
 echo --------------copy framework dll--------------
 xcopy "%REMAKENROOT%\packages\SolARBuild\%compiler%\SolARFramework\0.6.0\lib\x86_64\shared\%mode%\SolARFramework.dll" .\Assets\Plugins\
@@ -60,7 +66,8 @@ xcopy "%REMAKENROOT%\packages\SolARBuild\%compiler%\SolARModuleNonFreeOpenCV\0.6
 echo --------------copy pipelines dll--------------
 timeout 2
 xcopy "%REMAKENROOT%\packages\SolARBuild\%compiler%\PipelineFiducialMarker\0.6.0\lib\x86_64\shared\%mode%\PipelineFiducialMarker.dll" .\Assets\Plugins\
-xcopy "%REMAKENROOT%\packages\SolARBuild\%compiler%\\PipelineNaturalImageMarker\0.6.0\lib\x86_64\shared\%mode%\PipelineNaturalImageMarker.dll" .\Assets\Plugins\
+xcopy "%REMAKENROOT%\packages\SolARBuild\%compiler%\PipelineNaturalImageMarker\0.6.0\lib\x86_64\shared\%mode%\PipelineNaturalImageMarker.dll" .\Assets\Plugins\
+xcopy "%REMAKENROOT%\packages\SolARBuild\%compiler%\PipelineSlam\0.6.0\lib\x86_64\shared\%mode%\PipelineSlam.dll" .\Assets\Plugins\
 
 echo -----------copy SolAR Wrapper dll----------
 timeout 2
