@@ -24,6 +24,8 @@ We offer two mods :
 
 6° Execute  the file "SolARUnityPlugin / update.bat"
 
+7° Add .fbow files for SLAM
+
 ## We follow this hierarchy (Unity) (only folders) :
 
   Assets
