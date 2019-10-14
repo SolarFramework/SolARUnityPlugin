@@ -11,12 +11,12 @@ We offer two mods :
 ## How build it with source :
 
 1° Build    xpcf
-            SolARFramework
+            & SolARFramework
             
 2° Execute  SolARFramework / SolARWrapper / _build.bat
 
 3° Build    SolARWrapper
-            SolARPipelineManager
+            & SolARPipelineManager
             
 4° Build    necessary module (OpenCV, Tools, FBOW... depending on pipelines you want to use)
 
