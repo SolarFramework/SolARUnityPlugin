@@ -13,7 +13,7 @@ We offer two mods :
 1° Build    xpcf
             & SolARFramework
             
-2° Execute  SolARFramework / SolARWrapper / _build.bat
+2° Execute  the file "SolARFramework / SolARWrapper / _build.bat"
 
 3° Build    SolARWrapper
             & SolARPipelineManager
@@ -22,7 +22,7 @@ We offer two mods :
 
 5° Build    Pipelines (Fiducial, Natural Image, SLAM ...)
 
-6° Execute  SolARUnityPlugin / update.bat
+6° Execute  the file "SolARUnityPlugin / update.bat"
 
 ## We follow this hierarchy (Unity) (only folders) :
 
