@@ -220,7 +220,8 @@ namespace SolAR
                     }
                     Transform3Df pose = new Transform3Df();
 
-                    if ((m_pipelineManager.udpate(pose) & PIPELINEMANAGER_RETURNCODE._NEW_POSE) != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                    var _returnCode =  m_pipelineManager.udpate(pose);
+                    if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE  || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
                     {
                         foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
                             child.GetComponent<Renderer>().enabled = true;
@@ -238,22 +239,25 @@ namespace SolAR
                         invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
                         invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
                         Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
-
+                        
                         Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
                         Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
 
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
+                        m_texture.LoadRawTextureData(array_imageData);
+                        m_texture.Apply();
+                        m_material.SetTexture("_MainTex", m_texture);
                     }
-                    else
+                    else if(_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
                     {
                         foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
                             child.GetComponent<Renderer>().enabled = false;
+                        m_texture.LoadRawTextureData(array_imageData);
+                        m_texture.Apply();
+                        m_material.SetTexture("_MainTex", m_texture);
                     }
                 }
-                m_texture.LoadRawTextureData(array_imageData);
-                m_texture.Apply();
-                m_material.SetTexture("_MainTex", m_texture);
             }
         }
 

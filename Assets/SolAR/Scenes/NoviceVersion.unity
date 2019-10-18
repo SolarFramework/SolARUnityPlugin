@@ -921,7 +921,7 @@ Prefab:
     - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 2}
       propertyPath: m_Unity_Webcam
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 2}
@@ -5292,6 +5292,11 @@ Prefab:
         type: 2}
       propertyPath: conf.properties.configure.Array.data[26].properties.Array.data[2].values.Array.data[2]
       value: 0.182
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: m_CustomCanvas
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37f082361edc9064ba18b144c5e661ce, type: 2}
