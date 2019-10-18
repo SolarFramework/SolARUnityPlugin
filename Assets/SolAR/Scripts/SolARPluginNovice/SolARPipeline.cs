@@ -221,10 +221,20 @@ namespace SolAR
                     Transform3Df pose = new Transform3Df();
 
                     var _returnCode =  m_pipelineManager.udpate(pose);
+
+                    if(_returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                    {
+                        m_texture.LoadRawTextureData(array_imageData);
+                        m_texture.Apply();
+                        m_material.SetTexture("_MainTex", m_texture);
+                    }
+
                     if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE  || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
                     {
                         foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
-                            child.GetComponent<Renderer>().enabled = true;
+                        {
+                            if(child != myObject) child.GetComponent<Renderer>().enabled = true;
+                        }
 
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
@@ -245,18 +255,12 @@ namespace SolAR
 
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-                        m_texture.LoadRawTextureData(array_imageData);
-                        m_texture.Apply();
-                        m_material.SetTexture("_MainTex", m_texture);
+                       
                     }
                     else if(_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
-                    {
                         foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
-                            child.GetComponent<Renderer>().enabled = false;
-                        m_texture.LoadRawTextureData(array_imageData);
-                        m_texture.Apply();
-                        m_material.SetTexture("_MainTex", m_texture);
-                    }
+                            if (child != myObject)
+                                child.GetComponent<Renderer>().enabled = false;
                 }
             }
         }

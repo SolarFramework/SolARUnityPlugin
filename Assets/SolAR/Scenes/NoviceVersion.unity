@@ -341,11 +341,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bc07f8962b2aa14bb37ccb702b6cb89, type: 3}
   m_IsPrefabAsset: 0
---- !u!1 &769512031 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100004, guid: 4bc07f8962b2aa14bb37ccb702b6cb89,
-    type: 3}
-  m_PrefabInternal: {fileID: 769512030}
 --- !u!4 &769512035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 4bc07f8962b2aa14bb37ccb702b6cb89,
@@ -864,7 +859,7 @@ Prefab:
         type: 2}
       propertyPath: myObject
       value: 
-      objectReference: {fileID: 769512031}
+      objectReference: {fileID: 2054546684}
     - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 2}
       propertyPath: conf.configuration.components.Array.data[0].type
@@ -5432,19 +5427,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_RootOrder
@@ -5464,7 +5459,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: f59947f2b424d7d4982fc2b93ca3eac1, type: 3}
       propertyPath: m_TagString
@@ -5670,6 +5665,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2054546685}
+  - component: {fileID: 2054546686}
   m_Layer: 0
   m_Name: 3DObjects
   m_TagString: SolARObject
@@ -5692,3 +5688,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 180, z: 0}
+--- !u!23 &2054546686
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2054546684}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
