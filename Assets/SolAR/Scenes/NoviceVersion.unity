@@ -5305,6 +5305,41 @@ Prefab:
       propertyPath: m_CustomCanvas
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: focalX
+      value: 643
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: focalY
+      value: 641
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: width
+      value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: height
+      value: 480
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: centerX
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: centerY
+      value: 226
+      objectReference: {fileID: 0}
+    - target: {fileID: 114379043334047708, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 2}
+      propertyPath: m_material
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e4692da20048c64295f1c5ad27b833b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37f082361edc9064ba18b144c5e661ce, type: 2}
   m_IsPrefabAsset: 0

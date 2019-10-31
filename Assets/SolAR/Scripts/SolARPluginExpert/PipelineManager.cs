@@ -48,6 +48,7 @@ namespace SolAR
         {
             Fiducial,
             Natural,
+            SLAM,
         }
         public PIPELINE mode;
 
@@ -76,6 +77,9 @@ namespace SolAR
                     break;
                 case PIPELINE.Natural:
                     pipeline = new NaturalPipeline(xpcfComponentManager).AddTo(subscriptions);
+                    break;
+                case PIPELINE.SLAM:
+                    pipeline = new SlamPipeline(xpcfComponentManager).AddTo(subscriptions);
                     break;
             }
 
@@ -167,6 +171,13 @@ namespace SolAR
             count++;
 
             var isTracking = pipeline.Proceed(inputImage, pose, camera) == FrameworkReturnCode._SUCCESS;
+
+            //if(mode == PIPELINE.SLAM)
+            //{
+
+            //}
+
+
 
             foreach (GameObject g in GameObject.FindGameObjectsWithTag("SolARObject"))
                 g.transform.GetComponent<Renderer>().enabled = isTracking;

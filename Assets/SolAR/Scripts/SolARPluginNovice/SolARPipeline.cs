@@ -115,7 +115,7 @@ namespace SolAR
                     Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
                     return;
                 }
-                m_Unity_Webcam = true;
+                //m_Unity_Webcam = true;
 #endif
 
                 if (m_Unity_Webcam)
