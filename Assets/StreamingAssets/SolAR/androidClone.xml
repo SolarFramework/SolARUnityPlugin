@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xpcf-registry autoAlias="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!--CameraCalibration/ -->
+  <file name="/SolAR/CameraCalibration/camera_calibration.yml"/>
+  <!--Configuration/ -->
+  <file name="/SolAR/Configuration/conf_FiducialMarker.xml"/>
+  <file name="/SolAR/Configuration/conf_NaturalImageMarker.xml"/>
+  <file name="/SolAR/Configuration/conf_SLAM.xml"/>
+  <!--FBOW/ -->
+  <file name="/SolAR/FBOW/akaze.fbow"/>
+  <!--Markers/ -->
+  <file name="/SolAR/Markers/FiducialMarker.gif"/>
+  <file name="/SolAR/Markers/fiducialMarker.yml"/>
+  <file name="/SolAR/Markers/fiducialMarkerLeap.yml"/>
+  <file name="/SolAR/Markers/graf1.png"/>
+  <file name="/SolAR/Markers/NaturalImageMarker.yml"/>
+  <!--Pipelines/ -->
+  <file name="/SolAR/Pipelines/PipelineFiducialMarker.xml"/>
+  <file name="/SolAR/Pipelines/PipelineNaturalImageMarker.xml"/>
+</xpcf-registry>

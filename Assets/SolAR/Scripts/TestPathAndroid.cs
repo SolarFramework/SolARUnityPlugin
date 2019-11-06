@@ -6,47 +6,12 @@ using UnityEngine;
 
 public class TestPathAndroid : MonoBehaviour
 {
-
-    public string m_streamingAssetsFile;
-    private string m_filePath;
-    private string m_fileName;
     private string m_text = "";
- 
+
     void Start()
     {
-#if UNITY_ANDROID
-#endif
-
-
-        m_filePath = Application.streamingAssetsPath+ m_streamingAssetsFile;
-        m_fileName = Path.GetFileName(m_streamingAssetsFile);
-
-        string data = "";
-        LoadWWW(m_filePath, ref data);
-        LoadDemoXml(data);
-
-        //Check if the directory already exist
-        string pathAndroidSolAR = Application.persistentDataPath + "/AndroidSolAR/";
-        if (!Directory.Exists(Path.GetDirectoryName(pathAndroidSolAR)))
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(pathAndroidSolAR));
-        }
-
-        Debug.Log("debug : " + pathAndroidSolAR + m_fileName);
-        Debug.Log("debug : key ? - "+PlayerPrefs.HasKey("initAndroid"));
-        //Check if file exist
-        if (!File.Exists(pathAndroidSolAR + m_fileName))
-        {
-            CloneFile(m_filePath, pathAndroidSolAR + m_fileName);
-            PlayerPrefs.SetInt("initAndroid", 0);  //Set First run
-            Debug.Log("debug : ici 1");
-        }
-        else if (!PlayerPrefs.HasKey("initAndroid"))
-        {
-            CloneFile(m_filePath, pathAndroidSolAR + m_fileName);
-            Debug.Log("debug : ici 2");
-        }
-        
+        CloneStreamingAssets(Application.streamingAssetsPath + "/SolAR/androidClone.xml", Application.persistentDataPath + "/Plugins/");
+        Demo(Application.persistentDataPath + "/Plugins/SolAR/Pipelines/PipelineFiducialMarker.xml");
     }
 
     void OnGUI()
@@ -62,42 +27,66 @@ public class TestPathAndroid : MonoBehaviour
         GUI.Label(rect, m_text, style);
     }
     
-    private void CloneFile(string source, string dest)
+    private void CloneStreamingAssets(string pathToXml,string dest)
     {
-        string output = "";
-        LoadWWW(source, ref output);
-        
-        File.WriteAllText(dest, output);
-    }
-
-    private void LoadWWW(string filePath, ref string output)
-    {
-        WWW request = new WWW(filePath);
-
+        //Read XML.xml with HTTP request (due to .apk)
+        WWW request = new WWW(pathToXml);
         while (!request.isDone)
-        {/*Loading xml*/
-        }
-
-        if (string.IsNullOrEmpty(request.error))
+        {/*Loading xml*/}
+        if (!string.IsNullOrEmpty(request.error))
         {
-            output = request.text;
+            Debug.LogError("debug : error - " + pathToXml + " / " + request.error);
+            return;
         }
-        else
-        {
-            output = request.error;
-        }
-    }
-
-    private void LoadDemoXml(string data)
-    {
+ 
+        string data=request.text;
         string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
         if (data.StartsWith(_byteOrderMarkUtf8))
         {
             data = data.Remove(0, _byteOrderMarkUtf8.Length);
         }
 
+        //Clone all files to dest
         var doc = XDocument.Parse(data.ToString());
+        var file = doc.Element("xpcf-registry").Elements("file");
+        foreach (var attribute in file.Attributes())
+        {
+            CloneFile(Application.streamingAssetsPath + attribute.Value, dest + attribute.Value);
+        }
+    }
+    private void CloneFile(string source, string dest)
+    {
+        //Create directory
+        if (!Directory.Exists(Path.GetDirectoryName(dest)))
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(dest));
+        }
 
+        //Create file
+        if (!File.Exists(dest))
+        {
+            WWW request = new WWW(source);
+
+            while (!request.isDone)
+            {/*Loading xml*/}
+
+
+            if (string.IsNullOrEmpty(request.error))
+            {
+                File.WriteAllBytes(dest, request.bytes);
+            }
+            else
+            {
+                Debug.LogError("debug : CloneFile error - "+source+" / " + request.error);
+            }
+        }
+    }
+
+
+    private void Demo(string filepath)
+    {
+        StreamReader input = new StreamReader(filepath);
+        var doc = XDocument.Parse(input.ReadToEnd());
         var module = doc.Element("xpcf-registry").Elements("module");
         foreach (var attribute in module.Attributes())
         {
