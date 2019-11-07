@@ -1,20 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xpcf-registry autoAlias="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <!--CameraCalibration/ -->
-  <file name="/SolAR/CameraCalibration/camera_calibration.yml"/>
-  <!--Configuration/ -->
-  <file name="/SolAR/Configuration/conf_FiducialMarker.xml"/>
-  <file name="/SolAR/Configuration/conf_NaturalImageMarker.xml"/>
-  <file name="/SolAR/Configuration/conf_SLAM.xml"/>
-  <!--FBOW/ -->
-  <file name="/SolAR/FBOW/akaze.fbow"/>
-  <!--Markers/ -->
-  <file name="/SolAR/Markers/FiducialMarker.gif"/>
-  <file name="/SolAR/Markers/fiducialMarker.yml"/>
-  <file name="/SolAR/Markers/fiducialMarkerLeap.yml"/>
-  <file name="/SolAR/Markers/graf1.png"/>
-  <file name="/SolAR/Markers/NaturalImageMarker.yml"/>
-  <!--Pipelines/ -->
-  <file name="/SolAR/Pipelines/PipelineFiducialMarker.xml"/>
-  <file name="/SolAR/Pipelines/PipelineNaturalImageMarker.xml"/>
+  <streamingAssets toto="e">
+    <!-- Conf -->
+    <file path="/SolAR/androidClone.xml"  overwrite="true"/> <!-- for conf set overwrite to false if you want to use this file for configuration instead of the one in the .apk-->
+    <!--CameraCalibration/ -->
+    <file path="/SolAR/CameraCalibration/camera_calibration.yml" overwrite="true"/>
+    <!--Configuration/ -->
+    <file path="/SolAR/Configuration/conf_FiducialMarker.xml" overwrite="true"/>
+    <file path="/SolAR/Configuration/conf_NaturalImageMarker.xml" overwrite="true"/>
+    <file path="/SolAR/Configuration/conf_SLAM.xml" overwrite="true"/>
+    <!--FBOW/ -->
+    <file path="/SolAR/FBOW/akaze.fbow" overwrite="true"/>
+    <!--Markers/ -->
+    <file path="/SolAR/Markers/FiducialMarker.gif" overwrite="true"/>
+    <file path="/SolAR/Markers/fiducialMarker.yml" overwrite="true"/>
+    <file path="/SolAR/Markers/fiducialMarkerLeap.yml" overwrite="true"/>
+    <file path="/SolAR/Markers/graf1.png" overwrite="true"/>
+    <file path="/SolAR/Markers/NaturalImageMarker.yml" overwrite="true"/>
+    <!--Pipelines/ -->
+    <file path="/SolAR/Pipelines/PipelineFiducialMarker.xml" overwrite="true"/>
+    <file path="/SolAR/Pipelines/PipelineNaturalImageMarker.xml" overwrite="true"/>
+  </streamingAssets>
+  <plugins>
+    <file path="/Plugins/boost_context.dll" overwrite="true"/>
+    <file path="/Plugins/boost_date_time.dll" overwrite="true"/>
+    <file path="/Plugins/boost_fiber.dll" overwrite="true"/>
+    <file path="/Plugins/boost_filesystem.dll" overwrite="true"/>
+    <file path="/Plugins/boost_log.dll" overwrite="true"/>
+    <file path="/Plugins/boost_system.dll" overwrite="true"/>
+    <file path="/Plugins/boost_thread.dll" overwrite="true"/>
+    <file path="/Plugins/fbow001.dll" overwrite="true"/>
+    <file path="/Plugins/freeglut.dll" overwrite="true"/>
+    <file path="/Plugins/opencv_ffmpeg343.dll" overwrite="true"/>
+    <file path="/Plugins/opencv_ffmpeg343_64.dll" overwrite="true"/>
+    <file path="/Plugins/opencv_img_hash343.dll" overwrite="true"/>
+    <file path="/Plugins/opencv_world343.dll" overwrite="true"/>
+    <file path="/Plugins/PipelineFiducialMarker.dll" overwrite="true"/>
+    <file path="/Plugins/PipelineNaturalImageMarker.dll" overwrite="true"/>
+    <file path="/Plugins/PipelineSlam.dll" overwrite="true"/>
+    <file path="/Plugins/SolARFramework.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleCeres.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleFBOW.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleNonFreeOpenCV.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleOpenCV.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleOpenGL.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleOpenGV.dll" overwrite="true"/>
+    <file path="/Plugins/SolARModuleTools.dll" overwrite="true"/>
+    <file path="/Plugins/SolARPipelineManager.dll" overwrite="true"/>
+    <file path="/Plugins/SolARWrapper.dll" overwrite="true"/>
+    <file path="/Plugins/xpcf.dll" overwrite="true"/>
+  </plugins>
 </xpcf-registry>

@@ -53,6 +53,15 @@ namespace SolAR {
                     case BuildTarget.StandaloneOSX:
                         break;
                     case BuildTarget.Android:
+                        // Create a directory in the streamingAssets folder to copy plugins
+                        string dest = Application.streamingAssetsPath + "/Plugins/";
+                        if (Directory.Exists(dest))
+                        {
+                            Directory.Delete(dest, true);
+                        }
+                        FileUtil.CopyFileOrDirectory(Application.dataPath + "/Plugins/", dest);
+                        createdStreamingAssetsFolders.Add(Path.GetDirectoryName(dest));
+                        ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
                         break;
                     case BuildTarget.iOS:
                         break;
@@ -94,6 +103,8 @@ namespace SolAR {
                             case BuildTarget.StandaloneOSX:
                                 break;
                             case BuildTarget.Android:
+                                // For Android , during the built process Plugins are move in StreamingAssets (ie : /storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files/Plugins)
+                                new_value = Application.persistentDataPath + "/Plugins";
                                 break;
                             case BuildTarget.iOS:
                                 break;
@@ -102,7 +113,7 @@ namespace SolAR {
                     }
                 }
             }
-            var configComp = doc.Element("xpcf-registry").Elements("configuration").Elements("component");
+            var configComp = doc.Element("xpcf-registry").Elements("properties").Elements("configure");
             foreach (var element in configComp.Elements("property"))
             {
                 var attriName = element.Attribute("name");
@@ -120,6 +131,7 @@ namespace SolAR {
                         case BuildTarget.StandaloneOSX:
                             break;
                         case BuildTarget.Android:
+                            //new_value = Application.persistentDataPath + vers le fichier en question ex : 
                             break;
                         case BuildTarget.iOS:
                             break;
