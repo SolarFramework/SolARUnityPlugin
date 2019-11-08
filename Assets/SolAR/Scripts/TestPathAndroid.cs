@@ -2,7 +2,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using UnityEditor;
 using UnityEngine;
 
 public class TestPathAndroid : MonoBehaviour
@@ -10,9 +9,9 @@ public class TestPathAndroid : MonoBehaviour
     private string m_text = "";
 
     void Start()
-    {
-        AndroidClone(Application.streamingAssetsPath+"/SolAR/androidClone.xml");
-        Demo(Application.persistentDataPath + "/SolAR/Pipelines/PipelineFiducialMarker.xml");
+    {        
+            AndroidClone(Application.streamingAssetsPath+"/SolAR/androidClone.xml");
+            Demo(Application.persistentDataPath + "/SolAR/Pipelines/PipelineFiducialMarker.xml");
     }
 
     void OnGUI()
@@ -89,8 +88,18 @@ public class TestPathAndroid : MonoBehaviour
                     {
                         if (attribute.Parent.Attribute("overwrite").Value.Equals("true"))
                         {
+#if UNITY_ANDROID && !UNITY_EDITOR
                             //Overwrite
                             CloneFile(Application.streamingAssetsPath + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
+#elif UNITY_EDITOR
+                            //Overwrite
+                            if (attribute.Value.Contains("Plugins")) {
+                                CloneFile(Path.GetDirectoryName(Application.streamingAssetsPath) + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
+                            } else
+                            {
+                                CloneFile(Application.streamingAssetsPath + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
+                            }
+#endif
                         }
                     }
                     else

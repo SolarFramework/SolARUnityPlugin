@@ -53,15 +53,40 @@ namespace SolAR {
                     case BuildTarget.StandaloneOSX:
                         break;
                     case BuildTarget.Android:
+                        // Pipelines
+                        string androidPipelineConfPath = pipeline.m_configurationPath;
+                        // Create a directory in the streamingAssets folder to copy the pipeline configuration files
+                        if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath)))
+                        {
+                            Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
+                            // Store the folders to remove it after the build process
+                            createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
+                        }
+
+                        // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
+                        androidPipelineConfPath = androidPipelineConfPath.Insert(androidPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
+                        if (!System.IO.File.Exists(Application.dataPath + androidPipelineConfPath))
+                        {
+                            if (File.Exists(Application.streamingAssetsPath + pipeline.m_configurationPath)) File.Delete(Application.streamingAssetsPath + pipeline.m_configurationPath);
+                            FileUtil.CopyFileOrDirectory(Application.dataPath + pipeline.m_configurationPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
+                            // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
+                            ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
+                        }
+                        // If there is a pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move it to the streamingAssets folder
+                        else
+                        {
+                            FileUtil.CopyFileOrDirectory(Application.dataPath + androidPipelineConfPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
+                        }
                         // Create a directory in the streamingAssets folder to copy plugins
                         string dest = Application.streamingAssetsPath + "/Plugins/";
                         if (Directory.Exists(dest))
                         {
-                            Directory.Delete(dest, true);
+                            Directory.Delete(dest, true); //to delete subfolder
                         }
-                        FileUtil.CopyFileOrDirectory(Application.dataPath + "/Plugins/", dest);
+                        Directory.CreateDirectory(dest);
+
+                        FileUtil.CopyFileOrDirectory(Application.dataPath + "/Plugins/Android/", dest+ "Android/");
                         createdStreamingAssetsFolders.Add(Path.GetDirectoryName(dest));
-                        ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
                         break;
                     case BuildTarget.iOS:
                         break;
@@ -104,7 +129,7 @@ namespace SolAR {
                                 break;
                             case BuildTarget.Android:
                                 // For Android , during the built process Plugins are move in StreamingAssets (ie : /storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files/Plugins)
-                                new_value = Application.persistentDataPath + "/Plugins";
+                                new_value = Application.persistentDataPath + "/Plugins/Android";
                                 break;
                             case BuildTarget.iOS:
                                 break;
@@ -131,7 +156,7 @@ namespace SolAR {
                         case BuildTarget.StandaloneOSX:
                             break;
                         case BuildTarget.Android:
-                            //new_value = Application.persistentDataPath + vers le fichier en question ex : 
+                            new_value = attribValue.Value.Replace("./Assets/StreamingAssets/",Application.persistentDataPath+"/");
                             break;
                         case BuildTarget.iOS:
                             break;
