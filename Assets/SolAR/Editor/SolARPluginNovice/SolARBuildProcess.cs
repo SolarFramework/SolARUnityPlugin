@@ -53,6 +53,8 @@ namespace SolAR {
                     case BuildTarget.StandaloneOSX:
                         break;
                     case BuildTarget.Android:
+                        AndroidXML(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+                        //Android build clone content of Assets/StreamingAssets/ in assets/ in the .apk archive
                         // Pipelines
                         string androidPipelineConfPath = pipeline.m_configurationPath;
                         // Create a directory in the streamingAssets folder to copy the pipeline configuration files
@@ -62,7 +64,6 @@ namespace SolAR {
                             // Store the folders to remove it after the build process
                             createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
                         }
-
                         // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
                         androidPipelineConfPath = androidPipelineConfPath.Insert(androidPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
                         if (!System.IO.File.Exists(Application.dataPath + androidPipelineConfPath))
@@ -106,6 +107,7 @@ namespace SolAR {
 
         private void ReplacePluginPaths(string confFileName, BuildReport report)
         {
+            string androidPersistentPath = "/storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files";
             StreamReader input = new StreamReader(confFileName);
             var doc = XDocument.Parse(input.ReadToEnd());
 
@@ -128,8 +130,8 @@ namespace SolAR {
                             case BuildTarget.StandaloneOSX:
                                 break;
                             case BuildTarget.Android:
-                                // For Android , during the built process Plugins are move in StreamingAssets (ie : /storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files/Plugins)
-                                new_value = Application.persistentDataPath + "/Plugins/Android";
+                                // For Android , build put plugin in [apk] ./assets/Plugins/Android
+                                new_value = androidPersistentPath + "/Plugins/Android";
                                 break;
                             case BuildTarget.iOS:
                                 break;
@@ -156,7 +158,7 @@ namespace SolAR {
                         case BuildTarget.StandaloneOSX:
                             break;
                         case BuildTarget.Android:
-                            new_value = attribValue.Value.Replace("./Assets/StreamingAssets/",Application.persistentDataPath+"/");
+                            new_value = attribValue.Value.Replace("./Assets/", androidPersistentPath + "/");
                             break;
                         case BuildTarget.iOS:
                             break;
@@ -168,6 +170,62 @@ namespace SolAR {
             input.Close();
             doc.Save(confFileName);
             return;
+        }
+
+        private void AndroidXML(string output)
+        {
+            XDocument doc = new XDocument();
+
+            //Streaming Assets
+            XElement streamingAssets = new XElement("streamingAssets");
+            bool overWriteStreamingAssets = true;
+            FileInfo[] info;
+            string comment = "";
+
+            foreach (DirectoryInfo dir in new DirectoryInfo(Application.streamingAssetsPath + "/SolAR/").GetDirectories("*.*", SearchOption.AllDirectories))
+            {
+                info = dir.GetFiles("*.*");
+                foreach (FileInfo f in info)
+                {
+                    if (!f.Extension.Equals(".meta"))
+                    {
+                        if (!comment.Equals(f.Directory.Name))
+                        {
+                            comment = f.Directory.Name;
+                            XComment c = new XComment(comment);
+                            streamingAssets.Add(c);
+                        }
+                        if (f.Name.Equals("android.xml"))
+                        {
+                            streamingAssets.Add(new XComment("/!\\ overwrite (false) for android.xml enable to use this local file. Otherwise android.xml from apk will be downloaded"));
+                        }
+                        XElement element = new XElement("file");
+                        element.Add(new XAttribute("path", f.FullName.Replace("\\", "/").Replace(Application.dataPath, "./Assets")));
+                        element.Add(new XAttribute("overWrite", overWriteStreamingAssets.ToString().ToLower()));
+                        streamingAssets.Add(element);
+                    }
+                }
+            }
+
+            //Plugins
+            XElement plugins = new XElement("plugins");
+            bool overWritePlugins = true;
+            info = new DirectoryInfo(Application.dataPath + "/Plugins/Android/").GetFiles("*.so");
+
+            foreach (FileInfo f in info)
+            {
+                XElement element = new XElement("file");
+                element.Add(new XAttribute("path", f.FullName.Replace("\\", "/").Replace(Application.dataPath, "./Assets")));
+                element.Add(new XAttribute("overWrite", overWritePlugins.ToString().ToLower()));
+                plugins.Add(element);
+            }
+
+            //Merge
+            XElement assets = new XElement("assets");
+            assets.Add(streamingAssets);
+            assets.Add(plugins);
+            doc.Add(assets);
+            doc.Save(output);
         }
     }
 }

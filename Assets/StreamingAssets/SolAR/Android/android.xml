@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assets>
+  <streamingAssets>
+    <!--Android-->
+    <!--/!\ overwrite (false) for android.xml enable to use this local file. Otherwise android.xml from apk will be downloaded-->
+    <file path="./Assets/StreamingAssets/SolAR/Android/android.xml" overWrite="true" />
+    <!--CameraCalibration-->
+    <file path="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" overWrite="true" />
+    <!--Configuration-->
+    <file path="./Assets/StreamingAssets/SolAR/Configuration/conf_FiducialMarker.xml" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Configuration/conf_NaturalImageMarker.xml" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Configuration/conf_SLAM.xml" overWrite="true" />
+    <!--FBOW-->
+    <file path="./Assets/StreamingAssets/SolAR/FBOW/akaze.fbow" overWrite="true" />
+    <!--Markers-->
+    <file path="./Assets/StreamingAssets/SolAR/Markers/FiducialMarker.gif" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Markers/fiducialMarkerLeap.yml" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Markers/graf1.png" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Markers/NaturalImageMarker.yml" overWrite="true" />
+    <!--Pipelines-->
+    <file path="./Assets/StreamingAssets/SolAR/Pipelines/PipelineFiducialMarker.xml" overWrite="true" />
+    <file path="./Assets/StreamingAssets/SolAR/Pipelines/PipelineNaturalImageMarker.xml" overWrite="true" />
+  </streamingAssets>
+  <plugins>
+    <file path="./Assets/Plugins/Android/boost_context.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/boost_date_time.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/boost_fiber.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/boost_filesystem.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/boost_log.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/boost_system.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/boost_thread.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/opencv_world.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/PipelineFiducialMarker.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/SolARFramework.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/SolARModuleOpenCV.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/SolARModuleTools.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/SolARPipelineManager.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/xpcf.so" overWrite="true" />
+  </plugins>
+</assets>

@@ -1,8 +1,14 @@
 ﻿using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Unity.Collections;
 using UnityEngine;
+using UniRx;
+using System;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class TestPathAndroid : MonoBehaviour
 {
@@ -10,8 +16,8 @@ public class TestPathAndroid : MonoBehaviour
 
     void Start()
     {        
-            AndroidClone(Application.streamingAssetsPath+"/SolAR/androidClone.xml");
-            Demo(Application.persistentDataPath + "/SolAR/Pipelines/PipelineFiducialMarker.xml");
+        AndroidClone(Application.streamingAssetsPath+"/SolAR/Android/android.xml");
+        Demo(Application.persistentDataPath + "/StreamingAssets/SolAR/Pipelines/PipelineFiducialMarker.xml");
     }
 
     void OnGUI()
@@ -27,9 +33,7 @@ public class TestPathAndroid : MonoBehaviour
     
     private void AndroidClone(string conf_xml)
     {
-        string fileName = Path.GetFileName(conf_xml);
-        string dest = Path.GetDirectoryName(Regex.Split(conf_xml, Application.streamingAssetsPath)[1]);
-
+        CloneManager CloneManager = new CloneManager();
         //Use conf xml of the apk
         WWW request = new WWW(conf_xml);
         while (!request.isDone)
@@ -48,19 +52,20 @@ public class TestPathAndroid : MonoBehaviour
         }
 
         //Check if conf xml already exist on the terminal and should be used instead of the one of the apk
-        if (File.Exists(Application.persistentDataPath + dest + fileName))
+        string old_conf_xml = Path.GetFullPath(conf_xml).Replace(Path.GetDirectoryName(Application.streamingAssetsPath), Application.persistentDataPath);
+        if (File.Exists(old_conf_xml))
         {
-            StreamReader input = new StreamReader(Application.persistentDataPath + dest + fileName);
+            StreamReader input = new StreamReader(old_conf_xml);
             string tmp = input.ReadToEnd();
             var old = XDocument.Parse(tmp);
-            var conf = old.Element("xpcf-registry").Element("streamingAssets").Elements("file");
+            var conf = old.Element("assets").Element("streamingAssets").Elements("file");
             foreach (var attribute in conf.Attributes())
             {
-                if (attribute.Name == "path" && attribute.Value == fileName)
+                if (attribute.Name == "path" && attribute.Value.Contains(Path.GetFileName(conf_xml)))
                 {
-                    if (attribute.Parent.Attribute("overwrite") != null)
+                    if (attribute.Parent.Attribute("overWrite") != null)
                     {
-                        if (attribute.Parent.Attribute("overwrite").Value.Equals("false"))
+                        if (attribute.Parent.Attribute("overWrite").Value.Equals("false"))
                         {
                             //keep terminal xml
                             data = tmp;
@@ -69,13 +74,13 @@ public class TestPathAndroid : MonoBehaviour
                 }
             }
             input.Close();
-        }   
+        }
 
         //Clone from conf xml selected
         var doc = XDocument.Parse(data.ToString());
         var file = new[] {
-            doc.Element("xpcf-registry").Element("streamingAssets").Elements("file"),
-            doc.Element("xpcf-registry").Element("plugins").Elements("file")
+            doc.Element("assets").Element("streamingAssets").Elements("file"),
+            doc.Element("assets").Element("plugins").Elements("file")
         };
 
         foreach(var f in file)
@@ -84,60 +89,51 @@ public class TestPathAndroid : MonoBehaviour
             {
                 if (attribute.Name == "path")
                 {
-                    if (attribute.Parent.Attribute("overwrite") != null)
+                    string src = "";
+                    string output = "";
+
+                    if (attribute.Value.Contains("StreamingAssets"))
                     {
-                        if (attribute.Parent.Attribute("overwrite").Value.Equals("true"))
-                        {
-#if UNITY_ANDROID && !UNITY_EDITOR
-                            //Overwrite
-                            CloneFile(Application.streamingAssetsPath + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
-#elif UNITY_EDITOR
-                            //Overwrite
-                            if (attribute.Value.Contains("Plugins")) {
-                                CloneFile(Path.GetDirectoryName(Application.streamingAssetsPath) + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
-                            } else
-                            {
-                                CloneFile(Application.streamingAssetsPath + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
-                            }
-#endif
-                        }
+                        src = attribute.Value.Replace("./Assets/StreamingAssets", Application.streamingAssetsPath);
+                        output = attribute.Value.Replace("./Assets", Application.persistentDataPath);
                     }
                     else
                     {
-                        //no information about overwrite, overwrite file
-                        CloneFile(Application.streamingAssetsPath + attribute.Value, Application.persistentDataPath + "/" + attribute.Value);
+#if UNITY_EDITOR
+                        src = attribute.Value.Replace("./Assets", Application.dataPath);   // Plugins are in ./Assets/Plugins in editor
+                        output = attribute.Value.Replace("./Assets", Application.persistentDataPath);
+#elif UNITY_ANDROID
+                        src = attribute.Value.Replace("./Assets", Application.streamingAssetsPath); // Plugins should be extracted from AndroidStreamingAssetsPath which (ie :  [apk]/assets/Plugins), no the same path than dataPath
+                        output = attribute.Value.Replace("./Assets", Application.persistentDataPath);
+#endif
                     }
 
+                    if (!File.Exists(output))
+                    {
+                        //Overwrite
+                        CloneManager.Add(src, output);
+                    }
+                    else
+                    {
+                        if (attribute.Parent.Attribute("overWrite") != null)
+                        {
+                            if (attribute.Parent.Attribute("overWrite").Value.Equals("true"))
+                            {
+                                //Overwrite
+                                CloneManager.Add(src, output);
+                            }
+                        }
+                        else
+                        {
+                            //no information about overwrite, overwrite file
+                            CloneManager.Add(src, output);
+                        }
+                    }
                 }
             }
         }
-
+        CloneManager.Execute();
     }
-    private void CloneFile(string source, string dest)
-    {
-        //Create directory
-        if (!Directory.Exists(Path.GetDirectoryName(dest)))
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(dest));
-        }
-
-        //Create file
-        WWW request = new WWW(source);
-        while (!request.isDone)
-        {/*Loading xml*/}
-
-        if (string.IsNullOrEmpty(request.error))
-        {
-            File.Delete(dest);
-            File.WriteAllBytes(dest, request.bytes);
-        }
-        else
-        {
-            Debug.LogError("debug : CloneFile error - "+source+" / " + request.error);
-        }
-        
-    }
-
 
     private void Demo(string filepath)
     {
@@ -153,4 +149,56 @@ public class TestPathAndroid : MonoBehaviour
         }
         input.Close();
     }
+
+    private class CloneManager
+    {
+        private List<Tuple<string, string>> m_data;
+        public CloneManager()
+        {
+            m_data = new List<Tuple<string, string>>();
+        }
+
+        public void Add(string source,string dest)
+        {
+            m_data.Add(new Tuple<string, string>(source, dest));
+        }
+
+        public void Execute()
+        {
+            foreach(Tuple<string,string> c in m_data)
+            {
+                Clone(c.Item1, c.Item2);
+            }
+            m_data.Clear();
+        }
+
+        private void Clone(string source, string dest)
+        {
+            //Create directory
+            if (!Directory.Exists(Path.GetDirectoryName(dest)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(dest));
+            }
+
+            //Create file
+            WWW request = new WWW(source);
+            while (!request.isDone)
+            {
+                //Loading xml
+            }
+
+            if (string.IsNullOrEmpty(request.error))
+            {
+                if (File.Exists(dest)) File.Delete(dest);
+                File.WriteAllBytes(dest, request.bytes);
+            }
+            else
+            {
+                Debug.LogError("debug : CloneFile error - " + source + " / " + request.error);
+            }
+            request.Dispose();
+        }
+    }
+
+    
 }
