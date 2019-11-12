@@ -15,7 +15,8 @@ public class TestPathAndroid : MonoBehaviour
     private string m_text = "";
 
     void Start()
-    {        
+    {
+        Debug.Log("path : " + Application.persistentDataPath);
         AndroidClone(Application.streamingAssetsPath+"/SolAR/Android/android.xml");
         Demo(Application.persistentDataPath + "/StreamingAssets/SolAR/Pipelines/PipelineFiducialMarker.xml");
     }
@@ -31,64 +32,66 @@ public class TestPathAndroid : MonoBehaviour
         GUI.Label(rect, m_text, style);
     }
     
-    private void AndroidClone(string conf_xml)
+    private void AndroidClone(string androidXml)
     {
-        CloneManager CloneManager = new CloneManager();
-        //Use conf xml of the apk
-        WWW request = new WWW(conf_xml);
-        while (!request.isDone)
-        {/*Loading xml*/}
-        if (!string.IsNullOrEmpty(request.error))
-        {
-            Debug.LogError("debug : error - " + conf_xml + " / " + request.error);
-            return;
-        }
+        string data = "";
 
-        string data = request.text;
-        string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
-        if (data.StartsWith(_byteOrderMarkUtf8))
-        {
-            data = data.Remove(0, _byteOrderMarkUtf8.Length);
-        }
+        //1.Check if android.xml should be overwrite or use
+        string old_xml = Path.GetFullPath(androidXml).Replace(Path.GetDirectoryName(Application.streamingAssetsPath), Application.persistentDataPath).Replace("\\","/");
 
-        //Check if conf xml already exist on the terminal and should be used instead of the one of the apk
-        string old_conf_xml = Path.GetFullPath(conf_xml).Replace(Path.GetDirectoryName(Application.streamingAssetsPath), Application.persistentDataPath);
-        if (File.Exists(old_conf_xml))
+        if (File.Exists(old_xml))
         {
-            StreamReader input = new StreamReader(old_conf_xml);
+            StreamReader input = new StreamReader(old_xml);
             string tmp = input.ReadToEnd();
             var old = XDocument.Parse(tmp);
             var conf = old.Element("assets").Element("streamingAssets").Elements("file");
             foreach (var attribute in conf.Attributes())
             {
-                if (attribute.Name == "path" && attribute.Value.Contains(Path.GetFileName(conf_xml)))
+                if (attribute.Name == "path" && attribute.Value.Contains(Path.GetFileName(old_xml)))
                 {
-                    if (attribute.Parent.Attribute("overWrite") != null)
+                    if (attribute.Parent.Attribute("overWrite") != null && attribute.Parent.Attribute("overWrite").Value.Equals("false"))
                     {
-                        if (attribute.Parent.Attribute("overWrite").Value.Equals("false"))
-                        {
-                            //keep terminal xml
-                            data = tmp;
-                        }
+                        //keep the xml already on terminal
+                        data = tmp;
                     }
                 }
             }
             input.Close();
         }
+        //2.Get android.xml from .apk archive if local android.xml isn't used
+        if (string.IsNullOrEmpty(data))
+        {
+            WWW request = new WWW(androidXml);
+            while (!request.isDone) { }
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                Debug.LogError("debug : error - " + androidXml + " / " + request.error);
+                return;
+            }
 
-        //Clone from conf xml selected
+            data = request.text;
+            string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            if (data.StartsWith(_byteOrderMarkUtf8))
+            {
+                data = data.Remove(0, _byteOrderMarkUtf8.Length);
+            }
+        }
+
+        //3. Clone content in external directory with correct path
+        CloneManager CloneManager = new CloneManager();
         var doc = XDocument.Parse(data.ToString());
         var file = new[] {
             doc.Element("assets").Element("streamingAssets").Elements("file"),
             doc.Element("assets").Element("plugins").Elements("file")
         };
 
-        foreach(var f in file)
+        foreach (var f in file)
         {
             foreach (var attribute in f.Attributes())
             {
                 if (attribute.Name == "path")
-                {
+                {   
+                    //update path for terminal
                     string src = "";
                     string output = "";
 
@@ -108,26 +111,9 @@ public class TestPathAndroid : MonoBehaviour
 #endif
                     }
 
-                    if (!File.Exists(output))
-                    {
+                    if(attribute.Parent.Attribute("overWrite")==null || attribute.Parent.Attribute("overWrite").Equals("true") || !File.Exists(output)){
                         //Overwrite
                         CloneManager.Add(src, output);
-                    }
-                    else
-                    {
-                        if (attribute.Parent.Attribute("overWrite") != null)
-                        {
-                            if (attribute.Parent.Attribute("overWrite").Value.Equals("true"))
-                            {
-                                //Overwrite
-                                CloneManager.Add(src, output);
-                            }
-                        }
-                        else
-                        {
-                            //no information about overwrite, overwrite file
-                            CloneManager.Add(src, output);
-                        }
                     }
                 }
             }
