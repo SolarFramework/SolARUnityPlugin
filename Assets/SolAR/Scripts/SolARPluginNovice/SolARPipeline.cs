@@ -71,9 +71,6 @@ namespace SolAR
         [HideInInspector]
         public SolARPluginPipelineManager m_pipelineManager;
 
-        [DllImport("SolARPipelineManager")]
-        private static extern System.IntPtr RedirectIOToConsole(bool activate);
-
         [HideInInspector]
         public WebCamTexture m_webCamTexture;
 
@@ -108,14 +105,27 @@ namespace SolAR
                     Debug.Log("Cannot init pipeline manager " + Application.dataPath + m_configurationPath + " with uuid " + m_uuid);
                     return;
                 }
+#elif UNITY_ANDROID
+                Debug.Log("debug : ADR - "+m_configurationPath);
+                 // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
+                //if (!m_pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid)) //@TODO chargement depuis dir externe
+                if (!m_pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid)) 
+                {
+                    Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath + " with uuid " + m_uuid);
+                    return;
+                }
+                Debug.Log("debug : 3-path");
+                //m_Unity_Webcam = true;
+
 #else
+                Debug.Log("debug : else");
                 // When the application is built, only the pipeline configuration files used by the application are moved to the streamingAssets folder
                 if (!m_pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid))
                  {
                     Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
                     return;
                 }
-                m_Unity_Webcam = true;
+                //m_Unity_Webcam = true;
 #endif
 
                 if (m_Unity_Webcam)

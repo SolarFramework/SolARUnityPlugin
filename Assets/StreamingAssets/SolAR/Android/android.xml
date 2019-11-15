@@ -23,19 +23,19 @@
     <file path="./Assets/StreamingAssets/SolAR/Pipelines/PipelineNaturalImageMarker.xml" overWrite="true" />
   </streamingAssets>
   <plugins>
-    <file path="./Assets/Plugins/Android/boost_context.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/boost_date_time.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/boost_fiber.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/boost_filesystem.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/boost_log.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/boost_system.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/boost_thread.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/opencv_world.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/PipelineFiducialMarker.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/SolARFramework.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/SolARModuleOpenCV.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/SolARModuleTools.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/SolARPipelineManager.so" overWrite="true" />
-    <file path="./Assets/Plugins/Android/xpcf.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_context.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_date_time.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_fiber.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_filesystem.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_log.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_system.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libboost_thread.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libopencv_world.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libPipelineFiducialMarker.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libSolARFramework.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libSolARModuleOpenCV.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libSolARModuleTools.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libSolARPipelineManager.so" overWrite="true" />
+    <file path="./Assets/Plugins/Android/libxpcf.so" overWrite="true" />
   </plugins>
 </assets>

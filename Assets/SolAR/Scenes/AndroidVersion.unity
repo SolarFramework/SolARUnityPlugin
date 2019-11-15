@@ -5373,8 +5373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d63d5ef356562a469d9a7e6a42fdfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_streamingAssetsFile: /SolAR/text.xml
-  m_customXml: 0
 --- !u!223 &1577110658 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 223146077147496164, guid: 7281571d3d1187f46934098f4a8198d6,

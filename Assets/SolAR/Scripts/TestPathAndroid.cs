@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 
 public class TestPathAndroid : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class TestPathAndroid : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("path : " + Application.persistentDataPath);
         AndroidClone(Application.streamingAssetsPath+"/SolAR/Android/android.xml");
         Demo(Application.persistentDataPath + "/StreamingAssets/SolAR/Pipelines/PipelineFiducialMarker.xml");
     }
@@ -37,8 +37,12 @@ public class TestPathAndroid : MonoBehaviour
         string data = "";
 
         //1.Check if android.xml should be overwrite or use
-        string old_xml = Path.GetFullPath(androidXml).Replace(Path.GetDirectoryName(Application.streamingAssetsPath), Application.persistentDataPath).Replace("\\","/");
+        string old_xml = androidXml.Replace(Path.GetDirectoryName(Application.streamingAssetsPath).Replace("\\", "/"),Application.persistentDataPath);
 
+#if UNITY_ANDROID && !UNITY_EDITOR
+            //Android
+            old_xml="/storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files"+androidXml.Replace(Application.streamingAssetsPath,"/StreamingAssets");
+#endif
         if (File.Exists(old_xml))
         {
             StreamReader input = new StreamReader(old_xml);
@@ -58,6 +62,11 @@ public class TestPathAndroid : MonoBehaviour
             }
             input.Close();
         }
+        else
+        {
+            Debug.LogWarning("unityDebug : no androidXml found in internal memory - " + old_xml);
+        }
+
         //2.Get android.xml from .apk archive if local android.xml isn't used
         if (string.IsNullOrEmpty(data))
         {
@@ -65,7 +74,7 @@ public class TestPathAndroid : MonoBehaviour
             while (!request.isDone) { }
             if (!string.IsNullOrEmpty(request.error))
             {
-                Debug.LogError("debug : error - " + androidXml + " / " + request.error);
+                Debug.LogError("unityDebug : error - " + androidXml + " / " + request.error);
                 return;
             }
 
@@ -75,6 +84,10 @@ public class TestPathAndroid : MonoBehaviour
             {
                 data = data.Remove(0, _byteOrderMarkUtf8.Length);
             }
+        }
+        else
+        {
+            Debug.LogWarning("unityDebug : local android.xml is used - " + old_xml);
         }
 
         //3. Clone content in external directory with correct path
@@ -110,14 +123,14 @@ public class TestPathAndroid : MonoBehaviour
                         output = attribute.Value.Replace("./Assets", Application.persistentDataPath);
 #endif
                     }
-
-                    if(attribute.Parent.Attribute("overWrite")==null || attribute.Parent.Attribute("overWrite").Equals("true") || !File.Exists(output)){
+                    if (attribute.Parent.Attribute("overWrite")==null || attribute.Parent.Attribute("overWrite").Value.Equals("true") || !File.Exists(output)){
                         //Overwrite
                         CloneManager.Add(src, output);
                     }
                 }
             }
         }
+        Debug.Log(CloneManager);
         CloneManager.Execute();
     }
 
@@ -180,11 +193,20 @@ public class TestPathAndroid : MonoBehaviour
             }
             else
             {
-                Debug.LogError("debug : CloneFile error - " + source + " / " + request.error);
+                Debug.LogError("unityDebug : CloneFile error - " + source + " / " + request.error);
             }
             request.Dispose();
         }
-    }
 
-    
+        public override string ToString() 
+        {
+            string tostring= "--CloneManager-- \nCount: " + m_data.Count + "\n";
+
+            foreach(Tuple<string, string> t in m_data)
+            {
+                tostring += Path.GetFileName(t.Item1.ToString())+"\n";
+            }
+            return tostring;
+        }
+    }
 }
