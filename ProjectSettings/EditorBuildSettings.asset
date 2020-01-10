@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/SolAR/Scenes/NoviceVersion.unity
+    guid: 8c477acf40243cc43a4cdfe42ee59d4b
+  - enabled: 1
+    path: Assets/SolAR/Scenes/NoviceAndroidVersion.unity
+    guid: d5e6645a764b3124db0e6047291cc639
   m_configObjects: {}

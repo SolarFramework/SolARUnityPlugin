@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using UnityEditor;
+using UnityEngine;
 
 public class FPSDisplay : MonoBehaviour
 {

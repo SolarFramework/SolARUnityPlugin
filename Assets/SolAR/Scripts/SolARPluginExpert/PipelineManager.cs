@@ -59,12 +59,12 @@ namespace SolAR
             Disposable.Create(xpcfComponentManager.clear).AddTo(subscriptions);
             xpcfComponentManager.AddTo(subscriptions);
 
-#if !UNITY_EDITOR    
+#if !UN    
             conf.path = File.ReadAllText("confPath.txt");
 #endif
             if (xpcfComponentManager.load(conf.path) != XPCFErrorCode._SUCCESS)
             {
-                Debug.LogErrorFormat("Failed to load the configuration file {0}", conf.path);
+               Debug.LogErrorFormat("Failed to load the configuration file {0}", conf.path);
                 enabled = false;
                 return;
             }

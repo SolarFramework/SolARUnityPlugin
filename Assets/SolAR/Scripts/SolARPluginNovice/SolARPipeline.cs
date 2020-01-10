@@ -95,6 +95,78 @@ namespace SolAR
 
         void Start()
         {
+            Init();
+        }
+
+        void Update()
+        {
+            if (UpdateReady)
+            {
+                if (m_pipelineManager != null)
+                {
+                    if (m_Unity_Webcam)
+                    {
+                        m_webCamTexture.GetPixels32(data);
+
+                        for (int i = 0; i < data.Length; i++)
+                        {
+                            m_vidframe_byte[3 * i] = data[i].b;
+                            m_vidframe_byte[3 * i + 1] = data[i].g;
+                            m_vidframe_byte[3 * i + 2] = data[i].r;
+                        }
+
+                        sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
+                        m_pipelineManager.loadSourceImage(sourceTexture, width, height);
+                    }
+                    Transform3Df pose = new Transform3Df();
+
+                    var _returnCode = m_pipelineManager.udpate(pose);
+
+                    if (_returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                    {
+                        m_texture.LoadRawTextureData(array_imageData);
+                        m_texture.Apply();
+                        m_material.SetTexture("_MainTex", m_texture);
+                    }
+
+                    if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
+                    {
+                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
+                        {
+                            if (child != myObject) child.GetComponent<Renderer>().enabled = true;
+                        }
+
+                        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
+
+                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0, 0)));
+                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation().coeff(1, 0), pose.rotation().coeff(1, 1), pose.rotation().coeff(1, 2), pose.translation().coeff(1, 0)));
+                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation().coeff(2, 0), pose.rotation().coeff(2, 1), pose.rotation().coeff(2, 2), pose.translation().coeff(2, 0)));
+                        cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
+
+                        Matrix4x4 invertMatrix = new Matrix4x4();
+                        invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
+                        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
+                        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
+                        invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
+                        Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
+
+                        Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
+                        Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
+
+                        m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
+                        m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
+
+                    }
+                    else if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
+                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
+                            if (child != myObject)
+                                child.GetComponent<Renderer>().enabled = false;
+                }
+            }
+        }
+
+        void Init()
+        {
             if (m_camera)
             {
                 m_pipelineManager = new SolARPluginPipelineManager();
@@ -106,19 +178,20 @@ namespace SolAR
                     return;
                 }
 #elif UNITY_ANDROID
-                Debug.Log("debug : ADR - "+m_configurationPath);
-                 // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
-                //if (!m_pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid)) //@TODO chargement depuis dir externe
-                if (!m_pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid)) 
+                Screen.sleepTimeout = SleepTimeout.NeverSleep;
+                Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+                Android.ReplacePathToApp(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
+                // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
+                Debug.Log("[ANDROID] Load pipeline : "+Application.persistentDataPath + "/StreamingAssets"+m_configurationPath);
+                if (!m_pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid))
                 {
                     Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath + " with uuid " + m_uuid);
                     return;
                 }
-                Debug.Log("debug : 3-path");
+                Debug.Log("[ANDROID] Pipeline initialization successful");
                 //m_Unity_Webcam = true;
 
 #else
-                Debug.Log("debug : else");
                 // When the application is built, only the pipeline configuration files used by the application are moved to the streamingAssets folder
                 if (!m_pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid))
                  {
@@ -156,10 +229,10 @@ namespace SolAR
                     width = Screen.width;
                     height = Screen.height;
                     focalX = camParams.coeff(0, 0); // focalX;
-                    focalY = camParams.coeff(1,1);  // focalY;
-                    centerX = camParams.coeff(0,2); // centerX;
+                    focalY = camParams.coeff(1, 1);  // focalY;
+                    centerX = camParams.coeff(0, 2); // centerX;
                     centerY = camParams.coeff(1, 2);// centerY;
-                    
+
                 }
 
                 SendParametersToCameraProjectionMatrix();
@@ -175,7 +248,7 @@ namespace SolAR
                     m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     m_canvas.pixelPerfect = true;
                     m_canvas.worldCamera = m_camera;
-                    m_canvas.planeDistance = m_camera.farClipPlane ;
+                    m_canvas.planeDistance = m_camera.farClipPlane;
 
                     CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                     scaler.referenceResolution = new Vector2(width, height);
@@ -208,71 +281,14 @@ namespace SolAR
             UpdateReady = true;
         }
 
-        void Update()
+        public void ChangePipeline()
         {
-            if(UpdateReady)
-            {
-                if (m_pipelineManager != null)
-                {
-                    if (m_Unity_Webcam)
-                    {
-                        m_webCamTexture.GetPixels32(data);
-
-                        for (int i = 0; i < data.Length; i++)
-                        {
-                            m_vidframe_byte[3 * i] = data[i].b;
-                            m_vidframe_byte[3 * i + 1] = data[i].g;
-                            m_vidframe_byte[3 * i + 2] = data[i].r;
-                        }
-
-                        sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(m_vidframe_byte, 0);
-                        m_pipelineManager.loadSourceImage(sourceTexture, width, height);
-                    }
-                    Transform3Df pose = new Transform3Df();
-
-                    var _returnCode =  m_pipelineManager.udpate(pose);
-
-                    if(_returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
-                    {
-                        m_texture.LoadRawTextureData(array_imageData);
-                        m_texture.Apply();
-                        m_material.SetTexture("_MainTex", m_texture);
-                    }
-
-                    if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE  || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
-                    {
-                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
-                        {
-                            if(child != myObject) child.GetComponent<Renderer>().enabled = true;
-                        }
-
-                        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
-
-                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0, 0)));
-                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation().coeff(1, 0), pose.rotation().coeff(1, 1), pose.rotation().coeff(1, 2), pose.translation().coeff(1, 0)));
-                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation().coeff(2, 0), pose.rotation().coeff(2, 1), pose.rotation().coeff(2, 2), pose.translation().coeff(2, 0)));
-                        cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
-
-                        Matrix4x4 invertMatrix = new Matrix4x4();
-                        invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
-                        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
-                        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
-                        invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
-                        Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
-                        
-                        Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
-                        Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
-
-                        m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
-                        m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-                       
-                    }
-                    else if(_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
-                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
-                            if (child != myObject)
-                                child.GetComponent<Renderer>().enabled = false;
-                }
-            }
+            Debug.Log("changePipeline");
+            //UpdateReady = false;
+            //Debug.Log(m_pipelineManager);
+            //m_pipelineManager.Dispose();
+            //Debug.Log(m_pipelineManager);
+            //Init();
         }
 
         void SendParametersToCameraProjectionMatrix()

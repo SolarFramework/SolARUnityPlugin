@@ -65,12 +65,15 @@ MonoBehaviour:
   m_pipelinesName:
   - PipelineFiducialMarker
   - PipelineNaturalImageMarker
+  - PipelineSlam
   m_pipelinesUUID:
   - 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
   - 6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1
+  - 577ccd2c-de1b-402a-8829-496747598588
   m_pipelinesPath:
   - /SolAR/Pipelines/PipelineFiducialMarker.xml
   - /SolAR/Pipelines/PipelineNaturalImageMarker.xml
+  - /SolAR/Pipelines/PipelineSlam.xml
   m_selectedPipeline: 0
   m_configurationPath: /SolAR/Pipelines/PipelineFiducialMarker.xml
   m_uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
@@ -92,7 +95,7 @@ MonoBehaviour:
           description: IComponentIntrospect
         - uuid: b5a6225e-6a91-4050-b298-886f4c17d9d2
           name: IPipeline
-          description: The interface to define a video see-through pipeline
+          description: The interface to define a video see-throuh pipeline
     - uuid: 15e1990b-86b2-445c-8194-0cbe80ede970
       name: SolARModuleOpenCV
       path: ./Assets/Plugins
@@ -216,18 +219,38 @@ MonoBehaviour:
           description: I3DTransformFinder
       - uuid: 65282fb3-6651-4e73-b532-5a64ade0ead0
         name: SolARImageConvertorUnity
-        description: SolARImageConvertorUnity
+        description: SolAR::MODULES::OPENCV::SolARImageConvertorUnity component
         interfaces:
         - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
           name: IComponentIntrospect
           description: IComponentIntrospect
         - uuid: 9c982719-6cb4-4831-aa88-9e01afacbd16
           name: IImageConvertor
-          description: IImageConvertor
+          description: SolAR::api::image::IImageConvertor
+      - uuid: 2db01f59-9793-4cd5-8e13-b25d0ed5735b
+        name: SolAR3DOverlayOpencv
+        description: SolAR3DOverlayOpencv
+        interfaces:
+        - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+          name: IComponentIntrospect
+          description: IComponentIntrospect
+        - uuid: 81a20f52-6bf9-4949-b914-df2f614bc945
+          name: I3DOverlay
+          description: I3DOverlay
+      - uuid: 19ea4e13-7085-4e3f-92ca-93f200ffb01b
+        name: SolARImageViewerOpencv
+        description: SolARImageViewerOpencv
+        interfaces:
+        - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+          name: IComponentIntrospect
+          description: IComponentIntrospect
+        - uuid: b05f3dbb-f93d-465c-aee1-fb58e1480c42
+          name: IImageViewer
+          description: IImageViewer
     - uuid: 28b89d39-41bd-451d-b19e-d25a3d7c5797
       name: SolARModuleTools
       path: ./Assets/Plugins
-      description: Tools
+      description: Module Tools
       components:
       - uuid: a2ef5542-029e-4fce-9974-0aea14b29d6f
         name: SolARSBPatternReIndexer
@@ -262,20 +285,21 @@ MonoBehaviour:
             from the pipeline to make it available to a third party application
       - uuid: 1e43cda9-7850-4a8a-a32b-f3f31ea94902
         name: SolARBasicSource
-        description: Source component
+        description: A source component for feeding the pipeline with external images
         interfaces:
         - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
           name: IComponentIntrospect
           description: IComponentIntrospect
         - uuid: 06e2fc5d-39da-4486-b2a6-1d8bd788fa13
           name: ISourceImage
-          description: Interface source component
-    configuration:
-      components:
-      - type: 
-        uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
-        name: 
-        description: 
+          description: An interface allowing to store an image from extern source
+            to make it available to the pipeline
+    properties:
+      configure:
+      - type: PipelineFiducialMarker
+        uuid: 
+        component: PipelineFiducialMarker
+        description: A pipeline to estimate the pose based on a squared fiducial marker
         properties:
         - name: minThreshold
           type: Integer
@@ -293,10 +317,10 @@ MonoBehaviour:
           description: The number of thresholds for image binarization tested between
             minThreshold and maxThreshold
           values: []
-      - type: 
-        uuid: 5B7396F4-A804-4F3C-A0EB-FB1D56042BB4
-        name: 
-        description: 
+      - type: SolARCameraOpencv
+        uuid: 
+        component: SolARCameraOpencv
+        description: SolARCameraOpencv
         properties:
         - name: calibrationFile
           type: string
@@ -309,30 +333,46 @@ MonoBehaviour:
           value: 0
           description: ID of the camera (default = 0)
           values: []
-      - type: 
-        uuid: 5d2b8da9-528e-4e5e-96c1-f883edcf3b1c
-        name: 
-        description: 
+      - type: SolARMarker2DSquaredBinaryOpencv
+        uuid: 
+        component: SolARMarker2DSquaredBinaryOpencv
+        description: SolARMarker2DSquaredBinaryOpencv
         properties:
         - name: filePath
           type: string
           value: ./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml
           description: Path of the .yml file describing the fiducial marker.
           values: []
-      - type: 
-        uuid: 6acf8de2-cc63-11e7-abc4-cec278b6b50a
-        name: 
-        description: 
+      - type: SolARImageFilterBinaryOpencv
+        uuid: 
+        component: SolARImageFilterBinaryOpencv
+        description: SolARImageFilterBinaryOpencv
+        properties:
+        - name: min
+          type: Integer
+          value: -1
+          description: minimum threshold (-1 to automatically compute it on the global
+            image
+          values: []
+        - name: max
+          type: Integer
+          value: 255
+          description: maximum threshold
+          values: []
+      - type: SolARContoursExtractorOpencv
+        uuid: 
+        component: SolARContoursExtractorOpencv
+        description: SolARContoursExtractorOpencv
         properties:
         - name: minContourEdges
           type: Integer
           value: 4
           description: Minimum number of edge to validate a contour (default = 4)
           values: []
-      - type: 
-        uuid: 4309dcc6-cc73-11e7-abc4-cec278b6b50a
-        name: 
-        description: 
+      - type: SolARContoursFilterBinaryMarkerOpencv
+        uuid: 
+        component: SolARContoursFilterBinaryMarkerOpencv
+        description: SolARContoursFilterBinaryMarkerOpencv
         properties:
         - name: epsilon
           type: Float
@@ -353,10 +393,10 @@ MonoBehaviour:
             contour and the same corners of another contour to consider the contour
             as valid (default = 10)
           values: []
-      - type: 
-        uuid: 9c960f2a-cd6e-11e7-abc4-cec278b6b50a
-        name: 
-        description: 
+      - type: SolARPerspectiveControllerOpencv
+        uuid: 
+        component: SolARPerspectiveControllerOpencv
+        description: SolARPerspectiveControllerOpencv
         properties:
         - name: outputImageWidth
           type: Integer
@@ -367,6 +407,60 @@ MonoBehaviour:
           type: Integer
           value: 480
           description: The width in pixels of the corrected image.
+          values: []
+      - type: SolAR3DOverlayOpencv
+        uuid: 
+        component: SolAR3DOverlayOpencv
+        description: SolAR3DOverlayOpencv
+        properties:
+        - name: position
+          type: Float
+          value: 
+          description: 
+          values:
+          - 0
+          - 0
+          - 0
+        - name: orientation
+          type: Float
+          value: 
+          description: 
+          values:
+          - 0.0
+          - 0.0
+          - 0.0
+        - name: size
+          type: Float
+          value: 
+          description: 
+          values:
+          - 0.157
+          - 0.157
+          - 0.1
+      - type: SolARImageViewerOpencv
+        uuid: 
+        component: SolARImageViewerOpencv
+        description: SolARImageViewerOpencv
+        properties:
+        - name: title
+          type: string
+          value: Fiducial Image Marker
+          description: 
+          values: []
+        - name: exitKey
+          type: Integer
+          value: 27
+          description: 
+          values: []
+        - name: width
+          type: Integer
+          value: 0
+          description: 
+          values: []
+        - name: height
+          type: Integer
+          value: 0
+          description: 
           values: []
   m_webCamTexture: {fileID: 0}
   m_Unity_Webcam: 0

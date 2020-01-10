@@ -8,7 +8,8 @@ using System.Xml.Linq;
 using UnityEngine;
 using System.IO;
 
-namespace SolAR {
+namespace SolAR
+{
 
     class SolARBuildProcess : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
@@ -53,6 +54,7 @@ namespace SolAR {
                     case BuildTarget.StandaloneOSX:
                         break;
                     case BuildTarget.Android:
+                        Debug.Log("AndroidBuild : "+ pipeline.m_configurationPath);
                         AndroidXML(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
                         //Android build clone content of Assets/StreamingAssets/ in assets/ in the .apk archive
                         // Pipelines
@@ -68,12 +70,6 @@ namespace SolAR {
                         FileUtil.CopyFileOrDirectory(Application.dataPath + pipeline.m_configurationPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
                         // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
                         ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
-
-                        // Create a directory in the streamingAssets folder to copy plugins
-                        if (!Directory.Exists(Application.streamingAssetsPath + "/Plugins/"))  Directory.CreateDirectory(Application.streamingAssetsPath+"/Plugins/");
-                        
-                        FileUtil.CopyFileOrDirectory(Application.dataPath + "/Plugins/Android/", Application.streamingAssetsPath + "/Plugins/Android");
-                        createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + "/Plugins/"));
                         break;
                     case BuildTarget.iOS:
                         break;
@@ -93,7 +89,7 @@ namespace SolAR {
 
         private void ReplacePluginPaths(string confFileName, BuildReport report)
         {
-            string androidPersistentPath = "/storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files";
+            string androidPersistentPath = "/storage/emulated/0/Android/data/"+Application.identifier+ "/files";
             StreamReader input = new StreamReader(confFileName);
             var doc = XDocument.Parse(input.ReadToEnd());
 
@@ -117,9 +113,7 @@ namespace SolAR {
                                 break;
                             case BuildTarget.Android:
                                 // For Android , build put plugin in [apk] ./assets/Plugins
-                                //new_value = androidPersistentPath + "/Plugins/Android"; //@TODO copy extern dir
-                                //new_value = "./../../../lib/arm64-v8a";
-                                new_value = "./lib/arm64-v8a";
+                                new_value = androidPersistentPath + "/Plugins";
                                 break;
                             case BuildTarget.iOS:
                                 break;
@@ -141,13 +135,12 @@ namespace SolAR {
                         case BuildTarget.StandaloneWindows:
                         case BuildTarget.StandaloneWindows64:
                             // For windows, during the built process, streamingAssets folder is copied from the Assets/streamingAssets to the productname_Data/streamingAssets folder.
-                            new_value = attribValue.Value.Replace("./Assets/", "./" + Application.productName + "_Data/"); 
+                            new_value = attribValue.Value.Replace("./Assets/", "./" + Application.productName + "_Data/");
                             break;
                         case BuildTarget.StandaloneOSX:
                             break;
                         case BuildTarget.Android:
-                            //new_value = attribValue.Value.Replace("./Assets/", androidPersistentPath + "/");  //@TODO copy extern dir
-                            new_value = attribValue.Value.Replace("./Assets/StreamingAssets/", "./assets/");
+                            new_value = attribValue.Value.Replace("./Assets", androidPersistentPath);
                             break;
                         case BuildTarget.iOS:
                             break;
@@ -164,18 +157,17 @@ namespace SolAR {
         private void AndroidXML(string output)
         {
             XDocument doc = new XDocument();
-
             //Streaming Assets
             XElement streamingAssets = new XElement("streamingAssets");
-            bool overWriteStreamingAssets = true;
+            bool overWriteStreamingAssets;
             FileInfo[] info;
             string comment = "";
-
             foreach (DirectoryInfo dir in new DirectoryInfo(Application.streamingAssetsPath + "/SolAR/").GetDirectories("*.*", SearchOption.AllDirectories))
             {
                 info = dir.GetFiles("*.*");
                 foreach (FileInfo f in info)
                 {
+                    overWriteStreamingAssets = true;
                     if (!f.Extension.Equals(".meta"))
                     {
                         if (!comment.Equals(f.Directory.Name))
@@ -186,32 +178,20 @@ namespace SolAR {
                         }
                         if (f.Name.Equals("android.xml"))
                         {
-                            streamingAssets.Add(new XComment("/!\\ overwrite (false) for android.xml enable to use this local file. Otherwise android.xml from apk will be downloaded"));
+                            streamingAssets.Add(new XComment("/!\\ Don't use overWrite attribute for configuration, if you want to use the configuration xml in the .apk delete this configuration xml otherwise it will use this one"));
+                            overWriteStreamingAssets = false;
                         }
                         XElement element = new XElement("file");
-                        element.Add(new XAttribute("path", f.FullName.Replace("\\", "/").Replace(Application.dataPath, "./Assets")));
-                        element.Add(new XAttribute("overWrite", overWriteStreamingAssets.ToString().ToLower()));
+                        element.Add(new XAttribute("path", f.FullName.Replace("\\", "/").Replace(Application.dataPath, "./assets")));
+                        if(overWriteStreamingAssets==true) element.Add(new XAttribute("overWrite", overWriteStreamingAssets.ToString().ToLower()));
                         streamingAssets.Add(element);
                     }
                 }
             }
 
-            //Plugins
-            XElement plugins = new XElement("plugins");
-            bool overWritePlugins = true;
-            info = new DirectoryInfo(Application.dataPath + "/Plugins/Android/").GetFiles("*.so");
-
-            foreach (FileInfo f in info)
-            {
-                XElement element = new XElement("file");
-                element.Add(new XAttribute("path", f.FullName.Replace("\\", "/").Replace(Application.dataPath, "./Assets")));
-                element.Add(new XAttribute("overWrite", overWritePlugins.ToString().ToLower()));
-                plugins.Add(element);
-            }
             //Merge
             XElement assets = new XElement("assets");
             assets.Add(streamingAssets);
-            assets.Add(plugins);
             doc.Add(assets);
             doc.Save(output);
         }

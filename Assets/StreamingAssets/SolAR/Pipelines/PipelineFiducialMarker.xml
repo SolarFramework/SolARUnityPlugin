@@ -1,12 +1,12 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xpcf-registry autoAlias="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="PipelineFiducialMarker" path="./Assets/Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
+  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="PipelineFiducialMarker" path="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
     <component uuid="3898cc3b-3986-4edc-b7c8-f4fba0f6c22a" name="PipelineFiducialMarker" description="A pipeline to estimate the pose based on a squared fiducial marker">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
-  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./Assets/Plugins" description="OpenCV">
+  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/Plugins" description="OpenCV">
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
@@ -53,20 +53,20 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinder" description="I3DTransformFinder" />
     </component>
-	<component uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" name="SolARImageConvertorUnity" description="SolAR::MODULES::OPENCV::SolARImageConvertorUnity component">
-			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-			<interface uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" name="IImageConvertor" description="SolAR::api::image::IImageConvertor"/>
-	</component>
-	<component uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" name="SolAR3DOverlayOpencv" description="SolAR3DOverlayOpencv">
-                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="81a20f52-6bf9-4949-b914-df2f614bc945" name="I3DOverlay" description="I3DOverlay"/>
-	</component>
-	<component uuid="19ea4e13-7085-4e3f-92ca-93f200ffb01b" name="SolARImageViewerOpencv" description="SolARImageViewerOpencv">
-			<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-			<interface uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" name="IImageViewer" description="IImageViewer"/>
-	</component>
+    <component uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" name="SolARImageConvertorUnity" description="SolAR::MODULES::OPENCV::SolARImageConvertorUnity component">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" name="IImageConvertor" description="SolAR::api::image::IImageConvertor" />
+    </component>
+    <component uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" name="SolAR3DOverlayOpencv" description="SolAR3DOverlayOpencv">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="81a20f52-6bf9-4949-b914-df2f614bc945" name="I3DOverlay" description="I3DOverlay" />
+    </component>
+    <component uuid="19ea4e13-7085-4e3f-92ca-93f200ffb01b" name="SolARImageViewerOpencv" description="SolARImageViewerOpencv">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" name="IImageViewer" description="IImageViewer" />
+    </component>
   </module>
-  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./Assets/Plugins" description="Module Tools">
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/Plugins" description="Module Tools">
     <component uuid="a2ef5542-029e-4fce-9974-0aea14b29d6f" name="SolARSBPatternReIndexer" description="SolARSBPatternReIndexer">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="79c5b810-d557-11e7-9296-cec278b6b50a" name="ISBPatternReIndexer" description="ISBPatternReIndexer" />
@@ -75,21 +75,21 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper" />
     </component>
-   <component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
+    <component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
     </component>
-	<component uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" name="SolARBasicSource" description="A source component for feeding the pipeline with external images">
+    <component uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" name="SolARBasicSource" description="A source component for feeding the pipeline with external images">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="06e2fc5d-39da-4486-b2a6-1d8bd788fa13" name="ISourceImage" description="An interface allowing to store an image from extern source to make it available to the pipeline" />
     </component>
   </module>
   <factory>
-      <bindings>
-        <bind interface="ICamera" to="SolARCameraOpencv" />
-        <bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
-        <bind interface="IImageConvertor" to="SolARImageConvertorUnity" name="imageConvertorUnity" />
-      </bindings>
+    <bindings>
+      <bind interface="ICamera" to="SolARCameraOpencv" />
+      <bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
+      <bind interface="IImageConvertor" to="SolARImageConvertorUnity" name="imageConvertorUnity" />
+    </bindings>
   </factory>
   <properties>
     <configure component="PipelineFiducialMarker">
@@ -99,12 +99,12 @@
       <!--PipelineFiducialMarker-->
     </configure>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="calibrationFile" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
       <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
       <!--SolARCameraOpencv-->
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
       <!--SolARMarker2DSquaredBinaryOpencv-->
     </configure>
     <configure component="SolARImageFilterBinaryOpencv">
@@ -127,28 +127,30 @@
       <property name="outputImageHeight" type="Integer" value="480" description="The width in pixels of the corrected image." />
       <!--SolARPerspectiveControllerOpencv-->
     </configure>
-                <configure component="SolAR3DOverlayOpencv"> <!-- SolAR3DOverlayBoxOpencv -->
-		<property name="position"  type="Float">
-			<value>0</value>
-			<value>0</value>
-			<value>0</value>
-		</property>
-		<property name="orientation"  type="Float">
-			<value>0.0</value>
-			<value>0.0</value>
-			<value>0.0</value>
-		</property>
-		<property name="size"  type="Float">
-			<value>0.157</value>
-			<value>0.157</value>
-			<value>0.1</value>
-		</property>
-        </configure>
-        <configure component="SolARImageViewerOpencv"> <!-- SolARImageViewerOpencv -->
-		<property name="title" type="string" value="Fiducial Image Marker"/>
-		<property name="exitKey" type="Integer" value="27"/>
-		<property name="width" type="Integer" value="0"/>
-		<property name="height" type="Integer" value="0"/>
-        </configure>
+    <configure component="SolAR3DOverlayOpencv">
+      <!-- SolAR3DOverlayBoxOpencv -->
+      <property name="position" type="Float">
+        <value>0</value>
+        <value>0</value>
+        <value>0</value>
+      </property>
+      <property name="orientation" type="Float">
+        <value>0.0</value>
+        <value>0.0</value>
+        <value>0.0</value>
+      </property>
+      <property name="size" type="Float">
+        <value>0.157</value>
+        <value>0.157</value>
+        <value>0.1</value>
+      </property>
+    </configure>
+    <configure component="SolARImageViewerOpencv">
+      <!-- SolARImageViewerOpencv -->
+      <property name="title" type="string" value="Fiducial Image Marker" />
+      <property name="exitKey" type="Integer" value="27" />
+      <property name="width" type="Integer" value="0" />
+      <property name="height" type="Integer" value="0" />
+    </configure>
   </properties>
 </xpcf-registry>
