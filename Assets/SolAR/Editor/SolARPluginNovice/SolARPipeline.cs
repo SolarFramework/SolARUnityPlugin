@@ -49,7 +49,7 @@ namespace SolAR
             using (var stream = File.OpenRead(selectedPipelinePath))
             {
                 target.conf = (ConfXml)serializer.Deserialize(stream);
-                target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
+                //target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
                 target.m_configurationPath = target.m_pipelinesPath.ElementAt(num_pipeline);
             }
             serializedObject.Update();
@@ -60,7 +60,7 @@ namespace SolAR
             serializedObject.ApplyModifiedProperties();
             string[] files = Directory.GetFiles(Application.dataPath + target.m_pipelineFolder, "*.xml");
             List<string> namesList = new List<string>();
-            List<string> uuidList = new List<string>();
+            //List<string> uuidList = new List<string>();
             List<string> pathList = new List<string>();
             foreach (var file in files)
             {
@@ -88,11 +88,11 @@ namespace SolAR
                             {
                                 XElement component = component_interface.Ancestors("component").First();
                                 string pipelineName = component.Attribute("name").Value;
-                                string pipelineUuid = component.Attribute("uuid").Value;
+                                //string pipelineUuid = component.Attribute("uuid").Value;
                                 if (!string.IsNullOrEmpty(pipelineName))
                                 {
                                     namesList.Add(pipelineName);
-                                    uuidList.Add(pipelineUuid);
+                                    //uuidList.Add(pipelineUuid);
                                     pathList.Add(relative_file_temp);
                                 }
                             }
@@ -103,7 +103,7 @@ namespace SolAR
             }
             target.m_pipelinesName = namesList.ToArray();
             target.m_pipelinesPath = pathList.ToArray();
-            target.m_pipelinesUUID = uuidList.ToArray();
+            //target.m_pipelinesUUID = uuidList.ToArray();
 
             if (namesList.Count == 0)
             {
@@ -221,13 +221,14 @@ namespace SolAR
                         {
                             XmlSerializer serializer = new XmlSerializer(typeof(ConfXml));
                             StreamWriter writer = new StreamWriter(Application.dataPath + target.m_configurationPath);
+                            target.conf.autoAlias = "true";
                             serializer.Serialize(writer.BaseStream, target.conf);
                             writer.Close();
                         }
                     }
                     else
                     {
-                        target.m_uuid = "";
+                        //target.m_uuid = "";
                         target.m_configurationPath = "";
                         target.conf = null;
                         serializedObject.Update();
