@@ -21,5 +21,6 @@
     <!--Pipelines-->
     <file path="./assets/StreamingAssets/SolAR/Pipelines/PipelineFiducialMarker.xml" overWrite="true" />
     <file path="./assets/StreamingAssets/SolAR/Pipelines/PipelineNaturalImageMarker.xml" overWrite="true" />
+    <file path="./assets/StreamingAssets/SolAR/Pipelines/PipelineSlam.xml" overWrite="true" />
   </streamingAssets>
 </assets>

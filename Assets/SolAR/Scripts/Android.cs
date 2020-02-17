@@ -12,7 +12,7 @@ public class Android
         string data;
         string old_xml = Application.persistentDataPath + xml.Replace(Application.streamingAssetsPath, "/StreamingAssets");
 
-        //1.Check if conf xml already exist in internal storage
+        // Check if conf xml already exist in internal storage
         if (File.Exists(old_xml))
         {
             xml = old_xml;
@@ -24,7 +24,7 @@ public class Android
         }
         Debug.Log("[ANDROID] " + xml + " is used for configuration");
 
-        //2.Get configuration xml data
+        // Get configuration xml data
         if (!xml.Equals(old_xml))
         {
             //WWW request on .apk 
@@ -51,7 +51,7 @@ public class Android
             input.Close();
         }
 
-        //3. Clone content in external directory with correct path
+        // Clone content in external directory with correct path
         CloneManager CloneManager = new CloneManager();
         var doc = XDocument.Parse(data.ToString());
         var file = new[] {

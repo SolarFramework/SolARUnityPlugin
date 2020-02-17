@@ -55,7 +55,7 @@ namespace SolAR
                         break;
                     case BuildTarget.Android:
                         Debug.Log("AndroidBuild : "+ pipeline.m_configurationPath);
-                        AndroidXML(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+                        BuildAndroidXML(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
                         //Android build clone content of Assets/StreamingAssets/ in assets/ in the .apk archive
                         // Pipelines
                         // Create a directory in the streamingAssets folder to copy the pipeline configuration files
@@ -112,8 +112,7 @@ namespace SolAR
                             case BuildTarget.StandaloneOSX:
                                 break;
                             case BuildTarget.Android:
-                                // For Android , build put plugin in [apk] ./assets/Plugins
-                                new_value = androidPersistentPath + "/Plugins";
+                                // For Android , plugins are included in private app directory value can only be set on running by Android.ReplacePathToApp 
                                 break;
                             case BuildTarget.iOS:
                                 break;
@@ -140,6 +139,8 @@ namespace SolAR
                         case BuildTarget.StandaloneOSX:
                             break;
                         case BuildTarget.Android:
+                            // For Android, during the built process, an xml is build by SolARBuildProcess.BuildAndroidXML
+                            // the content of this xml will be clone from private app directory to external app directory (androidPersistentPath => /storage/emulated/0/Android/data/com.bcom.SolARUnityPlugin/files/)
                             new_value = attribValue.Value.Replace("./Assets", androidPersistentPath);
                             break;
                         case BuildTarget.iOS:
@@ -154,7 +155,11 @@ namespace SolAR
             return;
         }
 
-        private void AndroidXML(string output)
+        /// <summary>
+        /// Fill an xml with resources inside ./Assets/StreamingAssets/*
+        /// </summary>
+        /// <param name="output">Path to write to xml</param>
+        private void BuildAndroidXML(string output)
         {
             XDocument doc = new XDocument();
             //Streaming Assets
