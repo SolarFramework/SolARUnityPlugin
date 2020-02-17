@@ -154,7 +154,7 @@ namespace SolAR
 
                 SendParametersToCameraProjectionMatrix();
                 array_imageData = new byte[width * height * 3];
-                m_texture.filterMode = FilterMode.Point;
+                m_texture.filterMode = FilterMode.Trilinear;
                 m_texture.Apply();
 
                 if (!m_CustomCanvas)
