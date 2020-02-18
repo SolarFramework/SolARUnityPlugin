@@ -18,6 +18,7 @@ public class OptionsMenu : MonoBehaviour {
 
         List<string> pipelines = new List<string>();
         for (int i = 0; i < m_solarPipeline.m_pipelinesName.Length; i++) pipelines.Add(m_solarPipeline.m_pipelinesName[i]);
+
         m_pipelineDropdown.ClearOptions();
         m_pipelineDropdown.AddOptions(pipelines);
         m_pipelineDropdown.value = m_solarPipeline.m_selectedPipeline;
