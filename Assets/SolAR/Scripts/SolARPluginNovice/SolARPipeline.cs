@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using SolAR.Datastructure;
+using UnityEngine.Android;
+
 namespace SolAR
 {
     public class SolARPipeline : MonoBehaviour
@@ -95,6 +97,9 @@ namespace SolAR
 
         void Start()
         {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            while (!Permission.HasUserAuthorizedPermission(Permission.Camera)) { Permission.RequestUserPermission(Permission.Camera); }
+#endif
             Init();
         }
 
@@ -177,12 +182,14 @@ namespace SolAR
                     Debug.Log("Cannot init pipeline manager " + Application.dataPath + m_configurationPath + " with uuid " + m_uuid);
                     return;
                 }
+
 #elif UNITY_ANDROID
                 Screen.sleepTimeout = SleepTimeout.NeverSleep;
                 Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
                 Android.ReplacePathToApp(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
                 // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
                 Debug.Log("[ANDROID] Load pipeline : "+Application.persistentDataPath + "/StreamingAssets"+m_configurationPath);
+           
                 if (!m_pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid))
                 {
                     Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath + " with uuid " + m_uuid);
