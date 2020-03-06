@@ -49,7 +49,7 @@ namespace SolAR
             using (var stream = File.OpenRead(selectedPipelinePath))
             {
                 target.conf = (ConfXml)serializer.Deserialize(stream);
-                target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
+                target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline); 
                 target.m_configurationPath = target.m_pipelinesPath.ElementAt(num_pipeline);
             }
             serializedObject.Update();
@@ -221,6 +221,7 @@ namespace SolAR
                         {
                             XmlSerializer serializer = new XmlSerializer(typeof(ConfXml));
                             StreamWriter writer = new StreamWriter(Application.dataPath + target.m_configurationPath);
+                            target.conf.autoAlias = "true";
                             serializer.Serialize(writer.BaseStream, target.conf);
                             writer.Close();
                         }

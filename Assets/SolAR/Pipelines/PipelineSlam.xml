@@ -6,8 +6,12 @@
       <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
-  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./Assets/Plugins" description="SolARModuleOpenCV">
+  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" description="SolARModuleOpenCV" path="./Assets/Plugins">
 		<component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera"/>
+        </component>
+		<component uuid="b8a8b963-ba55-4ea4-b045-d9e7e8f6db02" name="SolARImagesAsCameraOpencv" description="SolARImagesAsCameraOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera"/>
         </component>
@@ -89,6 +93,10 @@
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" name="IImageConvertor" description="IImageConvertor"/>
         </component>
+		<component uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" name="SolARImageConvertorUnity" description="SolARImageConvertorUnity">
+                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
+                <interface uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" name="IImageConvertor" description="IImageConvertor"/>
+        </component>
 		<component uuid="6acf8de2-cc63-11e7-abc4-cec278b6b50a" name="SolARContoursExtractorOpencv" description="SolARContoursExtractorOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="42d82ab6-cc62-11e7-abc4-cec278b6b50a" name="IContoursExtractor" description="IContoursExtractor"/>
@@ -110,34 +118,20 @@
                 <interface uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" name="I2DOverlay" description="I2DOverlay"/>
         </component>
     </module>	
-  <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="./Assets/Plugins" description="SolARModuleOpenGL">
+  <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" description="SolARModuleOpenGL" path="./Assets/Plugins">
         <component uuid="afd38ea0-9a46-11e8-9eb6-529269fb1459" name="SolAR3DPointsViewerOpengl" description="SolAR3DPointsViewerOpengl">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="575d365a-9a27-11e8-9eb6-529269fb1459" name="I3DPointsViewer" description="I3DPointsViewer"/>
         </component>
-    </module> 	
-  <module uuid="2bce6a98-2ad7-4cd5-bd63-b3ee68fb59c0" name="SolARModuleNonFreeOpenCV" path="./Assets/Plugins" description="SolARModuleNonFreeOpenCV">
-        <component uuid="3787eaa6-d0a0-11e7-8fab-cec278b6b50a" name="SolARDescriptorsExtractorSIFTOpencv" description="SolARDescriptorsExtractorSIFTOpencv">
-                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e" name="IDescriptorsExtractor" description="IDescriptorsExtractor"/>
-        </component>
-        <component uuid="fe14a310-d0a2-11e7-8fab-cec278b6b50a" name="SolARDescriptorsExtractorSURF128Opencv" description="SolARDescriptorsExtractorSURF128Opencv">
-                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e" name="IDescriptorsExtractor" description="IDescriptorsExtractor"/>
-        </component>
-        <component uuid="1a437804-d0a3-11e7-8fab-cec278b6b50a" name="SolARDescriptorsExtractorSURF64Opencv" description="SolARDescriptorsExtractorSURF64Opencv">
-                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="c0e49ff1-0696-4fe6-85a8-9b2c1e155d2e" name="IDescriptorsExtractor" description="IDescriptorsExtractor"/>
-        </component>
-        <component uuid="d1f9317c-9519-4671-8ff5-4629773544f2" name="SolARKeypointDetectorNonFreeOpencv" description="SolARKeypointDetectorNonFreeOpencv">
-                <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="0eadc8b7-1265-434c-a4c6-6da8a028e06e" name="IKeypointDetector" description="IKeypointDetector"/>
-        </component>
-    </module>	
-  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  path="./Assets/Plugins"  description="SolARModuleTools">
+    </module> 		
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools"  description="SolARModuleTools"  path="./Assets/Plugins">
 		<component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
 				<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
 				<interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
+		</component>
+		<component uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" name="SolARBasicSource" description="A source component for feeding the pipeline with external images">
+				<interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+				<interface uuid="06e2fc5d-39da-4486-b2a6-1d8bd788fa13" name="ISourceImage" description="An interface allowing to store an image from extern source to make it available to the pipeline"/>
 		</component>
 		<component uuid="ad59a5ba-beb8-11e8-a355-529269fb1459" name="SolARKeyframeSelector" description="SolARKeyframeSelector">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
@@ -145,7 +139,7 @@
         </component>
 		<component uuid="09205b96-7cba-4415-bc61-64744bc26222" name="SolARMapFilterOpencv" description="SolARMapFilterOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" name="IMapFilter" description="IMapFilter"/>
+                <interface uuid="68dc9152-5199-11ea-8d77-2e728ce88125" name="IMapFilter" description="IMapFilter"/>
         </component>
 		<component uuid="8e3c926a-0861-46f7-80b2-8abb5576692c" name="SolARMapperOpencv" description="SolARMapperOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
@@ -160,14 +154,14 @@
                 <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper"/>
         </component>
 	</module>
-  <module uuid="b81f0b90-bdbc-11e8-a355-529269fb1459" name="SolARModuleFBOW" path="./Assets/Plugins" description="SolARModuleFBOW">
+  <module uuid="b81f0b90-bdbc-11e8-a355-529269fb1459" name="SolARModuleFBOW" description="SolARModuleFBOW" path="./Assets/Plugins">
         <component uuid="9d1b1afa-bdbc-11e8-a355-529269fb1459" name="SolARKeyframeRetrieverFBOW" description="SolARKeyframeRetrieverFBOW">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="f60980ce-bdbd-11e8-a355-529269fb1459" name="IKeyframeRetriever" description="IKeyframeRetriever"/>
         </component>
     </module>   
-  <module uuid="09f4a367-c5bf-4a9f-9f3b-42424d52f717" name="SolARModuleCeres" path="./Assets/Plugins" description="SolARModuleCeres">
-        <component uuid="4897fc13-682c-4e95-8aba-abd9f7a17193" name="SolARBundlerCeres" description="SolARBundlerCeres">
+  <module uuid="8f94a3c5-79ed-4851-9502-98033eae3a3b" name="SolARModuleG2O" description="SolARModuleG2O" path="./Assets/Plugins">
+        <component uuid="870d89ba-bb5f-460a-a817-1fcb6473df70" name="SolAROptimizationG2O" description="SolAROptimizationG2O">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
                 <interface uuid="35b9bdb7-d23c-4909-984f-ae7f9a292e6c" name="IBundler" description="IBundler"/>
         </component>
@@ -175,24 +169,25 @@
 	<factory>
 		<bindings>
 			<bind interface="ICamera" to="SolARCameraOpencv" />
+			<bind name="ImagesAsCamera" interface="ICamera" to="SolARImagesAsCameraOpencv" />
+			<bind interface="IKeypointDetector" to="SolARKeypointDetectorOpencv" />
+			<bind interface="IDescriptorsExtractor" to="SolARDescriptorsExtractorAKAZE2Opencv" />
+			<bind interface="IDescriptorMatcher" to="SolARDescriptorMatcherKNNOpencv" />
+			<bind name="DescMatcherFiducial" interface="IDescriptorMatcher" to="SolARDescriptorMatcherRadiusOpencv" />
+			<bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
+			<bind name="ImageConvertorUnity" interface="IImageConvertor" to="SolARImageConvertorUnity" />
 		</bindings>
 	</factory>
 	<properties>
 		<configure component="SolARCameraOpencv">
 			<property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml"/>
-			<property name="deviceID" type="UnsignedInteger" value="0"/>
+			<property name="deviceID" type="UnsignedInteger" value="1"/>
 		</configure>	
 		<configure component="SolARKeypointDetectorOpencv">
 			<property name="type" type="string" value="AKAZE2"/>
 			<property name="imageRatio" type="Float" value="0.5"/>
 			<property name="nbDescriptors" type="Integer" value="1000"/>
 			<property name="threshold" type="Float" value="0.0001"/>
-        </configure>
-		<configure component="SolARKeypointDetectorNonFreeOpencv">
-			<property name="type" type="string" value="SURF"/>
-			<property name="imageRatio" type="Float" value="1.0"/>
-			<property name="nbDescriptors" type="Integer" value="-1"/>
-			<property name="threshold" type="Double" value="-1.0"/>
         </configure>
 		<configure component="SolARDescriptorsExtractorAKAZEOpencv">
             <property name="threshold" type="Float" value="3e-4"/>
@@ -201,9 +196,6 @@
             <property name="threshold" type="Float" value="3e-4"/>
         </configure>
 		<configure component="SolARDescriptorsExtractorORBOpencv">
-            <property name="threshold" type="Float" value="3e-4"/>
-        </configure>
-		<configure component="SolARDescriptorsExtractorSURF64Opencv">
             <property name="threshold" type="Float" value="3e-4"/>
         </configure>
 		<configure component="SolARDescriptorMatcherKNNOpencv">
@@ -225,13 +217,13 @@
 			<property name="epilinesDistance" type="Float" value="1.0"/>			
         </configure>
 		<configure component="SolARPoseEstimationSACPnpOpencv">
-            <property name="iterationsCount" type="Integer" value="1000"/>
-			<property name="reprojError" type="Float" value="2.5"/>
+            <property name="iterationsCount" type="Integer" value="500"/>
+			<property name="reprojError" type="Float" value="3.0"/>
 			<property name="confidence" type="Float" value="0.99"/>
 			<property name="minNbInliers" type="Integer" value="25"/>
         </configure>
 		<configure component="SolARMapFilterOpencv">
-			<property name="reprojErrorThreshold" type="float" value="1.5"/>
+			<property name="reprojErrorThreshold" type="float" value="2.5"/>
 			<property name="cheiralityCheck" type="integer" value ="1"/>
 		</configure>
 		<configure component="SolARKeyframeSelector">
@@ -255,12 +247,10 @@
 			</property>
 			<property name="maxMatches" type="UnsignedInteger" value="-1"/>	
         </configure>
-		<configure component="SolARBundlerCeres"> 
-			<property name="iterationsCount" type="UnsignedInteger" value="25"/>
-			<property name="fixedMap" type="UnsignedInteger" value="0"/>
-			<property name="fixedExtrinsics" type="UnsignedInteger" value="0"/>
-			<property name="fixedIntrinsics" type="UnsignedInteger" value="1"/>
-			<property name="fixedFirstPose" type="UnsignedInteger" value="1"/>
+		<configure component="SolAROptimizationG2O"> 
+			<property name="nbIterations" type="Integer" value="10"/>
+			<property name="setVerbose" type="Integer" value="0"/>
+			<property name="nbMaxFixedKeyframes" type="Integer" value="30"/>
 		</configure>
 		<configure component="SolARImageViewerOpencv"> 
 			<property name="title" type="string" value="Press enter to start the bootstrap"/>
@@ -314,9 +304,7 @@
 			</property>
 			<property name="zoomSensitivity" type="Float" value="10.0"/>
 			<property name="exitKey" type="Integer" value="27"/>
-        </configure>
-		
-		
+        </configure>	
 		<configure component="SolARMarker2DSquaredBinaryOpencv">
             <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker."/>
         </configure>

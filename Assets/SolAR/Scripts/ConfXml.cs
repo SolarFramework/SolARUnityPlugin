@@ -9,6 +9,8 @@ namespace SolAR
     [XmlRoot("xpcf-registry")]
     public class ConfXml
     {
+        [XmlAttribute]
+        public string autoAlias;
         [XmlElement("module")]
         public Module[] modules;
         [Serializable]
@@ -71,8 +73,8 @@ namespace SolAR
                 //[XmlAnyAttribute]
                 //public XmlAttribute[] attributes = new XmlAttribute[2];
 
-                [XmlAttribute]
-                public string uuid;
+                //[XmlAttribute]
+                //public string uuid;
                 [XmlAttribute]
                 [DefaultValue("")]
                 public string component;

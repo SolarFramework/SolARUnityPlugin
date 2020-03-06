@@ -135,6 +135,8 @@
 		<property name="minNbInliers" type="Integer" value="50"/>
 		<property name="reprojErrorThreshold" type="Float" value="0.1"/>
         </configure>
+        <!-- ERROR : configuring SolARKeypointDetectorOpencv with SolAROpticalFlowPyrLKOpencv properties
+        <configure component="e81c7e4e-7da6-476a-8eba-078b43071272"> -->
         <configure component="SolAROpticalFlowPyrLKOpencv"> <!-- SolAROpticalFlowPyrLKOpencv -->
 		<property name="searchWinWidth" type="Integer" value="21"/>
 		<property name="searchWinHeight" type="Integer" value="21"/>

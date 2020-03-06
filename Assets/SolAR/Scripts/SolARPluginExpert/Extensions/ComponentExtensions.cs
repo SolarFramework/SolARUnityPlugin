@@ -59,7 +59,7 @@ namespace SolAR
             var type = typeof(solar);
             var method = type.GetMethod("bindTo_" + name, BindingFlags.Public | BindingFlags.Static);
             Assert.IsNotNull(method);
-            return method.Invoke(null, new[] { component });
+            return method.Invoke(null, new[] { component });  
         }
 
         [Obsolete]
