@@ -93,9 +93,9 @@
   </factory>
   <properties>
     <configure component="PipelineFiducialMarker">
-      <property name="minThreshold" type="Integer" value="-1" description="the minimum tested threshold for image binarization" />
+      <property name="minThreshold" type="Integer" value="100" description="the minimum tested threshold for image binarization" />
       <property name="maxThreshold" type="Integer" value="220" description="The maximum tested threshold for image binarization" />
-      <property name="nbTestedThreshold" type="Integer" value="10" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
+      <property name="nbTestedThreshold" type="Integer" value="2" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
       <!--PipelineFiducialMarker-->
     </configure>
     <configure component="SolARCameraOpencv">
