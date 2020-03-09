@@ -1,15 +1,13 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
-using System;
-using System.Xml.Serialization;
-using System.Xml.Linq;
-using System.Linq;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace SolAR
 {
@@ -220,10 +218,29 @@ namespace SolAR
                         if (modified)
                         {
                             XmlSerializer serializer = new XmlSerializer(typeof(ConfXml));
-                            StreamWriter writer = new StreamWriter(Application.dataPath + target.m_configurationPath);
                             target.conf.autoAlias = "true";
-                            serializer.Serialize(writer.BaseStream, target.conf);
-                            writer.Close();
+
+                            StringWriter stringWriter = new StringWriter();
+                            serializer.Serialize(stringWriter, target.conf);
+                            stringWriter.Close();
+
+                            // Remove empties attribute "name"
+                            var doc = XDocument.Parse(stringWriter.ToString());
+
+                            var bindings = doc.Element("xpcf-registry").Element("factory").Elements("bindings");
+                            var newBindings = new XElement("bindings");
+                            foreach (var element in bindings.Elements("bind"))
+                            {
+                                if (element.Attribute("name").Value.Equals(""))
+                                {
+                                    element.Attribute("name").Remove();
+                                }
+                                newBindings.Add(element);
+                            }
+                            doc.Element("xpcf-registry").Element("factory").ReplaceNodes(newBindings);
+                            StreamWriter sw = new StreamWriter(Application.dataPath + target.m_configurationPath);
+                            sw.Write(doc);
+                            sw.Close();
                         }
                     }
                     else
