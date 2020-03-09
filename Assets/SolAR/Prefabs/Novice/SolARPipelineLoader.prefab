@@ -1,25 +1,15 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1553025431930092}
-  m_IsPrefabAsset: 1
---- !u!1 &1553025431930092
+--- !u!1 &8216284295355870082
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4443422990799310}
-  - component: {fileID: 114379043334047708}
+  - component: {fileID: 8218038227412991648}
+  - component: {fileID: 8216284295355870085}
   m_Layer: 0
   m_Name: SolARPipelineLoader
   m_TagString: Untagged
@@ -27,12 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4443422990799310
+--- !u!4 &8218038227412991648
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1553025431930092}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216284295355870082}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,15 +31,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114379043334047708
+--- !u!114 &8216284295355870085
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1553025431930092}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216284295355870082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac39db92edef3d64ab7a17016f4f1e39, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fa9f42ce118c6b49ad3912d09f4e2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   focalX: 643.068
@@ -58,9 +50,9 @@ MonoBehaviour:
   centerX: 320
   centerY: 240
   m_camera: {fileID: 0}
-  m_CustomCanvas: 1
+  m_CustomCanvas: 0
   m_canvas: {fileID: 0}
-  m_material: {fileID: 2100000, guid: 8e4692da20048c64295f1c5ad27b833b, type: 2}
+  m_material: {fileID: 2100000, guid: b8143724ca6d65244b6f2723bc384539, type: 2}
   m_pipelineFolder: /SolAR/Pipelines
   m_pipelinesName:
   - PipelineFiducialMarker
@@ -77,18 +69,20 @@ MonoBehaviour:
   m_selectedPipeline: 0
   m_configurationPath: /SolAR/Pipelines/PipelineFiducialMarker.xml
   m_uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
-  m_webCamNum: 1
+  m_webCamNum: 0
   conf:
+    autoAlias: true
     modules:
     - uuid: 63b4282f-94cf-44d0-8ec0-9e8b0639fff6
       name: PipelineFiducialMarker
       path: ./Assets/Plugins
-      description: The module embedding a pipeline to estimate the pose based on a
-        squared fiducial marker
+      description: The module embedding a pipeline to estimate the pose based on
+        a squared fiducial marker
       components:
       - uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
         name: PipelineFiducialMarker
-        description: A pipeline to estimate the pose based on a squared fiducial marker
+        description: A pipeline to estimate the pose based on a squared fiducial
+          marker
         interfaces:
         - uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
           name: IComponentIntrospect
@@ -294,16 +288,28 @@ MonoBehaviour:
           name: ISourceImage
           description: An interface allowing to store an image from extern source
             to make it available to the pipeline
+    factory:
+      bindings:
+      - binds:
+        - name: 
+          Interface: ICamera
+          to: SolARCameraOpencv
+        - name: 
+          Interface: IImageConvertor
+          to: SolARImageConvertorOpencv
+        - name: imageConvertorUnity
+          Interface: IImageConvertor
+          to: SolARImageConvertorUnity
     properties:
       configure:
       - type: PipelineFiducialMarker
-        uuid: 
         component: PipelineFiducialMarker
-        description: A pipeline to estimate the pose based on a squared fiducial marker
+        description: A pipeline to estimate the pose based on a squared fiducial
+          marker
         properties:
         - name: minThreshold
           type: Integer
-          value: -1
+          value: 100
           description: the minimum tested threshold for image binarization
           values: []
         - name: maxThreshold
@@ -313,12 +319,11 @@ MonoBehaviour:
           values: []
         - name: nbTestedThreshold
           type: Integer
-          value: 10
+          value: 2
           description: The number of thresholds for image binarization tested between
             minThreshold and maxThreshold
           values: []
       - type: SolARCameraOpencv
-        uuid: 
         component: SolARCameraOpencv
         description: SolARCameraOpencv
         properties:
@@ -334,7 +339,6 @@ MonoBehaviour:
           description: ID of the camera (default = 0)
           values: []
       - type: SolARMarker2DSquaredBinaryOpencv
-        uuid: 
         component: SolARMarker2DSquaredBinaryOpencv
         description: SolARMarker2DSquaredBinaryOpencv
         properties:
@@ -344,7 +348,6 @@ MonoBehaviour:
           description: Path of the .yml file describing the fiducial marker.
           values: []
       - type: SolARImageFilterBinaryOpencv
-        uuid: 
         component: SolARImageFilterBinaryOpencv
         description: SolARImageFilterBinaryOpencv
         properties:
@@ -360,7 +363,6 @@ MonoBehaviour:
           description: maximum threshold
           values: []
       - type: SolARContoursExtractorOpencv
-        uuid: 
         component: SolARContoursExtractorOpencv
         description: SolARContoursExtractorOpencv
         properties:
@@ -370,7 +372,6 @@ MonoBehaviour:
           description: Minimum number of edge to validate a contour (default = 4)
           values: []
       - type: SolARContoursFilterBinaryMarkerOpencv
-        uuid: 
         component: SolARContoursFilterBinaryMarkerOpencv
         description: SolARContoursFilterBinaryMarkerOpencv
         properties:
@@ -383,18 +384,17 @@ MonoBehaviour:
         - name: minContourLength
           type: Float
           value: 20
-          description: The minimum length of an edge of the contour in pixels to be
-            considered as valid (default = 20).
+          description: The minimum length of an edge of the contour in pixels to
+            be considered as valid (default = 20).
           values: []
         - name: minDistanceBetweenContourCorners
           type: Float
           value: 10
-          description: The minimum average distance in pixels between corners of a
-            contour and the same corners of another contour to consider the contour
+          description: The minimum average distance in pixels between corners of
+            a contour and the same corners of another contour to consider the contour
             as valid (default = 10)
           values: []
       - type: SolARPerspectiveControllerOpencv
-        uuid: 
         component: SolARPerspectiveControllerOpencv
         description: SolARPerspectiveControllerOpencv
         properties:
@@ -409,7 +409,6 @@ MonoBehaviour:
           description: The width in pixels of the corrected image.
           values: []
       - type: SolAR3DOverlayOpencv
-        uuid: 
         component: SolAR3DOverlayOpencv
         description: SolAR3DOverlayOpencv
         properties:
@@ -438,7 +437,6 @@ MonoBehaviour:
           - 0.157
           - 0.1
       - type: SolARImageViewerOpencv
-        uuid: 
         component: SolARImageViewerOpencv
         description: SolARImageViewerOpencv
         properties:
@@ -463,5 +461,5 @@ MonoBehaviour:
           description: 
           values: []
   m_webCamTexture: {fileID: 0}
-  m_Unity_Webcam: 0
+  m_Unity_Webcam: 1
   myObject: {fileID: 0}
