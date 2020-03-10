@@ -63,12 +63,14 @@ xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\SolARModuleCeres\0
 xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\SolARModuleFBOW\0.7.0\lib\x86_64\shared\%mode%\SolARModuleFBOW.dll" .\Assets\Plugins\
 xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\SolARModuleNonFreeOpenCV\0.7.0\lib\x86_64\shared\%mode%\SolARModuleNonFreeOpenCV.dll" .\Assets\Plugins\
 xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\SolARModuleG2O\0.7.0\lib\x86_64\shared\%mode%\SolARModuleG2O.dll" .\Assets\Plugins\
+xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\SolARModuleARF\0.7.0\lib\x86_64\shared\%mode%\SolARModuleARF.dll" .\Assets\Plugins\
 
 echo --------------copy pipelines dll--------------
 timeout 2
 xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\PipelineFiducialMarker\0.7.0\lib\x86_64\shared\%mode%\PipelineFiducialMarker.dll" .\Assets\Plugins\
 xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\PipelineNaturalImageMarker\0.7.0\lib\x86_64\shared\%mode%\PipelineNaturalImageMarker.dll" .\Assets\Plugins\
 xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\PipelineSlam\0.7.0\lib\x86_64\shared\%mode%\PipelineSlam.dll" .\Assets\Plugins\
+xcopy "%REMAKEN_RULES_ROOT%\..\packages\SolARBuild\%compiler%\PipelineRelocARF\0.7.0\lib\x86_64\shared\%mode%\PipelineRelocARF.dll" .\Assets\Plugins\
 
 echo -----------copy SolAR Wrapper dll----------
 timeout 2
