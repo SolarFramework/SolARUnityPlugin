@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6458628061648150661}
   - component: {fileID: 6458628061648150662}
   m_Layer: 0
-  m_Name: 3DObjects
+  m_Name: Mascotte
   m_TagString: SolARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,11 +78,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6458628061648150661}
     m_Modifications:
+    - target: {fileID: 100000, guid: 85f604f5064981848a948f591adca53e, type: 3}
+      propertyPath: m_TagString
+      value: SolARObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 85f604f5064981848a948f591adca53e, type: 3}
+      propertyPath: m_TagString
+      value: SolARObject
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_Name
       value: mascotte
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 85f604f5064981848a948f591adca53e, type: 3}
+      propertyPath: m_TagString
+      value: SolARObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 85f604f5064981848a948f591adca53e, type: 3}
+      propertyPath: m_TagString
+      value: SolARObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 85f604f5064981848a948f591adca53e, type: 3}
+      propertyPath: m_TagString
+      value: SolARObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
       value: SolARObject
       objectReference: {fileID: 0}
