@@ -139,7 +139,7 @@
         </component>
 		<component uuid="09205b96-7cba-4415-bc61-64744bc26222" name="SolARMapFilterOpencv" description="SolARMapFilterOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
-                <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" name="IMapFilter" description="IMapFilter"/>
+                <interface uuid="68dc9152-5199-11ea-8d77-2e728ce88125" name="IMapFilter" description="IMapFilter"/>
         </component>
 		<component uuid="8e3c926a-0861-46f7-80b2-8abb5576692c" name="SolARMapperOpencv" description="SolARMapperOpencv">
                 <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect"/>
@@ -169,12 +169,19 @@
 	<factory>
 		<bindings>
 			<bind interface="ICamera" to="SolARCameraOpencv" />
+			<bind name="ImagesAsCamera" interface="ICamera" to="SolARImagesAsCameraOpencv" />
+			<bind interface="IKeypointDetector" to="SolARKeypointDetectorOpencv" />
+			<bind interface="IDescriptorsExtractor" to="SolARDescriptorsExtractorAKAZE2Opencv" />
+			<bind interface="IDescriptorMatcher" to="SolARDescriptorMatcherKNNOpencv" />
+			<bind name="DescMatcherFiducial" interface="IDescriptorMatcher" to="SolARDescriptorMatcherRadiusOpencv" />
+			<bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
+			<bind name="ImageConvertorUnity" interface="IImageConvertor" to="SolARImageConvertorUnity" />
 		</bindings>
 	</factory>
 	<properties>
 		<configure component="SolARCameraOpencv">
 			<property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml"/>
-			<property name="deviceID" type="UnsignedInteger" value="0"/>
+			<property name="deviceID" type="UnsignedInteger" value="1"/>
 		</configure>	
 		<configure component="SolARKeypointDetectorOpencv">
 			<property name="type" type="string" value="AKAZE2"/>

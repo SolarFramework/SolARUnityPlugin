@@ -52,6 +52,30 @@ namespace SolAR
             }
         }
 
+        public Factory factory;
+        [Serializable]
+        public class Factory
+        {
+            [XmlElement("bindings")]
+            public Bindings[] bindings;
+            [Serializable]
+            public class Bindings
+            {
+                [XmlElement("bind")]
+                public Bind[] binds;
+                [Serializable]
+                public class Bind
+                {
+                    [XmlAttribute]
+                    public string name;
+                    [XmlAttribute("interface")]
+                    public string Interface;
+                    [XmlAttribute]
+                    public string to;
+                }
+            }
+        }
+
         [XmlElement("properties")]
         public Properties properties;
         [Serializable]

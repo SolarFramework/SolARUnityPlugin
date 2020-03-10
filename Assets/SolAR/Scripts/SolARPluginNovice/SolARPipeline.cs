@@ -165,7 +165,7 @@ namespace SolAR
                     m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     m_canvas.pixelPerfect = true;
                     m_canvas.worldCamera = m_camera;
-                    m_canvas.planeDistance = m_camera.farClipPlane ;
+                    m_canvas.planeDistance = m_camera.farClipPlane*0.95f ;
 
                     CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                     scaler.referenceResolution = new Vector2(width, height);
