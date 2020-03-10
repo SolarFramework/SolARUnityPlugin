@@ -80,11 +80,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
-      value: SolARObject
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
-      value: SolARObject
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_Name
@@ -92,19 +92,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
-      value: SolARObject
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
-      value: SolARObject
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 100008, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
-      value: SolARObject
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 100010, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_TagString
-      value: SolARObject
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 85f604f5064981848a948f591adca53e, type: 3}
       propertyPath: m_LocalPosition.x

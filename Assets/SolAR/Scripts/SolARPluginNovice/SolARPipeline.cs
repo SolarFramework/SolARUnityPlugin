@@ -231,8 +231,11 @@ namespace SolAR
                     {
                         foreach(GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
                         {
-                            Renderer r = solARObj.GetComponent<Renderer>();
-                            if (r != null) r.enabled = true;
+                            Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                            foreach(Renderer r in renderers)
+                            {
+                                r.enabled = true;
+                            }
                         }
                         
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
@@ -260,8 +263,11 @@ namespace SolAR
                     {
                         foreach (GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
                         {
-                            Renderer r = solARObj.GetComponent<Renderer>();
-                            if (r != null) r.enabled = false;
+                            Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                            foreach (Renderer r in renderers)
+                            {
+                                r.enabled = false;
+                            }
                         }
                     }
                 }
