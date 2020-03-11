@@ -82,8 +82,6 @@ namespace SolAR
 
         private IntPtr sourceTexture;
 
-        public GameObject myObject;
-
         private byte[] m_vidframe_byte;
         private Color32[] data;
         private bool UpdateReady = false;
@@ -231,11 +229,15 @@ namespace SolAR
 
                     if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE  || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
                     {
-                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
+                        foreach(GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
                         {
-                            if(child != myObject) child.GetComponent<Renderer>().enabled = true;
+                            Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                            foreach(Renderer r in renderers)
+                            {
+                                r.enabled = true;
+                            }
                         }
-
+                        
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
                         cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0, 0)));
@@ -258,9 +260,16 @@ namespace SolAR
                        
                     }
                     else if(_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
-                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
-                            if (child != myObject)
-                                child.GetComponent<Renderer>().enabled = false;
+                    {
+                        foreach (GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
+                        {
+                            Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                            foreach (Renderer r in renderers)
+                            {
+                                r.enabled = false;
+                            }
+                        }
+                    }
                 }
             }
         }
