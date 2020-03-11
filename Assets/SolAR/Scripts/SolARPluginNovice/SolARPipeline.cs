@@ -81,8 +81,6 @@ namespace SolAR
 
         private IntPtr sourceTexture;
 
-        public GameObject myObject;
-
         private byte[] m_vidframe_byte;
         private Color32[] data;
         private bool UpdateReady = false;
@@ -105,7 +103,7 @@ namespace SolAR
 
         void Update()
         {
-            if (UpdateReady)
+            if(UpdateReady)
             {
                 if (m_pipelineManager != null)
                 {
@@ -125,22 +123,26 @@ namespace SolAR
                     }
                     Transform3Df pose = new Transform3Df();
 
-                    var _returnCode = m_pipelineManager.udpate(pose);
+                    var _returnCode =  m_pipelineManager.udpate(pose);
 
-                    if (_returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                    if(_returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
                         m_texture.LoadRawTextureData(array_imageData);
                         m_texture.Apply();
                         m_material.SetTexture("_MainTex", m_texture);
                     }
 
-                    if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
+                    if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE  || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
                     {
-                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
+                        foreach(GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
                         {
-                            if (child != myObject) child.GetComponent<Renderer>().enabled = true;
+                            Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                            foreach(Renderer r in renderers)
+                            {
+                                r.enabled = true;
+                            }
                         }
-
+                        
                         Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
                         cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0, 0)));
@@ -154,18 +156,25 @@ namespace SolAR
                         invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
                         invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
                         Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
-
+                        
                         Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
                         Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
 
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-
+                       
                     }
-                    else if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
-                        foreach (Transform child in myObject.GetComponentsInChildren<Transform>())
-                            if (child != myObject)
-                                child.GetComponent<Renderer>().enabled = false;
+                    else if(_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
+                    {
+                        foreach (GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
+                        {
+                            Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                            foreach (Renderer r in renderers)
+                            {
+                                r.enabled = false;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -255,7 +264,7 @@ namespace SolAR
                     m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     m_canvas.pixelPerfect = true;
                     m_canvas.worldCamera = m_camera;
-                    m_canvas.planeDistance = m_camera.farClipPlane-0.2f;
+                    m_canvas.planeDistance = m_camera.farClipPlane*0.95f ;
 
                     CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                     scaler.referenceResolution = new Vector2(width, height);
