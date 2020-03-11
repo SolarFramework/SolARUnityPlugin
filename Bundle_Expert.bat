@@ -21,6 +21,6 @@ xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\csharp\Sol
 xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\csharp\SolAR\Datastructure\solar_datastructure.cs" ".\Assets\SolAR\Swig\Utilities\" /S
 
 :: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies_expert.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
-remaken --action bundle -f packagedependencies_Expert.txt -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1
+remaken bundle -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1 packagedependencies_Expert.txt
 
 exit /B 0
