@@ -223,24 +223,27 @@ namespace SolAR
                             StringWriter stringWriter = new StringWriter();
                             serializer.Serialize(stringWriter, target.conf);
                             stringWriter.Close();
-
-                            // Remove empties attribute "name"
+                            
+                            // Remove empties attribute "name" for factory bindings
                             var doc = XDocument.Parse(stringWriter.ToString());
 
-                            var bindings = doc.Element("xpcf-registry").Element("factory").Elements("bindings");
-                            var newBindings = new XElement("bindings");
-                            foreach (var element in bindings.Elements("bind"))
+                            if (doc.Element("xpcf-registry").Element("factory") != null)
                             {
-                                if (element.Attribute("name").Value.Equals(""))
+                                var bindings = doc.Element("xpcf-registry").Element("factory").Elements("bindings");
+                                var newBindings = new XElement("bindings");
+                                foreach (var element in bindings.Elements("bind"))
                                 {
-                                    element.Attribute("name").Remove();
+                                    if (element.Attribute("name").Value.Equals(""))
+                                    {
+                                        element.Attribute("name").Remove();
+                                    }
+                                    newBindings.Add(element);
                                 }
-                                newBindings.Add(element);
-                            }
-                            doc.Element("xpcf-registry").Element("factory").ReplaceNodes(newBindings);
-                            StreamWriter sw = new StreamWriter(Application.dataPath + target.m_configurationPath);
-                            sw.Write(doc);
-                            sw.Close();
+                                doc.Element("xpcf-registry").Element("factory").ReplaceNodes(newBindings);
+                                StreamWriter sw = new StreamWriter(Application.dataPath + target.m_configurationPath);
+                                sw.Write(doc);
+                                sw.Close();
+                            }     
                         }
                     }
                     else
