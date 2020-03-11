@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 public class Android
 {
@@ -16,29 +17,34 @@ public class Android
         if (File.Exists(old_xml))
         {
             xml = old_xml;
-            Debug.LogWarning("[ANDROID] Configuration xml found in internal memory : " + xml);
+            Debug.LogWarning("[ANDROID] Configuration xml found in internal memory : " + xml+"\n It will be used for configuration");
         }
         else
         {
-            Debug.LogWarning("[ANDROID] No configuration xml found in internal memory : " + old_xml);
+            Debug.LogWarning("[ANDROID] No configuration xml found in internal memory : " + old_xml+"\n "+xml+" will be used for configuration");
         }
-        Debug.Log("[ANDROID] " + xml + " is used for configuration");
 
         // Get configuration xml data
         if (!xml.Equals(old_xml))
         {
             //WWW request on .apk 
-            WWW request = new WWW(xml);
+            UnityWebRequest www = new UnityWebRequest(xml);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            UnityWebRequestAsyncOperation request = www.SendWebRequest();
             while (!request.isDone) { }
-            if (!string.IsNullOrEmpty(request.error))
+
+            if (www.isNetworkError || www.isHttpError)
             {
-                Debug.LogError("[ANDROID] WWW request on : " + xml + " : " + request.error);
+                Debug.LogError("[ANDROID] WWW request on : " + xml + " : " + www.error+" cloning of resources canceled");
+                www.downloadHandler.Dispose();
                 return;
             }
 
-            data = request.text;
+            data = www.downloadHandler.text;
+            www.downloadHandler.Dispose();
+
             string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
-            if (data.StartsWith(_byteOrderMarkUtf8))
+            if (data.Length>0 && data.StartsWith(_byteOrderMarkUtf8))
             {
                 data = data.Remove(0, _byteOrderMarkUtf8.Length);
             }
@@ -52,7 +58,7 @@ public class Android
         }
 
         // Clone content in external directory with correct path
-        CloneManager CloneManager = new CloneManager();
+        CloneManager clone = new CloneManager();
         var doc = XDocument.Parse(data.ToString());
         var file = new[] {
             doc.Element("assets").Element("streamingAssets").Elements("file")
@@ -77,13 +83,13 @@ public class Android
                     if ((attribute.Parent.Attribute("overWrite") != null && attribute.Parent.Attribute("overWrite").Value.Equals("true")) || !File.Exists(output))
                     {
                         //Overwrite
-                        CloneManager.Add(src, output);
+                        clone.Add(src, output);
                     }
                 }
             }
         }
-        Debug.Log(CloneManager);
-        CloneManager.Execute();
+        Debug.Log(clone);
+        clone.Execute();
     }
     public static void ReplacePathToApp(string filepath)
     {
@@ -138,23 +144,24 @@ public class Android
                 Directory.CreateDirectory(Path.GetDirectoryName(dest));
             }
 
-            //Create file
-            WWW request = new WWW(source);
-            while (!request.isDone)
-            {
-                //Loading xml
-            }
+            //WWW request
+            UnityWebRequest www = new UnityWebRequest(source);
+            www.downloadHandler = new DownloadHandlerBuffer();
+            UnityWebRequestAsyncOperation request = www.SendWebRequest();
+            while (!request.isDone) { }
 
-            if (string.IsNullOrEmpty(request.error))
+            if (www.isNetworkError || www.isHttpError)
             {
-                if (File.Exists(dest)) File.Delete(dest);
-                File.WriteAllBytes(dest, request.bytes);
+                Debug.LogError("CloneFile error - " + source + " / " + www.error);
+                www.downloadHandler.Dispose();
+                return;
             }
             else
             {
-                Debug.LogError("CloneFile error - " + source + " / " + request.error);
+                if (File.Exists(dest)) File.Delete(dest);
+                File.WriteAllBytes(dest, www.downloadHandler.data);
             }
-            request.Dispose();
+            www.downloadHandler.Dispose();
         }
 
         public override string ToString()
