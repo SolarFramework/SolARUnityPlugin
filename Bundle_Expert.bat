@@ -10,7 +10,7 @@ del ".\Assets\SolAR\Swig\*.*" /S /Q
 :: copy csharp interfaces
 echo ---------------- copy c# ----------------------
 timeout 2
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARPipelineManager\0.7.0\CSharp\*" ".\Assets\SolAR\Swig\SolARPluginNovice\"
+xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARPipelineManager\0.7.0\csharp\*" ".\Assets\SolAR\Swig\SolARPluginNovice\"
 
 xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\csharp\*" ".\Assets\SolAR\Swig\SolARPluginExpert\" /S /EXCLUDE:excludedFile_Bat.txt
 xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\csharp\SolAR\Core\*" ".\Assets\SolAR\Swig\Utilities\Core\" /S
