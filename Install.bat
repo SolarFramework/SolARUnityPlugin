@@ -10,7 +10,7 @@ remaken install -c %config% --cpp-std 17 -b cl-14.1 packagedependencies.txt
 :: remaken install -b clang -o android -a arm64 packagedependencies-android.txt
 echo Bundle third parties
 :: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
-remaken bundle file packagedependencies.txt -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1
+remaken bundle -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1 packagedependencies.txt 
 :: remaken bundle file packagedependencies-android.txt -d ./Assets/Plugins/Android  -c %config% -b clang -o android -a arm64
 echo Delete following pipeline manager wrapper files ?
 
