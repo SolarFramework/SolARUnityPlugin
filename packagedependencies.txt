@@ -1,11 +1,6 @@
-PipelineSlam|0.8.0|PipelineSlam|SolARBuild@github|https://github.com/SolarFramework/Sample-Slam/releases/download
 PipelineNaturalImageMarker|0.8.0|PipelineNaturalImageMarker|SolARBuild@github|https://github.com/SolarFramework/NaturalImageMarker/releases/download
 PipelineFiducialMarker|0.8.0|PipelineFiducialMarker|SolARBuild@github|https://github.com/SolarFramework/FiducialMarker/releases/download
 SolARPipelineManager|0.8.0|SolARPipelineManager|SolARBuild@github|https://github.com/SolarFramework/SolARPipelineManager/releases/download
 SolARModuleOpenCV|0.8.0|SolARModuleOpenCV|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenCV/releases/download
 SolARModuleTools|0.8.0|SolARModuleTools|SolARBuild@github|https://github.com/SolarFramework/SolARModuleTools/releases/download
-SolARModuleOpenGL|0.8.0|SolARModuleOpenGL|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenGL/releases/download
-SolARModuleOpenGV|0.8.0|SolARModuleOpenGV|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenGV/releases/download
-SolARModuleFBOW|0.8.0|SolARModuleFBOW|SolARBuild@github|https://github.com/SolarFramework/SolARModuleFBOW/releases/download
-SolARModuleG2O|0.8.0|SolARModuleG2O|SolARBuild@github|https://github.com/SolarFramework/SolARModuleG2O/releases/download
 SolARWrapper|0.8.0|SolARWrapper|SolARBuild@github|https://github.com/SolarFramework/SwigWrapper/releases/download

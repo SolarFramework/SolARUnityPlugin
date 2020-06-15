@@ -97,7 +97,10 @@ namespace SolAR
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             while (!Permission.HasUserAuthorizedPermission(Permission.Camera)) { Permission.RequestUserPermission(Permission.Camera); }
+            Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+            Android.LoadConfiguration(this);
 #endif
+            Android.LoadConfiguration(this);
             Init();
         }
 
@@ -179,7 +182,7 @@ namespace SolAR
             }
         }
 
-        void Init()
+        public void Init()
         {
             if (m_camera)
             {
@@ -194,7 +197,6 @@ namespace SolAR
 
 #elif UNITY_ANDROID
                 Screen.sleepTimeout = SleepTimeout.NeverSleep;
-                Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
                 Android.ReplacePathToApp(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
                 // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
                 Debug.Log("[ANDROID] Load pipeline : "+Application.persistentDataPath + "/StreamingAssets"+m_configurationPath);
@@ -258,13 +260,17 @@ namespace SolAR
 
                 if (!m_CustomCanvas)
                 {
+                    if (m_canvas != null)
+                    {
+                        Destroy(m_canvas.gameObject);
+                    }
                     GameObject goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
 
                     m_canvas = goCanvas.GetComponent<Canvas>();
                     m_canvas.renderMode = RenderMode.ScreenSpaceCamera;
                     m_canvas.pixelPerfect = true;
                     m_canvas.worldCamera = m_camera;
-                    m_canvas.planeDistance = m_camera.farClipPlane*0.95f ;
+                    m_canvas.planeDistance = m_camera.farClipPlane * 0.95f;
 
                     CanvasScaler scaler = goCanvas.GetComponent<CanvasScaler>();
                     scaler.referenceResolution = new Vector2(width, height);
@@ -295,16 +301,6 @@ namespace SolAR
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
 
             UpdateReady = true;
-        }
-
-        public void ChangePipeline()
-        {
-            Debug.Log("changePipeline");
-            //UpdateReady = false;
-            //Debug.Log(m_pipelineManager);
-            //m_pipelineManager.Dispose(); //@TODO erreur on Dispose()
-            //Debug.Log(m_pipelineManager);
-            //Init();
         }
 
         void SendParametersToCameraProjectionMatrix()

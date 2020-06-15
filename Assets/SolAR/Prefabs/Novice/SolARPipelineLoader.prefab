@@ -288,6 +288,18 @@ MonoBehaviour:
           name: ISourceImage
           description: An interface allowing to store an image from extern source
             to make it available to the pipeline
+    factory:
+      bindings:
+      - binds:
+        - name: 
+          Interface: ICamera
+          to: SolARCameraOpencv
+        - name: 
+          Interface: IImageConvertor
+          to: SolARImageConvertorOpencv
+        - name: imageConvertorUnity
+          Interface: IImageConvertor
+          to: SolARImageConvertorUnity
     properties:
       configure:
       - type: PipelineFiducialMarker
@@ -450,4 +462,3 @@ MonoBehaviour:
           values: []
   m_webCamTexture: {fileID: 0}
   m_Unity_Webcam: 1
-  myObject: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+using SolAR;
 
 public class Android
 {
@@ -112,6 +113,34 @@ public class Android
         input.Close();
         doc.Save(filepath);
         return;
+    }
+
+    public static void SaveConfiguration(string configurationPath)
+    {
+        string dest = Application.persistentDataPath+ "/StreamingAssets/SolAR/Android/.pipeline";
+        if (File.Exists(dest)) File.Delete(dest);
+        File.WriteAllText(dest, configurationPath);
+    }
+
+    public static void LoadConfiguration(SolARPipeline pipeline)
+    {
+        string dest = Application.persistentDataPath + "/StreamingAssets/SolAR/Android/.pipeline";
+        if (File.Exists(dest))
+        {
+            StreamReader input = new StreamReader(dest);
+            string data = input.ReadToEnd();
+            input.Close();
+
+            for(int i=0;i<pipeline.m_pipelinesPath.Length;i++)
+            {
+                if (pipeline.m_pipelinesPath[i].Equals(data))
+                {
+                    pipeline.m_configurationPath = pipeline.m_pipelinesPath[i];
+                    pipeline.m_uuid = pipeline.m_pipelinesUUID[i];
+                    pipeline.m_selectedPipeline = i;
+                }
+            }
+        }
     }
 
     private class CloneManager

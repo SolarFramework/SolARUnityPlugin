@@ -1,0 +1,5 @@
+PipelineSlam|0.8.0|PipelineSlam|SolARBuild@github|https://github.com/SolarFramework/Sample-Slam/releases/download
+SolARModuleOpenGL|0.8.0|SolARModuleOpenGL|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenGL/releases/download
+SolARModuleOpenGV|0.8.0|SolARModuleOpenGV|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenGV/releases/download
+SolARModuleFBOW|0.8.0|SolARModuleFBOW|SolARBuild@github|https://github.com/SolarFramework/SolARModuleFBOW/releases/download
+SolARModuleG2O|0.8.0|SolARModuleG2O|SolARBuild@github|https://github.com/SolarFramework/SolARModuleG2O/releases/download

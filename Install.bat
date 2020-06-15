@@ -7,15 +7,18 @@ SET SOURCEDIR=%cd%
 
 echo ---------------- install third parties ----------------------
 echo Install third parties
-:: install all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
+:: install all third parties in the %REMAKEN_PKG_ROOT%\packages. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
 remaken install -c %config% --cpp-std 17 -b cl-14.1 packagedependencies.txt
-:: remaken install -b clang -o android -a arm64 packagedependencies-android.txt
+remaken install -c %config% --cpp-std 17 -b clang -o android -a armv8 packagedepencies.txt
+remaken install -c %config% --cpp-std 17 -b clang -o android -a armv8 packagedepencies-android.txt
 
 echo ---------------- bundle plugins ----------------------
 echo Bundle third parties
 :: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
-remaken bundle -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1 packagedependencies.txt 
-:: remaken bundle file packagedependencies-android.txt -d ./Assets/Plugins/Android  -c %config% -b clang -o android -a arm64
+remaken bundle -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1 packagedependencies.txt
+remaken bundle -d ./Assets/Plugins -c %config% --cpp-std 17 -b cl-14.1 packagedependencies-win.txt
+remaken bundle -d ./Assets/Plugins/Android -c %config% --cpp-std 17 -b clang -o android -a armv8 packagedepencies.txt 
+remaken bundle -d ./Assets/Plugins/Android -c %config% --cpp-std 17 -b clang -o android -a armv8 packagedepencies-android.txt 
 
 ::wrap cpp to c# interfaces
 echo ---------------- wrap files with SWIG ----------------------

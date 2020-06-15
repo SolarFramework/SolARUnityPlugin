@@ -1,0 +1,1 @@
+cppStandardLibrary|1.0.0|CppStandardLibrary|thirdParties@github|https://github.com/SolarFramework/binaries/releases/download
