@@ -3,14 +3,18 @@ A Unity plugin allowing to load SolAR pipelines
 
 We offer two mods : 
 
--Novice
+* Novice
     We give you Pipelines (DLL) directly from our C++ SolAR framework.
--Expert
+
+ * Expert
     We give you the opportunity to modify and create your pipeline in C# directly in Unity. (Wrapping of our SolAR C++ framework)
+
+More details on [http://solarframework.org/use/unity](https://solarframework.github.io/use/unity/)
 
 ## How build it  with pre-compiled 
 * Install [Remaken](https://github.com/b-com-software-basis/remaken) (a meta dependencies management tool)
-* Open a terminal and execute `Install.bat`
+* Download [Swig](http://www.swig.org/) (use for wrapping) and add an environment variable to the swig.exe 
+* Open a terminal and execute `Install.bat` to download module, wrap to C# and import DLLs in Unity
 
 ## How build it with source :
 
@@ -56,6 +60,7 @@ We offer two mods :
         
         
     ==> StreamingAssets
+        -->
         -->CameraCalibration  (our calibration files)
         -->Markers            (our markers)
         -->Configuration      (our .xml files to configure our pipelines)
