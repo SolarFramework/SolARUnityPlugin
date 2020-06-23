@@ -100,7 +100,6 @@ namespace SolAR
             Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
             Android.LoadConfiguration(this);
 #endif
-            Android.LoadConfiguration(this);
             Init();
         }
 

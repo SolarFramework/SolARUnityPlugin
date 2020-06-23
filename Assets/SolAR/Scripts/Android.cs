@@ -24,7 +24,6 @@ public class Android
         {
             Debug.LogWarning("[ANDROID] No configuration xml found in internal memory : " + old_xml+"\n "+xml+" will be used for configuration");
         }
-
         // Get configuration xml data
         if (!xml.Equals(old_xml))
         {
@@ -97,19 +96,15 @@ public class Android
         Debug.Log("[ANDROID] REPLACE PATH USED FOR PLUGINS : "+ Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
         StreamReader input = new StreamReader(filepath);
         var doc = XDocument.Parse(input.ReadToEnd());
-
         var module = doc.Element("xpcf-registry").Elements("module");
+
         foreach (var attribute in module.Attributes())
         {
             if (attribute.Name == "path")
             {
-                if (attribute.Value.Contains("Plugins"))
-                {
-                    attribute.SetValue(Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
-                }
+                attribute.SetValue(Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
             }
         }
-
         input.Close();
         doc.Save(filepath);
         return;

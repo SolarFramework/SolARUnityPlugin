@@ -13,7 +13,7 @@ namespace SolAR
 {
     class WrapperBuildProcess : IPreprocessBuildWithReport
     {
-        public PipelineManager pipelineMng = GameObject.Find("PipelineManager").GetComponent<PipelineManager>();
+        public PipelineManager pipelineMng = GameObject.Find("SolARPipelineLoader").GetComponent<PipelineManager>();
 
         public int callbackOrder
         {

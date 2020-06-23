@@ -57,11 +57,12 @@ public class AndroidMenu : MonoBehaviour
         {
             m_solarPipeline.m_pipelineManager.stop();
             m_solarPipeline.m_webCamTexture.Stop();
+            m_solarPipeline.m_pipelineManager.Dispose();
             m_solarPipeline.m_selectedPipeline = m_pipelineDropdown.value;
             m_solarPipeline.m_configurationPath = m_solarPipeline.m_pipelinesPath[m_solarPipeline.m_selectedPipeline];
             m_solarPipeline.m_uuid = m_solarPipeline.m_pipelinesUUID[m_solarPipeline.m_selectedPipeline];
-            m_solarPipeline.Init();
             Android.SaveConfiguration(m_solarPipeline.m_configurationPath);
+            m_solarPipeline.Init();
             StartCoroutine(Fade(m_AndroidPopup.GetComponent<Image>(),m_AndroidPopup.GetComponentInChildren<Text>()));
         }
     }
