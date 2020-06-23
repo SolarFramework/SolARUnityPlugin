@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AndroidMenu : MonoBehaviour
@@ -15,6 +14,14 @@ public class AndroidMenu : MonoBehaviour
     public GameObject m_AndroidTitle;
     public GameObject m_AndroidPopup;
 
+    private void Awake()
+    {
+    #if !UNITY_ANDROID
+        //Disable gameObject if platform is not Android. As only one pipeline configuration is edited in build process for other platforms 
+         this.gameObject.SetActive(false);   
+    #endif
+    }
+
     void Start()
     {
         //AndroidButton
@@ -25,7 +32,10 @@ public class AndroidMenu : MonoBehaviour
         m_pipelineDropdown.AddOptions(new List<string>(m_solarPipeline.m_pipelinesName));
     }
 
-    void Load()
+    /// <summary>
+    /// Open or close the UI depending on gameobject's state
+    /// </summary>
+    private void Load()
     {
         //Enable or disable AndroidMenu canvas
         m_AndroidMenu.SetActive(!m_AndroidMenu.activeInHierarchy);
@@ -35,6 +45,9 @@ public class AndroidMenu : MonoBehaviour
         else Open();
     }
 
+    /// <summary>
+    /// Open UI and select pipeline used
+    /// </summary>
     private void Open()
     {
        foreach(ConfXml.Module module in m_solarPipeline.conf.modules)
@@ -49,6 +62,9 @@ public class AndroidMenu : MonoBehaviour
         m_pipelineDropdown.value = m_solarPipeline.m_selectedPipeline;
     }
 
+    /// <summary>
+    /// Close UI and process to change 
+    /// </summary>
     private void Close()
     {
         m_AndroidTitle.SetActive(false);
@@ -67,7 +83,7 @@ public class AndroidMenu : MonoBehaviour
         }
     }
 
-    IEnumerator Fade(Image img, Text text)
+    private IEnumerator Fade(Image img, Text text)
     {
         img.gameObject.SetActive(true);
         for (float ft = 1f; ft >= 0; ft -= 0.01f)
