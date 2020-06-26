@@ -5,28 +5,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AndroidMenu : MonoBehaviour
+public class SolARMenu : MonoBehaviour
 {
     public SolARPipeline m_solarPipeline;
-    public GameObject m_AndroidMenu;
-    public Button m_AndroidButton;
+    public GameObject m_menu;
+    public Button m_button;
     public Dropdown m_pipelineDropdown;
-    public GameObject m_AndroidTitle;
-    public GameObject m_AndroidPopup;
-
-    private void Awake()
-    {
-    #if !UNITY_ANDROID
-        //Disable gameObject if platform is not Android. As only one pipeline configuration is edited in build process for other platforms 
-         this.gameObject.SetActive(false);   
-    #endif
-    }
+    public GameObject m_title;
+    public GameObject m_popup;
 
     void Start()
     {
-        //AndroidButton
-        m_AndroidButton.onClick.AddListener(delegate { Load(); });
-        m_AndroidTitle.GetComponentInChildren<Text>().text = Application.productName+" - v"+Application.version;
+        //Button
+        m_button.onClick.AddListener(delegate { Load(); });
+        m_title.GetComponentInChildren<Text>().text = Application.productName+" - v"+Application.version;
         //Pipeline
         m_pipelineDropdown.ClearOptions();
         m_pipelineDropdown.AddOptions(new List<string>(m_solarPipeline.m_pipelinesName));
@@ -39,11 +31,11 @@ public class AndroidMenu : MonoBehaviour
      */
     private void Load()
     {
-        //Enable or disable AndroidMenu canvas
-        m_AndroidMenu.SetActive(!m_AndroidMenu.activeInHierarchy);
+        //Enable or disable SolARMenu canvas
+        m_menu.SetActive(!m_menu.activeInHierarchy);
         EventSystem.current.SetSelectedGameObject(null);
 
-        if (!m_AndroidMenu.activeInHierarchy) Close();
+        if (!m_menu.activeInHierarchy) Close();
         else Open();
     }
 
@@ -54,6 +46,7 @@ public class AndroidMenu : MonoBehaviour
      * */
     private void Open()
     {
+        /*
        foreach(ConfXml.Module module in m_solarPipeline.conf.modules)
         {
             foreach(ConfXml.Module.Component component in module.components)
@@ -62,7 +55,8 @@ public class AndroidMenu : MonoBehaviour
             }
 
         }
-        m_AndroidTitle.SetActive(true);
+       */
+        m_title.SetActive(true);
         m_pipelineDropdown.value = m_solarPipeline.m_selectedPipeline;
     }
 
@@ -73,7 +67,7 @@ public class AndroidMenu : MonoBehaviour
      * */
     private void Close()
     {
-        m_AndroidTitle.SetActive(false);
+        m_title.SetActive(false);
         //On close check if pipeline and camera need to be reload
         if (m_solarPipeline.m_selectedPipeline != m_pipelineDropdown.value)
         {
@@ -85,7 +79,7 @@ public class AndroidMenu : MonoBehaviour
             m_solarPipeline.m_uuid = m_solarPipeline.m_pipelinesUUID[m_solarPipeline.m_selectedPipeline];
             Android.SaveConfiguration(m_solarPipeline.m_configurationPath);
             m_solarPipeline.Init();
-            StartCoroutine(Fade(m_AndroidPopup.GetComponent<Image>(),m_AndroidPopup.GetComponentInChildren<Text>()));
+            StartCoroutine(Fade(m_popup.GetComponent<Image>(),m_popup.GetComponentInChildren<Text>()));
         }
     }
 
