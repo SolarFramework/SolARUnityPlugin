@@ -9,6 +9,12 @@ using SolAR;
 
 public class Android
 {
+    /// <summary>
+    /// Clone Unity StreamingAssets
+    /// </summary>
+    /// <remarks>
+    /// File to copy 
+    /// </remarks>
     public static void AndroidCloneResources(string xml)
     {
         string data;
@@ -91,6 +97,13 @@ public class Android
         Debug.Log(clone);
         clone.Execute();
     }
+
+    /// <summary>
+    /// Replace path of  pipeline configuration XML for "Plugins"
+    /// </summary>
+    /// <remarks>
+    /// Path are depending on the device and are initialized on running
+    /// </remarks>
     public static void ReplacePathToApp(string filepath)
     {
         Debug.Log("[ANDROID] REPLACE PATH USED FOR PLUGINS : "+ Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
@@ -110,6 +123,9 @@ public class Android
         return;
     }
 
+    /// <summary>
+    /// Write a cache with the path of the current pipeline used
+    /// </summary>
     public static void SaveConfiguration(string configurationPath)
     {
         string dest = Application.persistentDataPath+ "/StreamingAssets/SolAR/Android/.pipeline";
@@ -117,6 +133,9 @@ public class Android
         File.WriteAllText(dest, configurationPath);
     }
 
+    /// <summary>
+    /// If exist load a configuration cache file containing path of the last pipeline used
+    /// </summary>
     public static void LoadConfiguration(SolARPipeline pipeline)
     {
         string dest = Application.persistentDataPath + "/StreamingAssets/SolAR/Android/.pipeline";

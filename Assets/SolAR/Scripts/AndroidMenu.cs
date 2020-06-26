@@ -32,9 +32,11 @@ public class AndroidMenu : MonoBehaviour
         m_pipelineDropdown.AddOptions(new List<string>(m_solarPipeline.m_pipelinesName));
     }
 
-    /// <summary>
-    /// Open or close the UI depending on gameobject's state
-    /// </summary>
+    /**
+     * <summary>
+     *  Open or close the UI depending on gameobject's state
+     * </summary>
+     */
     private void Load()
     {
         //Enable or disable AndroidMenu canvas
@@ -45,9 +47,11 @@ public class AndroidMenu : MonoBehaviour
         else Open();
     }
 
-    /// <summary>
-    /// Open UI and select pipeline used
-    /// </summary>
+    /**
+     * <summary>
+     * Open UI and select pipeline used
+     * </summary>
+     * */
     private void Open()
     {
        foreach(ConfXml.Module module in m_solarPipeline.conf.modules)
@@ -62,9 +66,11 @@ public class AndroidMenu : MonoBehaviour
         m_pipelineDropdown.value = m_solarPipeline.m_selectedPipeline;
     }
 
-    /// <summary>
-    /// Close UI and process to change 
-    /// </summary>
+    /**
+     * <summary>
+     * Close UI and process to change 
+     * </summary>
+     * */
     private void Close()
     {
         m_AndroidTitle.SetActive(false);

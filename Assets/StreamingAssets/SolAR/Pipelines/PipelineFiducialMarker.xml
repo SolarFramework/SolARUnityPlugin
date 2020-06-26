@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xpcf-registry autoAlias="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
   <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="PipelineFiducialMarker" path="Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
     <component uuid="3898cc3b-3986-4edc-b7c8-f4fba0f6c22a" name="PipelineFiducialMarker" description="A pipeline to estimate the pose based on a squared fiducial marker">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
@@ -88,14 +88,14 @@
     <bindings>
       <bind interface="ICamera" to="SolARCameraOpencv" />
       <bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
-      <bind interface="IImageConvertor" to="SolARImageConvertorUnity" name="imageConvertorUnity" />
+      <bind name="imageConvertorUnity" interface="IImageConvertor" to="SolARImageConvertorUnity" />
     </bindings>
   </factory>
   <properties>
     <configure component="PipelineFiducialMarker">
-      <property name="minThreshold" type="Integer" value="-1" description="the minimum tested threshold for image binarization" />
+      <property name="minThreshold" type="Integer" value="100" description="the minimum tested threshold for image binarization" />
       <property name="maxThreshold" type="Integer" value="220" description="The maximum tested threshold for image binarization" />
-      <property name="nbTestedThreshold" type="Integer" value="3" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
+      <property name="nbTestedThreshold" type="Integer" value="2" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
       <!--PipelineFiducialMarker-->
     </configure>
     <configure component="SolARCameraOpencv">
@@ -128,7 +128,6 @@
       <!--SolARPerspectiveControllerOpencv-->
     </configure>
     <configure component="SolAR3DOverlayOpencv">
-      <!-- SolAR3DOverlayBoxOpencv -->
       <property name="position" type="Float">
         <value>0</value>
         <value>0</value>
@@ -144,13 +143,14 @@
         <value>0.157</value>
         <value>0.1</value>
       </property>
+      <!--SolAR3DOverlayOpencv-->
     </configure>
     <configure component="SolARImageViewerOpencv">
-      <!-- SolARImageViewerOpencv -->
       <property name="title" type="string" value="Fiducial Image Marker" />
       <property name="exitKey" type="Integer" value="27" />
       <property name="width" type="Integer" value="0" />
       <property name="height" type="Integer" value="0" />
+      <!--SolARImageViewerOpencv-->
     </configure>
   </properties>
 </xpcf-registry>
