@@ -22,57 +22,59 @@ namespace SolAR
             SolARPipeline[] solARPipelineLoaders = (SolARPipeline[])GameObject.FindObjectsOfType<SolARPipeline>();
             foreach (SolARPipeline pipeline in solARPipelineLoaders)
             {
-                switch (report.summary.platform)
+                foreach (string conf in pipeline.m_pipelinesPath)
                 {
-                    case BuildTarget.StandaloneWindows:
-                    case BuildTarget.StandaloneWindows64:
-                        {
-                            string windowsPipelineConfPath = pipeline.m_configurationPath;
-                            // Create a directory in the streamingAssets folder to copy the pipeline configuration files
-                            if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath)))
+                    switch (report.summary.platform)
+                    {
+                        case BuildTarget.StandaloneWindows:
+                        case BuildTarget.StandaloneWindows64:
                             {
-                                Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
+                                string windowsPipelineConfPath = conf;
+                                // Create a directory in the streamingAssets folder to copy the pipeline configuration files
+                                if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + conf)))
+                                {
+                                    Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
+                                    // Store the folders to remove it after the build process
+                                    createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
+                                }
+                                // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
+                                windowsPipelineConfPath = windowsPipelineConfPath.Insert(windowsPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
+                                if (!System.IO.File.Exists(Application.dataPath + windowsPipelineConfPath))
+                                {
+                                    if (File.Exists(Application.streamingAssetsPath + conf)) File.Delete(Application.streamingAssetsPath + conf);
+                                    FileUtil.CopyFileOrDirectory(Application.dataPath + conf, Application.streamingAssetsPath + conf);
+                                    // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
+                                    ReplacePluginPaths(Application.streamingAssetsPath + conf, report);
+                                }
+                                // If there is a pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move it to the streamingAssets folder
+                                else
+                                {
+                                    FileUtil.CopyFileOrDirectory(Application.dataPath + windowsPipelineConfPath, Application.streamingAssetsPath + conf);
+                                }
+                                break;
+                            }
+                        case BuildTarget.StandaloneOSX:
+                            break;
+                        case BuildTarget.Android:
+                            BuildAndroidXML(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+                            //Android build clone content of Assets/StreamingAssets/ in assets/ in the .apk archive
+                            // Pipelines
+                            // Create a directory in the streamingAssets folder to copy the pipeline configuration files
+                            if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + conf)))
+                            {
+                                Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
                                 // Store the folders to remove it after the build process
-                                createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
+                                createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
                             }
                             // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
-                            windowsPipelineConfPath = windowsPipelineConfPath.Insert(windowsPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
-                            if (!System.IO.File.Exists(Application.dataPath + windowsPipelineConfPath))
-                            {
-                                if (File.Exists(Application.streamingAssetsPath + pipeline.m_configurationPath)) File.Delete(Application.streamingAssetsPath + pipeline.m_configurationPath);
-                                FileUtil.CopyFileOrDirectory(Application.dataPath + pipeline.m_configurationPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
-                                // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
-                                ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
-                            }
-                            // If there is a pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move it to the streamingAssets folder
-                            else
-                            {
-                                FileUtil.CopyFileOrDirectory(Application.dataPath + windowsPipelineConfPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
-                            }
+                            if (File.Exists(Application.streamingAssetsPath + conf)) File.Delete(Application.streamingAssetsPath + conf);
+                            FileUtil.CopyFileOrDirectory(Application.dataPath + conf, Application.streamingAssetsPath + conf);
+                            // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
+                            ReplacePluginPaths(Application.streamingAssetsPath + conf, report);
                             break;
-                        }
-                    case BuildTarget.StandaloneOSX:
-                        break;
-                    case BuildTarget.Android:
-                        Debug.Log("AndroidBuild : "+ pipeline.m_configurationPath);
-                        BuildAndroidXML(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
-                        //Android build clone content of Assets/StreamingAssets/ in assets/ in the .apk archive
-                        // Pipelines
-                        // Create a directory in the streamingAssets folder to copy the pipeline configuration files
-                        if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath)))
-                        {
-                            Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
-                            // Store the folders to remove it after the build process
-                            createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + pipeline.m_configurationPath));
-                        }
-                        // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
-                        if (File.Exists(Application.streamingAssetsPath + pipeline.m_configurationPath)) File.Delete(Application.streamingAssetsPath + pipeline.m_configurationPath);
-                        FileUtil.CopyFileOrDirectory(Application.dataPath + pipeline.m_configurationPath, Application.streamingAssetsPath + pipeline.m_configurationPath);
-                        // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
-                        ReplacePluginPaths(Application.streamingAssetsPath + pipeline.m_configurationPath, report);
-                        break;
-                    case BuildTarget.iOS:
-                        break;
+                        case BuildTarget.iOS:
+                            break;
+                    }
                 }
             }
         }
