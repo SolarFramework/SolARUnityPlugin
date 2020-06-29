@@ -1,0 +1,16 @@
+%YAML:1.0
+---
+pathTrees:./Assets/StreamingAssets/SolAR/RelocARF/trees/
+numTrees: 4
+treeDepth: 13
+numUpperDepth: 9
+scaleTrainingData: 0.6
+iterFeature: 50
+iterThres: 50
+treeMinSample: 10
+sizeFeature: 61
+covarianceAccepted: 0.1
+NbOutliersToDefinePassive: 10
+NbDataToUpdate: 8
+Nb3DPtsToUpdate: 10
+ErrorTriangulation: 3

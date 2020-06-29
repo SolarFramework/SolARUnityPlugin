@@ -8,6 +8,10 @@ We offer two mods :
 -Expert
     We give you the opportunity to modify and create your pipeline in C# directly in Unity. (Wrapping of our SolAR C++ framework)
 
+## How build it  with pre-compiled 
+* Install [Remaken](https://github.com/b-com-software-basis/remaken) (a meta dependencies management tool)
+* Open a terminal and execute `Install.bat`
+
 ## How build it with source :
 
 1° Build    xpcf
@@ -22,7 +26,7 @@ We offer two mods :
 
 5° Build    Pipelines (Fiducial, Natural Image, SLAM ...)
 
-6° Execute  the file "SolARUnityPlugin / update.bat"
+6° `remaken bundle file packagedependencies.txt -d ./Assets/Plugins` to update Unity's Plugins directory
 
 7° Add .fbow files for SLAM
 

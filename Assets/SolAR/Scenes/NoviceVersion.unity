@@ -121,6 +121,95 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &177631298
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6458628061371716737, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150660, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_Name
+      value: Mascotte
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f27b0c56bcbcc84a945014d78eb202b, type: 3}
 --- !u!1 &213028715
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +300,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1613090995
 GameObject:
@@ -292,296 +381,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
---- !u!1001 &1926702678
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1730961392804044, guid: 7281571d3d1187f46934098f4a8198d6, type: 3}
-      propertyPath: m_Name
-      value: BackGroundCamera_canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 223146077147496164, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 2073193195}
-    - target: {fileID: 223146077147496164, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_PlaneDistance
-      value: 29.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224181176989891174, guid: 7281571d3d1187f46934098f4a8198d6,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7281571d3d1187f46934098f4a8198d6, type: 3}
---- !u!223 &1926702679 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 223146077147496164, guid: 7281571d3d1187f46934098f4a8198d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1926702678}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2054546684
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2054546685}
-  - component: {fileID: 2054546686}
-  m_Layer: 0
-  m_Name: 3DObjects
-  m_TagString: SolARObject
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2054546685
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054546684}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2060489743}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &2054546686
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054546684}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 4294967295
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1001 &2060489742
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2054546685}
-    m_Modifications:
-    - target: {fileID: 6458628061648150660, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_Name
-      value: Mascotte
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.10000001
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.10000001
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3f27b0c56bcbcc84a945014d78eb202b, type: 3}
---- !u!4 &2060489743 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2060489742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2073193193
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +532,7 @@ PrefabInstance:
     - target: {fileID: 8995406121815863977, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8995406121815863977, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -758,7 +557,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.size
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -803,7 +602,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.size
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -828,12 +627,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[6].properties.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].properties.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -848,17 +647,17 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[8].properties.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[9].properties.Array.size
-      value: 14
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.size
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -868,17 +667,17 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[1].values.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[2].values.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].properties.Array.size
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -958,7 +757,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[3].components.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1023,32 +822,32 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].properties.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[14].properties.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[2].values.Array.size
+      propertyPath: conf.properties.configure.Array.data[14].properties.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[2].values.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].properties.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1058,7 +857,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[18].properties.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1248,7 +1047,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].values.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1323,7 +1122,27 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[2].values.Array.size
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].values.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].values.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1334,16 +1153,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_canvas
       value: 
-      objectReference: {fileID: 1926702679}
+      objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: myObject
       value: 
-      objectReference: {fileID: 2054546684}
+      objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: m_CustomCanvas
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1363,27 +1182,27 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[1].Interface
-      value: IImageConvertor
+      value: IDescriptorsExtractor
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[1].to
-      value: SolARImageConvertorOpencv
+      value: SolARDescriptorsExtractorAKAZE2Opencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[2].name
-      value: imageConvertorUnity
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[2].Interface
-      value: IImageConvertor
+      value: IDescriptorMatcher
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[2].to
-      value: SolARImageConvertorUnity
+      value: SolARDescriptorMatcherKNNOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2213,7 +2032,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[6].properties.Array.data[0].value
-      value: 500
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2223,122 +2042,122 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].type
-      value: SolARPoseEstimationSACPnpOpencv
+      value: SolARMapFilterOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].component
-      value: SolARPoseEstimationSACPnpOpencv
+      value: SolARMapFilterOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].description
-      value: SolARPoseEstimationSACPnpOpencv
+      value: SolARMapFilterOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[0].name
-      value: iterationsCount
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[0].type
-      value: Integer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[0].value
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[1].name
-      value: reprojError
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[1].type
-      value: Float
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[1].value
-      value: 9.0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].type
-      value: SolARMapFilterOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].component
-      value: SolARMapFilterOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].description
-      value: SolARMapFilterOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[0].name
       value: reprojErrorThreshold
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[0].type
+      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[0].type
       value: float
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[0].value
+      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[0].value
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[1].name
+      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[1].name
       value: cheiralityCheck
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[1].type
+      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[1].type
       value: integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[1].value
+      propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[1].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[9].type
+      propertyPath: conf.properties.configure.Array.data[8].type
       value: SolARRelocARF
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[9].component
+      propertyPath: conf.properties.configure.Array.data[8].component
       value: SolARRelocARF
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[9].description
+      propertyPath: conf.properties.configure.Array.data[8].description
       value: SolARRelocARF
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[9].properties.Array.data[0].name
-      value: pathTrees
+      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[0].name
+      value: arfFile
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[9].properties.Array.data[0].type
+      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[0].type
       value: string
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
+      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[0].value
+      value: ./Assets/StreamingAssets/SolAR/RelocARF/ARFReloc.yml
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[1].name
+      value: exitKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[1].type
+      value: Integer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[1].value
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[9].type
+      value: SolARDescriptorMatcherRadiusOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[9].component
+      value: SolARDescriptorMatcherRadiusOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[9].description
+      value: SolARDescriptorMatcherRadiusOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[9].properties.Array.data[0].name
+      value: distanceRatio
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[9].properties.Array.data[0].type
+      value: Float
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
       propertyPath: conf.properties.configure.Array.data[9].properties.Array.data[0].value
-      value: ./Assets/StreamingAssets/RelocARF/trees
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2418,27 +2237,27 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].type
-      value: SolARDescriptorMatcherRadiusOpencv
+      value: SolAROpticalFlowPyrLKOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].component
-      value: SolARDescriptorMatcherRadiusOpencv
+      value: SolAROpticalFlowPyrLKOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].description
-      value: SolARDescriptorMatcherRadiusOpencv
+      value: SolAROpticalFlowPyrLKOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[0].name
-      value: distanceRatio
+      value: searchWinWidth
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[0].type
-      value: Float
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2458,12 +2277,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[1].name
-      value: orientation
+      value: searchWinHeight
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[1].type
-      value: Float
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2483,12 +2302,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[2].name
-      value: size
+      value: maxLevel
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[2].type
-      value: Float
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2508,32 +2327,32 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].type
-      value: SolAROpticalFlowPyrLKOpencv
+      value: SolARMarker2DSquaredBinaryOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].component
-      value: SolAROpticalFlowPyrLKOpencv
+      value: SolARMarker2DSquaredBinaryOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].description
-      value: SolAROpticalFlowPyrLKOpencv
+      value: SolARMarker2DSquaredBinaryOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].properties.Array.data[0].name
-      value: searchWinWidth
+      value: filePath
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].properties.Array.data[0].type
-      value: Integer
+      value: string
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[11].properties.Array.data[0].value
-      value: 21
+      value: ./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3414,7 +3233,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[3].components.Array.data[2].interfaces.Array.data[1].uuid
-      value: e0d6cc82-6af2-493d-901a-2384fca0b16f
+      value: 68dc9152-5199-11ea-8d77-2e728ce88125
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3739,62 +3558,62 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[3].Interface
-      value: IDescriptorsExtractor
+      value: IDescriptorMatcher
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[3].to
-      value: SolARDescriptorsExtractorAKAZE2Opencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[4].Interface
-      value: IDescriptorMatcher
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[4].to
-      value: SolARDescriptorMatcherKNNOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[5].name
-      value: DescMatcherFiducial
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[5].Interface
-      value: IDescriptorMatcher
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[5].to
       value: SolARDescriptorMatcherRadiusOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[6].Interface
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[4].Interface
       value: IImageConvertor
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[6].to
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[4].to
       value: SolARImageConvertorOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[7].name
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[5].name
       value: ImageConvertorUnity
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[7].Interface
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[5].Interface
       value: IImageConvertor
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[7].to
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[5].to
       value: SolARImageConvertorUnity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[6].Interface
+      value: I3DTransformSACFinderFrom2D3D
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[6].to
+      value: SolARPoseEstimationSACPnpOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[7].name
+      value: Track
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[7].Interface
+      value: I3DTransformSACFinderFrom2D3D
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[7].to
+      value: SolARPoseEstimationSACPnpOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3899,97 +3718,97 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[0].value
-      value: 0.9
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[1].value
-      value: 
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[2].value
-      value: 
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[3].name
-      value: minNbInliers
+      value: minEigenThreshold
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[3].type
-      value: Integer
+      value: Double
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[3].value
-      value: 25
+      value: -1.0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].type
-      value: SolARMarker2DSquaredBinaryOpencv
+      value: SolARImageFilterBinaryOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].component
-      value: SolARMarker2DSquaredBinaryOpencv
+      value: SolARImageFilterBinaryOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].description
-      value: SolARMarker2DSquaredBinaryOpencv
+      value: SolARImageFilterBinaryOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[0].name
-      value: filePath
+      value: min
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[0].type
-      value: string
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[0].value
-      value: ./Assets/StreamingAssets/SolAR/Markers/fiducialMarker_1.yml
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[1].name
-      value: minMeanDistanceIsKeyframe
+      value: max
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[1].type
-      value: Float
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[1].value
-      value: 0.07
+      value: 255
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].type
-      value: SolARImageFilterBinaryOpencv
+      value: SolARContoursExtractorOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].component
-      value: SolARImageFilterBinaryOpencv
+      value: SolARContoursExtractorOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].description
-      value: SolARImageFilterBinaryOpencv
+      value: SolARContoursExtractorOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].properties.Array.data[0].name
-      value: min
+      value: minContourEdges
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3999,7 +3818,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].properties.Array.data[0].value
-      value: -1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -4064,57 +3883,57 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].type
-      value: SolARContoursExtractorOpencv
+      value: SolARContoursFilterBinaryMarkerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].component
-      value: SolARContoursExtractorOpencv
+      value: SolARContoursFilterBinaryMarkerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].description
-      value: SolARContoursExtractorOpencv
+      value: SolARContoursFilterBinaryMarkerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[0].name
-      value: minContourEdges
+      value: epsilon
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[0].type
-      value: Integer
+      value: Float
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[0].value
-      value: 4
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[1].name
-      value: radius
+      value: minContourLength
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[1].type
-      value: UnsignedInteger
+      value: Float
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[1].value
-      value: 2
+      value: 20.0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[2].name
-      value: color
+      value: minDistanceBetweenContourCorners
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[2].type
-      value: UnsignedInteger
+      value: Float
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -4149,47 +3968,47 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].type
-      value: SolARContoursFilterBinaryMarkerOpencv
+      value: SolARPerspectiveControllerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].component
-      value: SolARContoursFilterBinaryMarkerOpencv
+      value: SolARPerspectiveControllerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].description
-      value: SolARContoursFilterBinaryMarkerOpencv
+      value: SolARPerspectiveControllerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[0].name
-      value: epsilon
+      value: outputImageWidth
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[0].type
-      value: Float
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[0].value
-      value: 0.05
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[1].name
-      value: minContourLength
+      value: outputImageHeight
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[1].type
-      value: Float
+      value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[1].value
-      value: 20.0
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -4209,212 +4028,212 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].type
-      value: SolARPerspectiveControllerOpencv
+      value: SolAR2DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].component
-      value: SolARPerspectiveControllerOpencv
+      value: SolAR2DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].description
-      value: SolARPerspectiveControllerOpencv
+      value: SolAR2DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[0].name
-      value: outputImageWidth
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[0].type
-      value: Integer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[0].value
-      value: 640
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].name
-      value: outputImageHeight
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].type
-      value: Integer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].value
-      value: 480
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].name
-      value: width
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].type
-      value: Integer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].value
-      value: 640
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[3].name
-      value: height
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[3].type
-      value: Integer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[3].value
-      value: 480
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].type
-      value: SolAR2DOverlayOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].component
-      value: SolAR2DOverlayOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].description
-      value: SolAR2DOverlayOpencv
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[0].name
       value: thickness
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[0].type
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[0].type
       value: UnsignedInteger
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[0].value
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[1].name
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].name
       value: radius
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[1].type
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].type
       value: UnsignedInteger
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[1].value
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].value
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].name
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].name
       value: color
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].type
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].type
       value: UnsignedInteger
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].value
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].value
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[3].name
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[3].name
       value: maxMatches
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[3].type
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[3].type
       value: UnsignedInteger
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[3].value
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[3].value
       value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].type
+      propertyPath: conf.properties.configure.Array.data[17].type
       value: SolARImageViewerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].component
+      propertyPath: conf.properties.configure.Array.data[17].component
       value: SolARImageViewerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].description
+      propertyPath: conf.properties.configure.Array.data[17].description
       value: SolARImageViewerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].name
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[0].name
       value: title
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].type
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[0].type
       value: string
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].value
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[0].value
       value: Camera relocalization
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].name
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[1].name
       value: exitKey
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].type
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[1].type
       value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].value
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[1].value
       value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].name
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].name
       value: width
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].type
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].type
       value: Integer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
-      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].value
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[2].value
       value: 640
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[3].name
+      value: height
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[3].type
+      value: Integer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[17].properties.Array.data[3].value
+      value: 480
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].type
+      value: SolAR3DOverlayBoxOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].component
+      value: SolAR3DOverlayBoxOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].description
+      value: SolAR3DOverlayBoxOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].name
+      value: position
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].type
+      value: Float
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].value
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].name
+      value: orientation
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].type
+      value: Float
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].value
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].name
+      value: size
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].type
+      value: Float
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].value
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6068,7 +5887,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[2].properties.Array.data[2].value
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6133,7 +5952,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[6].properties.Array.data[1].value
-      value: 9.0
+      value: 4.0
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6163,12 +5982,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[6].properties.Array.data[3].value
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[2].name
-      value: confidence
+      value: size
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6178,7 +5997,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[7].properties.Array.data[2].value
-      value: 0.99
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6348,12 +6167,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[0].description
-      value: Path of the .yml file describing the fiducial marker.
+      value: minimum threshold (-1 to automatically compute it on the global image
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[13].properties.Array.data[0].description
-      value: minimum threshold (-1 to automatically compute it on the global image
+      value: Minimum number of edge to validate a contour (default = 4)
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6363,19 +6182,18 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[0].description
-      value: Minimum number of edge to validate a contour (default = 4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
-        type: 3}
-      propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[0].description
       value: The maximum distance between the original curve and its approximation
         (default = 0.05)
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
+      propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[0].description
+      value: The width in pixels of the corrected image.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
       propertyPath: conf.properties.configure.Array.data[15].properties.Array.data[1].description
-      value: The minimum length of an edge of the contour in pixels to be considered
-        as valid (default = 20).
+      value: The width in pixels of the corrected image.
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6387,12 +6205,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[0].description
-      value: The width in pixels of the corrected image.
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[1].description
-      value: The width in pixels of the corrected image.
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6502,12 +6320,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: centerX
-      value: 325
+      value: 319.5
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: centerY
-      value: 226
+      value: 239.5
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -6849,6 +6667,149 @@ PrefabInstance:
         type: 3}
       propertyPath: conf.properties.configure.Array.data[8].properties.Array.data[3].value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[3].name
+      value: DescMatcherFiducial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[0].binds.Array.data[6].name
+      value: Reloc
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[6].properties.Array.data[4].name
+      value: method
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[6].properties.Array.data[4].type
+      value: string
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[6].properties.Array.data[4].value
+      value: EPNP
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[4].name
+      value: maxSearchIterations
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[4].type
+      value: Integer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[4].value
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[5].name
+      value: searchWindowAccuracy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[5].type
+      value: Float
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[10].properties.Array.data[5].value
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[11].properties.Array.data[0].description
+      value: Path of the .yml file describing the fiducial marker.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[12].properties.Array.data[1].description
+      value: maximum threshold
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[1].description
+      value: The minimum length of an edge of the contour in pixels to be considered
+        as valid (default = 20).
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[2].value
+      value: 10.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[14].properties.Array.data[2].description
+      value: The minimum average distance in pixels between corners of a contour
+        and the same corners of another contour to consider the contour as valid
+        (default = 10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].values.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].values.Array.data[1]
+      value: 255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[16].properties.Array.data[2].values.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].values.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].values.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[0].values.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].values.Array.data[0]
+      value: 0.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].values.Array.data[1]
+      value: 0.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[1].values.Array.data[2]
+      value: 0.0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].values.Array.data[0]
+      value: 0.182
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].values.Array.data[1]
+      value: 0.182
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.configure.Array.data[18].properties.Array.data[2].values.Array.data[2]
+      value: 0.182
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243915, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}

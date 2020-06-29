@@ -1,8 +1,8 @@
 <xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
   <module uuid="364fbe4d-55f5-4565-9877-29de2b4642aa" name="PipelineRelocARF" path="./Assets/Plugins" description="PipelineRelocARF">
     <component uuid="d26eb68e-19b7-4615-9885-16da32dd548d" name="PipelineRelocARF" description="PipelineRelocARF">
-      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
+	  <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+	  <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
   <module uuid="47b7120b-5480-44ce-b59b-6d039d4174df" name="SolARModuleARF" path="./Assets/Plugins" description="SolARModuleARF">
@@ -110,7 +110,7 @@
     </component>
     <component uuid="09205b96-7cba-4415-bc61-64744bc26222" name="SolARMapFilterOpencv" description="SolARMapFilterOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" name="IMapFilter" description="IMapFilter" />
+      <interface uuid="68dc9152-5199-11ea-8d77-2e728ce88125" name="IMapFilter" description="IMapFilter" />
     </component>
     <component uuid="8e3c926a-0861-46f7-80b2-8abb5576692c" name="SolARMapperOpencv" description="SolARMapperOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
@@ -124,14 +124,21 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="67bcd080-258d-4b16-b693-cd30c013eb05" name="IImage2WorldMapper" description="IImage2WorldMapper" />
     </component>
-    <component uuid="09205b96-7cba-4415-bc61-64744bc26222" name="SolARMapFilterOpencv" description="SolARMapFilterOpencv">
-      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="e0d6cc82-6af2-493d-901a-2384fca0b16f" name="IMapFilter" description="IMapFilter" />
-    </component>
   </module>
+  
   <factory>
-    <bindings />
-  </factory>
+		<bindings>
+			<bind interface="ICamera" to="SolARCameraOpencv" />
+			<bind interface="IDescriptorsExtractor" to="SolARDescriptorsExtractorAKAZE2Opencv" />
+			<bind interface="IDescriptorMatcher" to="SolARDescriptorMatcherKNNOpencv" />
+			<bind name="DescMatcherFiducial" interface="IDescriptorMatcher" to="SolARDescriptorMatcherRadiusOpencv"/>
+			<bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
+			<bind name="ImageConvertorUnity" interface="IImageConvertor" to="SolARImageConvertorUnity"/>
+			<bind name="Reloc" interface="I3DTransformSACFinderFrom2D3D" to="SolARPoseEstimationSACPnpOpencv"/>
+			<bind name="Track" interface="I3DTransformSACFinderFrom2D3D" to="SolARPoseEstimationSACPnpOpencv"/>
+		</bindings>
+	</factory>
+	
   <properties>
     <configure component="PipelineRelocARF">
       <property name="skipTraining" type="Integer" value="0" />
@@ -145,7 +152,7 @@
     <configure component="SolARKeypointDetectorOpencv">
       <property name="type" type="string" value="AKAZE2" />
       <property name="imageRatio" type="Float" value="1.0" />
-      <property name="nbDescriptors" type="Integer" value="500" />
+      <property name="nbDescriptors" type="Integer" value="1000" />
       <property name="threshold" type="Float" value="0.001" />
       <!--SolARKeypointDetectorOpencv-->
     </configure>
@@ -164,40 +171,20 @@
       <!--SolARGeometricMatchesFilterOpencv-->
     </configure>
     <configure component="SolARPoseEstimationSACPnpOpencv">
-      <property name="iterationsCount" type="Integer" value="500" />
-      <property name="reprojError" type="Float" value="9.0" />
-      <property name="confidence" type="Float" value="0.99" />
-      <property name="minNbInliers" type="Integer" value="50" />
-      <!--SolARPoseEstimationSACPnpOpencv-->
-    </configure>
-    <configure component="SolARPoseEstimationSACPnpOpencv">
-      <property name="iterationsCount" type="Integer" value="300" />
-      <property name="reprojError" type="Float" value="9.0" />
-      <property name="confidence" type="Float" value="0.99" />
-      <property name="minNbInliers" type="Integer" value="30" />
-      <!--SolARPoseEstimationSACPnpOpencv-->
-    </configure>
+		<property name="iterationsCount" type="Integer" value="300"/>
+		<property name="reprojError" type="Float" value="4.0"/>
+		<property name="confidence" type="Float" value="0.99"/>
+		<property name="minNbInliers" type="Integer" value="30"/>
+		<property name="method" type="string" value="EPNP"/>
+	</configure>
     <configure component="SolARMapFilterOpencv">
       <property name="reprojErrorThreshold" type="float" value="1.5" />
       <property name="cheiralityCheck" type="integer" value="1" />
       <!--SolARMapFilterOpencv-->
     </configure>
     <configure component="SolARRelocARF">
-      <property name="pathTrees" type="string" value="./Assets/StreamingAssets/RelocARF/trees" />
-      <property name="numTrees" type="Integer" value="2" />
-      <property name="treeDepth" type="Integer" value="13" />
-      <property name="numUpperDepth" type="Integer" value="9" />
-      <property name="scaleTrainingData" type="Float" value="0.8" />
-      <property name="iterFeature" type="Integer" value="50" />
-      <property name="iterThres" type="Integer" value="50" />
-      <property name="treeMinSample" type="Integer" value="10" />
-      <property name="sizeFeature" type="Integer" value="61" />
-      <property name="covarianceAccepted" type="Float" value="0.1" />
-      <property name="NbOutliersToDefinePassive" type="Integer" value="10" />
-      <property name="NbDataToUpdate" type="Integer" value="8" />
-      <property name="Nb3DPtsToUpdate" type="Integer" value="10" />
-      <property name="ErrorTriangulation" type="Float" value="3.0" />
-      <!--SolARRelocARF-->
+		<property name="arfFile" type="string" value="./Assets/StreamingAssets/SolAR/RelocARF/ARFReloc.yml"/>
+		<!--SolARRelocARF-->
     </configure>
     <configure component="SolARDescriptorMatcherRadiusOpencv">
       <property name="distanceRatio" type="Float" value="0.9" />
@@ -213,7 +200,7 @@
       <!--SolAROpticalFlowPyrLKOpencv-->
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker_1.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
       <!--SolARMarker2DSquaredBinaryOpencv-->
     </configure>
     <configure component="SolARImageFilterBinaryOpencv">
@@ -266,9 +253,9 @@
         <value>0.0</value>
       </property>
       <property name="size" type="Float">
-        <value>0.1</value>
-        <value>0.1</value>
-        <value>0.1</value>
+        <value>0.182</value>
+        <value>0.182</value>
+        <value>0.182</value>
       </property>
       <!--SolAR3DOverlayBoxOpencv-->
     </configure>
