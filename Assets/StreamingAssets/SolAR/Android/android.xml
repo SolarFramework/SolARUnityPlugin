@@ -6,10 +6,6 @@
     <file path="./assets/StreamingAssets/SolAR/Android/android.xml" />
     <!--CameraCalibration-->
     <file path="./assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" overWrite="true" />
-    <!--Configuration-->
-    <file path="./assets/StreamingAssets/SolAR/Configuration/conf_FiducialMarker.xml" overWrite="true" />
-    <file path="./assets/StreamingAssets/SolAR/Configuration/conf_NaturalImageMarker.xml" overWrite="true" />
-    <file path="./assets/StreamingAssets/SolAR/Configuration/conf_SLAM.xml" overWrite="true" />
     <!--FBOW-->
     <file path="./assets/StreamingAssets/SolAR/FBOW/akaze.fbow" overWrite="true" />
     <!--Markers-->
