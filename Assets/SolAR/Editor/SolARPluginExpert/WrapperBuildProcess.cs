@@ -24,8 +24,8 @@ namespace SolAR
         }
 
         public void OnPreprocessBuild(BuildReport report)
-        {
-
+        {   //DEPRECATED
+            /*
             switch (report.summary.platform)
             {
                 case BuildTarget.StandaloneWindows:
@@ -51,7 +51,7 @@ namespace SolAR
                 case BuildTarget.iOS:
                     break;
             }
-
+            */
         }
         private void ModifyPaths(string path, BuildReport report)
         {
