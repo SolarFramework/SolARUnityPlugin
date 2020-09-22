@@ -45,7 +45,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
 
 * Click on Unity Editor `Play` button or build the application
 
-:tips: You can find all of this workflow in video, watch [SolAR Framework Overview](https://solarframework.github.io/) (timecode 2min20).
+:information_source: You can find all of this workflow in video, watch [SolAR Framework Overview](https://solarframework.github.io/) (timecode 2min20).
 
 ## How build it  with pre-compiled 
 * Install [Remaken](https://github.com/b-com-software-basis/remaken) (a meta dependencies management tool).
@@ -57,7 +57,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
 * Every module should be imported in `./Assets/Plugins` and wrapped C# in `./Assets/SolAR/Swig`.
 
 * For SLAM add the [fbow vocabularies](https://github.com/SolarFramework/binaries/releases/download/fbow%2F0.0.1%2Fwin/fbow_voc.zip) unzip this archive and put the `akaze.fbow` in your `./Assets/StreamingAssets/SolAR/FBOW`.
-## How build it with source :
+## How build it with source
 
 1° Build    **[xpcf](https://github.com/b-com-software-basis/xpcf/)**
             & **SolARFramework**.
@@ -75,7 +75,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
 
 7° For SLAM add the [fbow vocabularies](https://github.com/SolarFramework/binaries/releases/download/fbow%2F0.0.1%2Fwin/fbow_voc.zip) unzip this archive and put the `akaze.fbow` in your `./Assets/StreamingAssets/SolAR/FBOW`.
 
-## We follow this hierarchy (Unity) (only folders) :
+## We follow this hierarchy (Unity) (only folders)
 
     Assets
     ==> Objects                (3D models)
