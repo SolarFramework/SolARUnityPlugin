@@ -47,7 +47,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
 
 :information_source: You can find all of this workflow in video, watch [SolAR Framework Overview](https://solarframework.github.io/) (timecode 2min20).
 
-## How build it  with pre-compiled 
+## How to build with pre-compiled 
 * Install [Remaken](https://github.com/b-com-software-basis/remaken) (a meta dependencies management tool).
 
 * Download [Swig](http://www.swig.org/) (use for wrapping), unzip archive and add an environment variable to `Path` for the `swig.exe`. 
@@ -57,7 +57,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
 * Every module should be imported in `./Assets/Plugins` and wrapped C# in `./Assets/SolAR/Swig`.
 
 * For SLAM add the [fbow vocabularies](https://github.com/SolarFramework/binaries/releases/download/fbow%2F0.0.1%2Fwin/fbow_voc.zip) unzip this archive and put the `akaze.fbow` in your `./Assets/StreamingAssets/SolAR/FBOW`.
-## How build it with source
+## How to build with source
 
 1° Build    **[xpcf](https://github.com/b-com-software-basis/xpcf/)**
             & **SolARFramework**.
@@ -69,7 +69,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
             
 4° Build    necessary module (OpenCV, Tools, FBOW... depending on pipelines you want to use).
 
-5° Build    Pipelines (Fiducial, Natural Image, SLAM ...).
+5° Build    Pipelines (Fiducial, Natural Image, SLAM ...) :exclamation: as **[plugin](https://solarframework.github.io/assemble/unity_pipeline/)** :exclamation:.
 
 6° Execute `Bundle.bat` to import libraries and modules in your `./Assets/Plugins` and C# wrapped in your Unity project `./Assets/SolAR/Swig`.
 
