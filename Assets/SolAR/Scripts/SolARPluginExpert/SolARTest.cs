@@ -187,9 +187,9 @@ public class SolARTest : AbstractSample
             {
                 Debug.Log(iCamera.start());
             }
-            if (GUILayout.Button("getDistorsionParameters"))
+            if (GUILayout.Button("getDistortionParameters"))
             {
-                using (var x = iCamera.getDistorsionParameters()) { Debug.Log(x); }
+                using (var x = iCamera.getDistortionParameters()) { Debug.Log(x); }
             }
             if (GUILayout.Button("getIntrinsicsParameters"))
             {

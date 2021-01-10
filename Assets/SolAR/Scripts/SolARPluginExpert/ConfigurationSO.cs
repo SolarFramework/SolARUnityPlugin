@@ -12,22 +12,22 @@ namespace SolAR
     {
         public string path;
 
-        public ConfXml conf;
+        public XpcfRegistry conf;
 
+#if UNITY_EDITOR
         protected void Reset()
         {
-#if UNITY_EDITOR
-            path = UnityEditor.AssetDatabase.GetAssetPath(this); 
-#endif
+            path = UnityEditor.AssetDatabase.GetAssetPath(this);
             path = Path.ChangeExtension(path, ".xml");
         }
+#endif
 
         public void Load()
         {
-            var serializer = new XmlSerializer(typeof(ConfXml));
-            using (var stream = File.OpenRead(path))
+            var serializer = new XmlSerializer(typeof(XpcfRegistry));
+            using (var stream = File.OpenText(path))
             {
-                conf = (ConfXml)serializer.Deserialize(stream);
+                conf = (XpcfRegistry)serializer.Deserialize(stream);
             }
         }
     }
@@ -38,23 +38,23 @@ namespace SolAR
     {
         public string path;
 
-        public ConfXml conf;
+        public XpcfRegistry conf;
 
         [ContextMenu("Load")]
         public void Load()
         {
-            var serializer = new XmlSerializer(typeof(ConfXml));
-            using (var stream = File.Open(path, FileMode.Open))
+            var serializer = new XmlSerializer(typeof(XpcfRegistry));
+            using (var stream = File.OpenText(path))
             {
-                conf = (ConfXml)serializer.Deserialize(stream);
+                conf = (XpcfRegistry)serializer.Deserialize(stream);
             }
         }
 
         [ContextMenu("Save")]
         public void Save()
         {
-            var serializer = new XmlSerializer(typeof(ConfXml));
-            using (var stream = File.Open(path, FileMode.Create))
+            var serializer = new XmlSerializer(typeof(XpcfRegistry));
+            using (var stream = File.CreateText(path))
             {
                 serializer.Serialize(stream, conf);
             }

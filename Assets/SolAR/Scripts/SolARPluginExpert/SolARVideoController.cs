@@ -14,7 +14,7 @@ namespace SolAR
         GameObject quad;
         Material material;
         int layoutId;
-        public Shader m_shader;
+        public Shader shader;
 
         protected void Awake()
         {
@@ -36,9 +36,9 @@ namespace SolAR
 
             var renderer = quad.GetComponent<Renderer>();
             Assert.IsNotNull(renderer);
-           
-            Assert.IsNotNull(m_shader);
-            material = new Material(m_shader)
+
+            if (shader == null) shader = Shader.Find("SolAR/UnlitShader");
+            material = new Material(shader)
             {
                 mainTextureOffset = new Vector2(0, 1),
                 mainTextureScale = new Vector2(1, -1),
@@ -55,7 +55,7 @@ namespace SolAR
             Destroy(material);
         }
 
-        private void OnCalibrate(Sizei resolution, Matrix3x3f intrinsic, Vector5f distorsion)
+        private void OnCalibrate(Sizei resolution, Matrix3x3f intrinsic, Vector5f distortion)
         {
             /*
             var m = new Matrix4x4();
@@ -70,10 +70,10 @@ namespace SolAR
             Debug.Log(resolution.width);
             Debug.Log(resolution.height);
             */
-            var fY = intrinsic.coeff(1, 1) * 2 / resolution.height;
             var fX = intrinsic.coeff(0, 0) * 2 / resolution.width;
-            //var fovY = CameraUtility.Focal2Fov(fY, resolution.height);
+            var fY = intrinsic.coeff(1, 1) * 2 / resolution.height;
             //var fovX = CameraUtility.Focal2Fov(fX, resolution.width);
+            //var fovY = CameraUtility.Focal2Fov(fY, resolution.height);
             //camera.fieldOfView = fovY;
             //CameraUtility.ApplyProjectionMatrix()
 
@@ -102,9 +102,10 @@ namespace SolAR
             quad.transform.localScale = z * Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * 2 * new Vector3(aspect, 1, 1);
         }
 
-        void OnFrame(Texture texture)
+        void OnFrame(Texture texture, Image.ImageLayout layout)
         {
             material.mainTexture = texture;
+            material.SetInt(layoutId, (int)layout);
         }
     }
 }

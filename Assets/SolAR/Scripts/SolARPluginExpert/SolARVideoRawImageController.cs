@@ -44,7 +44,7 @@ namespace SolAR
             solARManager.OnFrame -= OnFrame;
         }
 
-        void OnFrame(Texture texture)
+        void OnFrame(Texture texture, Datastructure.Image.ImageLayout layout)
         {
             material.mainTexture = texture;
             material.SetInt(layoutId, 2);

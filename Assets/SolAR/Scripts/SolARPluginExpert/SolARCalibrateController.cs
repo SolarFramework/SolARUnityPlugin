@@ -31,7 +31,7 @@ namespace SolAR
             solARManager.OnCalibrate -= OnCalibrate;
         }
 
-        private void OnCalibrate(Sizei resolution, Matrix3x3f intrinsic, Vector5f distorsion)
+        private void OnCalibrate(Sizei resolution, Matrix3x3f intrinsic, Vector5f distortion)
         {
             var fY = intrinsic.coeff(1, 1);
             var fovY = CameraUtility.Focal2Fov(fY, resolution.height);

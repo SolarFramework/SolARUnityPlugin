@@ -97,14 +97,14 @@ namespace SolAR.Samples
         }
 
         public override Sizef GetMarkerSize() { return binaryMarker.getSize(); }
-        public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distorsion)
+        public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distortion)
         {
-            PnP.setCameraParameters(intrinsics, distorsion);
+            PnP.setCameraParameters(intrinsics, distortion);
         }
 
         public override FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose, ICamera camera)
         {
-            overlay3DComponent.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+            overlay3DComponent.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistortionParameters());
 
             // Convert Image from RGB to grey
             imageConvertor.convert(inputImage, greyImage, Image.ImageLayout.LAYOUT_GREY).Check();

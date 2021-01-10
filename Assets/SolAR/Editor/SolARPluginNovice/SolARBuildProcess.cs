@@ -1,29 +1,28 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
+using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
-
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using System.IO;
 
 namespace SolAR
 {
-
     class SolARBuildProcess : IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
-        private List<string> createdStreamingAssetsFolders = new List<string>();
+        readonly List<string> createdStreamingAssetsFolders = new List<string>();
 
-        public int callbackOrder { get { return 0; } }
+        public int callbackOrder => 0;
 
         public void OnPreprocessBuild(BuildReport report)
         {
-            SolARPipeline[] solARPipelineLoaders = (SolARPipeline[])GameObject.FindObjectsOfType<SolARPipeline>();
-            foreach (SolARPipeline pipeline in solARPipelineLoaders)
+            var solARPipelineLoaders = Object.FindObjectsOfType<SolARPipeline>();
+            foreach (var pipeline in solARPipelineLoaders)
             {
                 foreach (string conf in pipeline.m_pipelinesPath)
                 {
+                    var path = Application.streamingAssetsPath + conf;
+                    var name = Path.GetDirectoryName(path);
                     switch (report.summary.platform)
                     {
                         case BuildTarget.StandaloneWindows:
@@ -31,25 +30,25 @@ namespace SolAR
                             {
                                 string windowsPipelineConfPath = conf;
                                 // Create a directory in the streamingAssets folder to copy the pipeline configuration files
-                                if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + conf)))
+                                if (!Directory.Exists(name))
                                 {
-                                    Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
+                                    Directory.CreateDirectory(name);
                                     // Store the folders to remove it after the build process
-                                    createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
+                                    createdStreamingAssetsFolders.Add(name);
                                 }
                                 // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
                                 windowsPipelineConfPath = windowsPipelineConfPath.Insert(windowsPipelineConfPath.LastIndexOf("/") + 1, "StandaloneWindows/");
-                                if (!System.IO.File.Exists(Application.dataPath + windowsPipelineConfPath))
+                                if (!File.Exists(Application.dataPath + windowsPipelineConfPath))
                                 {
-                                    if (File.Exists(Application.streamingAssetsPath + conf)) File.Delete(Application.streamingAssetsPath + conf);
-                                    FileUtil.CopyFileOrDirectory(Application.dataPath + conf, Application.streamingAssetsPath + conf);
+                                    if (File.Exists(path)) File.Delete(path);
+                                    FileUtil.CopyFileOrDirectory(Application.dataPath + conf, path);
                                     // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
-                                    ReplacePluginPaths(Application.streamingAssetsPath + conf, report);
+                                    ReplacePluginPaths(path, report);
                                 }
                                 // If there is a pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move it to the streamingAssets folder
                                 else
                                 {
-                                    FileUtil.CopyFileOrDirectory(Application.dataPath + windowsPipelineConfPath, Application.streamingAssetsPath + conf);
+                                    FileUtil.CopyFileOrDirectory(Application.dataPath + windowsPipelineConfPath, path);
                                 }
                                 break;
                             }
@@ -60,17 +59,17 @@ namespace SolAR
                             //Android build clone content of Assets/StreamingAssets/ in assets/ in the .apk archive
                             // Pipelines
                             // Create a directory in the streamingAssets folder to copy the pipeline configuration files
-                            if (!Directory.Exists(Path.GetDirectoryName(Application.streamingAssetsPath + conf)))
+                            if (!Directory.Exists(name))
                             {
-                                Directory.CreateDirectory(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
+                                Directory.CreateDirectory(name);
                                 // Store the folders to remove it after the build process
-                                createdStreamingAssetsFolders.Add(Path.GetDirectoryName(Application.streamingAssetsPath + conf));
+                                createdStreamingAssetsFolders.Add(name);
                             }
                             // If there is no pipeline configuration file specific for a given platform (put in a dedicated folder such as StandaloneWindows), move the pipeline used in editor mode to the streamingAssetsFolder
-                            if (File.Exists(Application.streamingAssetsPath + conf)) File.Delete(Application.streamingAssetsPath + conf);
-                            FileUtil.CopyFileOrDirectory(Application.dataPath + conf, Application.streamingAssetsPath + conf);
+                            if (File.Exists(path)) File.Delete(path);
+                            FileUtil.CopyFileOrDirectory(Application.dataPath + conf, path);
                             // Update in the pipeline configuration file the path for plugins and configuration property related to a path to reference them according to the executable folder 
-                            ReplacePluginPaths(Application.streamingAssetsPath + conf, report);
+                            ReplacePluginPaths(path, report);
                             break;
                         case BuildTarget.iOS:
                             break;
@@ -89,11 +88,10 @@ namespace SolAR
             createdStreamingAssetsFolders.Clear();
         }
 
-        private void ReplacePluginPaths(string confFileName, BuildReport report)
+        void ReplacePluginPaths(string confFileName, BuildReport report)
         {
-            string androidPersistentPath = "/storage/emulated/0/Android/data/"+Application.identifier+ "/files";
-            StreamReader input = new StreamReader(confFileName);
-            var doc = XDocument.Parse(input.ReadToEnd());
+            string androidPersistentPath = "/storage/emulated/0/Android/data/" + Application.identifier + "/files";
+            var doc = XDocument.Parse(File.ReadAllText(confFileName));
 
             var module = doc.Element("xpcf-registry").Elements("module");
             foreach (var attribute in module.Attributes())
@@ -103,18 +101,18 @@ namespace SolAR
                     if (attribute.Value.Contains("Plugins"))
                     {
                         string new_value = attribute.Value;
-                        new_value = attribute.Value.Substring(attribute.Value.IndexOf("Plugins"));
+                        new_value = new_value.Substring(new_value.IndexOf("Plugins"));
                         switch (report.summary.platform)
                         {
                             case BuildTarget.StandaloneWindows:
                             case BuildTarget.StandaloneWindows64:
-                                // For windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
+                                // For Windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
                                 new_value = "./" + Application.productName + "_Data/Plugins";
                                 break;
                             case BuildTarget.StandaloneOSX:
                                 break;
                             case BuildTarget.Android:
-                                // For Android , plugins are included in private app directory value can only be set on running by Android.ReplacePathToApp 
+                                // For Android, plugins are included in private app directory value can only be set on running by Android.ReplacePathToApp 
                                 break;
                             case BuildTarget.iOS:
                                 break;
@@ -135,7 +133,7 @@ namespace SolAR
                     {
                         case BuildTarget.StandaloneWindows:
                         case BuildTarget.StandaloneWindows64:
-                            // For windows, during the built process, streamingAssets folder is copied from the Assets/streamingAssets to the productname_Data/streamingAssets folder.
+                            // For Windows, during the built process, streamingAssets folder is copied from the Assets/streamingAssets to the productname_Data/streamingAssets folder.
                             new_value = attribValue.Value.Replace("./Assets/", "./" + Application.productName + "_Data/");
                             break;
                         case BuildTarget.StandaloneOSX:
@@ -151,17 +149,14 @@ namespace SolAR
                     attribValue.SetValue(new_value);
                 }
             }
-
-            input.Close();
             doc.Save(confFileName);
-            return;
         }
 
         /// <summary>
         /// Fill an xml with resources inside ./Assets/StreamingAssets/*
         /// </summary>
         /// <param name="output">Path to write to xml</param>
-        private void BuildAndroidXML(string output)
+        void BuildAndroidXML(string output)
         {
             XDocument doc = new XDocument();
             //Streaming Assets
@@ -190,7 +185,7 @@ namespace SolAR
                         }
                         XElement element = new XElement("file");
                         element.Add(new XAttribute("path", f.FullName.Replace("\\", "/").Replace(Application.dataPath, "./assets")));
-                        if(overWriteStreamingAssets==true) element.Add(new XAttribute("overWrite", overWriteStreamingAssets.ToString().ToLower()));
+                        if (overWriteStreamingAssets == true) element.Add(new XAttribute("overWrite", overWriteStreamingAssets.ToString().ToLower()));
                         streamingAssets.Add(element);
                     }
                 }

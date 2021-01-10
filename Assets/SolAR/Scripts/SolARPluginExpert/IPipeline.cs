@@ -8,7 +8,7 @@ using XPCF.Api;
 public interface IPipeline : IDisposable
 {
     Sizef GetMarkerSize();
-    void SetCameraParameters(Matrix3x3f intrinsic, Vector5f distorsion);
+    void SetCameraParameters(Matrix3x3f intrinsic, Vector5f distortion);
     FrameworkReturnCode Proceed(Image inputImage, Transform3Df pose, ICamera camera);
     IEnumerable<IComponentIntrospect> xpcfComponents { get; }
 }

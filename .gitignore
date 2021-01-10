@@ -56,13 +56,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Assets/SolAR/Scripts/SolARFullWrapper/Swig/
-Assets/SolAR/Scripts/SolARPlugin/Swig/
 Assets/SolAR/Swig/
 Assets/SolAR/Swig.meta
-*.meta
 copydll.bat
-Assets/SolAR/Prefabs.meta~develop
-Assets/SolAR/Prefabs.meta~HEAD
-Assets/SolAR/Scenes.meta~HEAD
 log.txt

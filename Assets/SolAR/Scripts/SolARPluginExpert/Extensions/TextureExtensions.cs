@@ -37,7 +37,7 @@ namespace SolAR
             Assert.AreEqual(Image.PixelOrder.INTERLEAVED, image.getPixelOrder());
             if (texture != null && (texture.width != w || texture.height != h || texture.format != format))
             {
-                UnityEngine.Object.Destroy(texture);
+                Object.Destroy(texture);
                 texture = null;
             }
             if (texture == null)

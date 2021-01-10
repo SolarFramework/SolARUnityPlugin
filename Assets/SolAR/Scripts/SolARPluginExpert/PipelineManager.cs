@@ -9,24 +9,25 @@ using UniRx;
 using UnityEngine;
 using XPCF.Api;
 using XPCF.Core;
-using System.IO;
-using System.Xml.Linq;
 
 namespace SolAR
 {
     public class PipelineManager : AbstractSample
     {
         public event Action<bool> OnStatus;
-        public event Action<Texture> OnFrame;
+        public event Action<Texture, Image.ImageLayout> OnFrame;
         public event Action<Sizei, Matrix3x3f, Vector5f> OnCalibrate;
-        public Pose Pose { get { return pose.ToUnity(); } }
+        public Pose Pose => pose.ToUnity();
 
-        protected enum SOURCE { SolAR, Unity }
+        [Tooltip("Library used to capture the video stream")]
         [SerializeField] protected SOURCE source = SOURCE.SolAR;
+        protected enum SOURCE { SolAR, Unity }
 
-        protected enum DISPLAY { None, SolAR, Unity, }
+        [Tooltip("Library used to render video stream")]
         [SerializeField] protected DISPLAY display = DISPLAY.Unity;
+        protected enum DISPLAY { None, SolAR, Unity, }
 
+        [Tooltip("For debug: Insert the tracked marker into the video stream")]
         [SerializeField] protected bool mogrify;
 
         Image inputImage;
@@ -46,11 +47,43 @@ namespace SolAR
 
         public enum PIPELINE
         {
+            Debug,
             Fiducial,
             Natural,
             SLAM,
         }
         public PIPELINE mode;
+
+        /*
+        PIPELINE _mode;
+
+        protected void Awake() { _mode = mode; }
+
+        protected void OnValidate()
+        {
+            if (!Application.isPlaying) return;
+            if (!isActiveAndEnabled) return;
+            if (_mode != mode)
+            {
+                _mode = mode;
+
+                pipeline?.Dispose();
+
+                switch (mode)
+                {
+                    case PIPELINE.Debug:
+                        pipeline = new DebugPipeline(xpcfComponentManager).AddTo(subscriptions);
+                        break;
+                    case PIPELINE.Fiducial:
+                        pipeline = new FiducialPipeline(xpcfComponentManager).AddTo(subscriptions);
+                        break;
+                    case PIPELINE.Natural:
+                        pipeline = new NaturalPipeline(xpcfComponentManager).AddTo(subscriptions);
+                        break;
+                }
+            }
+        }
+        */
 
         protected override void OnEnable()
         {
@@ -60,18 +93,18 @@ namespace SolAR
             Disposable.Create(xpcfComponentManager.clear).AddTo(subscriptions);
             xpcfComponentManager.AddTo(subscriptions);
 
-#if !UN    
-            conf.path = File.ReadAllText("confPath.txt");
-#endif
             if (xpcfComponentManager.load(conf.path) != XPCFErrorCode._SUCCESS)
             {
-               Debug.LogErrorFormat("Failed to load the configuration file {0}", conf.path);
+                Debug.LogErrorFormat("Failed to load the configuration file {0}", conf.path);
                 enabled = false;
                 return;
             }
 
             switch (mode)
             {
+                case PIPELINE.Debug:
+                    pipeline = new DebugPipeline(xpcfComponentManager).AddTo(subscriptions);
+                    break;
                 case PIPELINE.Fiducial:
                     pipeline = new FiducialPipeline(xpcfComponentManager).AddTo(subscriptions);
                     break;
@@ -85,23 +118,39 @@ namespace SolAR
 
             overlay3D = xpcfComponentManager.Create("SolAR3DOverlayOpencv").BindTo<I3DOverlay>().AddTo(subscriptions);
 
+            inputImage = SharedPtr.Alloc<Image>().AddTo(subscriptions); //TODO bug getResolution
             switch (source)
             {
                 case SOURCE.SolAR:
                     camera = xpcfComponentManager.Create("SolARCameraOpencv").BindTo<ICamera>().AddTo(subscriptions);
 
                     var intrinsic = camera.getIntrinsicsParameters();
-                    var distorsion = camera.getDistorsionParameters();
+                    var distortion = camera.getDistortionParameters();
                     var resolution = camera.getResolution();
-                    pipeline.SetCameraParameters(intrinsic, distorsion);
-                    overlay3D.setCameraParameters(intrinsic, distorsion);
-                    OnCalibrate?.Invoke(resolution, intrinsic, distorsion);
+                    pipeline.SetCameraParameters(intrinsic, distortion);
+                    overlay3D.setCameraParameters(intrinsic, distortion);
+                    //OnCalibrate?.Invoke(resolution, intrinsic, distortion); //TODO bug getResolution
 
                     if (camera.start() != FrameworkReturnCode._SUCCESS)
                     {
                         LOG_ERROR("Camera cannot start");
                         enabled = false;
                     }
+
+                    //TODO bug getResolution
+                    if (resolution.height == 0)
+                    {
+                        Debug.LogWarning(new { resolution.width, resolution.height });
+                        if (camera.getNextImage(inputImage) != FrameworkReturnCode._SUCCESS)
+                        {
+                            LOG_ERROR("Camera cannot grab");
+                            enabled = false;
+                        }
+                        resolution = inputImage.getSize();
+                    }
+                    else
+                        Debug.LogError("bug fixed, please remove hack getResolution");
+                    OnCalibrate?.Invoke(resolution, intrinsic, distortion);
                     break;
                 case SOURCE.Unity:
                     webcam = new WebCamTexture();
@@ -132,17 +181,16 @@ namespace SolAR
 
             start = clock();
 
-            inputImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
+            //inputImage = SharedPtr.Alloc<Image>().AddTo(subscriptions); //TODO bug getResolution
             pose = new Transform3Df().AddTo(subscriptions);
         }
 
         IPipeline pipeline;
         WebCamTexture webcam;
 
-        public IEnumerable<IComponentIntrospect> xpcfComponents
-        {
-            get { return pipeline.xpcfComponents; }
-        }
+#pragma warning disable IDE1006 // Styles d'affectation de noms
+        public IEnumerable<IComponentIntrospect> xpcfComponents => pipeline.xpcfComponents;
+#pragma warning restore IDE1006 // Styles d'affectation de noms
 
         protected void Update()
         {
@@ -172,16 +220,9 @@ namespace SolAR
 
             var isTracking = pipeline.Proceed(inputImage, pose, camera) == FrameworkReturnCode._SUCCESS;
 
-            //if(mode == PIPELINE.SLAM)
-            //{
+            foreach (var go in GameObject.FindGameObjectsWithTag("SolARObject"))
+                go.transform.GetComponent<Renderer>().enabled = isTracking;
 
-            //}
-
-
-
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag("SolARObject"))
-                g.transform.GetComponent<Renderer>().enabled = isTracking;
-            
             if (isTracking)
             {
                 if (mogrify)
@@ -198,7 +239,7 @@ namespace SolAR
                     break;
                 case DISPLAY.Unity:
                     inputImage.ToUnity(ref inputTex);
-                    OnFrame?.Invoke(inputTex);
+                    OnFrame?.Invoke(inputTex, inputImage.getImageLayout());
                     break;
             }
         }
@@ -209,7 +250,6 @@ namespace SolAR
             double duration = (double)(end - start) / CLOCKS_PER_SEC;
             printf("Elasped time is {0} seconds.", duration);
             printf("Number of processed frames per second : {0}", count / duration);
-            camera.Dispose();
             base.OnDisable();
         }
 
@@ -217,6 +257,5 @@ namespace SolAR
         {
             conf.path = t;
         }
-
     }
 }

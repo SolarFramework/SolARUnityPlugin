@@ -135,14 +135,14 @@ namespace SolAR.Samples
             //            markerPatternDescriptor = SharedPtr.Alloc<DescriptorBuffer>().AddTo(subscriptions);
         }
 
-        public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distorsion)
+        public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distortion)
         {
-            //            pnp.setCameraParameters(intrinsics, distorsion);
-            //            pnpRansac.setCameraParameters(intrinsics, distorsion);
-            //            poseFinderFrom2D2D.setCameraParameters(intrinsics, distorsion);
-            //            triangulator.setCameraParameters(intrinsics, distorsion);
-            //            projector.setCameraParameters(intrinsics, distorsion);
-            //            overlay3D.setCameraParameters(intrinsics, distorsion);
+            //            pnp.setCameraParameters(intrinsics, distortion);
+            //            pnpRansac.setCameraParameters(intrinsics, distortion);
+            //            poseFinderFrom2D2D.setCameraParameters(intrinsics, distortion);
+            //            triangulator.setCameraParameters(intrinsics, distortion);
+            //            projector.setCameraParameters(intrinsics, distortion);
+            //            overlay3D.setCameraParameters(intrinsics, distortion);
         }
         public override Sizef GetMarkerSize()
         {
@@ -161,12 +161,12 @@ namespace SolAR.Samples
             //                reprojError = bundler.solve(mapper.getKeyframes(),
             //                                             mapper.getGlobalMap().getPointCloud(),
             //                                             camera.getIntrinsicsParameters(),
-            //                                             camera.getDistorsionParameters(),
+            //                                             camera.getDistortionParameters(),
             //                                             framesIdxToBundle,
             //                                             correctedPoses,
             //                                             correctedCloud,
             //                                             correctedCamera.intrinsic,
-            //                                             correctedCamera.distorsion);
+            //                                             correctedCamera.distortion);
             //                mapper.update(correctedPoses, correctedCloud);
             //            };
             //            binaryMarker.loadMarker().Check();

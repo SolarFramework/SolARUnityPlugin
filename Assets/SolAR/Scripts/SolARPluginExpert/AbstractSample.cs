@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace SolAR
 {
     public abstract class AbstractSample : MonoBehaviour
     {
-    protected readonly CompositeDisposable subscriptions = new CompositeDisposable();
+        protected readonly CompositeDisposable subscriptions = new CompositeDisposable();
 
         [HideInInspector]
         public Configuration conf;
@@ -22,10 +21,10 @@ namespace SolAR
         [ContextMenu("Load")]
         void Load()
         {
-            var serializer = new XmlSerializer(typeof(ConfXml));
-            using (var stream = File.Open(conf.path, FileMode.Open))
+            var serializer = new XmlSerializer(typeof(XpcfRegistry));
+            using (var stream = File.OpenText(conf.path))
             {
-                conf.conf = (ConfXml)serializer.Deserialize(stream);
+                conf.conf = (XpcfRegistry)serializer.Deserialize(stream);
             }
         }
 
@@ -37,7 +36,7 @@ namespace SolAR
                 var settings = new XmlWriterSettings { Indent = true, OmitXmlDeclaration = true, }; //TODO: check Unicode BOM
                 using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
                 {
-                    var serializer = new XmlSerializer(typeof(ConfXml));
+                    var serializer = new XmlSerializer(typeof(XpcfRegistry));
                     var namespaces = new XmlSerializerNamespaces(new[] { new XmlQualifiedName() });
                     serializer.Serialize(xmlWriter, conf.conf, namespaces);
                 }
@@ -57,7 +56,7 @@ namespace SolAR
             {
                 ComponentExtensions.componentsDict[kvp.Key] = kvp.Value;
             }
-            var comparer = new KeyBasedEqualityComparer<ConfXml.Module.Component.Interface, string>(i => i.uuid);
+            var comparer = new KeyBasedEqualityComparer<XpcfRegistry.Module.Component.Interface, string>(i => i.uuid);
             foreach (var kvp in conf.conf.modules.SelectMany(m => m.components).SelectMany(c => c.interfaces).Distinct(comparer).ToDictionary(i => i.name, i => i.uuid))
             {
                 ComponentExtensions.interfacesDict[kvp.Key] = kvp.Value;

@@ -1,11 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Xml.Linq;
-using UnityEngine;
-using System;
-using System.Collections.Generic;
-using UnityEngine.Networking;
 using SolAR;
+using UnityEngine;
+using UnityEngine.Networking;
 
 public class Android
 {
@@ -25,24 +25,26 @@ public class Android
         if (File.Exists(old_xml))
         {
             xml = old_xml;
-            Debug.LogWarning("[ANDROID] Configuration xml found in internal memory : " + xml+"\n It will be used for configuration");
+            Debug.LogWarning("[ANDROID] Configuration xml found in internal memory : " + xml + "\n It will be used for configuration");
         }
         else
         {
-            Debug.LogWarning("[ANDROID] No configuration xml found in internal memory : " + old_xml+"\n "+xml+" will be used for configuration");
+            Debug.LogWarning("[ANDROID] No configuration xml found in internal memory : " + old_xml + "\n " + xml + " will be used for configuration");
         }
         // Get configuration xml data
         if (!xml.Equals(old_xml))
         {
             //WWW request on .apk 
-            UnityWebRequest www = new UnityWebRequest(xml);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            UnityWebRequestAsyncOperation request = www.SendWebRequest();
-            while (!request.isDone) { }
+            var www = new UnityWebRequest(xml)
+            {
+                downloadHandler = new DownloadHandlerBuffer()
+            };
+            var request = www.SendWebRequest();
+            while (!request.isDone) { } //120: NON, ca bloque le thread courant
 
             if (www.isNetworkError || www.isHttpError)
             {
-                Debug.LogError("[ANDROID] WWW request on : " + xml + " : " + www.error+" cloning of resources canceled");
+                Debug.LogError("[ANDROID] WWW request on : " + xml + " : " + www.error + " cloning of resources canceled");
                 www.downloadHandler.Dispose();
                 return;
             }
@@ -51,7 +53,7 @@ public class Android
             www.downloadHandler.Dispose();
 
             string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
-            if (data.Length>0 && data.StartsWith(_byteOrderMarkUtf8))
+            if (data.Length > 0 && data.StartsWith(_byteOrderMarkUtf8))
             {
                 data = data.Remove(0, _byteOrderMarkUtf8.Length);
             }
@@ -59,19 +61,19 @@ public class Android
         else
         {
             //Read conf file in system storage
-            StreamReader input = new StreamReader(xml);
-            data = input.ReadToEnd();
-            input.Close();
+            data = File.ReadAllText(xml);
         }
 
         // Clone content in external directory with correct path
-        CloneManager clone = new CloneManager();
-        var doc = XDocument.Parse(data.ToString());
-        var file = new[] {
-            doc.Element("assets").Element("streamingAssets").Elements("file")
-        };
+        var clone = new CloneManager();
+        var doc = XDocument.Parse(data);
+        //var files = new[] {
+        //    doc.Element("assets").Element("streamingAssets").Elements("file")
+        //};
 
-        foreach (var f in file)
+        var f = doc.Element("assets").Element("streamingAssets").Elements("file");
+
+        //foreach (var f in files)
         {
             foreach (var attribute in f.Attributes())
             {
@@ -86,7 +88,7 @@ public class Android
                         src = attribute.Value.Replace("./assets/StreamingAssets", Application.streamingAssetsPath);
                         output = attribute.Value.Replace("./assets", Application.persistentDataPath);
                     }
-     
+
                     if ((attribute.Parent.Attribute("overWrite") != null && attribute.Parent.Attribute("overWrite").Value.Equals("true")) || !File.Exists(output))
                     {
                         //Overwrite
@@ -108,9 +110,9 @@ public class Android
      * */
     public static void ReplacePathToApp(string filepath)
     {
-        Debug.Log("[ANDROID] REPLACE PATH USED FOR PLUGINS : "+ Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
-        StreamReader input = new StreamReader(filepath);
-        var doc = XDocument.Parse(input.ReadToEnd());
+        Debug.Log("[ANDROID] REPLACE PATH USED FOR PLUGINS : " + Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
+        var data = File.ReadAllText(filepath);
+        var doc = XDocument.Parse(data);
         var module = doc.Element("xpcf-registry").Elements("module");
 
         foreach (var attribute in module.Attributes())
@@ -120,9 +122,7 @@ public class Android
                 attribute.SetValue(Application.dataPath.Replace("/base.apk", "/lib/arm64/"));
             }
         }
-        input.Close();
         doc.Save(filepath);
-        return;
     }
 
     /** <summary>
@@ -131,7 +131,7 @@ public class Android
      * */
     public static void SaveConfiguration(string configurationPath)
     {
-        string dest = Application.persistentDataPath+ "/StreamingAssets/SolAR/Android/.pipeline";
+        string dest = Application.persistentDataPath + "/StreamingAssets/SolAR/Android/.pipeline";
         if (File.Exists(dest)) File.Delete(dest);
         File.WriteAllText(dest, configurationPath);
     }
@@ -145,11 +145,9 @@ public class Android
         string dest = Application.persistentDataPath + "/StreamingAssets/SolAR/Android/.pipeline";
         if (File.Exists(dest))
         {
-            StreamReader input = new StreamReader(dest);
-            string data = input.ReadToEnd();
-            input.Close();
+            string data = File.ReadAllText(dest);
 
-            for(int i=0;i<pipeline.m_pipelinesPath.Length;i++)
+            for (int i = 0; i < pipeline.m_pipelinesPath.Length; i++)
             {
                 if (pipeline.m_pipelinesPath[i].Equals(data))
                 {
@@ -161,9 +159,10 @@ public class Android
         }
     }
 
-    private class CloneManager
+    class CloneManager
     {
-        private List<Tuple<string, string>> m_data;
+        readonly List<Tuple<string, string>> m_data;
+
         public CloneManager()
         {
             m_data = new List<Tuple<string, string>>();
@@ -171,14 +170,14 @@ public class Android
 
         public void Add(string source, string dest)
         {
-            m_data.Add(new Tuple<string, string>(source, dest));
+            m_data.Add(Tuple.Create(source, dest));
         }
 
         public void Execute()
         {
-            foreach (Tuple<string, string> c in m_data)
+            foreach (var tuple in m_data)
             {
-                Clone(c.Item1, c.Item2);
+                Clone(tuple.Item1, tuple.Item2);
             }
             m_data.Clear();
         }
@@ -192,10 +191,12 @@ public class Android
             }
 
             //WWW request
-            UnityWebRequest www = new UnityWebRequest(source);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            UnityWebRequestAsyncOperation request = www.SendWebRequest();
-            while (!request.isDone) { }
+            var www = new UnityWebRequest(source)
+            {
+                downloadHandler = new DownloadHandlerBuffer()
+            };
+            var request = www.SendWebRequest();
+            while (!request.isDone) { } //120 NON
 
             if (www.isNetworkError || www.isHttpError)
             {
@@ -215,9 +216,9 @@ public class Android
         {
             string tostring = "--CloneManager-- \nCount: " + m_data.Count + "\n";
 
-            foreach (Tuple<string, string> t in m_data)
+            foreach (var tuple in m_data)
             {
-                tostring += Path.GetFileName(t.Item1.ToString()) + "\n";
+                tostring += Path.GetFileName(tuple.Item1) + "\n";
             }
             tostring += "--CloneManager--\n";
             return tostring;

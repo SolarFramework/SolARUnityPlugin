@@ -1,6 +1,6 @@
-﻿using SolAR;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using SolAR;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,11 +14,11 @@ public class SolARMenu : MonoBehaviour
     public GameObject m_title;
     public GameObject m_popup;
 
-    void Start()
+    protected void Start()
     {
         //Button
-        m_button.onClick.AddListener(delegate { Load(); });
-        m_title.GetComponentInChildren<Text>().text = Application.productName+" - v"+Application.version;
+        m_button.onClick.AddListener(Load);
+        m_title.GetComponentInChildren<Text>().text = Application.productName + " - v" + Application.version;
         //Pipeline
         m_pipelineDropdown.ClearOptions();
         m_pipelineDropdown.AddOptions(new List<string>(m_solarPipeline.m_pipelinesName));
@@ -47,7 +47,7 @@ public class SolARMenu : MonoBehaviour
     private void Open()
     {
         /*
-       foreach(ConfXml.Module module in m_solarPipeline.conf.modules)
+        foreach(ConfXml.Module module in m_solarPipeline.conf.modules)
         {
             foreach(ConfXml.Module.Component component in module.components)
             {
@@ -55,7 +55,7 @@ public class SolARMenu : MonoBehaviour
             }
 
         }
-       */
+        */
         m_title.SetActive(true);
         m_pipelineDropdown.value = m_solarPipeline.m_selectedPipeline;
     }
@@ -79,7 +79,7 @@ public class SolARMenu : MonoBehaviour
             m_solarPipeline.m_uuid = m_solarPipeline.m_pipelinesUUID[m_solarPipeline.m_selectedPipeline];
             Android.SaveConfiguration(m_solarPipeline.m_configurationPath);
             m_solarPipeline.Init();
-            StartCoroutine(Fade(m_popup.GetComponent<Image>(),m_popup.GetComponentInChildren<Text>()));
+            StartCoroutine(Fade(m_popup.GetComponent<Image>(), m_popup.GetComponentInChildren<Text>()));
         }
     }
 

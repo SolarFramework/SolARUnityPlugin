@@ -115,10 +115,10 @@ namespace SolAR.Samples
             refImgCorners.Add(corner3);
         }
 
-        public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distorsion)
+        public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distortion)
         {
             // initialize pose estimation
-            poseEstimationPlanar.setCameraParameters(intrinsics, distorsion);
+            poseEstimationPlanar.setCameraParameters(intrinsics, distortion);
         }
 
         public override Sizef GetMarkerSize()
@@ -133,16 +133,16 @@ namespace SolAR.Samples
         public override FrameworkReturnCode Proceed(Image camImage, Transform3Df pose, ICamera camera)
         {
             // initialize overlay 3D component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
-            overlay3DComponent.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+            overlay3DComponent.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistortionParameters());
 
             // initialize pose estimation based on planar points with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
-            poseEstimationPlanar.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+            poseEstimationPlanar.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistortionParameters());
 
             // initialize projection component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
-            projection.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+            projection.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistortionParameters());
 
             // initialize unprojection component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
-            unprojection.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistorsionParameters());
+            unprojection.setCameraParameters(camera.getIntrinsicsParameters(), camera.getDistortionParameters());
             if (!isTrack)
             {
                 kpDetector.detect(camImage, camKeypoints);
@@ -159,7 +159,7 @@ namespace SolAR.Samples
                 {
                     keypointsReindexer.reindex(refKeypoints, camKeypoints, matches, ref2Dpoints, cam2Dpoints).Check();
                     img_mapper.map(ref2Dpoints, ref3Dpoints).Check();
-                    if (poseEstimationPlanar.estimate(cam2Dpoints, ref3Dpoints, imagePoints_inliers , worldPoints_inliers, pose) != FrameworkReturnCode._SUCCESS)
+                    if (false) //poseEstimationPlanar.estimate(cam2Dpoints, ref3Dpoints, imagePoints_inliers , worldPoints_inliers, pose) != FrameworkReturnCode._SUCCESS)
                     {
                         valid_pose = false;
                         //LOG_DEBUG("Wrong homography for this frame");
@@ -228,7 +228,7 @@ namespace SolAR.Samples
                     }
                     // calculate camera pose
                     // Estimate the pose from the 2D-3D planar correspondence
-                    if (poseEstimationPlanar.estimate(pts2D, pts3D, imagePoints_track, worldPoints_track, pose) != FrameworkReturnCode._SUCCESS)
+                    if (false) //poseEstimationPlanar.estimate(pts2D, pts3D, imagePoints_track, worldPoints_track, pose) != FrameworkReturnCode._SUCCESS)
                     {
                         isTrack = false;
                         valid_pose = false;

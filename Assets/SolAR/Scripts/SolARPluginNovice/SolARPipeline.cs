@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using SolAR.Datastructure;
 using UnityEngine;
 using UnityEngine.UI;
-using SolAR.Datastructure;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
 using UnityEngine.Android;
+#endif
 
 namespace SolAR
 {
     public class SolARPipeline : MonoBehaviour
     {
-
         #region Variables
         //#####################################################
         [HideInInspector]
@@ -40,8 +42,8 @@ namespace SolAR
         [HideInInspector]
         public Material m_material;
 
-        private Texture2D m_texture;
-        private byte[] array_imageData;
+        Texture2D m_texture;
+        byte[] array_imageData;
 
         [HideInInspector]
         public string m_pipelineFolder;
@@ -68,7 +70,7 @@ namespace SolAR
         public int m_webCamNum;
 
         [HideInInspector]
-        public ConfXml conf;
+        public XpcfRegistry conf;
 
         [HideInInspector]
         public SolARPluginPipelineManager m_pipelineManager;
@@ -79,33 +81,34 @@ namespace SolAR
         [HideInInspector]
         public bool m_Unity_Webcam = false;
 
-        private IntPtr sourceTexture;
+        IntPtr sourceTexture;
 
-        private byte[] m_vidframe_byte;
-        private Color32[] data;
-        private bool UpdateReady = false;
+        byte[] m_vidframe_byte;
+        Color32[] data;
+        bool updateReady = false;
 
         #endregion
-        void OnDestroy()
+
+        protected void OnDestroy()
         {
             m_pipelineManager.stop();
             m_pipelineManager.Dispose();
             m_pipelineManager = null;
         }
 
-        void Start()
+        protected void Start()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
-            while (!Permission.HasUserAuthorizedPermission(Permission.Camera)) { Permission.RequestUserPermission(Permission.Camera); }
+            while (!Permission.HasUserAuthorizedPermission(Permission.Camera)) { Permission.RequestUserPermission(Permission.Camera); } //120: NON!
             Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
             Android.LoadConfiguration(this);
 #endif
             Init();
         }
 
-        void Update()
+        protected void Update()
         {
-            if(UpdateReady)
+            if (updateReady)
             {
                 if (m_pipelineManager != null)
                 {
@@ -115,7 +118,7 @@ namespace SolAR
 
                         for (int i = 0; i < data.Length; i++)
                         {
-                            m_vidframe_byte[3 * i] = data[i].b;
+                            m_vidframe_byte[3 * i + 0] = data[i].b;
                             m_vidframe_byte[3 * i + 1] = data[i].g;
                             m_vidframe_byte[3 * i + 2] = data[i].r;
                         }
@@ -125,48 +128,50 @@ namespace SolAR
                     }
                     Transform3Df pose = new Transform3Df();
 
-                    var _returnCode =  m_pipelineManager.udpate(pose);
+                    var returnCode = m_pipelineManager.udpate(pose);
 
-                    if(_returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
+                    if (returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
                     {
                         m_texture.LoadRawTextureData(array_imageData);
                         m_texture.Apply();
                         m_material.SetTexture("_MainTex", m_texture);
                     }
 
-                    if (_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE  || _returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
+                    if (returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE || returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
                     {
-                        foreach(GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
+                        foreach (GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
                         {
                             Renderer[] renderers = solARObj.GetComponentsInChildren<Renderer>(true);
-                            foreach(Renderer r in renderers)
+                            foreach (Renderer r in renderers)
                             {
                                 r.enabled = true;
                             }
                         }
-                        
-                        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
 
-                        cameraPoseFromSolAR.SetRow(0, new Vector4(pose.rotation().coeff(0, 0), pose.rotation().coeff(0, 1), pose.rotation().coeff(0, 2), pose.translation().coeff(0, 0)));
-                        cameraPoseFromSolAR.SetRow(1, new Vector4(pose.rotation().coeff(1, 0), pose.rotation().coeff(1, 1), pose.rotation().coeff(1, 2), pose.translation().coeff(1, 0)));
-                        cameraPoseFromSolAR.SetRow(2, new Vector4(pose.rotation().coeff(2, 0), pose.rotation().coeff(2, 1), pose.rotation().coeff(2, 2), pose.translation().coeff(2, 0)));
+                        var R = pose.rotation();
+                        var T = pose.translation();
+
+                        Matrix4x4 cameraPoseFromSolAR = new Matrix4x4();
+                        cameraPoseFromSolAR.SetRow(0, new Vector4(R.coeff(0, 0), R.coeff(0, 1), R.coeff(0, 2), T.coeff(0, 0)));
+                        cameraPoseFromSolAR.SetRow(1, new Vector4(R.coeff(1, 0), R.coeff(1, 1), R.coeff(1, 2), T.coeff(1, 0)));
+                        cameraPoseFromSolAR.SetRow(2, new Vector4(R.coeff(2, 0), R.coeff(2, 1), R.coeff(2, 2), T.coeff(2, 0)));
                         cameraPoseFromSolAR.SetRow(3, new Vector4(0, 0, 0, 1));
 
                         Matrix4x4 invertMatrix = new Matrix4x4();
-                        invertMatrix.SetRow(0, new Vector4(1, 0, 0, 0));
-                        invertMatrix.SetRow(1, new Vector4(0, -1, 0, 0));
-                        invertMatrix.SetRow(2, new Vector4(0, 0, 1, 0));
-                        invertMatrix.SetRow(3, new Vector4(0, 0, 0, 1));
+                        invertMatrix.SetRow(0, new Vector4(+1, +0, +0, +0));
+                        invertMatrix.SetRow(1, new Vector4(+0, -1, +0, +0));
+                        invertMatrix.SetRow(2, new Vector4(+0, +0, +1, +0));
+                        invertMatrix.SetRow(3, new Vector4(+0, +0, +0, +1));
                         Matrix4x4 unityCameraPose = invertMatrix * cameraPoseFromSolAR;
-                        
+
                         Vector3 forward = new Vector3(unityCameraPose.m02, unityCameraPose.m12, unityCameraPose.m22);
                         Vector3 up = new Vector3(unityCameraPose.m01, unityCameraPose.m11, unityCameraPose.m21);
 
                         m_camera.transform.rotation = Quaternion.LookRotation(forward, -up);
                         m_camera.transform.position = new Vector3(unityCameraPose.m03, unityCameraPose.m13, unityCameraPose.m23);
-                       
+
                     }
-                    else if(_returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
+                    else if (returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
                     {
                         foreach (GameObject solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
                         {
@@ -187,7 +192,7 @@ namespace SolAR
             {
                 m_pipelineManager = new SolARPluginPipelineManager();
 #if UNITY_EDITOR
-                // If in editor mode, the pipeline configuration file are stored in the unity assets folder but not in the streaminAssets folder
+                // If in editor mode, the pipeline configuration file are stored in the Unity Assets folder but not in the StreaminAssets folder
                 if (!m_pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid))
                 {
                     Debug.Log("Cannot init pipeline manager " + Application.dataPath + m_configurationPath + " with uuid " + m_uuid);
@@ -230,7 +235,7 @@ namespace SolAR
 
                     for (int i = 0; i < data.Length; i++)
                     {
-                        m_vidframe_byte[3 * i] = data[i].b;
+                        m_vidframe_byte[3 * i + 0] = data[i].b;
                         m_vidframe_byte[3 * i + 1] = data[i].g;
                         m_vidframe_byte[3 * i + 2] = data[i].r;
                     }
@@ -246,10 +251,9 @@ namespace SolAR
                     width = Screen.width;
                     height = Screen.height;
                     focalX = camParams.coeff(0, 0); // focalX;
-                    focalY = camParams.coeff(1, 1);  // focalY;
+                    focalY = camParams.coeff(1, 1); // focalY;
                     centerX = camParams.coeff(0, 2); // centerX;
-                    centerY = camParams.coeff(1, 2);// centerY;
-
+                    centerY = camParams.coeff(1, 2); // centerY;
                 }
 
                 SendParametersToCameraProjectionMatrix();
@@ -294,12 +298,12 @@ namespace SolAR
                 }
 
                 IntPtr ptr = Marshal.UnsafeAddrOfPinnedArrayElement(array_imageData, 0);
-                m_pipelineManager.start(ptr);  //IntPtr
+                m_pipelineManager.start(ptr); //IntPtr
             }
             else
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
 
-            UpdateReady = true;
+            updateReady = true;
         }
 
         void SendParametersToCameraProjectionMatrix()
@@ -308,19 +312,13 @@ namespace SolAR
             float near = Camera.main.nearClipPlane;
             float far = Camera.main.farClipPlane;
 
-            Vector4 row0 = new Vector4(2.0f * focalX / width, 0, 1.0f - 2.0f * centerX / width, 0);
-            Vector4 row1 = new Vector4(0, 2.0f * focalY / height, 2.0f * centerY / height - 1.0f, 0);
-            Vector4 row2 = new Vector4(0, 0, (far + near) / (near - far), 2.0f * far * near / (near - far));
-            Vector4 row3 = new Vector4(0, 0, -1, 0);
-
-            projectionMatrix.SetRow(0, row0);
-            projectionMatrix.SetRow(1, row1);
-            projectionMatrix.SetRow(2, row2);
-            projectionMatrix.SetRow(3, row3);
+            projectionMatrix.SetRow(0, new Vector4(2.0f * focalX / width, 0, 1.0f - 2.0f * centerX / width, 0));
+            projectionMatrix.SetRow(1, new Vector4(0, 2.0f * focalY / height, 2.0f * centerY / height - 1.0f, 0));
+            projectionMatrix.SetRow(2, new Vector4(0, 0, (far + near) / (near - far), 2.0f * far * near / (near - far)));
+            projectionMatrix.SetRow(3, new Vector4(0, 0, -1, 0));
 
             Camera.main.fieldOfView = (Mathf.Rad2Deg * 2 * Mathf.Atan(width / (2 * focalX))) - 10;
             Camera.main.projectionMatrix = projectionMatrix;
         }
     }
-
 }

@@ -1,13 +1,13 @@
 /*
- public enum ImageLayout {
-	LAYOUT_RGB = 0,
-	LAYOUT_GRB,
-	LAYOUT_BGR,
-	LAYOUT_GREY,
-	LAYOUT_RGBA,
-	LAYOUT_RGBX,
-	LAYOUT_UNDEFINED
- }
+  public enum ImageLayout {
+    LAYOUT_RGB = 0,
+    LAYOUT_GRB,
+    LAYOUT_BGR,
+    LAYOUT_GREY,
+    LAYOUT_RGBA,
+    LAYOUT_RGBX,
+    LAYOUT_UNDEFINED
+  }
 */
 
 /*

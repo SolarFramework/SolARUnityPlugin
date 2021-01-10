@@ -1,0 +1,737 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!29 &1
+OcclusionCullingSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_OcclusionBakeSettings:
+    smallestOccluder: 5
+    smallestHole: 0.25
+    backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
+--- !u!104 &2
+RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 9
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogMode: 3
+  m_FogDensity: 0.01
+  m_LinearFogStart: 0
+  m_LinearFogEnd: 300
+  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
+  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 0
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_HaloStrength: 0.5
+  m_FlareStrength: 1
+  m_FlareFadeSpeed: 3
+  m_HaloTexture: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_UseRadianceAmbientProbe: 0
+--- !u!157 &3
+LightmapSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 11
+  m_GIWorkflowMode: 1
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
+  m_LightmapEditorSettings:
+    serializedVersion: 12
+    m_Resolution: 2
+    m_BakeResolution: 40
+    m_AtlasSize: 1024
+    m_AO: 0
+    m_AOMaxDistance: 1
+    m_CompAOExponent: 1
+    m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
+    m_Padding: 2
+    m_LightmapParameters: {fileID: 0}
+    m_LightmapsBakeMode: 1
+    m_TextureCompression: 1
+    m_FinalGather: 0
+    m_FinalGatherFiltering: 1
+    m_FinalGatherRayCount: 256
+    m_ReflectionCompression: 2
+    m_MixedBakeMode: 2
+    m_BakeBackend: 1
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 512
+    m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 256
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 1
+    m_PVRDenoiserTypeDirect: 1
+    m_PVRDenoiserTypeIndirect: 1
+    m_PVRDenoiserTypeAO: 1
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
+    m_PVREnvironmentMIS: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
+  m_LightingDataAsset: {fileID: 0}
+  m_UseShadowmask: 1
+--- !u!196 &4
+NavMeshSettings:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_BuildSettings:
+    serializedVersion: 2
+    agentTypeID: 0
+    agentRadius: 0.5
+    agentHeight: 2
+    agentSlope: 45
+    agentClimb: 0.4
+    ledgeDropHeight: 0
+    maxJumpAcrossDistance: 0
+    minRegionArea: 2
+    manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
+    debug:
+      m_Flags: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!1 &431435916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 431435918}
+  - component: {fileID: 431435917}
+  m_Layer: 0
+  m_Name: SolARTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &431435917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431435916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99c1d357ecd9e0449b970496c3e3866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conf:
+    path: D:\Research\SolAR\SolAR\plugin\unity\SolARUnityPlugin\Assets\StreamingAssets\SolAR\Pipelines\PipelineFiducialMarker.xml
+    conf:
+      autoAlias: 1
+      modules:
+      - name: PipelineFiducialMarker
+        uuid: 63b4282f-94cf-44d0-8ec0-9e8b0639fff6
+        path: ./Assets/Plugins
+        description: The module embedding a pipeline to estimate the pose based on
+          a squared fiducial marker
+        components:
+        - name: PipelineFiducialMarker
+          uuid: 3898cc3b-3986-4edc-b7c8-f4fba0f6c22a
+          description: A pipeline to estimate the pose based on a squared fiducial
+            marker
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IPoseEstimationPipeline
+            uuid: b5a6225e-6a91-4050-b298-886f4c17d9d2
+            description: The interface to define a video see-throuh pipeline
+      - name: SolARModuleOpenCV
+        uuid: 15e1990b-86b2-445c-8194-0cbe80ede970
+        path: ./Assets/Plugins
+        description: OpenCV
+        components:
+        - name: SolARCameraOpencv
+          uuid: 5B7396F4-A804-4F3C-A0EB-FB1D56042BB4
+          description: SolARCameraOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: ICamera
+            uuid: 5DDC7DF0-8377-437F-9C81-3643F7676A5B
+            description: ICamera
+        - name: SolARVideoAsCameraOpencv
+          uuid: fa4a780a-9720-11e8-9eb6-529269fb1459
+          description: SolARVideoAsCameraOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: ICamera
+            uuid: 5DDC7DF0-8377-437F-9C81-3643F7676A5B
+            description: ICamera
+        - name: SolARMarker2DSquaredBinaryOpencv
+          uuid: 5d2b8da9-528e-4e5e-96c1-f883edcf3b1c
+          description: SolARMarker2DSquaredBinaryOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IMarker
+            uuid: 3c9cee8a-e9ca-4c16-851a-669a94c2a68d
+            description: IMarker
+          - name: IMarker2Dquared
+            uuid: e9cdcf6e-c54c-11e7-abc4-cec278b6b50a
+            description: IMarker2Dquared
+          - name: IMarker2DSquaredBinary
+            uuid: 12d592ff-aa46-40a6-8d65-7fbfb382d60b
+            description: IMarker2DSquaredBinary
+        - name: SolARContoursFilterBinaryMarkerOpencv
+          uuid: 4309dcc6-cc73-11e7-abc4-cec278b6b50a
+          description: SolARContoursFilterBinaryMarkerOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IContoursFilter
+            uuid: 6b3de3a0-cc72-11e7-abc4-cec278b6b50a
+            description: IContoursFilter
+        - name: SolARImageFilterBinaryOpencv
+          uuid: e5fd7e9a-fcae-4f86-bfc7-ea8584c298b2
+          description: SolARImageFilterBinaryOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IImageFilter
+            uuid: f7948ae2-e994-416f-be40-dd404ca03a83
+            description: IImageFilter
+        - name: SolARImageConvertorOpencv
+          uuid: fd7fb607-144f-418c-bcf2-f7cf71532c22
+          description: SolARImageConvertorOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IImageConvertor
+            uuid: 9c982719-6cb4-4831-aa88-9e01afacbd16
+            description: IImageConvertor
+        - name: SolARContoursExtractorOpencv
+          uuid: 6acf8de2-cc63-11e7-abc4-cec278b6b50a
+          description: SolARContoursExtractorOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IContoursExtractor
+            uuid: 42d82ab6-cc62-11e7-abc4-cec278b6b50a
+            description: IContoursExtractor
+        - name: SolARPerspectiveControllerOpencv
+          uuid: 9c960f2a-cd6e-11e7-abc4-cec278b6b50a
+          description: SolARPerspectiveControllerOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IPerspectiveController
+            uuid: 4a7d5c34-cd6e-11e7-abc4-cec278b6b50a
+            description: IPerspectiveController
+        - name: SolARDescriptorsExtractorSBPatternOpencv
+          uuid: d25625ba-ce3a-11e7-abc4-cec278b6b50a
+          description: SolARDescriptorsExtractorSBPatternOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IDescriptorsExtractorSBPattern
+            uuid: 2e2bde18-ce39-11e7-abc4-cec278b6b50a
+            description: IDescriptorsExtractorSBPattern
+        - name: SolARDescriptorMatcherRadiusOpencv
+          uuid: 549f7873-96e4-4eae-b4a0-ae8d80664ce5
+          description: SolARDescriptorMatcherRadiusOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IDescriptorMatcher
+            uuid: dda38a40-c50a-4e7d-8433-0f04c7c98518
+            description: IDescriptorMatcher
+        - name: SolARPoseEstimationPnpOpencv
+          uuid: 0753ade1-7932-4e29-a71c-66155e309a53
+          description: SolARPoseEstimationPnpOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: I3DTransformFinder
+            uuid: 77281cda-47c2-4bb7-bde6-5b0d02e75dae
+            description: I3DTransformFinder
+        - name: SolARImageConvertorUnity
+          uuid: 65282fb3-6651-4e73-b532-5a64ade0ead0
+          description: SolAR::MODULES::OPENCV::SolARImageConvertorUnity component
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IImageConvertor
+            uuid: 9c982719-6cb4-4831-aa88-9e01afacbd16
+            description: SolAR::api::image::IImageConvertor
+        - name: SolAR3DOverlayOpencv
+          uuid: 2db01f59-9793-4cd5-8e13-b25d0ed5735b
+          description: SolAR3DOverlayOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: I3DOverlay
+            uuid: 81a20f52-6bf9-4949-b914-df2f614bc945
+            description: I3DOverlay
+        - name: SolARImageViewerOpencv
+          uuid: 19ea4e13-7085-4e3f-92ca-93f200ffb01b
+          description: SolARImageViewerOpencv
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IImageViewer
+            uuid: b05f3dbb-f93d-465c-aee1-fb58e1480c42
+            description: IImageViewer
+      - name: SolARModuleTools
+        uuid: 28b89d39-41bd-451d-b19e-d25a3d7c5797
+        path: ./Assets/Plugins
+        description: Module Tools
+        components:
+        - name: SolARSBPatternReIndexer
+          uuid: a2ef5542-029e-4fce-9974-0aea14b29d6f
+          description: SolARSBPatternReIndexer
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: ISBPatternReIndexer
+            uuid: 79c5b810-d557-11e7-9296-cec278b6b50a
+            description: ISBPatternReIndexer
+        - name: SolARImage2WorldMapper4Marker2D
+          uuid: 6fed0169-4f01-4545-842a-3e2425bee248
+          description: SolARImage2WorldMapper4Marker2D
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: IImage2WorldMapper
+            uuid: 67bcd080-258d-4b16-b693-cd30c013eb05
+            description: IImage2WorldMapper
+        - name: SolARBasicSink
+          uuid: 85db2f25-4f1c-4e06-9011-e020284bfc4f
+          description: A Sink component for a synchronized pose and image pair
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: ISinkPoseImage
+            uuid: c0d9fee4-d7d7-4866-a6cd-3bacac23316a
+            description: An interface allowing to store a synchronized pose and image
+              from the pipeline to make it available to a third party application
+        - name: SolARBasicSource
+          uuid: 1e43cda9-7850-4a8a-a32b-f3f31ea94902
+          description: A source component for feeding the pipeline with external
+            images
+          interfaces:
+          - name: IComponentIntrospect
+            uuid: 125f2007-1bf9-421d-9367-fbdc1210d006
+            description: IComponentIntrospect
+          - name: ISourceImage
+            uuid: 06e2fc5d-39da-4486-b2a6-1d8bd788fa13
+            description: An interface allowing to store an image from extern source
+              to make it available to the pipeline
+      aliases: []
+      factory:
+        bindings:
+        - name: 
+          interface: ICamera
+          to: SolARCameraOpencv
+          range: 0
+          component: []
+        - name: 
+          interface: IImageConvertor
+          to: SolARImageConvertorOpencv
+          range: 0
+          component: []
+        - name: imageConvertorUnity
+          interface: IImageConvertor
+          to: SolARImageConvertorUnity
+          range: 0
+          component: []
+        injects: []
+      componentsConfig: []
+      properties:
+      - component: PipelineFiducialMarker
+        name: 
+        properties:
+        - name: minThreshold
+          type: 0
+          value: -1
+          access: 0
+          values: []
+          properties: []
+        - name: maxThreshold
+          type: 0
+          value: 220
+          access: 0
+          values: []
+          properties: []
+        - name: nbTestedThreshold
+          type: 0
+          value: 10
+          access: 0
+          values: []
+          properties: []
+      - component: SolARCameraOpencv
+        name: 
+        properties:
+        - name: calibrationFile
+          type: 4
+          value: camera_calibration.yml
+          access: 0
+          values: []
+          properties: []
+        - name: deviceID
+          type: 1
+          value: 0
+          access: 0
+          values: []
+          properties: []
+      - component: SolARMarker2DSquaredBinaryOpencv
+        name: 
+        properties:
+        - name: filePath
+          type: 4
+          value: fiducialMarker.yml
+          access: 0
+          values: []
+          properties: []
+      - component: SolARImageFilterBinaryOpencv
+        name: 
+        properties:
+        - name: min
+          type: 0
+          value: -1
+          access: 0
+          values: []
+          properties: []
+        - name: max
+          type: 0
+          value: 255
+          access: 0
+          values: []
+          properties: []
+      - component: SolARContoursExtractorOpencv
+        name: 
+        properties:
+        - name: minContourEdges
+          type: 0
+          value: 4
+          access: 0
+          values: []
+          properties: []
+      - component: SolARContoursFilterBinaryMarkerOpencv
+        name: 
+        properties:
+        - name: epsilon
+          type: 6
+          value: 0,05
+          access: 0
+          values: []
+          properties: []
+        - name: minContourLength
+          type: 6
+          value: 20
+          access: 0
+          values: []
+          properties: []
+        - name: minDistanceBetweenContourCorners
+          type: 6
+          value: 10
+          access: 0
+          values: []
+          properties: []
+      - component: SolARPerspectiveControllerOpencv
+        name: 
+        properties:
+        - name: outputImageWidth
+          type: 0
+          value: 640
+          access: 0
+          values: []
+          properties: []
+        - name: outputImageHeight
+          type: 0
+          value: 480
+          access: 0
+          values: []
+          properties: []
+      - component: SolAR3DOverlayOpencv
+        name: 
+        properties:
+        - name: position
+          type: 6
+          value: 
+          access: 0
+          values:
+          - 0
+          - 0
+          - 0
+          properties: []
+        - name: orientation
+          type: 6
+          value: 
+          access: 0
+          values:
+          - 0.0
+          - 0.0
+          - 0.0
+          properties: []
+        - name: size
+          type: 6
+          value: 
+          access: 0
+          values:
+          - 0.157
+          - 0.157
+          - 0.1
+          properties: []
+      - component: SolARImageViewerOpencv
+        name: 
+        properties:
+        - name: title
+          type: 4
+          value: Fiducial Image Marker
+          access: 0
+          values: []
+          properties: []
+        - name: exitKey
+          type: 0
+          value: 27
+          access: 0
+          values: []
+          properties: []
+        - name: width
+          type: 0
+          value: 0
+          access: 0
+          values: []
+          properties: []
+        - name: height
+          type: 0
+          value: 0
+          access: 0
+          values: []
+          properties: []
+  uuid: 5B7396F4-A804-4F3C-A0EB-FB1D56042BB4
+--- !u!4 &431435918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431435916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1331365535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1331365537}
+  - component: {fileID: 1331365536}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &1331365536
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331365535}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &1331365537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331365535}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1975249995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1975249998}
+  - component: {fileID: 1975249997}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &1975249997
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975249995}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1975249998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975249995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

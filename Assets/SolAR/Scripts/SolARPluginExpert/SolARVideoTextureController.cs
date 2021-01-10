@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using SolAR.Datastructure;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace SolAR
@@ -44,7 +45,7 @@ namespace SolAR
             solARManager.OnFrame -= OnFrame;
         }
 
-        void OnFrame(Texture texture)
+        void OnFrame(Texture texture, Image.ImageLayout layout)
         {
             var w = texture.width;
             var h = texture.height;
