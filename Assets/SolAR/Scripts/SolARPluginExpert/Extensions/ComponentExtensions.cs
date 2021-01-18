@@ -31,12 +31,6 @@ namespace SolAR
             return new UUID(GetUUID(name));
         }
 
-        [Obsolete("Use type parameter")]
-        public static IComponentIntrospect Create<T>(this IComponentManager xpcfComponentManager)
-        {
-            return xpcfComponentManager.createComponent(GetUUID<T>());
-        }
-
         public static IComponentIntrospect Create(this IComponentManager xpcfComponentManager, string type)
         {
             var uuid = new UUID(GetUUID(type));
@@ -49,7 +43,21 @@ namespace SolAR
             return xpcfComponentManager.createComponent(name, uuid);
         }
 
-        public static T BindTo<T>(this IComponentIntrospect component) where T : class
+        public static IComponentIntrospect Resolve<T>(this IComponentManager xpcfComponentManager)
+            where T : class
+        {
+            var uuid = new UUID(GetUUID<T>());
+            return xpcfComponentManager.resolve(uuid);
+        }
+
+        public static IComponentIntrospect Resolve<T>(this IComponentManager xpcfComponentManager, string name)
+        {
+            var uuid = new UUID(GetUUID<T>());
+            return xpcfComponentManager.resolve(uuid, name);
+        }
+
+        public static T BindTo<T>(this IComponentIntrospect component)
+            where T : class
         {
             return (T)component.BindTo(typeof(T).Name);
         }

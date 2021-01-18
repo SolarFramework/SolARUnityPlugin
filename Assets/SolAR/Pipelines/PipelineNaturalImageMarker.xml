@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
-  <module name="PipelineNaturalImageMarker" uuid="5bbc1452-8d7f-4512-83f1-7bf48453809f" path="./Assets/Plugins" description="The module embedding a pipeline to estimate the pose based on a natural Image marker">
+<xpcf-registry autoAlias="true">
+  <module name="SolARPipeline_NaturalImageMarker" uuid="5bbc1452-8d7f-4512-83f1-7bf48453809f" path="./Assets/Plugins" description="The module embedding a pipeline to estimate the pose based on a natural Image marker">
     <component name="PipelineNaturalImageMarker" uuid="6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1" description="A pipeline to estimate the pose based on a natural Image marker">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="IPoseEstimationPipeline" uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" description="The interface to define a video see-throuh pipeline" />
@@ -61,6 +60,10 @@
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="IImageViewer" uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" description="IImageViewer" />
     </component>
+    <component name="SolAR2DOverlayOpencv" uuid="cc51d685-9797-4ffd-a9dd-cec4f367fa6a" description="SolAR2DOverlayOpencv">
+      <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
+      <interface name="I2DOverlay" uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" description="I2DOverlay" />
+    </component>
     <component name="SolAR3DOverlayOpencv" uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" description="SolAR3DOverlayOpencv">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="I3DOverlay" uuid="81a20f52-6bf9-4949-b914-df2f614bc945" description="I3DOverlay" />
@@ -79,7 +82,7 @@
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="ISinkPoseImage" uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
     </component>
-    <component name="SolARBasicSource" uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" description="A ource component for feeding the pipeline with external images">
+    <component name="SolARBasicSource" uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" description="A source component for feeding the pipeline with external images">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="ISourceImage" uuid="06e2fc5d-39da-4486-b2a6-1d8bd788fa13" description="An interface allowing to store an image from extern source to make it available to the pipeline" />
     </component>
@@ -92,13 +95,11 @@
       <interface name="IKeypointsReIndexer" uuid="920e64a2-df17-11e7-80c1-9a214cf093ae" description="IKeypointsReIndexer" />
     </component>
   </module>
-  <aliases />
   <factory>
     <bindings>
       <bind interface="IMatchesFilter" to="SolARGeometricMatchesFilterOpencv" />
       <bind name="basicMatchesFilter" interface="IMatchesFilter" to="SolARBasicMatchesFilter" />
     </bindings>
-    <injects />
   </factory>
   <properties>
     <configure component="PipelineNaturalImageMarker">

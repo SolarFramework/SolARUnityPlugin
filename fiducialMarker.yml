@@ -1,0 +1,10 @@
+%YAML:1.0
+---
+MarkerWidth: 0.157
+MarkerHeight: 0.157
+Pattern: !!opencv-matrix
+   rows: 6
+   cols: 6
+   dt: u
+   data: [ 1,0,0,0,1,1,1,0,0,1,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,1,0,1,1,1,0,0,1 ]
+   

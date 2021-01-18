@@ -1,104 +1,11 @@
 fileFormatVersion: 2
 guid: 85f604f5064981848a948f591adca53e
 ModelImporter:
-  serializedVersion: 19300
+  serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      1: 100000
-    second: bras_low
-  - first:
-      1: 100002
-    second: bras_low001
-  - first:
-      1: 100004
-    second: //RootNode
-  - first:
-      1: 100006
-    second: orbite_01_low
-  - first:
-      1: 100008
-    second: orbite_02_low
-  - first:
-      1: 100010
-    second: tete_low
-  - first:
-      4: 400000
-    second: bras_low
-  - first:
-      4: 400002
-    second: bras_low001
-  - first:
-      4: 400004
-    second: //RootNode
-  - first:
-      4: 400006
-    second: orbite_01_low
-  - first:
-      4: 400008
-    second: orbite_02_low
-  - first:
-      4: 400010
-    second: tete_low
-  - first:
-      21: 2100000
-    second: Mascotte
-  - first:
-      23: 2300000
-    second: //RootNode
-  - first:
-      23: 2300002
-    second: orbite_01_low
-  - first:
-      23: 2300004
-    second: orbite_02_low
-  - first:
-      23: 2300006
-    second: tete_low
-  - first:
-      33: 3300000
-    second: //RootNode
-  - first:
-      33: 3300002
-    second: orbite_01_low
-  - first:
-      33: 3300004
-    second: orbite_02_low
-  - first:
-      33: 3300006
-    second: tete_low
-  - first:
-      43: 4300000
-    second: corps_low
-  - first:
-      43: 4300002
-    second: bras_low
-  - first:
-      43: 4300004
-    second: tete_low
-  - first:
-      43: 4300006
-    second: orbite_02_low
-  - first:
-      43: 4300008
-    second: orbite_01_low
-  - first:
-      43: 4300010
-    second: bras_low001
-  - first:
-      74: 7400000
+      74: 1827226128182048838
     second: Take 001
-  - first:
-      95: 9500000
-    second: //RootNode
-  - first:
-      137: 13700000
-    second: bras_low
-  - first:
-      137: 13700002
-    second: bras_low001
-  - first:
-      41386430: 2186277476908879412
-    second: ImportLogs
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -156,10 +63,10 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -168,6 +75,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -205,7 +113,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.0001
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
@@ -214,7 +122,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 

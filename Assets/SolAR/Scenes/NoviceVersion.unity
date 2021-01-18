@@ -121,75 +121,116 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &177631298
+--- !u!1001 &51238798
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 747340006}
     m_Modifications:
-    - target: {fileID: 6458628061648150660, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_Name
-      value: Mascotte
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+    - target: {fileID: -8679921383154817045, guid: 85f604f5064981848a948f591adca53e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+    - target: {fileID: -8679921383154817045, guid: 85f604f5064981848a948f591adca53e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+    - target: {fileID: -8679921383154817045, guid: 85f604f5064981848a948f591adca53e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6458628061648150661, guid: 3f27b0c56bcbcc84a945014d78eb202b,
+    - target: {fileID: -8679921383154817045, guid: 85f604f5064981848a948f591adca53e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_Name
+      value: mascotte
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.000028734095
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: -0.0014684974
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.0009857496
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.003634634
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.0021342037
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.001740124
+      objectReference: {fileID: 0}
+    - target: {fileID: 992673780151490533, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.00025130715
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.00034896797
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.0011111423
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.0035090363
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.0018042126
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.0018655169
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343823314570776593, guid: 85f604f5064981848a948f591adca53e,
+        type: 3}
+      propertyPath: m_DirtyAABB
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3f27b0c56bcbcc84a945014d78eb202b, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 85f604f5064981848a948f591adca53e, type: 3}
+--- !u!4 &51238799 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 85f604f5064981848a948f591adca53e,
+    type: 3}
+  m_PrefabInstance: {fileID: 51238798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &213028715
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +323,131 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &242640047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 242640051}
+  - component: {fileID: 242640050}
+  - component: {fileID: 242640049}
+  - component: {fileID: 242640048}
+  m_Layer: 0
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &242640048
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242640047}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &242640049
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242640047}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -3102304526521240713, guid: 85f604f5064981848a948f591adca53e, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &242640050
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242640047}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &242640051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242640047}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.212, y: 0.17, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &747340005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 747340006}
+  m_Layer: 0
+  m_Name: Mascotte
+  m_TagString: SolARObject
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &747340006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 747340005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 51238799}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1610452450
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +569,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073193193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.865391, y: -5.731882, z: 30.7092}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -621,7 +787,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.size
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -1672,72 +1838,72 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[10].interfaces.Array.data[1].name
-      value: I3DTransformFinder
+      value: I3DTransformFinderFrom2D3D
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[10].interfaces.Array.data[1].description
-      value: I3DTransformFinder
+      value: I3DTransformFinderFrom2D3D
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[12].uuid
-      value: 2db01f59-9793-4cd5-8e13-b25d0ed5735b
+      value: cc51d685-9797-4ffd-a9dd-cec4f367fa6a
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[12].name
-      value: SolAR3DOverlayOpencv
+      value: SolAR2DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[12].description
-      value: SolAR3DOverlayOpencv
+      value: SolAR2DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[12].interfaces.Array.data[1].uuid
-      value: 81a20f52-6bf9-4949-b914-df2f614bc945
+      value: 62b8b0b5-9344-40e6-a288-e609eb3ff0f1
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[12].interfaces.Array.data[1].name
-      value: I3DOverlay
+      value: I2DOverlay
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[12].interfaces.Array.data[1].description
-      value: I3DOverlay
+      value: I2DOverlay
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[13].uuid
-      value: 19ea4e13-7085-4e3f-92ca-93f200ffb01b
+      value: 2db01f59-9793-4cd5-8e13-b25d0ed5735b
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[13].name
-      value: SolARImageViewerOpencv
+      value: SolAR3DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[13].description
-      value: SolARImageViewerOpencv
+      value: SolAR3DOverlayOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[13].interfaces.Array.data[1].uuid
-      value: b05f3dbb-f93d-465c-aee1-fb58e1480c42
+      value: 81a20f52-6bf9-4949-b914-df2f614bc945
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[13].interfaces.Array.data[1].name
-      value: IImageViewer
+      value: I3DOverlay
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[13].interfaces.Array.data[1].description
-      value: IImageViewer
+      value: I3DOverlay
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2503,17 +2669,17 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[14].uuid
-      value: 0753ade1-7932-4e29-a71c-66155e309a53
+      value: 19ea4e13-7085-4e3f-92ca-93f200ffb01b
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[14].name
-      value: SolARPoseEstimationPnpOpencv
+      value: SolARImageViewerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[14].description
-      value: SolARPoseEstimationPnpOpencv
+      value: SolARImageViewerOpencv
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -2533,17 +2699,17 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[14].interfaces.Array.data[1].uuid
-      value: 77281cda-47c2-4bb7-bde6-5b0d02e75dae
+      value: b05f3dbb-f93d-465c-aee1-fb58e1480c42
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[14].interfaces.Array.data[1].name
-      value: I3DTransformFinderFrom2D3D
+      value: IImageViewer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[1].components.Array.data[14].interfaces.Array.data[1].description
-      value: I3DTransformFinderFrom2D3D
+      value: IImageViewer
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3173,7 +3339,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[3].path
-      value: $REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleTools/0.9.0/lib/x86_64/shared
+      value: ./Assets/Plugins
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3510,7 +3676,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[4].path
-      value: $REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleFBOW/0.9.0/lib/x86_64/shared
+      value: ./Assets/Plugins
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -3575,7 +3741,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[5].path
-      value: $REMAKEN_PKG_ROOT/packages/SolARBuild/win-cl-14.1/SolARModuleG2O/0.9.0/lib/x86_64/shared
+      value: ./Assets/Plugins
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -5939,7 +6105,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.modules.Array.data[3].components.Array.data[8].description
-      value: SolARPointCloudManager
+      value: SolARKeyframesManager
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -7189,7 +7355,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.Array.data[20].properties.Array.data[0].value
-      value: ../../data/akaze.fbow
+      value: Assets\StreamingAssets\SolAR\FBOW\akaze.fbow
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -8254,7 +8420,7 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: conf.properties.Array.data[34].properties.Array.data[0].values.Array.data[1]
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
@@ -8320,6 +8486,100 @@ PrefabInstance:
         type: 3}
       propertyPath: conf.properties.Array.data[34].description
       value: SolAR3DOverlayBoxOpencv
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 2073193195}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[7].scope
+      value: Singleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[8].scope
+      value: Singleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[9].scope
+      value: Singleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[10].scope
+      value: Singleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.factory.bindings.Array.data[6].scope
+      value: Singleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: m_pipelinesName.Array.data[4]
+      value: PipelineSlam
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: m_pipelinesUUID.Array.data[4]
+      value: 577ccd2c-de1b-402a-8829-496747598588
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: m_pipelinesPath.Array.data[4]
+      value: /SolAR/Pipelines/SolARPipelineTest_SLAM_TUM_conf.xml
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[28].properties.Array.data[0].description
+      value: Path of the .yml file describing the fiducial marker.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[30].properties.Array.data[0].description
+      value: minimum threshold (-1 to automatically compute it on the global image
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[30].properties.Array.data[1].description
+      value: maximum threshold
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[31].properties.Array.data[0].description
+      value: Minimum number of edge to validate a contour (default = 4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[32].properties.Array.data[0].description
+      value: The maximum distance between the original curve and its approximation
+        (default = 0.05)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[32].properties.Array.data[1].description
+      value: The minimum length of an edge of the contour in pixels to be considered
+        as valid (default = 20).
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[32].properties.Array.data[2].description
+      value: The minimum average distance in pixels between corners of a contour
+        and the same corners of another contour to consider the contour as valid
+        (default = 10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[33].properties.Array.data[0].description
+      value: The width in pixels of the corrected image.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
+        type: 3}
+      propertyPath: conf.properties.Array.data[33].properties.Array.data[1].description
+      value: The width in pixels of the corrected image.
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243915, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}

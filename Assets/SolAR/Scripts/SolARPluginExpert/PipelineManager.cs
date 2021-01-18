@@ -118,7 +118,6 @@ namespace SolAR
 
             overlay3D = xpcfComponentManager.Create("SolAR3DOverlayOpencv").BindTo<I3DOverlay>().AddTo(subscriptions);
 
-            inputImage = SharedPtr.Alloc<Image>().AddTo(subscriptions); //TODO bug getResolution
             switch (source)
             {
                 case SOURCE.SolAR:
@@ -129,28 +128,13 @@ namespace SolAR
                     var resolution = camera.getResolution();
                     pipeline.SetCameraParameters(intrinsic, distortion);
                     overlay3D.setCameraParameters(intrinsic, distortion);
-                    //OnCalibrate?.Invoke(resolution, intrinsic, distortion); //TODO bug getResolution
+                    OnCalibrate?.Invoke(resolution, intrinsic, distortion);
 
                     if (camera.start() != FrameworkReturnCode._SUCCESS)
                     {
                         LOG_ERROR("Camera cannot start");
                         enabled = false;
                     }
-
-                    //TODO bug getResolution
-                    if (resolution.height == 0)
-                    {
-                        Debug.LogWarning(new { resolution.width, resolution.height });
-                        if (camera.getNextImage(inputImage) != FrameworkReturnCode._SUCCESS)
-                        {
-                            LOG_ERROR("Camera cannot grab");
-                            enabled = false;
-                        }
-                        resolution = inputImage.getSize();
-                    }
-                    else
-                        Debug.LogError("bug fixed, please remove hack getResolution");
-                    OnCalibrate?.Invoke(resolution, intrinsic, distortion);
                     break;
                 case SOURCE.Unity:
                     webcam = new WebCamTexture();
@@ -181,7 +165,7 @@ namespace SolAR
 
             start = clock();
 
-            //inputImage = SharedPtr.Alloc<Image>().AddTo(subscriptions); //TODO bug getResolution
+            inputImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
             pose = new Transform3Df().AddTo(subscriptions);
         }
 
@@ -218,7 +202,8 @@ namespace SolAR
             }
             count++;
 
-            var isTracking = pipeline.Proceed(inputImage, pose, camera) == FrameworkReturnCode._SUCCESS;
+            var retCode = pipeline.Proceed(inputImage, pose, camera);
+            var isTracking = retCode == FrameworkReturnCode._SUCCESS;
 
             foreach (var go in GameObject.FindGameObjectsWithTag("SolARObject"))
                 go.transform.GetComponent<Renderer>().enabled = isTracking;

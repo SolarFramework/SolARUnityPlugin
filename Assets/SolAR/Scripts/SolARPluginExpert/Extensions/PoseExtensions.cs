@@ -30,15 +30,27 @@ namespace SolAR
 
             m = inv * m;
 
-            //m = m.inverse;
-
             var v = m.GetColumn(3);
-            var q = Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1));
+            var q = Quaternion.LookRotation(m.GetColumn(2), -m.GetColumn(1));
 
             q = Quaternion.Inverse(q);
             v = q * -v;
 
             return new Pose(v, q);
+        }
+
+        public static void ApplyTo(this Pose pose, Transform transform, bool isLocal = false)
+        {
+            if (isLocal)
+            {
+                transform.localPosition = pose.position;
+                transform.localRotation = pose.rotation;
+            }
+            else
+            {
+                transform.position = pose.position;
+                transform.rotation = pose.rotation;
+            }
         }
     }
 }

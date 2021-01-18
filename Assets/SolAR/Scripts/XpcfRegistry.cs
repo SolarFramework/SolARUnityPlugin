@@ -66,9 +66,10 @@ namespace SolAR
     [XmlRoot("xpcf-configuration")]
     public class XpcfConfiguration
     {
-        */
+        // */
         [XmlArrayItem("alias")]
         public List<Alias> aliases = new List<Alias>();
+        public bool ShouldSerializealiases() => aliases?.Count > 0;
         [Serializable]
         public class Alias
         {
@@ -87,9 +88,10 @@ namespace SolAR
         public class Factory
         {
             [XmlArrayItem("bind")]
-            public List<Bind1> bindings = new List<Bind1>();
+            public List<FactoryBind> bindings = new List<FactoryBind>();
+            public bool ShouldSerializebindings() => bindings?.Count > 0;
             [Serializable]
-            public class Bind1
+            public class FactoryBind
             {
                 [XmlAttribute]
                 [DefaultValue("")]
@@ -102,6 +104,9 @@ namespace SolAR
                 [DefaultValue(Range.@default)]
                 public Range range = Range.@default;
                 public enum Range { @default, all }
+                [XmlAttribute]
+                [DefaultValue("")]
+                public string scope; // Singleton
 
                 [XmlElement("component")]
                 public List<ComponentBind> component = new List<ComponentBind>();
@@ -115,6 +120,7 @@ namespace SolAR
 
             [XmlArrayItem("inject")]
             public List<Inject> injects = new List<Inject>();
+            public bool ShouldSerializeinjects() => injects?.Count > 0;
             [Serializable]
             public class Inject
             {
@@ -122,9 +128,9 @@ namespace SolAR
                 public string to;
 
                 [XmlElement("bind")]
-                public List<Bind2> binds = new List<Bind2>();
+                public List<InjectBind> binds = new List<InjectBind>();
                 [Serializable]
-                public class Bind2
+                public class InjectBind
                 {
                     [XmlAttribute("interface")]
                     public string @interface;
@@ -140,10 +146,13 @@ namespace SolAR
         [XmlArray("configuration")]
         [XmlArrayItem("component")]
         public List<Configure> componentsConfig = new List<Configure>();
+        [Obsolete]
+        public bool ShouldSerializecomponentsConfig() => componentsConfig?.Count > 0;
 
         [XmlArray("properties")]
         [XmlArrayItem("configure")]
         public List<Configure> properties = new List<Configure>();
+        public bool ShouldSerializeproperties() => properties?.Count > 0;
         [Serializable]
         public class Configure
         {
@@ -155,7 +164,7 @@ namespace SolAR
             public string name;
 
             [XmlElement("property")]
-            public List<Property2> properties = new List<Property2>();
+            public List<PropertyRecursive> properties = new List<PropertyRecursive>();
             [Serializable]
             public class Property
             {
@@ -171,14 +180,16 @@ namespace SolAR
                 [DefaultValue(Access.@default)]
                 public Access access;
                 public enum Access { @default, ro }
+                [XmlAttribute]
+                [DefaultValue("")]
+                public string description;
 
                 [XmlElement("value")]
                 public string[] values;
-                //public bool ShouldSerializevalues() => values?.Length > 0;
 #if TRUE
             }
             [Serializable]
-            public class Property2 : Property
+            public class PropertyRecursive : Property
             {
 #endif
                 [XmlElement("property")]

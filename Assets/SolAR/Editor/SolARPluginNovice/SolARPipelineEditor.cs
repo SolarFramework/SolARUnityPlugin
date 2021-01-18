@@ -454,7 +454,7 @@ namespace SolAR
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-            using (new GUILayout.VerticalScope(new GUIContent("<b>Pipelines</b>"), windowStyle, GUILayout.ExpandHeight(false)))
+            using (new GUILayout.VerticalScope("<b>Pipelines</b>", windowStyle, GUILayout.ExpandHeight(false)))
             {
                 using (new GUILayout.HorizontalScope())
                 {
@@ -527,8 +527,8 @@ namespace SolAR
 
         void WebcamGUI()
         {
-            target.m_Unity_Webcam = EditorGUILayout.Toggle("Use Unity Webcam", target.m_Unity_Webcam);
-            if (target.m_Unity_Webcam)
+            target.isUnityWebcam = EditorGUILayout.Toggle("Use Unity Webcam", target.isUnityWebcam);
+            if (target.isUnityWebcam)
             {
                 var webCams = WebCamTexture.devices;
                 var webCamNames = Array.ConvertAll(webCams, webCam =>
@@ -539,7 +539,7 @@ namespace SolAR
                     return webCamName;
                 });
                 var label = new GUIContent("Video Camera");
-                target.m_webCamNum = EditorGUILayout.Popup(label, target.m_webCamNum, webCamNames);
+                target.webcamIndex = EditorGUILayout.Popup(label, target.webcamIndex, webCamNames);
 
                 target.focalX = EditorGUILayout.FloatField("focalX ", target.focalX);
                 target.focalY = EditorGUILayout.FloatField("focalY ", target.focalY);
@@ -552,12 +552,12 @@ namespace SolAR
 
         void CanvasGUI()
         {
-            target.m_CustomCanvas = EditorGUILayout.Toggle("Custom_Canvas", target.m_CustomCanvas);
+            target.hasCustomCanvas = EditorGUILayout.Toggle("Custom_Canvas", target.hasCustomCanvas);
 
-            if (target.m_CustomCanvas)
+            if (target.hasCustomCanvas)
             {
-                target.m_canvas = (Canvas)EditorGUILayout.ObjectField("Static Canvas UI", target.m_canvas, typeof(Canvas), true);
-                target.m_material = (Material)EditorGUILayout.ObjectField("Static Canvas Material", target.m_material, typeof(Material), true);
+                target.canvas = (Canvas)EditorGUILayout.ObjectField("Static Canvas UI", target.canvas, typeof(Canvas), true);
+                target.material = (Material)EditorGUILayout.ObjectField("Static Canvas Material", target.material, typeof(Material), true);
             }
         }
     }

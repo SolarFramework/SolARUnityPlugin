@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
+<xpcf-registry autoAlias="true">
   <module name="SolARPipeline_SLAM" uuid="da89a6eb-3233-4dea-afdc-9d918be0bd74" path="./Assets/Plugins" description="The module embedding a pipeline to estimate the pose based on a multithreaded Slam">
     <component name="PipelineSlam" uuid="577ccd2c-de1b-402a-8829-496747598588" description="A pipeline to estimate the pose based on a multithreaded Slam">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
@@ -165,7 +164,7 @@
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="IPointCloudManager" uuid="264d4406-b726-4ce9-a430-35d8b5e70331" description="IPointCloudManager" />
     </component>
-    <component name="SolARKeyframesManager" uuid="f94b4b51-b8f2-433d-b535-ebf1f54b4bf6" description="SolARPointCloudManager">
+    <component name="SolARKeyframesManager" uuid="f94b4b51-b8f2-433d-b535-ebf1f54b4bf6" description="SolARKeyframesManager">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="IKeyframesManager" uuid="2c147595-6c74-4f69-b63d-91e162c311ed" description="IKeyframesManager" />
     </component>
@@ -222,7 +221,6 @@
       <interface name="IBundler" uuid="35b9bdb7-d23c-4909-984f-ae7f9a292e6c" description="IBundler" />
     </component>
   </module>
-  <aliases />
   <factory>
     <bindings>
       <bind interface="ICamera" to="SolARCameraOpencv" />
@@ -231,11 +229,11 @@
       <bind name="GlobalBA" interface="IBundler" to="SolAROptimizationG2O" />
       <bind interface="IDescriptorMatcher" to="SolARDescriptorMatcherKNNOpencv" />
       <bind interface="IKeyframeSelector" to="SolARKeyframeSelector" />
-      <bind interface="IMapper" to="SolARMapper" />
-      <bind interface="IPointCloudManager" to="SolARPointCloudManager" />
-      <bind interface="IKeyframesManager" to="SolARKeyframesManager" />
-      <bind interface="ICovisibilityGraph" to="SolARCovisibilityGraph" />
-      <bind interface="IKeyframeRetriever" to="SolARKeyframeRetrieverFBOW" />
+      <bind interface="IMapper" to="SolARMapper" scope="Singleton" />
+      <bind interface="IPointCloudManager" to="SolARPointCloudManager" scope="Singleton" />
+      <bind interface="IKeyframesManager" to="SolARKeyframesManager" scope="Singleton" />
+      <bind interface="ICovisibilityGraph" to="SolARCovisibilityGraph" scope="Singleton" />
+      <bind interface="IKeyframeRetriever" to="SolARKeyframeRetrieverFBOW" scope="Singleton" />
     </bindings>
     <injects>
       <inject to="SolARFiducialMarkerPoseEstimator">
@@ -440,7 +438,7 @@
       <property name="exitKey" type="int" value="27" />
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="fiducialMarker.yml" />
+      <property name="filePath" type="string" value="fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
     </configure>
     <configure component="SolARFiducialMarkerPoseEstimator">
       <property name="nbThreshold" type="int" value="3" />
@@ -448,20 +446,20 @@
       <property name="maxThreshold" type="int" value="220" />
     </configure>
     <configure component="SolARImageFilterBinaryOpencv">
-      <property name="min" type="int" value="-1" />
-      <property name="max" type="int" value="255" />
+      <property name="min" type="int" value="-1" description="minimum threshold (-1 to automatically compute it on the global image" />
+      <property name="max" type="int" value="255" description="maximum threshold" />
     </configure>
     <configure component="SolARContoursExtractorOpencv">
-      <property name="minContourEdges" type="int" value="4" />
+      <property name="minContourEdges" type="int" value="4" description="Minimum number of edge to validate a contour (default = 4)" />
     </configure>
     <configure component="SolARContoursFilterBinaryMarkerOpencv">
-      <property name="epsilon" type="float" value="0.05" />
-      <property name="minContourLength" type="float" value="20.0" />
-      <property name="minDistanceBetweenContourCorners" type="float" value="10.0" />
+      <property name="epsilon" type="float" value="0.05" description="The maximum distance between the original curve and its approximation (default = 0.05)" />
+      <property name="minContourLength" type="float" value="20.0" description="The minimum length of an edge of the contour in pixels to be considered as valid (default = 20)." />
+      <property name="minDistanceBetweenContourCorners" type="float" value="10.0" description="The minimum average distance in pixels between corners of a contour and the same corners of another contour to consider the contour as valid (default = 10)" />
     </configure>
     <configure component="SolARPerspectiveControllerOpencv">
-      <property name="outputImageWidth" type="int" value="640" />
-      <property name="outputImageHeight" type="int" value="480" />
+      <property name="outputImageWidth" type="int" value="640" description="The width in pixels of the corrected image." />
+      <property name="outputImageHeight" type="int" value="480" description="The width in pixels of the corrected image." />
     </configure>
     <configure component="SolAR3DOverlayBoxOpencv">
       <property name="position" type="float">

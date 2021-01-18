@@ -222,7 +222,8 @@ public class SolARTest : AbstractSample
         }
         using (new GUILayout.HorizontalScope("Texture", GUI.skin.window))
         {
-            if (GUILayout.Button("new"))
+            if (GUILayout.Button("ToUnity")) image.ToUnity(ref tex);
+            if (GUILayout.Button("-new"))
             {
                 if (tex != null) Destroy(tex);
                 var w = (int)image.getWidth();

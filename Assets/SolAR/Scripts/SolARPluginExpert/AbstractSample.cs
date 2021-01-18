@@ -48,18 +48,17 @@ namespace SolAR
 
         protected virtual void OnEnable()
         {
-            foreach (var kvp in conf.conf.modules.ToDictionary(m => m.name, m => m.uuid))
+            foreach (var module in conf.conf.modules)
             {
-                ComponentExtensions.modulesDict[kvp.Key] = kvp.Value;
+                ComponentExtensions.modulesDict[module.name] = module.uuid;
             }
-            foreach (var kvp in conf.conf.modules.SelectMany(m => m.components).ToDictionary(c => c.name, c => c.uuid))
+            foreach (var component in conf.conf.modules.SelectMany(m => m.components))
             {
-                ComponentExtensions.componentsDict[kvp.Key] = kvp.Value;
+                ComponentExtensions.componentsDict[component.name] = component.uuid;
             }
-            var comparer = new KeyBasedEqualityComparer<XpcfRegistry.Module.Component.Interface, string>(i => i.uuid);
-            foreach (var kvp in conf.conf.modules.SelectMany(m => m.components).SelectMany(c => c.interfaces).Distinct(comparer).ToDictionary(i => i.name, i => i.uuid))
+            foreach (var @interface in conf.conf.modules.SelectMany(m => m.components).SelectMany(c => c.interfaces))
             {
-                ComponentExtensions.interfacesDict[kvp.Key] = kvp.Value;
+                ComponentExtensions.interfacesDict[@interface.name] = @interface.uuid;
             }
         }
 
@@ -78,7 +77,7 @@ namespace SolAR
 
         protected const long CLOCKS_PER_SEC = TimeSpan.TicksPerSecond;
 
-        protected static long clock() { return DateTimeOffset.Now.Ticks; }
+        protected static long clock() => DateTimeOffset.Now.Ticks;
     }
 }
 #pragma warning restore IDE1006 // Styles d'affectation de noms

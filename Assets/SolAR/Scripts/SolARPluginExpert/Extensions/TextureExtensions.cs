@@ -106,19 +106,49 @@ namespace SolAR
 
         public static Image ToSolAR(this Texture2D texture)
         {
+            //var array = texture.GetRawTextureData<byte>();
+            //var data = array.ToArray();
             var data = texture.GetRawTextureData();
             var handler = GCHandle.Alloc(data, GCHandleType.Pinned);
             var ptr = handler.AddrOfPinnedObject();
+            var ptr2 = Marshal.UnsafeAddrOfPinnedArrayElement(data, 0);
+            Debug.LogWarning(ptr == ptr2);
 
-            uint w = (uint)texture.width;
-            uint h = (uint)texture.height;
+            var w = (uint)texture.width;
+            var h = (uint)texture.height;
             var format = texture.format;
-            var pixLayout = GetLayout(format);
+            var layout = GetLayout(format);
             var type = GetDataType(format);
 
-            var image = new Image(ptr, w, h, pixLayout, Image.PixelOrder.INTERLEAVED, type);
+            var image = new Image(ptr, w, h, layout, Image.PixelOrder.INTERLEAVED, type);
             handler.Free();
             return image;
         }
+
+        //public static void ToSolAR(this Texture2D texture, ref Image image)
+        //{
+        //    var data = texture.GetRawTextureData();
+        //    var ptr = Marshal.UnsafeAddrOfPinnedArrayElement(data, 0);
+
+        //    var w = (uint)texture.width;
+        //    var h = (uint)texture.height;
+        //    var format = texture.format;
+        //    var layout = GetLayout(format);
+        //    var type = GetDataType(format);
+        //    if (image != null && (true || image.getWidth() != w || image.getHeight() != h))
+        //    {
+        //        image.Dispose();
+        //        image = null;
+        //    }
+        //    if (image == null)
+        //    {
+        //        image = new Image(ptr, w, h, layout, Image.PixelOrder.INTERLEAVED, type);
+        //    }
+        //    else
+        //    {
+        //        image.data();
+
+        //    }
+        //}
     }
 }

@@ -15,8 +15,8 @@ namespace SolAR
 #pragma warning disable IDE1006 // Styles d'affectation de noms
         //new AbstractSample target => (AbstractSample)base.target;
 
-        GUIStyle _windowStyle;
         GUIStyle windowStyle => _windowStyle ?? (_windowStyle = new GUIStyle(GUI.skin.window) { richText = true, stretchHeight = false });
+        GUIStyle _windowStyle;
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 
         readonly AnimBool animModules = new AnimBool();

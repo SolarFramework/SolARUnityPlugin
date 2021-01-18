@@ -71,9 +71,9 @@ public class SolARMenu : MonoBehaviour
         //On close check if pipeline and camera need to be reload
         if (m_solarPipeline.m_selectedPipeline != m_pipelineDropdown.value)
         {
-            m_solarPipeline.m_pipelineManager.stop();
-            m_solarPipeline.m_webCamTexture.Stop();
-            m_solarPipeline.m_pipelineManager.Dispose();
+            m_solarPipeline.pipelineManager.stop();
+            m_solarPipeline.webcamTexture.Stop();
+            m_solarPipeline.pipelineManager.Dispose();
             m_solarPipeline.m_selectedPipeline = m_pipelineDropdown.value;
             m_solarPipeline.m_configurationPath = m_solarPipeline.m_pipelinesPath[m_solarPipeline.m_selectedPipeline];
             m_solarPipeline.m_uuid = m_solarPipeline.m_pipelinesUUID[m_solarPipeline.m_selectedPipeline];

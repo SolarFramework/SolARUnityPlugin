@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
+<xpcf-registry autoAlias="true">
   <module name="SolARPipeline_FiducialMarker" uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" path="./Assets/Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
     <component name="PipelineFiducialMarker" uuid="3898cc3b-3986-4edc-b7c8-f4fba0f6c22a" description="A pipeline to estimate the pose based on a squared fiducial marker">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
@@ -51,11 +50,15 @@
     </component>
     <component name="SolARPoseEstimationPnpOpencv" uuid="0753ade1-7932-4e29-a71c-66155e309a53" description="SolARPoseEstimationPnpOpencv">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
-      <interface name="I3DTransformFinder" uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" description="I3DTransformFinder" />
+      <interface name="I3DTransformFinderFrom2D3D" uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" description="I3DTransformFinderFrom2D3D" />
     </component>
     <component name="SolARImageConvertorUnity" uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" description="SolAR::MODULES::OPENCV::SolARImageConvertorUnity component">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
       <interface name="IImageConvertor" uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" description="SolAR::api::image::IImageConvertor" />
+    </component>
+    <component name="SolAR2DOverlayOpencv" uuid="cc51d685-9797-4ffd-a9dd-cec4f367fa6a" description="SolAR2DOverlayOpencv">
+      <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
+      <interface name="I2DOverlay" uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" description="I2DOverlay" />
     </component>
     <component name="SolAR3DOverlayOpencv" uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" description="SolAR3DOverlayOpencv">
       <interface name="IComponentIntrospect" uuid="125f2007-1bf9-421d-9367-fbdc1210d006" description="IComponentIntrospect" />
@@ -84,14 +87,12 @@
       <interface name="ISourceImage" uuid="06e2fc5d-39da-4486-b2a6-1d8bd788fa13" description="An interface allowing to store an image from extern source to make it available to the pipeline" />
     </component>
   </module>
-  <aliases />
   <factory>
     <bindings>
       <bind interface="ICamera" to="SolARCameraOpencv" />
       <bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
       <bind name="imageConvertorUnity" interface="IImageConvertor" to="SolARImageConvertorUnity" />
     </bindings>
-    <injects />
   </factory>
   <properties>
     <configure component="PipelineFiducialMarker">
