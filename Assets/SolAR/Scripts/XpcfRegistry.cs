@@ -18,10 +18,10 @@ namespace SolAR
         public class Module
         {
             [XmlAttribute]
+            public string uuid;
+            [XmlAttribute]
             [DefaultValue("")]
             public string name;
-            [XmlAttribute]
-            public string uuid;
             [XmlAttribute]
             [DefaultValue("")]
             public string path;
@@ -35,10 +35,10 @@ namespace SolAR
             public class Component
             {
                 [XmlAttribute]
+                public string uuid;
+                [XmlAttribute]
                 [DefaultValue("")]
                 public string name;
-                [XmlAttribute]
-                public string uuid;
                 [XmlAttribute]
                 [DefaultValue("")]
                 public string description;
@@ -49,10 +49,10 @@ namespace SolAR
                 public class Interface
                 {
                     [XmlAttribute]
+                    public string uuid;
+                    [XmlAttribute]
                     [DefaultValue("")]
                     public string name;
-                    [XmlAttribute]
-                    public string uuid;
                     [XmlAttribute]
                     [DefaultValue("")]
                     public string description;
@@ -93,13 +93,13 @@ namespace SolAR
             [Serializable]
             public class FactoryBind
             {
-                [XmlAttribute]
-                [DefaultValue("")]
-                public string name;
                 [XmlAttribute("interface")]
                 public string @interface;
                 [XmlAttribute]
                 public string to;
+                [XmlAttribute]
+                [DefaultValue("")]
+                public string name;
                 [XmlAttribute]
                 [DefaultValue(Range.@default)]
                 public Range range = Range.@default;
@@ -137,6 +137,7 @@ namespace SolAR
                     [XmlAttribute]
                     public string to;
                     [XmlAttribute]
+                    [DefaultValue("")]
                     public string properties;
                 }
             }
