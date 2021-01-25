@@ -131,8 +131,8 @@
       <property name="distanceRatio" type="float" value="0.75" />
     </configure>
     <configure component="SolARGeometricMatchesFilterOpencv">
-      <property name="m_confidenceLevel" type="double" value="0.99" />
-      <property name="m_outlierDistanceRatio" type="double" value="0.006" />
+      <property name="confidence" type="float" value="0.99" />
+      <property name="outlierDistanceRatio" type="float" value="0.006" />
       <property name="epilinesDistance" type="float" value="3.0" />
     </configure>
     <configure component="SolARPoseEstimationPlanarPointsOpencv">
