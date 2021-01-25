@@ -758,10 +758,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 3
-  cloudProjectId: 8c5b3933-11c1-4680-a59e-7ee9506c676c
+  cloudProjectId: 
   framebufferDepthMemorylessMode: 0
-  projectName: SolARUnityPluginJR
-  organizationId: granger35
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

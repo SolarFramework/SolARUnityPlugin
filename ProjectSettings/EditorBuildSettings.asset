@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/SolAR/Demos/Scenes/NoviceVersion.unity
+    guid: 8c477acf40243cc43a4cdfe42ee59d4b
   m_configObjects: {}

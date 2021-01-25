@@ -239,7 +239,6 @@ namespace SolAR
                 var pose3Df = new Transform3Df();
 
                 var returnCode = pipelineManager.udpate(pose3Df);
-                Debug.Log(returnCode);
 
                 if (returnCode != PIPELINEMANAGER_RETURNCODE._NOTHING)
                 {
