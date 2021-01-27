@@ -315,7 +315,6 @@
     </configure>
     <configure component="SolARDescriptorMatcherRadiusOpencv">
       <property name="maxDistance" type="float" value="0.9" />
-      <property name="distanceRatio" type="float" value="0.9" />
     </configure>
     <configure component="SolARPoseFinderFrom2D2DOpencv">
       <property name="confidence" type="float" value="0.99" />
@@ -371,7 +370,6 @@
         <value>255</value>
         <value>0</value>
       </property>
-      <property name="maxMatches" type="uint" value="-1" />
     </configure>
     <configure component="SolARMatchesOverlayOpencv">
       <property name="thickness" type="uint" value="1" />
