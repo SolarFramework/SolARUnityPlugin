@@ -144,7 +144,7 @@ namespace SolAR
                     if (path.Equals(data))
                     {
                         pipeline.m_configurationPath = path;
-                        pipeline.m_uuid = pipeline.m_pipelinesUUID[i];
+                        //pipeline.m_uuid = pipeline.m_pipelinesUUID[i];
                         pipeline.m_selectedPipeline = i;
                     }
                 }

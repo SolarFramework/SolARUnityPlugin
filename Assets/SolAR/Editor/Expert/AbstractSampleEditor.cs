@@ -326,7 +326,7 @@ namespace SolAR.Expert
                             }
                             break;
                         default:
-                            Debug.LogError(values.arraySize);
+                            Debug.LogError(values.arraySize, this);
                             var sps = Enumerable
                                 .Range(0, values.arraySize)
                                 .Select(values.GetArrayElementAtIndex)

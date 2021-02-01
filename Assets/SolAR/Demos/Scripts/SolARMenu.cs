@@ -58,7 +58,7 @@ namespace SolAR
             {
                 foreach (var component in module.components)
                 {
-                    Debug.LogFormat("{0} - {1}", module.name, component.name);
+                    Debug.LogFormat(this, "{0} - {1}", module.name, component.name);
                 }
             }
             // */
@@ -82,7 +82,7 @@ namespace SolAR
                 solarPipeline.pipelineManager.Dispose();
                 solarPipeline.m_selectedPipeline = pipelinesDropdown.value;
                 solarPipeline.m_configurationPath = solarPipeline.m_pipelinesPath[solarPipeline.m_selectedPipeline];
-                solarPipeline.m_uuid = solarPipeline.m_pipelinesUUID[solarPipeline.m_selectedPipeline];
+                //solarPipeline.m_uuid = solarPipeline.m_pipelinesUUID[solarPipeline.m_selectedPipeline];
                 Android.SaveConfiguration(solarPipeline.m_configurationPath);
                 solarPipeline.Init();
                 StartCoroutine(FadeOut(m_popup.GetComponent<Image>(), m_popup.GetComponentInChildren<Text>()));

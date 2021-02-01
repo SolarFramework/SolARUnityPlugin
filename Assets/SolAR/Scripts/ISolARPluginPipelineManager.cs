@@ -1,12 +1,12 @@
 ﻿using System;
 using SolAR.Datastructure;
 
-namespace SolARPipelineManager
+namespace SolAR.Pipeline
 {
 #pragma warning disable IDE1006 // Styles d'affectation de noms
     public interface ISolARPluginPipelineManager : IDisposable
     {
-        bool init(string conf_path, string pipelineUUID);
+        bool init(string conf_path);
         CameraParameters getCameraParameters();
         bool start(IntPtr textureHandle);
         bool stop();

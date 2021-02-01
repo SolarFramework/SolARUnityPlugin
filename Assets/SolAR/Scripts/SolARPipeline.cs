@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SolAR.Datastructure;
-using SolARPipelineManager;
+using SolAR.Pipeline;
+using SolAR.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,7 @@ namespace SolAR
 
         [HideInInspector] public string[] m_pipelinesName;
 
-        [HideInInspector] public string[] m_pipelinesUUID;
+        //[HideInInspector] public string[] m_pipelinesUUID;
 
         [HideInInspector] public string[] m_pipelinesPath;
 
@@ -46,7 +47,7 @@ namespace SolAR
 
         [HideInInspector] public string m_configurationPath;
 
-        [HideInInspector] public string m_uuid;
+        //[HideInInspector] public string m_uuid;
 
         [HideInInspector] public int webcamIndex;
 
@@ -90,26 +91,24 @@ namespace SolAR
             Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
             Android.LoadConfiguration(this);
 #endif
-            Init();
+            enabled = Init();
         }
 
-        public void Init()
+        public bool Init()
         {
             if (!arCamera)
             {
                 Debug.Log("A camera must be specified for the SolAR Pipeline component");
-                enabled = false;
-                return;
+                return false;
             }
 
             pipelineManager = new SolARPluginPipelineManager();
 #if UNITY_EDITOR
             // If in editor mode, the pipeline configuration file are stored in the Unity Assets folder but not in the StreaminAssets folder
-            if (!pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid))
+            if (!pipelineManager.init(Application.dataPath + m_configurationPath))
             {
-                Debug.LogError("Cannot init pipeline manager " + Application.dataPath + m_configurationPath + " with uuid " + m_uuid);
-                enabled = false;
-                return;
+                Debug.LogErrorFormat("Cannot init pipeline manager {0}{1}", Application.dataPath, m_configurationPath);
+                return false;
             }
 
 #elif UNITY_ANDROID
@@ -121,8 +120,7 @@ namespace SolAR
             if (!pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid))
             {
                 Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath + " with uuid " + m_uuid);
-                enabled = false;
-                return;
+                return false;
             }
             Debug.Log("[ANDROID] Pipeline initialization successful");
             //m_Unity_Webcam = true;
@@ -132,8 +130,7 @@ namespace SolAR
             if (!pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid))
             {
                 Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
-                enabled = false;
-                return;
+                return false;
             }
             //m_Unity_Webcam = true;
 #endif
@@ -173,6 +170,8 @@ namespace SolAR
                 focalY = intrinsic.coeff(1, 1);
                 centerX = intrinsic.coeff(0, 2);
                 centerY = intrinsic.coeff(1, 2);
+
+                onCalibrate(new Sizei { width = (uint)width, height = (uint)height }, intrinsic, null);
             }
 
             SendParametersToCameraProjectionMatrix();
@@ -214,6 +213,7 @@ namespace SolAR
             pipelineManager.start(ptr);
 
             isUpdateReady = true;
+            return true;
         }
 
         protected void Update()
@@ -249,28 +249,34 @@ namespace SolAR
 
                 if (returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE || returnCode == PIPELINEMANAGER_RETURNCODE._NEW_POSE_AND_IMAGE)
                 {
-                    foreach (var solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
-                    {
-                        var renderers = solARObj.GetComponentsInChildren<Renderer>(true);
-                        foreach (var r in renderers)
-                        {
-                            r.enabled = true;
-                        }
-                    }
+                    //foreach (var solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
+                    //{
+                    //    var renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                    //    foreach (var r in renderers)
+                    //    {
+                    //        r.enabled = true;
+                    //    }
+                    //}
 
-                    var pose = pose3Df.ToUnity();
-                    pose.ApplyTo(arCamera.transform);
+                    Pose = pose3Df.ToUnity();
+                    //pose.ApplyTo(arCamera.transform);
+                    onStatus(true);
+                    onPose(Pose);
                 }
                 else if (returnCode == PIPELINEMANAGER_RETURNCODE._NEW_IMAGE)
                 {
-                    foreach (var solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
-                    {
-                        var renderers = solARObj.GetComponentsInChildren<Renderer>(true);
-                        foreach (var r in renderers)
-                        {
-                            r.enabled = false;
-                        }
-                    }
+                    //foreach (var solARObj in GameObject.FindGameObjectsWithTag("SolARObject"))
+                    //{
+                    //    var renderers = solARObj.GetComponentsInChildren<Renderer>(true);
+                    //    foreach (var r in renderers)
+                    //    {
+                    //        r.enabled = false;
+                    //    }
+                    //}
+
+                    Pose = Pose.identity;
+                    onStatus(false);
+                    onPose(null);
                 }
             }
         }
@@ -287,9 +293,8 @@ namespace SolAR
             projectionMatrix.SetRow(2, new Vector4(0, 0, (near + far) / (near - far), 2 * near * far / (near - far)));
             projectionMatrix.SetRow(3, new Vector4(0, 0, -1, 0));
 
-            cam.fieldOfView = 2 * Mathf.Atan(height / 2 / focalY) * Mathf.Rad2Deg; // CameraUtility.Focal2Fov()
+            cam.fieldOfView = CameraUtility.Focal2Fov(focalY, height);
             cam.projectionMatrix = projectionMatrix;
-            onCalibrate(new Sizei { width = (uint)width, height = (uint)height }, null, null);
         }
     }
 }

@@ -4,7 +4,7 @@ using SolAR.Api.Sink;
 using SolAR.Api.Source;
 using SolAR.Core;
 using SolAR.Datastructure;
-using SolARPipelineManager;
+using SolAR.Pipeline;
 using UnityEngine;
 using XPCF.Api;
 
@@ -24,7 +24,7 @@ namespace SolAR.Expert
             xpcf_api.getComponentManagerInstance().clear();
         }
 
-        public bool init(string conf_path, string pipelineUUID)
+        public bool init(string conf_path)
         {
             //LOG_INFO("Start PipelineManager.init")
             //LOG_FLUSH
@@ -45,9 +45,7 @@ namespace SolAR.Expert
             if (!load_ok)
                 return false;
 
-            m_pipeline = xpcfComponentManager.createComponent(new XPCF.Core.UUID(pipelineUUID)).BindTo<IPoseEstimationPipeline>();
-            //LOG_INFO("Pipeline Component has been created")
-
+            m_pipeline = xpcfComponentManager.Resolve<IPoseEstimationPipeline>().BindTo<IPoseEstimationPipeline>();
 
             if (m_pipeline == null)
                 return false;

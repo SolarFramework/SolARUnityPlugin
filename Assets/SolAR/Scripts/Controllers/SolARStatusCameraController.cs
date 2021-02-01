@@ -11,7 +11,7 @@ namespace SolAR.Controllers
         [SerializeField] protected AbstractSolARPipeline solARManager;
         Camera arCamera;
 
-        //public int layer;
+        public int layer;
 
         protected void Reset()
         {
@@ -35,7 +35,10 @@ namespace SolAR.Controllers
 
         void OnStatus(bool isTracking)
         {
-            arCamera.cullingMask = isTracking ? -1 : 0;
+            var cullingMask = arCamera.cullingMask;
+            if (isTracking) cullingMask |= 1 << layer;
+            else cullingMask &= ~(1 << layer);
+            arCamera.cullingMask = cullingMask;
         }
     }
 }

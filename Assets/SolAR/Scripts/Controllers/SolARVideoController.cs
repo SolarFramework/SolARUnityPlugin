@@ -70,9 +70,9 @@ namespace SolAR.Controllers
                     m[r, c] = intrinsic.coeff(r, c);
                 }
             }
-            Debug.Log(m);
-            Debug.Log(resolution.width);
-            Debug.Log(resolution.height);
+            Debug.Log(m, this);
+            Debug.Log(resolution.width, this);
+            Debug.Log(resolution.height, this);
             */
             var fX = intrinsic.coeff(0, 0) * 2 / resolution.width;
             var fY = intrinsic.coeff(1, 1) * 2 / resolution.height;

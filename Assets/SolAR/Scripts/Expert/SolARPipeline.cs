@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using SolAR.Datastructure;
+using SolAR.Pipeline;
 using SolAR.Utilities;
-using SolARPipelineManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +41,7 @@ namespace SolAR.Expert
         [HideInInspector] public string[] m_pipelinesPath;
         [HideInInspector] public int m_selectedPipeline;
         [HideInInspector] public string m_configurationPath;
-        [HideInInspector] public string m_uuid;
+        //[HideInInspector] public string m_uuid;
         [HideInInspector] public int webcamIndex;
         [HideInInspector] public XpcfRegistry conf;
         [HideInInspector] public SolARPluginPipelineManager pipelineManager;
@@ -89,9 +89,9 @@ namespace SolAR.Expert
             pipelineManager = new SolARPluginPipelineManager();
 #if UNITY_EDITOR
             // If in editor mode, the pipeline configuration file are stored in the Unity Assets folder but not in the StreaminAssets folder
-            if (!pipelineManager.init(Application.dataPath + m_configurationPath, m_uuid))
+            if (!pipelineManager.init(Application.dataPath + m_configurationPath))
             {
-                Debug.LogError("Cannot init pipeline manager " + Application.dataPath + m_configurationPath + " with uuid " + m_uuid);
+                Debug.LogErrorFormat(this, "Cannot init pipeline manager {0}{1}", Application.dataPath, m_configurationPath);
                 enabled = false;
                 return;
             }

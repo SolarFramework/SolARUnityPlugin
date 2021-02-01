@@ -376,7 +376,7 @@ namespace SolAR
             {
                 var serializer = new XmlSerializer(typeof(XpcfRegistry));
                 target.conf = (XpcfRegistry)serializer.Deserialize(stream);
-                target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
+                //target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
                 target.m_configurationPath = target.m_pipelinesPath.ElementAt(num_pipeline);
             }
             SaveConfig();
@@ -388,7 +388,7 @@ namespace SolAR
             serializedObject.ApplyModifiedProperties();
             string[] files = Directory.GetFiles(Application.dataPath + target.m_pipelineFolder, "*.xml");
             var namesList = new List<string>();
-            var uuidList = new List<string>();
+            //var uuidList = new List<string>();
             var pathList = new List<string>();
             foreach (var file in files)
             {
@@ -404,7 +404,7 @@ namespace SolAR
                 }
                 catch (System.Xml.XmlException e)
                 {
-                    Debug.LogFormat("Configuration file {0} has an error:{1}", file_temp, e.Message);
+                    Debug.LogFormat(this, "Configuration file {0} has an error:{1}", file_temp, e.Message);
                     continue;
                 }
                 //if (root == null) continue;
@@ -418,8 +418,8 @@ namespace SolAR
                         if (!string.IsNullOrEmpty(pipelineName))
                         {
                             namesList.Add(pipelineName);
-                            string pipelineUuid = component.Attribute("uuid").Value;
-                            uuidList.Add(pipelineUuid);
+                            //string pipelineUuid = component.Attribute("uuid").Value;
+                            //uuidList.Add(pipelineUuid);
                             string relative_file_temp = file_temp.Substring(Application.dataPath.Length);
                             pathList.Add(relative_file_temp);
                         }
@@ -428,7 +428,7 @@ namespace SolAR
             }
             target.m_pipelinesName = namesList.ToArray();
             target.m_pipelinesPath = pathList.ToArray();
-            target.m_pipelinesUUID = uuidList.ToArray();
+            //target.m_pipelinesUUID = uuidList.ToArray();
 
             if (namesList.Count == 0)
             {
@@ -493,7 +493,7 @@ namespace SolAR
 
                 if (target.m_pipelinesName.Length == 0 || target.m_selectedPipeline < 0)
                 {
-                    target.m_uuid = "";
+                    //target.m_uuid = "";
                     target.m_configurationPath = "";
                     target.conf = null;
                     serializedObject.Update();

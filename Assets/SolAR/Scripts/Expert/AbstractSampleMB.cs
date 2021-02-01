@@ -67,7 +67,7 @@ namespace SolAR
             subscriptions.Clear();
         }
 
-        protected void printf(string format, params object[] objs) { Debug.LogFormat(format, objs); }
+        protected void printf(string format, params object[] objs) { Debug.LogFormat(this, format, objs); }
 
         protected void LOG_ERROR(string message, params object[] objects) { Debug.LogErrorFormat(this, message, objects); }
         protected void LOG_INFO(string message, params object[] objects) { Debug.LogWarningFormat(this, message, objects); }

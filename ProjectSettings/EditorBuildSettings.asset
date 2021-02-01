@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SolAR/Demos/Scenes/NoviceVersion.unity
+    path: Assets/SolAR/Demos/Scenes/PipelineFiducialMarker.unity
     guid: 8c477acf40243cc43a4cdfe42ee59d4b
   m_configObjects: {}

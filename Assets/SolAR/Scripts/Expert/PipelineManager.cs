@@ -94,7 +94,7 @@ namespace SolAR.Expert
 
             if (xpcfComponentManager.load(conf.path) != XPCFErrorCode._SUCCESS)
             {
-                Debug.LogErrorFormat("Failed to load the configuration file {0}", conf.path);
+                Debug.LogErrorFormat(this, "Failed to load the configuration file {0}", conf.path);
                 enabled = false;
                 return;
             }
