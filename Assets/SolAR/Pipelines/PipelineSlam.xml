@@ -251,7 +251,7 @@
   </factory>
   <properties>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="camera_calibration.yml" />
+      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" />
       <property name="deviceID" type="uint" value="0" />
     </configure>
     <configure component="SolARImagesAsCameraOpencv">
@@ -439,7 +439,7 @@
       <property name="exitKey" type="int" value="27" />
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
     </configure>
     <configure component="SolARFiducialMarkerPoseEstimator">
       <property name="nbThreshold" type="int" value="3" />

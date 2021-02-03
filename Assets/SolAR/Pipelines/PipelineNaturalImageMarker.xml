@@ -108,11 +108,11 @@
       <property name="detectionMatchesNumberThreshold" type="int" value="10" description="If the number of matches during detection is less than this threshold, marker detection failed" />
     </configure>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="calibrationFile" type="string" value="./Assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
       <property name="deviceID" type="uint" value="0" description="ID of the camera (default = 0)" />
     </configure>
     <configure component="SolARMarker2DNaturalImageOpencv">
-      <property name="filePath" type="string" value="grafMarker.yml" />
+      <property name="filePath" type="string" value="./Assets/StreamingAssets/SolAR/Markers/NaturalImageMarker.yml" />
     </configure>
     <configure component="SolARKeypointDetectorOpencv">
       <property name="type" type="string" value="AKAZE2" />
