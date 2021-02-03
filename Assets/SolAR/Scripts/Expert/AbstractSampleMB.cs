@@ -10,13 +10,14 @@ using UnityEngine;
 #pragma warning disable IDE1006 // Styles d'affectation de noms
 namespace SolAR
 {
-    public abstract class AbstractSampleMB : MonoBehaviour
+    public abstract class AbstractSampleMB : AbstractSolARPipeline
     {
         protected readonly CompositeDisposable subscriptions = new CompositeDisposable();
 
         [HideInInspector]
         public Configuration conf;
         //public ConfigurationSO confSO;
+        //public TextAsset configFile;
 
         [ContextMenu("Load")]
         void Load()

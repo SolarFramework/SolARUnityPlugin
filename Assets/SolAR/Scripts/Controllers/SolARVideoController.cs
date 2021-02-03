@@ -82,8 +82,7 @@ namespace SolAR.Controllers
             //CameraUtility.ApplyProjectionMatrix()
 
             var projectionMatrix = Perspective(fX, fY, camera.nearClipPlane, camera.farClipPlane);
-
-            camera.projectionMatrix = projectionMatrix;
+            CameraUtility.ApplyProjectionMatrix(camera, projectionMatrix);
 
             MoveVideoPlane();
         }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-//#define NDEBUG
+#define NDEBUG
 
 using SolAR.Api.Display;
 using SolAR.Api.Features;
@@ -53,16 +53,20 @@ namespace SolAR.Expert.Samples
             opticalFlowEstimator = Resolve<IOpticalFlowEstimator>();
             projection = Resolve<IProject>();
             unprojection = Resolve<IUnproject>();
+#if !NDEBUG
             overlay2DComponent = Resolve<I2DOverlay>();
             overlay3DComponent = Resolve<I3DOverlay>();
             imageViewerKeypoints = Resolve<IImageViewer>("keypoints");
             imageViewerResult = Resolve<IImageViewer>();
+#endif
 
             // Declare data structures used to exchange information between components
             refImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
             //camImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
             previousCamImage = SharedPtr.Alloc<Image>().AddTo(subscriptions);
+#if !NDEBUG
             kpImageCam = SharedPtr.Alloc<Image>().AddTo(subscriptions);
+#endif
             refKeypoints = new KeypointArray().AddTo(subscriptions);
             refDescriptors = SharedPtr.Alloc<DescriptorBuffer>().AddTo(subscriptions);
             //camDescriptors = SharedPtr.Alloc<DescriptorBuffer>().AddTo(subscriptions);
@@ -119,8 +123,10 @@ namespace SolAR.Expert.Samples
 
         public override void SetCameraParameters(Matrix3x3f intrinsics, Vector5f distortion)
         {
+#if !NDEBUG
             // initialize overlay 3D component with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
             overlay3DComponent.setCameraParameters(intrinsics, distortion);
+#endif
 
             // initialize pose estimation based on planar points with the camera intrinsec parameters (please refeer to the use of intrinsec parameters file)
             poseEstimationPlanar.setCameraParameters(intrinsics, distortion);
@@ -187,7 +193,7 @@ namespace SolAR.Expert.Samples
 #endif
                         valid_pose = true;
                         previousCamImage = camImage.copy();
-                        LOG_INFO("Start tracking", pose);
+                        //LOG_INFO("Start tracking {0}", pose.ToUnity());
                     }
                 }
             }
@@ -286,17 +292,16 @@ namespace SolAR.Expert.Samples
 #if !NDEBUG
                 overlay3DComponent.draw(pose, kpImageCam);
 #else
-                overlay3DComponent.draw(pose, camImage);
+                //overlay3DComponent.draw(pose, camImage);
 #endif
             }
 #if !NDEBUG
             if (imageViewerResult.display(kpImageCam).Check() == FrameworkReturnCode._STOP)
+                return FrameworkReturnCode._STOP;
 #else
-            if (imageViewerResult.display(camImage).Check() == FrameworkReturnCode._STOP)
+            //if (imageViewerResult.display(camImage).Check() == FrameworkReturnCode._STOP)
 #endif
-                return FrameworkReturnCode._SUCCESS;
-
-            return FrameworkReturnCode._ERROR_;
+            return valid_pose ? FrameworkReturnCode._SUCCESS : FrameworkReturnCode._ERROR_;
         }
 
         // components
@@ -313,10 +318,12 @@ namespace SolAR.Expert.Samples
         readonly IOpticalFlowEstimator opticalFlowEstimator;
         readonly IProject projection;
         readonly IUnproject unprojection;
+#if !NDEBUG
         readonly I2DOverlay overlay2DComponent;
         readonly I3DOverlay overlay3DComponent;
         readonly IImageViewer imageViewerKeypoints;
         readonly IImageViewer imageViewerResult;
+#endif
 
         // readonly IOpticalFlowEstimator opticalFlow;
         // readonly Point2DfArray refImgCorners;
@@ -325,7 +332,9 @@ namespace SolAR.Expert.Samples
         readonly Image refImage;
         //readonly Image camImage;
         Image previousCamImage;
+#if !NDEBUG
         Image kpImageCam;
+#endif
         readonly KeypointArray refKeypoints;
         readonly DescriptorBuffer refDescriptors;
         //readonly DescriptorBuffer camDescriptors;

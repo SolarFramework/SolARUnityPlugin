@@ -66,7 +66,7 @@ namespace SolAR.Controllers
                 }
             }
             //material.mainTexture = texture;
-            material.SetInt(layoutId, 2);
+            material.SetInt(layoutId, (int)layout);
             Graphics.Blit(texture, rTex, material);
         }
     }

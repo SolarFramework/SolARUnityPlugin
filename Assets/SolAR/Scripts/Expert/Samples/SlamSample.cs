@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#define NDEBUG
+
 using System.Linq;
 using SolAR.Api.Display;
 using SolAR.Api.Features;
@@ -89,7 +91,7 @@ namespace SolAR.Expert.Samples
             bootstrapper.setCameraParameters(calibration, distortion);
             tracking.setCameraParameters(calibration, distortion);
             mapping.setCameraParameters(calibration, distortion);
-            LOG_DEBUG("Intrincic parameters : \n {}", calibration);
+            LOG_DEBUG("Intrincic parameters : \n {0}", calibration);
             // get properties
             minWeightNeighbor = mapping.BindTo<IConfigurable>().getProperty("minWeightNeighbor").getFloatingValue();
             reprojErrorThreshold = mapper.BindTo<IConfigurable>().getProperty("reprojErrorThreshold").getFloatingValue();
@@ -180,7 +182,7 @@ namespace SolAR.Expert.Samples
                 // mapping
                 if (mapping.process(frame, keyframe) == FrameworkReturnCode._SUCCESS)
                 {
-                    LOG_DEBUG("New keyframe id: {}", keyframe.getId());
+                    LOG_DEBUG("New keyframe id: {0}", keyframe.getId());
                     // Local bundle adjustment
                     UIntVector bestIdx = new UIntVector(), bestIdxToOptimize = new UIntVector();
                     covisibilityGraph.getNeighbors(keyframe.getId(), minWeightNeighbor, bestIdx);

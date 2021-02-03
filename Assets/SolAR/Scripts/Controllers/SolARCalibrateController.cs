@@ -33,6 +33,7 @@ namespace SolAR.Controllers
         protected void OnDisable()
         {
             solARManager.OnCalibrate -= OnCalibrate;
+            camera.ResetProjectionMatrix();
         }
 
         void OnCalibrate(Sizei resolution, Matrix3x3f intrinsic, Vector5f distortion)

@@ -36,27 +36,14 @@ namespace SolAR
         byte[] array_imageData;
 
         [HideInInspector] public string m_pipelineFolder;
-
         [HideInInspector] public string[] m_pipelinesName;
-
-        //[HideInInspector] public string[] m_pipelinesUUID;
-
         [HideInInspector] public string[] m_pipelinesPath;
-
         [HideInInspector] public int m_selectedPipeline;
-
         [HideInInspector] public string m_configurationPath;
-
-        //[HideInInspector] public string m_uuid;
-
         [HideInInspector] public int webcamIndex;
-
         [HideInInspector] public XpcfRegistry conf;
-
         [HideInInspector] public ISolARPluginPipelineManager pipelineManager;
-
         [HideInInspector] public WebCamTexture webcamTexture;
-
         [HideInInspector] public bool isUnityWebcam = false;
 
         IntPtr sourceTexture;
@@ -163,15 +150,17 @@ namespace SolAR
             }
             else
             {
-                var intrinsic = pipelineManager.getCameraParameters().intrinsic;
-                width = 640; // Screen.width; //TODO
-                height = 480; // Screen.height;
+                var calibration = pipelineManager.getCameraParameters();
+                var resolution = calibration.resolution;
+                width = (int)resolution.width;
+                height = (int)resolution.height;
+                var intrinsic = calibration.intrinsic;
                 focalX = intrinsic.coeff(0, 0);
                 focalY = intrinsic.coeff(1, 1);
                 centerX = intrinsic.coeff(0, 2);
                 centerY = intrinsic.coeff(1, 2);
 
-                onCalibrate(new Sizei { width = (uint)width, height = (uint)height }, intrinsic, null);
+                onCalibrate(resolution, intrinsic, calibration.distortion);
             }
 
             SendParametersToCameraProjectionMatrix();
@@ -182,29 +171,32 @@ namespace SolAR
             if (!hasCustomCanvas)
             {
                 if (canvas != null) { Destroy(canvas.gameObject); }
-                var goCanvas = new GameObject("VideoSeeThroughCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(RawImage));
 
-                canvas = goCanvas.GetComponent<Canvas>();
+                var canvasGO = new GameObject("SolARVideoCanvas", typeof(Canvas));
+
+                canvas = canvasGO.GetComponent<Canvas>();
                 canvas.renderMode = RenderMode.ScreenSpaceCamera;
                 canvas.pixelPerfect = true;
                 canvas.worldCamera = arCamera;
                 canvas.planeDistance = arCamera.farClipPlane * 0.95f;
+                canvas.sortingOrder = -1;
 
-                var scaler = goCanvas.GetComponent<CanvasScaler>();
-                scaler.referenceResolution = new Vector2(width, height);
-                scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-                scaler.referencePixelsPerUnit = 1;
+                var imageGO = new GameObject("SolARVideoBackground", typeof(RawImage), typeof(AspectRatioFitter));
+                imageGO.transform.SetParent(canvasGO.transform, false);
 
-                var rawImage = goCanvas.GetComponent<RawImage>();
+                var rawImage = imageGO.GetComponent<RawImage>();
                 material = new Material(Shader.Find("Custom/SolARImageShader")) { mainTexture = texture };
                 rawImage.material = material;
-                rawImage.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-                rawImage.rectTransform.sizeDelta = new Vector2(width, height);
+                //rawImage.uvRect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+                //rawImage.rectTransform.sizeDelta = new Vector2(width, height);
+
+                var fitter = imageGO.GetComponent<AspectRatioFitter>();
+                fitter.aspectRatio = (float) width / height;
+                fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
             }
             else
             {
-                var rawImage = canvas.transform.GetChild(0).GetComponent<RawImage>();
+                var rawImage = canvas.GetComponentInChildren<RawImage>();
                 rawImage.texture = texture;
                 rawImage.material = material;
             }
@@ -294,7 +286,7 @@ namespace SolAR
             projectionMatrix.SetRow(3, new Vector4(0, 0, -1, 0));
 
             cam.fieldOfView = CameraUtility.Focal2Fov(focalY, height);
-            cam.projectionMatrix = projectionMatrix;
+            CameraUtility.ApplyProjectionMatrix(cam, projectionMatrix);
         }
     }
 }

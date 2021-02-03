@@ -13,13 +13,9 @@ namespace SolAR.Expert
 {
     public class PipelineManager : AbstractSampleMB, ISolARPipeline
     {
-        public event Action<bool> OnStatus;
-        public event Action<Texture, Image.ImageLayout> OnFrame;
-        public event Action<Sizei, Matrix3x3f, Vector5f> OnCalibrate;
-        public Pose Pose => pose.ToUnity();
-
         [Tooltip("Library used to capture the video stream")]
-        [SerializeField] protected SOURCE source = SOURCE.SolAR;
+        [UnityEngine.Serialization.FormerlySerializedAs("source")]
+        [SerializeField] protected SOURCE videoSource = SOURCE.SolAR;
         protected enum SOURCE { SolAR, External }
 
         //[Tooltip("Library used to render video stream")]
@@ -46,12 +42,12 @@ namespace SolAR.Expert
 
         public enum PIPELINE
         {
-            Debug,
             Fiducial,
             Natural,
             SLAM,
         }
-        public PIPELINE mode;
+        [UnityEngine.Serialization.FormerlySerializedAs("mode")]
+        public PIPELINE pipeline;
 
         /*
         PIPELINE _mode;
@@ -99,35 +95,33 @@ namespace SolAR.Expert
                 return;
             }
 
-            switch (mode)
+            switch (pipeline)
             {
-                case PIPELINE.Debug:
-                    pipeline = new DebugSample(xpcfComponentManager).AddTo(subscriptions);
-                    break;
                 case PIPELINE.Fiducial:
-                    pipeline = new FiducialSample(xpcfComponentManager).AddTo(subscriptions);
+                    manager = new FiducialSample(xpcfComponentManager);
                     break;
                 case PIPELINE.Natural:
-                    pipeline = new NaturalSample(xpcfComponentManager).AddTo(subscriptions);
+                    manager = new NaturalSample(xpcfComponentManager);
                     break;
                 case PIPELINE.SLAM:
-                    pipeline = new SlamSample(xpcfComponentManager).AddTo(subscriptions);
+                    manager = new SlamSample(xpcfComponentManager);
                     break;
             }
+            manager.AddTo(subscriptions);
 
             //overlay3D = xpcfComponentManager.Create("SolAR3DOverlayOpencv").BindTo<I3DOverlay>().AddTo(subscriptions);
 
-            switch (source)
+            switch (videoSource)
             {
                 case SOURCE.SolAR:
-                    srcCamera = xpcfComponentManager.Create("SolARCameraOpencv").BindTo<ICamera>().AddTo(subscriptions);
+                    srcCamera = xpcfComponentManager.Resolve<ICamera>().AddTo(subscriptions).BindTo<ICamera>().AddTo(subscriptions);
 
                     var intrinsic = srcCamera.getIntrinsicsParameters();
                     var distortion = srcCamera.getDistortionParameters();
                     var resolution = srcCamera.getResolution();
-                    pipeline.SetCameraParameters(intrinsic, distortion);
+                    manager.SetCameraParameters(intrinsic, distortion);
                     //overlay3D.setCameraParameters(intrinsic, distortion);
-                    OnCalibrate?.Invoke(resolution, intrinsic, distortion);
+                    onCalibrate(resolution, intrinsic, distortion);
 
                     if (srcCamera.start() != FrameworkReturnCode._SUCCESS)
                     {
@@ -170,16 +164,16 @@ namespace SolAR.Expert
             pose = new Transform3Df().AddTo(subscriptions);
         }
 
-        IPipeline pipeline;
+        IPipeline manager;
         WebCamTexture webcam;
 
 #pragma warning disable IDE1006 // Styles d'affectation de noms
-        public IEnumerable<IComponentIntrospect> xpcfComponents => pipeline.xpcfComponents;
+        public IEnumerable<IComponentIntrospect> xpcfComponents => manager.xpcfComponents;
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 
         protected void Update()
         {
-            switch (source)
+            switch (videoSource)
             {
                 case SOURCE.SolAR:
                     if (srcCamera.getNextImage(inputImage) != FrameworkReturnCode._SUCCESS)
@@ -191,8 +185,7 @@ namespace SolAR.Expert
                     var ptr = webcam.GetNativeTexturePtr();
                     if (inputTex == null)
                     {
-                        int w = webcam.width;
-                        int h = webcam.height;
+                        int w = webcam.width, h = webcam.height;
                         inputTex = Texture2D.CreateExternalTexture(w, h, TextureFormat.RGB24, false, false, ptr);
                     }
                     else
@@ -203,11 +196,8 @@ namespace SolAR.Expert
             }
             count++;
 
-            var retCode = pipeline.Proceed(inputImage, pose, srcCamera);
+            var retCode = manager.Proceed(inputImage, pose, srcCamera);
             var isTracking = retCode == FrameworkReturnCode._SUCCESS;
-
-            foreach (var go in GameObject.FindGameObjectsWithTag("SolARObject"))
-                go.transform.GetComponent<Renderer>().enabled = isTracking;
 
             //if (isTracking)
             //{
@@ -216,7 +206,9 @@ namespace SolAR.Expert
             //        overlay3D.draw(pose, inputImage);
             //    }
             //}
-            OnStatus?.Invoke(isTracking);
+            onStatus(isTracking);
+            Pose = pose.ToUnity();
+            onPose(isTracking ? Pose : default(Pose?));
 
             //switch (display)
             {
@@ -225,7 +217,7 @@ namespace SolAR.Expert
                 //    break;
                 //case DISPLAY.Unity:
                 inputImage.ToUnity(ref inputTex);
-                OnFrame?.Invoke(inputTex, inputImage.getImageLayout());
+                onFrame(inputTex, inputImage.getImageLayout());
                 //break;
             }
         }
@@ -237,11 +229,6 @@ namespace SolAR.Expert
             printf("Elasped time is {0} seconds.", duration);
             printf("Number of processed frames per second : {0}", count / duration);
             base.OnDisable();
-        }
-
-        public void PipelineMngchangePath(string t)
-        {
-            conf.path = t;
         }
     }
 }

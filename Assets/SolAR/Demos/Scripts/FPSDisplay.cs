@@ -13,11 +13,10 @@ public class FPSDisplay : MonoBehaviour
     {
         int w = Screen.width, h = Screen.height;
 
-        var rect = new Rect(0, 0, w, h * 2 / 100);
+        var rect = new Rect(0, 0, w, h);
         var style = new GUIStyle
         {
-            alignment = TextAnchor.UpperLeft,
-            fontSize = h * 2 / 100,
+            alignment = TextAnchor.UpperRight,
         };
         style.normal.textColor = new Color(0.0f, 1f, 1f, 1.0f);
         float msec = deltaTime * 1000.0f;
