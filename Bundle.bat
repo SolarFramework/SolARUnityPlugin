@@ -48,9 +48,9 @@ IF EXIST ".\Assets\SolAR\Scripts\Swig" RMDIR ".\Assets\SolAR\Scripts\Swig" /S /Q
 ::TIMEOUT 1
 ECHO Copy wrapper files
 
-XCOPY "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%COMPILER_WIN%\SolARPipelineManager\%SOLAR_PIPELINE_MANAGER_VERSION%\csharp\*" ^
+XCOPY "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%COMPILER_ANDROID%\SolARPipelineManager\%SOLAR_PIPELINE_MANAGER_VERSION%\csharp\*" ^
  ".\Assets\SolAR\Scripts\Swig\" /Q /S
  
-XCOPY "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%COMPILER_WIN%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\*" ^
+XCOPY "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%COMPILER_ANDROID%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\*" ^
  ".\Assets\SolAR\Scripts\Swig\Expert\" /Q /S
  
