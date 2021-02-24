@@ -32,7 +32,7 @@ namespace SolAR.Utilities
         {
             Matrix4x4Utility.GetProjectionParameters(projectionMatrix, out float fov, out float aspect, out float zNear, out float zFar);
             camera.fieldOfView = fov;
-            camera.aspect = aspect;
+            //camera.aspect = aspect;
             camera.nearClipPlane = zNear;
             camera.farClipPlane = zFar;
             camera.ResetProjectionMatrix();

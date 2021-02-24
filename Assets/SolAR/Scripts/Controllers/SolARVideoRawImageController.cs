@@ -51,7 +51,7 @@ namespace SolAR.Controllers
         void OnFrame(Texture texture, Datastructure.Image.ImageLayout layout)
         {
             material.mainTexture = texture;
-            material.SetInt(layoutId, 2);
+            material.SetInt(layoutId, (int)layout);
             if (aspectRatioFitter != null) { aspectRatioFitter.aspectRatio = (float)texture.width / texture.height; }
         }
     }

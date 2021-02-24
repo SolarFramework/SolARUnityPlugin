@@ -4,7 +4,6 @@ using UnityEngine;
 using XPCF.Api;
 using XPCF.Core;
 
-
 namespace SolAR.Expert
 {
     public partial class RuntimeEditor : MonoBehaviour
@@ -20,10 +19,6 @@ namespace SolAR.Expert
         int idComponent = -1;
         IComponentIntrospect xpcfComponent;
 
-        //UUID[] xpcfInterfaces;
-        //GUIContent[] guiInterfaces;
-        //int idInterface = -1;
-
         IConfigurable xpcfConfigurable;
 
         protected void Awake()
@@ -31,19 +26,30 @@ namespace SolAR.Expert
             configurableUUID = configurableUUID ?? new UUID("98DBA14F-6EF9-462E-A387-34756B4CBA80");
         }
 
-        protected void OnEnable()
-        {
-            xpcfComponents.AddRange(pipelineManager.xpcfComponents);
-            guiComponents = xpcfComponents.Select(c => new GUIContent(c.GetType().Name)).ToArray();
-        }
-
-        protected void OnDisable()
-        {
-            xpcfComponents.Clear();
-        }
+        bool isOpen;
 
         protected void OnGUI()
         {
+            using (GUIScope.ChangeCheck)
+            {
+                var command = isOpen ? "Close" : "Configure";
+                isOpen = GUILayout.Toggle(isOpen, command, GUI.skin.button);
+                if(GUI.changed)
+                {
+                    if (isOpen)
+                    {
+                        xpcfComponents.AddRange(pipelineManager.xpcfComponents);
+                        guiComponents = xpcfComponents.Select(c => new GUIContent(c.GetType().Name)).ToArray();
+                    }
+                    else
+                    {
+                        xpcfComponents.Clear();
+                        guiComponents = null;
+                    }
+                }
+            }
+            if (!isOpen) return;
+
             using (new GUILayout.HorizontalScope(GUI.skin.box, GUILayout.ExpandWidth(true)))
             {
                 if (guiComponents != null)
@@ -97,7 +103,7 @@ namespace SolAR.Expert
                 */
                 if (xpcfConfigurable == null)
                 {
-                    GUILayout.Label("This component is not IConfigurable");
+                    GUILayout.Label("Select an IConfigurable component");
                 }
                 else
                 {
