@@ -104,19 +104,20 @@ namespace SolAR
             // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
             Debug.Log("[ANDROID] Load pipeline : " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
 
-            if (!pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid))
+            if (!pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath))
             {
-                Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath + " with uuid " + m_uuid);
+                Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
                 return false;
             }
             Debug.Log("[ANDROID] Pipeline initialization successful");
             //m_Unity_Webcam = true;
+            //isUnityWebcam = true;
 
 #else
             // When the application is built, only the pipeline configuration files used by the application are moved to the streamingAssets folder
-            if (!pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid))
+            if (!pipelineManager.init(Application.streamingAssetsPath + m_configurationPath))
             {
-                Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
+                Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath);
                 return false;
             }
             //m_Unity_Webcam = true;
