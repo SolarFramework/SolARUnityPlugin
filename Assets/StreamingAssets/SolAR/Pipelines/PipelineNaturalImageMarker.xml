@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xpcf-registry autoAlias="true" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <module uuid="5bbc1452-8d7f-4512-83f1-7bf48453809f" name="PipelineNaturalImageMarker" path="./SolARDemo_Data/Plugins" description="The module embedding a pipeline to estimate the pose based on a natural Image marker">
+<xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
+  <module uuid="5bbc1452-8d7f-4512-83f1-7bf48453809f" name="SolARPipeline_NaturalImageMarker" path="./SolARDemo_Data/Plugins" description="The module embedding a pipeline to estimate the pose based on a natural Image marker">
     <component uuid="6f6c7ae8-764c-49b3-a2fc-e9a4f539b9b1" name="PipelineNaturalImageMarker" description="A pipeline to estimate the pose based on a natural Image marker">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
+      <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPoseEstimationPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
   <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./SolARDemo_Data/Plugins" description="moduleOpenCV">
@@ -61,6 +61,10 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" name="IImageViewer" description="IImageViewer" />
     </component>
+    <component uuid="cc51d685-9797-4ffd-a9dd-cec4f367fa6a" name="SolAR2DOverlayOpencv" description="SolAR2DOverlayOpencv">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" name="I2DOverlay" description="I2DOverlay" />
+    </component>
     <component uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" name="SolAR3DOverlayOpencv" description="SolAR3DOverlayOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="81a20f52-6bf9-4949-b914-df2f614bc945" name="I3DOverlay" description="I3DOverlay" />
@@ -79,7 +83,7 @@
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
     </component>
-    <component uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" name="SolARBasicSource" description="A ource component for feeding the pipeline with external images">
+    <component uuid="1e43cda9-7850-4a8a-a32b-f3f31ea94902" name="SolARBasicSource" description="A source component for feeding the pipeline with external images">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="06e2fc5d-39da-4486-b2a6-1d8bd788fa13" name="ISourceImage" description="An interface allowing to store an image from extern source to make it available to the pipeline" />
     </component>
@@ -100,74 +104,71 @@
   </factory>
   <properties>
     <configure component="PipelineNaturalImageMarker">
-      <property name="updateTrackedPointThreshold" type="Integer" value="300" description="If the number of keypoint is less than this threshold, a detection of new keypoints is launched" />
-      <property name="detectionMatchesNumberThreshold" type="Integer" value="10" description="If the number of matches during detection is less than this threshold, marker detection failed" />
+      <property name="updateTrackedPointThreshold" type="int" value="300" description="If the number of keypoint is less than this threshold, a detection of new keypoints is launched" />
+      <property name="detectionMatchesNumberThreshold" type="int" value="10" description="If the number of matches during detection is less than this threshold, marker detection failed" />
     </configure>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
-      <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
+      <property name="calibrationFile" type="string" value="camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="deviceID" type="uint" value="0" description="ID of the camera (default = 0)" />
     </configure>
     <configure component="SolARMarker2DNaturalImageOpencv">
-      <property name="filePath" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/Markers/NaturalImageMarker.yml" />
+      <property name="filePath" type="string" value="grafMarker.yml" />
     </configure>
     <configure component="SolARKeypointDetectorOpencv">
       <property name="type" type="string" value="AKAZE2" />
-      <property name="imageRatio" type="Float" value="0.5" />
-      <property name="nbDescriptors" type="Integer" value="1500" />
+      <property name="imageRatio" type="float" value="0.5" />
+      <property name="nbDescriptors" type="int" value="1500" />
     </configure>
     <configure component="SolARKeypointDetectorRegionOpencv">
       <property name="type" type="string" value="FEATURE_TO_TRACK" />
-      <property name="imageRatio" type="Float" value="1.0" />
-      <property name="nbDescriptors" type="Integer" value="1500" />
+      <property name="imageRatio" type="float" value="1.0" />
+      <property name="nbDescriptors" type="int" value="1500" />
     </configure>
     <configure component="SolARDescriptorsExtractorAKAZE2Opencv">
-      <property name="threshold" type="Float" value="3e-4" />
+      <property name="threshold" type="float" value="3e-4" />
     </configure>
     <configure component="SolARDescriptorMatcherKNNOpencv">
-      <property name="distanceRatio" type="Float" value="0.75" />
+      <property name="distanceRatio" type="float" value="0.75" />
     </configure>
     <configure component="SolARGeometricMatchesFilterOpencv">
-      <property name="m_confidenceLevel" type="Double" value="0.99" />
-      <property name="m_outlierDistanceRatio" type="Double" value="0.006" />
+      <property name="confidence" type="float" value="0.99" />
+      <property name="outlierDistanceRatio" type="float" value="0.006" />
+      <property name="epilinesDistance" type="float" value="3.0"/>
     </configure>
     <configure component="SolARPoseEstimationPlanarPointsOpencv">
-      <property name="minNbInliers" type="Integer" value="50" />
-      <property name="reprojErrorThreshold" type="Float" value="0.1" />
+      <property name="minNbInliers" type="int" value="50" />
+      <property name="reprojErrorThreshold" type="float" value="0.1" />
     </configure>
-    <!-- ERROR : configuring SolARKeypointDetectorOpencv with SolAROpticalFlowPyrLKOpencv properties
-        <configure component="e81c7e4e-7da6-476a-8eba-078b43071272"> -->
     <configure component="SolAROpticalFlowPyrLKOpencv">
-      <!-- SolAROpticalFlowPyrLKOpencv -->
-      <property name="searchWinWidth" type="Integer" value="21" />
-      <property name="searchWinHeight" type="Integer" value="21" />
-      <property name="maxLevel" type="Integer" value="3" />
-      <property name="minEigenThreshold" type="Double" value="-1.0" />
-      <property name="maxSearchIterations" type="Integer" value="20" />
-      <property name="searchWindowAccuracy" type="Float" value="0.03" />
+      <property name="searchWinWidth" type="int" value="21" />
+      <property name="searchWinHeight" type="int" value="21" />
+      <property name="maxLevel" type="int" value="3" />
+      <property name="minEigenThreshold" type="double" value="-1.0" />
+      <property name="maxSearchIterations" type="int" value="20" />
+      <property name="searchWindowAccuracy" type="float" value="0.03" />
     </configure>
     <configure component="SolAR3DOverlayOpencv">
-      <property name="position" type="Float">
+      <property name="position" type="float">
         <value>0</value>
         <value>0</value>
         <value>0</value>
       </property>
-      <property name="orientation" type="Float">
+      <property name="orientation" type="float">
         <value>0.0</value>
         <value>0.0</value>
         <value>0.0</value>
       </property>
-      <property name="size" type="Float">
-        <value>0.25</value>
-        <value>0.20</value>
+      <property name="size" type="float">
+        <value>0.212</value>
+        <value>0.17</value>
         <value>0.1</value>
       </property>
     </configure>
     <configure component="SolARImageViewerOpencv">
-      <!-- SolARImageViewerOpencv -->
       <property name="title" type="string" value="Natural Image Marker" />
-      <property name="exitKey" type="Integer" value="27" />
-      <property name="width" type="Integer" value="0" />
-      <property name="height" type="Integer" value="0" />
+      <property name="exitKey" type="int" value="27" />
+      <property name="width" type="int" value="0" />
+      <property name="height" type="int" value="0" />
     </configure>
   </properties>
 </xpcf-registry>

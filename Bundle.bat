@@ -1,34 +1,56 @@
-@echo off
-SET compiler=win-cl-14.1
+@ECHO OFF
+SET COMPILER_WIN=win-cl-14.1
+SET COMPILER_ANDROID=android-clang
 SET SOLAR_PIPELINE_MANAGER_VERSION=0.9.1
 SET SOLAR_WRAPPER_VERSION=0.9.1
-SET SOURCEDIR=%cd%
 
-if "%~1"=="" (SET bconfig=release) else (SET bconfig=%1)
-echo Bundle third parties : %bconfig%
-:: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
+IF "%~1"=="" (SET bconfig=release) ELSE (SET bconfig=%1)
+
+GOTO :BUNDLE
+
+:BUNDLE
+ECHO Bundle third parties : %bconfig%
+:: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken
+
+::bundle for windows
 remaken bundle -d ./Assets/Plugins -c %bconfig% --cpp-std 17 -b cl-14.1 packagedependencies.txt
+
+::bundle for Android
+conan profile update settings.os="Android" default
+conan profile update settings.os_build="Windows" default 
+conan profile update settings.arch="armv8" default 
+conan profile update settings.compiler="clang" default 
+conan profile update settings.compiler.version="8" default 
+conan profile update settings.compiler.libcxx="libc++" default 
+conan profile update settings.os.api_level="21" default 
+conan profile update settings.compiler.cppstd="17" default
+
+if not exist "./Assets/Plugins/Android" mkdir "./Assets/Plugins/Android"
+
+
 remaken bundle -d ./Assets/Plugins/Android -c %bconfig% --cpp-std 17 -b clang -o android -a arm64-v8a packagedependencies.txt 
-remaken bundle -d ./Assets/Plugins/Android -c %bconfig% --cpp-std 17 -b clang -o android -a arm64-v8a packagedependencies-android.txt 
 
-::wrap cpp to c# interfaces
-echo ---------------- wrap files with SWIG ----------------------
-cd "..\..\..\core\SolARFramework\SolARWrapper"
-call "_build.bat"
-cd %SOURCEDIR%
+conan profile update settings.os="Windows" default
+conan profile update settings.os_build="Windows" default
+conan profile update settings.arch="x86_64" default
+conan profile update settings.compiler="Visual Studio"  default
+conan profile update settings.compiler.version="15" default
+conan profile remove settings.compiler.libcxx default
+conan profile remove settings.os.api_level default
+conan profile update settings.compiler.cppstd="17"  default
+ 
 
-
+:DEPLOY
 :: copy csharp interfaces
-echo ---------------- copy c# interfaces ----------------------
-echo Delete following pipeline manager wrapper files
-del ".\Assets\SolAR\Swig\*.*" /S /Q
-timeout 2
-echo Copy wrapper files
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARPipelineManager\%SOLAR_PIPELINE_MANAGER_VERSION%\csharp\*" ".\Assets\SolAR\Swig\SolARPluginNovice\"
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\*" ".\Assets\SolAR\Swig\SolARPluginExpert\" /S /EXCLUDE:excludedFile_Bat.txt
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\SolAR\Core\*" ".\Assets\SolAR\Swig\Utilities\Core\" /S
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\SolAR\Datastructure\Vector3f.cs" ".\Assets\SolAR\Swig\Utilities\" /S
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\SolAR\Datastructure\Transform3Df.cs" ".\Assets\SolAR\Swig\Utilities\" /S
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\SolAR\Datastructure\Matrix3x3f.cs" ".\Assets\SolAR\Swig\Utilities\" /S
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\SolAR\Datastructure\solar_datastructurePINVOKE.cs" ".\Assets\SolAR\Swig\Utilities\" /S
-xcopy "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%compiler%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\SolAR\Datastructure\solar_datastructure.cs" ".\Assets\SolAR\Swig\Utilities\" /S
+ECHO ---------------- Copy c# interfaces ----------------------
+ECHO Delete following pipeline manager wrapper files
+IF EXIST ".\Assets\SolAR\Scripts\Swig" RMDIR ".\Assets\SolAR\Scripts\Swig" /S /Q
+::TIMEOUT 1
+ECHO Copy wrapper files
+
+XCOPY "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%COMPILER_ANDROID%\SolARPipelineManager\%SOLAR_PIPELINE_MANAGER_VERSION%\csharp\*" ^
+ ".\Assets\SolAR\Scripts\Swig\" /Q /S
+ 
+XCOPY "%REMAKEN_PKG_ROOT%\packages\SolARBuild\%COMPILER_ANDROID%\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\*" ^
+ ".\Assets\SolAR\Scripts\Swig\Expert\" /Q /S
+ 

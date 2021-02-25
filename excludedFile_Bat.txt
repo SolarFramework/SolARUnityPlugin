@@ -1,6 +1,0 @@
-SolAR\Core\
-Matrix3x3f.cs
-Transform3Df.cs
-Vector3f.cs
-solar_datastructurePINVOKE.cs
-solar_datastructure.cs

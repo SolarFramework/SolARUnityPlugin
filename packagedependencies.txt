@@ -1,6 +1,6 @@
-PipelineSlam|0.8.0|PipelineSlam|SolARBuild@github|https://github.com/SolarFramework/Sample-Slam/releases/download
-PipelineNaturalImageMarker|0.8.0|PipelineNaturalImageMarker|SolARBuild@github|https://github.com/SolarFramework/NaturalImageMarker/releases/download
-PipelineFiducialMarker|0.8.0|PipelineFiducialMarker|SolARBuild@github|https://github.com/SolarFramework/FiducialMarker/releases/download
+SolARPipeline_FiducialMarker|0.9.1|SolARPipeline_FiducialMarker|SolARBuild@github|https://github.com/SolarFramework/Sample-FiducialMarker/releases/download
+SolARPipeline_NaturalImageMarker|0.9.1|SolARPipeline_NaturalImageMarker|SolARBuild@github|https://github.com/SolarFramework/Sample-NaturalImageMarker/releases/download
+SolARPipeline_SLAM|0.9.1|SolARPipeline_SLAM|SolARBuild@github|https://github.com/SolarFramework/Sample-Slam/releases/download
 SolARPipelineManager|0.9.1|SolARPipelineManager|SolARBuild@github|https://github.com/SolarFramework/SolARPipelineManager/releases/download
 SolARModuleOpenCV|0.9.1|SolARModuleOpenCV|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenCV/releases/download
 SolARModuleTools|0.9.1|SolARModuleTools|SolARBuild@github|https://github.com/SolarFramework/SolARModuleTools/releases/download

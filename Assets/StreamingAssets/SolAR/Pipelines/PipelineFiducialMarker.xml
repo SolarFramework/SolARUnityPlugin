@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
-  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="PipelineFiducialMarker" path="./SolARDemo_Data/Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
+  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="SolARPipeline_FiducialMarker" path="./SolARDemo_Data/Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
     <component uuid="3898cc3b-3986-4edc-b7c8-f4fba0f6c22a" name="PipelineFiducialMarker" description="A pipeline to estimate the pose based on a squared fiducial marker">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPipeline" description="The interface to define a video see-throuh pipeline" />
+      <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPoseEstimationPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
   <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./SolARDemo_Data/Plugins" description="OpenCV">
@@ -51,11 +51,15 @@
     </component>
     <component uuid="0753ade1-7932-4e29-a71c-66155e309a53" name="SolARPoseEstimationPnpOpencv" description="SolARPoseEstimationPnpOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
-      <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinder" description="I3DTransformFinder" />
+      <interface uuid="77281cda-47c2-4bb7-bde6-5b0d02e75dae" name="I3DTransformFinderFrom2D3D" description="I3DTransformFinderFrom2D3D" />
     </component>
     <component uuid="65282fb3-6651-4e73-b532-5a64ade0ead0" name="SolARImageConvertorUnity" description="SolAR::MODULES::OPENCV::SolARImageConvertorUnity component">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="9c982719-6cb4-4831-aa88-9e01afacbd16" name="IImageConvertor" description="SolAR::api::image::IImageConvertor" />
+    </component>
+    <component uuid="cc51d685-9797-4ffd-a9dd-cec4f367fa6a" name="SolAR2DOverlayOpencv" description="SolAR2DOverlayOpencv">
+      <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
+      <interface uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" name="I2DOverlay" description="I2DOverlay" />
     </component>
     <component uuid="2db01f59-9793-4cd5-8e13-b25d0ed5735b" name="SolAR3DOverlayOpencv" description="SolAR3DOverlayOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
@@ -88,69 +92,60 @@
     <bindings>
       <bind interface="ICamera" to="SolARCameraOpencv" />
       <bind interface="IImageConvertor" to="SolARImageConvertorOpencv" />
-      <bind name="imageConvertorUnity" interface="IImageConvertor" to="SolARImageConvertorUnity" />
+      <bind interface="IImageConvertor" to="SolARImageConvertorUnity" name="imageConvertorUnity" />
     </bindings>
   </factory>
   <properties>
     <configure component="PipelineFiducialMarker">
-      <property name="minThreshold" type="Integer" value="100" description="the minimum tested threshold for image binarization" />
-      <property name="maxThreshold" type="Integer" value="220" description="The maximum tested threshold for image binarization" />
-      <property name="nbTestedThreshold" type="Integer" value="2" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
-      <!--PipelineFiducialMarker-->
+      <property name="minThreshold" type="int" value="-1" description="the minimum tested threshold for image binarization" />
+      <property name="maxThreshold" type="int" value="220" description="The maximum tested threshold for image binarization" />
+      <property name="nbTestedThreshold" type="int" value="10" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
     </configure>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
-      <property name="deviceID" type="UnsignedInteger" value="0" description="ID of the camera (default = 0)" />
-      <!--SolARCameraOpencv-->
+      <property name="calibrationFile" type="string" value="camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="deviceID" type="uint" value="0" description="ID of the camera (default = 0)" />
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
-      <!--SolARMarker2DSquaredBinaryOpencv-->
+      <property name="filePath" type="string" value="fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
     </configure>
     <configure component="SolARImageFilterBinaryOpencv">
-      <property name="min" type="Integer" value="-1" description="minimum threshold (-1 to automatically compute it on the global image" />
-      <property name="max" type="Integer" value="255" description="maximum threshold" />
-      <!--SolARImageFilterBinaryOpencv-->
+      <property name="min" type="int" value="-1" description="minimum threshold (-1 to automatically compute it on the global image" />
+      <property name="max" type="int" value="255" description="maximum threshold" />
     </configure>
     <configure component="SolARContoursExtractorOpencv">
-      <property name="minContourEdges" type="Integer" value="4" description="Minimum number of edge to validate a contour (default = 4)" />
-      <!--SolARContoursExtractorOpencv-->
+      <property name="minContourEdges" type="int" value="4" description="Minimum number of edge to validate a contour (default = 4)" />
     </configure>
     <configure component="SolARContoursFilterBinaryMarkerOpencv">
-      <property name="epsilon" type="Float" value="0,05" description="The maximum distance between the original curve and its approximation (default = 0.05)" />
-      <property name="minContourLength" type="Float" value="20" description="The minimum length of an edge of the contour in pixels to be considered as valid (default = 20)." />
-      <property name="minDistanceBetweenContourCorners" type="Float" value="10" description="The minimum average distance in pixels between corners of a contour and the same corners of another contour to consider the contour as valid (default = 10)" />
-      <!--SolARContoursFilterBinaryMarkerOpencv-->
+      <property name="epsilon" type="float" value="0.05" description="The maximum distance between the original curve and its approximation (default = 0.05)" />
+      <property name="minContourLength" type="float" value="20.0" description="The minimum length of an edge of the contour in pixels to be considered as valid (default = 20)." />
+      <property name="minDistanceBetweenContourCorners" type="float" value="10.0" description="The minimum average distance in pixels between corners of a contour and the same corners of another contour to consider the contour as valid (default = 10)" />
     </configure>
     <configure component="SolARPerspectiveControllerOpencv">
-      <property name="outputImageWidth" type="Integer" value="640" description="The width in pixels of the corrected image." />
-      <property name="outputImageHeight" type="Integer" value="480" description="The width in pixels of the corrected image." />
-      <!--SolARPerspectiveControllerOpencv-->
+      <property name="outputImageWidth" type="int" value="640" description="The width in pixels of the corrected image." />
+      <property name="outputImageHeight" type="int" value="480" description="The width in pixels of the corrected image." />
     </configure>
     <configure component="SolAR3DOverlayOpencv">
-      <property name="position" type="Float">
+      <property name="position" type="float">
         <value>0</value>
         <value>0</value>
         <value>0</value>
       </property>
-      <property name="orientation" type="Float">
+      <property name="orientation" type="float">
         <value>0.0</value>
         <value>0.0</value>
         <value>0.0</value>
       </property>
-      <property name="size" type="Float">
+      <property name="size" type="float">
         <value>0.157</value>
         <value>0.157</value>
         <value>0.1</value>
       </property>
-      <!--SolAR3DOverlayOpencv-->
     </configure>
     <configure component="SolARImageViewerOpencv">
       <property name="title" type="string" value="Fiducial Image Marker" />
-      <property name="exitKey" type="Integer" value="27" />
-      <property name="width" type="Integer" value="0" />
-      <property name="height" type="Integer" value="0" />
-      <!--SolARImageViewerOpencv-->
+      <property name="exitKey" type="int" value="27" />
+      <property name="width" type="int" value="0" />
+      <property name="height" type="int" value="0" />
     </configure>
   </properties>
 </xpcf-registry>

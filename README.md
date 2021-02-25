@@ -33,7 +33,7 @@ More details on [http://solarframework.org/use/unity](https://solarframework.git
 
 * Import **Unity Package** from our Github [SolarFramework/SolARUnityPlugin](https://github.com/SolarFramework/SolARUnityPlugin/releases). 
 
-* In Unity Editor open the Novice scene `./Assets/SolAR/Scenes/NoviceVersion.unity`.
+* In Unity Editor open the Novice scene `./Assets/SolAR/Demos/Scenes/NoviceVersion.unity`.
 
 * This scene includes **SolARPipelineLoader** prefab and a **3D model**.
   ![](./editor_hierarchy.jpg)
