@@ -7,14 +7,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if UNITY_ANDROID && !UNITY_EDITOR
+using System.Threading.Tasks;
 using UnityEngine.Android;
 #endif
+
+using System.Threading;
 
 namespace SolAR
 {
     public class SolARPipeline : AbstractSolARPipeline
     {
-        #region Variables
+#region Variables
 
         //#####################################################
         [HideInInspector] public float focalX;
@@ -52,7 +55,7 @@ namespace SolAR
         Color32[] colorsBuffer;
         bool isUpdateReady = false;
 
-        #endregion
+#endregion
 
         protected void Reset()
         {
@@ -67,7 +70,12 @@ namespace SolAR
             pipelineManager = null;
         }
 
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        protected async void Start()
+#else
         protected void Start()
+#endif
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             while (!Permission.HasUserAuthorizedPermission(Permission.Camera))
@@ -75,10 +83,15 @@ namespace SolAR
                 Permission.RequestUserPermission(Permission.Camera);
             }
 
-            Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+            // TODO(jmhenaff): investigate cleaner solution
+            // 'Await' is used otherwise first run of app fails because resource are not yet deployed when pipeline starts.
+            // But async/await are "contagious", Start() must be async (is this an issue?), plus async void is an anti-pattern.
+            await Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
             Android.LoadConfiguration(this);
 #endif
             enabled = Init();
+
+            Thread.Sleep(2000);
         }
 
         public bool Init()
@@ -148,6 +161,8 @@ namespace SolAR
 
                 sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(frameBuffer, 0);
                 pipelineManager.loadSourceImage(sourceTexture, width, height);
+
+                Debug.Log("[JMH] Unity camera texture size ( w: " + width + ", height: " + height + ")");
             }
             else
             {

@@ -78,14 +78,24 @@ namespace SolAR
             if (solarPipeline.m_selectedPipeline != pipelinesDropdown.value)
             {
                 solarPipeline.pipelineManager.stop();
-                solarPipeline.webcamTexture.Stop();
+                if (solarPipeline.isUnityWebcam)
+                {   
+                    if (solarPipeline.webcamTexture is null)
+                    {
+                        Debug.LogErrorFormat("Cannot stop pipeline texture because it is null whereas Unity webcam is set.");
+                        throw new global::System.ArgumentNullException("SolARPipeline.webcamTexture");
+                    }
+                    solarPipeline.webcamTexture.Stop();
+                }
                 solarPipeline.pipelineManager.Dispose();
                 solarPipeline.m_selectedPipeline = pipelinesDropdown.value;
                 solarPipeline.m_configurationPath = solarPipeline.m_pipelinesPath[solarPipeline.m_selectedPipeline];
                 //solarPipeline.m_uuid = solarPipeline.m_pipelinesUUID[solarPipeline.m_selectedPipeline];
+#if UNITY_ANDROID && !UNITY_EDITOR
                 Android.SaveConfiguration(solarPipeline.m_configurationPath);
-                solarPipeline.Init();
                 StartCoroutine(FadeOut(m_popup.GetComponent<Image>(), m_popup.GetComponentInChildren<Text>()));
+#endif
+                solarPipeline.Init();
             }
         }
 
