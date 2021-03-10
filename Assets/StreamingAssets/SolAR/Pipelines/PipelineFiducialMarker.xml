@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
-  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="SolARPipeline_FiducialMarker" path="Plugins" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
+  <module uuid="63b4282f-94cf-44d0-8ec0-9e8b0639fff6" name="SolARPipeline_FiducialMarker" path="./SolARDemo_Data/Plugins/x86_64" description="The module embedding a pipeline to estimate the pose based on a squared fiducial marker">
     <component uuid="3898cc3b-3986-4edc-b7c8-f4fba0f6c22a" name="PipelineFiducialMarker" description="A pipeline to estimate the pose based on a squared fiducial marker">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPoseEstimationPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
-  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="Plugins" description="OpenCV">
+  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./SolARDemo_Data/Plugins/x86_64" description="OpenCV">
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
@@ -70,7 +70,7 @@
       <interface uuid="b05f3dbb-f93d-465c-aee1-fb58e1480c42" name="IImageViewer" description="IImageViewer" />
     </component>
   </module>
-  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="Plugins" description="Module Tools">
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./SolARDemo_Data/Plugins/x86_64" description="Module Tools">
     <component uuid="a2ef5542-029e-4fce-9974-0aea14b29d6f" name="SolARSBPatternReIndexer" description="SolARSBPatternReIndexer">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="79c5b810-d557-11e7-9296-cec278b6b50a" name="ISBPatternReIndexer" description="ISBPatternReIndexer" />
@@ -102,11 +102,11 @@
       <property name="nbTestedThreshold" type="int" value="10" description="The number of thresholds for image binarization tested between minThreshold and maxThreshold" />
     </configure>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
+      <property name="calibrationFile" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" description="path of the .yml file describing the calibration parameter of the camera." />
       <property name="deviceID" type="uint" value="0" description="ID of the camera (default = 0)" />
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
     </configure>
     <configure component="SolARImageFilterBinaryOpencv">
       <property name="min" type="int" value="-1" description="minimum threshold (-1 to automatically compute it on the global image" />

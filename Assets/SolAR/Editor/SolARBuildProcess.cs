@@ -104,10 +104,12 @@ namespace SolAR
                         new_value = new_value.Substring(new_value.IndexOf("Plugins"));
                         switch (report.summary.platform)
                         {
+                            // For Windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
                             case BuildTarget.StandaloneWindows:
+                                new_value = "./" + Application.productName + "_Data/Plugins/x86";
+                                break;
                             case BuildTarget.StandaloneWindows64:
-                                // For Windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
-                                new_value = "./" + Application.productName + "_Data/Plugins";
+                                new_value = "./" + Application.productName + "_Data/Plugins/x86_64";
                                 break;
                             case BuildTarget.StandaloneOSX:
                                 break;
