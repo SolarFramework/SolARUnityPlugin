@@ -92,7 +92,6 @@ namespace SolAR
             }
             Debug.Log(clone);
             await clone.Execute();
-            Debug.LogWarningFormat("[JMH3] AndroidCloneResources() done");
         }
 
         /** <summary>

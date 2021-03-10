@@ -161,8 +161,6 @@ namespace SolAR
 
                 sourceTexture = Marshal.UnsafeAddrOfPinnedArrayElement(frameBuffer, 0);
                 pipelineManager.loadSourceImage(sourceTexture, width, height);
-
-                Debug.Log("[JMH] Unity camera texture size ( w: " + width + ", height: " + height + ")");
             }
             else
             {
