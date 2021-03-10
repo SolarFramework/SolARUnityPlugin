@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xpcf-registry xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" autoAlias="true">
-  <module uuid="da89a6eb-3233-4dea-afdc-9d918be0bd74" name="SolARPipeline_SLAM" path="./SolARDemo_Data/Plugins/x86_64" description="The module embedding a pipeline to estimate the pose based on a multithreaded Slam">
+  <module uuid="da89a6eb-3233-4dea-afdc-9d918be0bd74" name="SolARPipeline_SLAM" path="Plugins" description="The module embedding a pipeline to estimate the pose based on a multithreaded Slam">
     <component uuid="577ccd2c-de1b-402a-8829-496747598588" name="PipelineSlam" description="A pipeline to estimate the pose based on a multithreaded Slam">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="b5a6225e-6a91-4050-b298-886f4c17d9d2" name="IPoseEstimationPipeline" description="The interface to define a video see-throuh pipeline" />
     </component>
   </module>
-  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="./SolARDemo_Data/Plugins/x86_64" description="SolARModuleOpenCV">
+  <module uuid="15e1990b-86b2-445c-8194-0cbe80ede970" name="SolARModuleOpenCV" path="Plugins" description="SolARModuleOpenCV">
     <component uuid="5B7396F4-A804-4F3C-A0EB-FB1D56042BB4" name="SolARCameraOpencv" description="SolARCameraOpencv">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="5DDC7DF0-8377-437F-9C81-3643F7676A5B" name="ICamera" description="ICamera" />
@@ -126,13 +126,13 @@
       <interface uuid="62b8b0b5-9344-40e6-a288-e609eb3ff0f1" name="I2DOverlay" description="I2DOverlay" />
     </component>
   </module>
-  <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="./SolARDemo_Data/Plugins/x86_64" description="SolARModuleOpenGL">
+  <module uuid="6e960df6-9a36-11e8-9eb6-529269fb1459" name="SolARModuleOpenGL" path="Plugins" description="SolARModuleOpenGL">
     <component uuid="afd38ea0-9a46-11e8-9eb6-529269fb1459" name="SolAR3DPointsViewerOpengl" description="SolAR3DPointsViewerOpengl">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="575d365a-9a27-11e8-9eb6-529269fb1459" name="I3DPointsViewer" description="I3DPointsViewer" />
     </component>
   </module>
-  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="./SolARDemo_Data/Plugins/x86_64" description="SolARModuleTools">
+  <module uuid="28b89d39-41bd-451d-b19e-d25a3d7c5797" name="SolARModuleTools" path="Plugins" description="SolARModuleTools">
     <component uuid="85db2f25-4f1c-4e06-9011-e020284bfc4f" name="SolARBasicSink" description="A Sink component for a synchronized pose and image pair">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="c0d9fee4-d7d7-4866-a6cd-3bacac23316a" name="ISinkPoseImage" description="An interface allowing to store a synchronized pose and image from the pipeline to make it available to a third party application" />
@@ -210,13 +210,13 @@
       <interface uuid="33db5a56-9be2-4e5a-8fdc-de25e1633cf6" name="IMapping" description="IMapping" />
     </component>
   </module>
-  <module uuid="b81f0b90-bdbc-11e8-a355-529269fb1459" name="SolARModuleFBOW" path="./SolARDemo_Data/Plugins/x86_64" description="SolARModuleFBOW">
+  <module uuid="b81f0b90-bdbc-11e8-a355-529269fb1459" name="SolARModuleFBOW" path="Plugins" description="SolARModuleFBOW">
     <component uuid="9d1b1afa-bdbc-11e8-a355-529269fb1459" name="SolARKeyframeRetrieverFBOW" description="SolARKeyframeRetrieverFBOW">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="f60980ce-bdbd-11e8-a355-529269fb1459" name="IKeyframeRetriever" description="IKeyframeRetriever" />
     </component>
   </module>
-  <module uuid="8f94a3c5-79ed-4851-9502-98033eae3a3b" name="SolARModuleG2O" path="./SolARDemo_Data/Plugins/x86_64" description="SolARModuleG2O">
+  <module uuid="8f94a3c5-79ed-4851-9502-98033eae3a3b" name="SolARModuleG2O" path="Plugins" description="SolARModuleG2O">
     <component uuid="870d89ba-bb5f-460a-a817-1fcb6473df70" name="SolAROptimizationG2O" description="SolAROptimizationG2O">
       <interface uuid="125f2007-1bf9-421d-9367-fbdc1210d006" name="IComponentIntrospect" description="IComponentIntrospect" />
       <interface uuid="35b9bdb7-d23c-4909-984f-ae7f9a292e6c" name="IBundler" description="IBundler" />
@@ -251,7 +251,7 @@
   </factory>
   <properties>
     <configure component="SolARCameraOpencv">
-      <property name="calibrationFile" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" />
+      <property name="calibrationFile" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" />
       <property name="deviceID" type="uint" value="0" />
     </configure>
     <configure component="SolARImagesAsCameraOpencv">
@@ -347,7 +347,7 @@
       <property name="minMeanDistanceIsKeyframe" type="float" value="0.03" />
     </configure>
     <configure component="SolARKeyframeRetrieverFBOW">
-      <property name="VOCpath" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/FBOW/akaze.fbow" />
+      <property name="VOCpath" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/FBOW/akaze.fbow" />
       <property name="threshold" type="float" value="0.02" />
       <property name="level" type="int" value="3" />
       <property name="matchingDistanceRatio" type="float" value="0.8" />
@@ -439,7 +439,7 @@
       <property name="exitKey" type="int" value="27" />
     </configure>
     <configure component="SolARMarker2DSquaredBinaryOpencv">
-      <property name="filePath" type="string" value="./SolARDemo_Data/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
+      <property name="filePath" type="string" value="/storage/emulated/0/Android/data/com.bcom.SolARDemo/files/StreamingAssets/SolAR/Markers/fiducialMarker.yml" description="Path of the .yml file describing the fiducial marker." />
     </configure>
     <configure component="SolARFiducialMarkerPoseEstimator">
       <property name="nbThreshold" type="int" value="3" />

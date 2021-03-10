@@ -427,6 +427,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac39db92edef3d64ab7a17016f4f1e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1429352507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 85f604f5064981848a948f591adca53e,
+    type: 3}
+  m_PrefabInstance: {fileID: 51238798}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1429352508
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429352507}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 85f604f5064981848a948f591adca53e, type: 3}
+  m_Controller: {fileID: 9100000, guid: e721f93e5df06904e817ab53a57d4ee5, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1518804269
 GameObject:
   m_ObjectHideFlags: 0
@@ -8976,12 +9001,12 @@ PrefabInstance:
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: focalX
-      value: 515
+      value: 643
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243914, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
       propertyPath: focalY
-      value: 515
+      value: 641
       objectReference: {fileID: 0}
     - target: {fileID: 8997161845923243915, guid: 37f082361edc9064ba18b144c5e661ce,
         type: 3}
