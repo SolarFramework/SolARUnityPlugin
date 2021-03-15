@@ -83,15 +83,11 @@ namespace SolAR
                 Permission.RequestUserPermission(Permission.Camera);
             }
 
-            // TODO(jmhenaff): investigate cleaner solution
-            // 'Await' is used otherwise first run of app fails because resource are not yet deployed when pipeline starts.
-            // But async/await are "contagious", Start() must be async (is this an issue?), plus async void is an anti-pattern.
             await Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
             Android.LoadConfiguration(this);
 #endif
             enabled = Init();
 
-            Thread.Sleep(2000);
         }
 
         public bool Init()
