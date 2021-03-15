@@ -77,7 +77,16 @@ namespace SolAR
             //On close check if pipeline and camera need to be reload
             if (solarPipeline.m_selectedPipeline != pipelinesDropdown.value)
             {
-                solarPipeline.pipelineManager.stop();
+                bool pipelineMngrStopSuccess = true;
+                try
+                {
+                    pipelineMngrStopSuccess = solarPipeline.pipelineManager.stop();
+                } catch(global::System.Exception e)
+                {
+                    Debug.LogErrorFormat("An exception occured while attempting to close pipeline: " + e.Message);
+                    pipelineMngrStopSuccess = false;
+                }
+                
                 if (solarPipeline.isUnityWebcam)
                 {   
                     if (solarPipeline.webcamTexture is null)
@@ -93,6 +102,15 @@ namespace SolAR
                 //solarPipeline.m_uuid = solarPipeline.m_pipelinesUUID[solarPipeline.m_selectedPipeline];
 #if UNITY_ANDROID && !UNITY_EDITOR
                 Android.SaveConfiguration(solarPipeline.m_configurationPath);
+                Text text = m_popup.GetComponentInChildren<Text>();
+                if (pipelineMngrStopSuccess)
+                {
+                    text.text = "Configuration saved";
+                }
+                else
+                {
+                    text.text = "Configuration could not be saved (see logs)";
+                }
                 StartCoroutine(FadeOut(m_popup.GetComponent<Image>(), m_popup.GetComponentInChildren<Text>()));
 #endif
                 solarPipeline.Init();
