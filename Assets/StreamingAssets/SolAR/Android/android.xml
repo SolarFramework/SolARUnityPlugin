@@ -12,7 +12,7 @@
     <file path="./assets/StreamingAssets/SolAR/Markers/FiducialMarker.gif" overWrite="true" />
     <file path="./assets/StreamingAssets/SolAR/Markers/fiducialMarker.yml" overWrite="true" />
     <file path="./assets/StreamingAssets/SolAR/Markers/fiducialMarkerLeap.yml" overWrite="true" />
-    <file path="./assets/StreamingAssets/SolAR/Markers/graf1.png" overWrite="true" />
+    <file path="./assets/StreamingAssets/SolAR/Markers/NaturalImageMarker.png" overWrite="true" />
     <file path="./assets/StreamingAssets/SolAR/Markers/NaturalImageMarker.yml" overWrite="true" />
     <!--Pipelines-->
     <file path="./assets/StreamingAssets/SolAR/Pipelines/PipelineFiducialMarker.xml" overWrite="true" />
