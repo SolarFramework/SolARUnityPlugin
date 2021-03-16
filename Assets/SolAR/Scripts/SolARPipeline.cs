@@ -202,7 +202,7 @@ namespace SolAR
 
                 var fitter = imageGO.GetComponent<AspectRatioFitter>();
                 fitter.aspectRatio = (float) width / height;
-                fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+                fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
             }
             else
             {
