@@ -101,16 +101,13 @@ namespace SolAR
                 solarPipeline.m_configurationPath = solarPipeline.m_pipelinesPath[solarPipeline.m_selectedPipeline];
                 //solarPipeline.m_uuid = solarPipeline.m_pipelinesUUID[solarPipeline.m_selectedPipeline];
 #if UNITY_ANDROID && !UNITY_EDITOR
-                Android.SaveConfiguration(solarPipeline.m_configurationPath);
+                string message = "Configuration saved";
+                if (!Android.SaveConfiguration(solarPipeline.m_configurationPath) || !pipelineMngrStopSuccess)
+                {
+                    message = "Error when closing pipeline (see logs)";
+                }
                 Text text = m_popup.GetComponentInChildren<Text>();
-                if (pipelineMngrStopSuccess)
-                {
-                    text.text = "Configuration saved";
-                }
-                else
-                {
-                    text.text = "Configuration could not be saved (see logs)";
-                }
+                text.text = message;
                 StartCoroutine(FadeOut(m_popup.GetComponent<Image>(), m_popup.GetComponentInChildren<Text>()));
 #endif
                 solarPipeline.Init();

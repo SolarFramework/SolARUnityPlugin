@@ -280,7 +280,7 @@
       <property name="minTrackedPoints" type="int" value="100" />
     </configure>
     <configure component="SolARMapper">
-      <property name="directory" type="string" value="map" />
+      <property name="directory" type="string" value="./Assets/map" />
       <property name="identificationFileName" type="string" value="identification.bin" />
       <property name="coordinateFileName" type="string" value="coordinate.bin" />
       <property name="pointCloudManagerFileName" type="string" value="pointcloud.bin" />

@@ -127,7 +127,11 @@ namespace SolAR
             foreach (var element in configComp.Elements("property"))
             {
                 var attriName = element.Attribute("name");
-                if (attriName.Value.Contains("File") || attriName.Value.Contains("Path") || attriName.Value.Contains("file") || attriName.Value.Contains("path"))
+                if (attriName.Value.Contains("File")
+                    || attriName.Value.Contains("Path")
+                    || attriName.Value.Contains("file")
+                    || attriName.Value.Contains("path")
+                    || attriName.Value.Contains("directory"))
                 {
                     var attribValue = element.Attribute("value");
                     string new_value = "";
