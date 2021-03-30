@@ -120,11 +120,19 @@ namespace SolAR
          * Write a cache with the path of the current pipeline used
          * </summary>
          * */
-        public static void SaveConfiguration(string configurationPath)
+        public static bool SaveConfiguration(string configurationPath)
         {
             string dest = Application.persistentDataPath + "/StreamingAssets/SolAR/Android/.pipeline";
-            if (File.Exists(dest)) File.Delete(dest);
-            File.WriteAllText(dest, configurationPath);
+            try
+            {
+                if (File.Exists(dest)) File.Delete(dest);
+                File.WriteAllText(dest, configurationPath);
+            } catch(Exception e)
+            {
+                Debug.LogError("Could not save configuration '" + configurationPath + "' to '" + dest + "': " + e.Message );
+                return false;
+            }
+            return true;
         }
 
         /** <summary>

@@ -7,14 +7,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 #if UNITY_ANDROID && !UNITY_EDITOR
+using System.Threading.Tasks;
 using UnityEngine.Android;
 #endif
+
+using System.Threading;
 
 namespace SolAR
 {
     public class SolARPipeline : AbstractSolARPipeline
     {
-        #region Variables
+#region Variables
 
         //#####################################################
         [HideInInspector] public float focalX;
@@ -52,7 +55,7 @@ namespace SolAR
         Color32[] colorsBuffer;
         bool isUpdateReady = false;
 
-        #endregion
+#endregion
 
         protected void Reset()
         {
@@ -67,7 +70,12 @@ namespace SolAR
             pipelineManager = null;
         }
 
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        protected async void Start()
+#else
         protected void Start()
+#endif
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             while (!Permission.HasUserAuthorizedPermission(Permission.Camera))
@@ -75,10 +83,11 @@ namespace SolAR
                 Permission.RequestUserPermission(Permission.Camera);
             }
 
-            Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
+            await Android.AndroidCloneResources(Application.streamingAssetsPath + "/SolAR/Android/android.xml");
             Android.LoadConfiguration(this);
 #endif
             enabled = Init();
+
         }
 
         public bool Init()
@@ -104,19 +113,20 @@ namespace SolAR
             // When the application is built, only the pipeline configuration files used by the application are moved to the an external folder on terminal
             Debug.Log("[ANDROID] Load pipeline : " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
 
-            if (!pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath, m_uuid))
+            if (!pipelineManager.init(Application.persistentDataPath + "/StreamingAssets" + m_configurationPath))
             {
-                Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath + " with uuid " + m_uuid);
+                Debug.Log("Cannot init pipeline manager " + Application.persistentDataPath + "/StreamingAssets" + m_configurationPath);
                 return false;
             }
             Debug.Log("[ANDROID] Pipeline initialization successful");
             //m_Unity_Webcam = true;
+            //isUnityWebcam = true;
 
 #else
             // When the application is built, only the pipeline configuration files used by the application are moved to the streamingAssets folder
-            if (!pipelineManager.init(Application.streamingAssetsPath + m_configurationPath, m_uuid))
+            if (!pipelineManager.init(Application.streamingAssetsPath + m_configurationPath))
             {
-                Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath + " with uuid " + m_uuid);
+                Debug.Log("Cannot init pipeline manager " + Application.streamingAssetsPath + m_configurationPath);
                 return false;
             }
             //m_Unity_Webcam = true;
@@ -192,7 +202,7 @@ namespace SolAR
 
                 var fitter = imageGO.GetComponent<AspectRatioFitter>();
                 fitter.aspectRatio = (float) width / height;
-                fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+                fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
             }
             else
             {

@@ -70,10 +70,12 @@ namespace SolAR.Expert
                         case BuildTarget.Android:
                         case BuildTarget.iOS:
                             break;
+                        // For windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
                         case BuildTarget.StandaloneWindows:
+                            value = "./" + Application.productName + "_Data/Plugins/x86";
+                            break;
                         case BuildTarget.StandaloneWindows64:
-                            // For windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
-                            value = "./" + Application.productName + "_Data/Plugins";
+                            value = "./" + Application.productName + "_Data/Plugins/x86_64";
                             break;
                     }
                     attribute.SetValue(value);

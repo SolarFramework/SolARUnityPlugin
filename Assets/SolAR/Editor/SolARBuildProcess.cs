@@ -104,10 +104,12 @@ namespace SolAR
                         new_value = new_value.Substring(new_value.IndexOf("Plugins"));
                         switch (report.summary.platform)
                         {
+                            // For Windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
                             case BuildTarget.StandaloneWindows:
+                                new_value = "./" + Application.productName + "_Data/Plugins/x86";
+                                break;
                             case BuildTarget.StandaloneWindows64:
-                                // For Windows, during the built process plugins dll are copied from the Assets/plugins folder to the productname_Data/Plugins folder.
-                                new_value = "./" + Application.productName + "_Data/Plugins";
+                                new_value = "./" + Application.productName + "_Data/Plugins/x86_64";
                                 break;
                             case BuildTarget.StandaloneOSX:
                                 break;
@@ -125,7 +127,11 @@ namespace SolAR
             foreach (var element in configComp.Elements("property"))
             {
                 var attriName = element.Attribute("name");
-                if (attriName.Value.Contains("File") || attriName.Value.Contains("Path") || attriName.Value.Contains("file") || attriName.Value.Contains("path"))
+                if (attriName.Value.Contains("File")
+                    || attriName.Value.Contains("Path")
+                    || attriName.Value.Contains("file")
+                    || attriName.Value.Contains("path")
+                    || attriName.Value.Contains("directory"))
                 {
                     var attribValue = element.Attribute("value");
                     string new_value = "";
