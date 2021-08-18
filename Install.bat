@@ -5,7 +5,7 @@ ECHO ---------------- install third parties ----------------------
 ECHO Install third parties
 :: install all third parties in the %REMAKEN_PKG_ROOT%\packages. More information on remaken is available on https://github.com/b-com-software-basis/remaken 
 ::install for windows
-REMAKEN install -c %CONFIG% --cpp-std 17 -b cl-14.1 packagedependencies.txt
+REMAKEN install -c %CONFIG% --cpp-std 17 -b cl-14.1 -o win -a x86_64 packagedependencies.txt
 
 ::Install for Android
 conan profile update settings.os="Android" default

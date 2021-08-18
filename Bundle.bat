@@ -13,7 +13,7 @@ ECHO Bundle third parties : %bconfig%
 :: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken
 
 ::bundle for windows
-remaken bundle -d ./Assets/Plugins -c %bconfig% --cpp-std 17 -b cl-14.1 packagedependencies.txt
+remaken bundle -d ./Assets/Plugins -c %bconfig% --cpp-std 17 -b cl-14.1 -o win -a x86_64 packagedependencies.txt
 
 ::bundle for Android
 conan profile update settings.os="Android" default
