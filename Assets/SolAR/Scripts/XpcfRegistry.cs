@@ -107,6 +107,9 @@ namespace SolAR
                 [XmlAttribute]
                 [DefaultValue("")]
                 public string scope; // Singleton
+                [XmlAttribute]
+                [DefaultValue("")]
+                public string properties;
 
                 [XmlElement("component")]
                 public List<ComponentBind> component = new List<ComponentBind>();
@@ -136,6 +139,16 @@ namespace SolAR
                     public string @interface;
                     [XmlAttribute]
                     public string to;
+                    [XmlAttribute]
+                    [DefaultValue(InjectRange.@default)]
+                    public InjectRange range = InjectRange.@default;
+                    public enum InjectRange { @default, all }
+                    [XmlAttribute]
+                    [DefaultValue("")]
+                    public string name;
+                    [XmlAttribute]
+                    [DefaultValue("")]
+                    public string scope; // Singleton
                     [XmlAttribute]
                     [DefaultValue("")]
                     public string properties;
