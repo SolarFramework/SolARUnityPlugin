@@ -98,12 +98,11 @@ namespace SolAR
                 [XmlAttribute]
                 public string to;
                 [XmlAttribute]
+                [DefaultValue("default")]
+                public string range = "default";
+                [XmlAttribute]
                 [DefaultValue("")]
                 public string name;
-                [XmlAttribute]
-                [DefaultValue(Range.@default)]
-                public Range range = Range.@default;
-                public enum Range { @default, all }
                 [XmlAttribute]
                 [DefaultValue("")]
                 public string scope; // Singleton
@@ -140,9 +139,8 @@ namespace SolAR
                     [XmlAttribute]
                     public string to;
                     [XmlAttribute]
-                    [DefaultValue(InjectRange.@default)]
-                    public InjectRange range = InjectRange.@default;
-                    public enum InjectRange { @default, all }
+                    [DefaultValue("default")]
+                    public string range = "default";
                     [XmlAttribute]
                     [DefaultValue("")]
                     public string name;
