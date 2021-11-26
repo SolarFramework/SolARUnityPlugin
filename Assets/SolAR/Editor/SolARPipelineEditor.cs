@@ -24,9 +24,11 @@ namespace SolAR
 #pragma warning restore IDE1006 // Styles d'affectation de noms
 
         readonly AnimBool animConfiguration = new AnimBool(true);
+        SerializedObject pipelineSO;
 
         protected void OnEnable()
         {
+            pipelineSO = new SerializedObject(target);
             LoadPipelines();
             SelectPipeline(target.m_selectedPipeline);
             animConfiguration.valueChanged.AddListener(new UnityAction(Repaint));
@@ -72,7 +74,6 @@ namespace SolAR
             var name = componentConf.FindPropertyRelative("name");
 
             /*
-            var uuid = componentConf.FindPropertyRelative("uuid");
             var description = componentConf.FindPropertyRelative("description");
             if (string.IsNullOrEmpty(uuid?.stringValue))
             {
@@ -137,7 +138,7 @@ namespace SolAR
                 case PropertyType.wstring:
                     using (var scope = new EditorGUI.ChangeCheckScope())
                     {
-                        var v = EditorGUILayout.TextField(content, value.stringValue);
+                        var v = EditorGUILayout.DelayedTextField(content, value.stringValue);
                         if (scope.changed)
                         {
                             value.stringValue = v;
@@ -182,7 +183,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 float.TryParse(value.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out var v);
-                                v = EditorGUILayout.FloatField(content, v);
+                                v = EditorGUILayout.DelayedFloatField(content, v);
                                 if (scope.changed)
                                 {
                                     value.stringValue = v.ToString(CultureInfo.InvariantCulture);
@@ -260,7 +261,7 @@ namespace SolAR
                                 using (var scope = new EditorGUI.ChangeCheckScope())
                                 {
                                     float.TryParse(sp.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out var v);
-                                    v = EditorGUILayout.FloatField(content, v);
+                                    v = EditorGUILayout.DelayedFloatField(content, v);
                                     if (scope.changed)
                                     {
                                         sp.stringValue = v.ToString(CultureInfo.InvariantCulture);
@@ -283,7 +284,7 @@ namespace SolAR
                             using (var scope = new EditorGUI.ChangeCheckScope())
                             {
                                 int.TryParse(value.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out int v);
-                                v = EditorGUILayout.IntField(content, v);
+                                v = EditorGUILayout.DelayedIntField(content, v);
                                 if (scope.changed)
                                 {
                                     value.stringValue = v.ToString(CultureInfo.InvariantCulture);
@@ -350,7 +351,7 @@ namespace SolAR
                                 using (var scope = new EditorGUI.ChangeCheckScope())
                                 {
                                     int.TryParse(sp.stringValue, NumberStyles.Number, CultureInfo.InvariantCulture, out var v);
-                                    v = EditorGUILayout.IntField(content, v);
+                                    v = EditorGUILayout.DelayedIntField(content, v);
                                     if (scope.changed)
                                     {
                                         sp.stringValue = v.ToString(CultureInfo.InvariantCulture);
@@ -366,30 +367,43 @@ namespace SolAR
 
         void SelectPipeline(int num_pipeline)
         {
-            serializedObject.ApplyModifiedProperties();
-            if (target.m_pipelinesPath.Length <= 0)
+            //pipelineSO.Update();
+            pipelineSO.FindProperty("m_selectedPipeline").intValue = num_pipeline;
+
+            var pipelinesPath = pipelineSO.FindProperty("m_pipelinesPath");
+            if (pipelinesPath.arraySize <= 0)
                 return;
-            if (num_pipeline >= target.m_pipelinesPath.Length)
-                num_pipeline = target.m_pipelinesPath.Length - 1;
-            string selectedPipelinePath = Application.dataPath + target.m_pipelinesPath.ElementAt(num_pipeline);
+           
+            if (num_pipeline >= pipelinesPath.arraySize)
+                num_pipeline = pipelinesPath.arraySize - 1;
+
+            string selectedPipelinePath = Application.dataPath + pipelinesPath.GetArrayElementAtIndex(num_pipeline).stringValue;
+          
             using (var stream = File.OpenText(selectedPipelinePath))
             {
                 var serializer = new XmlSerializer(typeof(XpcfRegistry));
+                pipelineSO.ApplyModifiedProperties();
                 target.conf = (XpcfRegistry)serializer.Deserialize(stream);
-                //target.m_uuid = target.m_pipelinesUUID.ElementAt(num_pipeline);
-                target.m_configurationPath = target.m_pipelinesPath.ElementAt(num_pipeline);
+                pipelineSO.Update();
+                pipelineSO.FindProperty("m_configurationPath").stringValue = pipelinesPath.GetArrayElementAtIndex(num_pipeline).stringValue;
             }
             SaveConfig();
-            serializedObject.Update();
+            //pipelineSO.ApplyModifiedProperties();
         }
 
         void LoadPipelines()
         {
-            serializedObject.ApplyModifiedProperties();
-            string[] files = Directory.GetFiles(Application.dataPath + target.m_pipelineFolder, "*.xml");
+            pipelineSO.Update();
+            string[] files = Directory.GetFiles(Application.dataPath + pipelineSO.FindProperty("m_pipelineFolder").stringValue, "*.xml");
             var namesList = new List<string>();
             //var uuidList = new List<string>();
             var pathList = new List<string>();
+
+            var pipelinesNameProperty = pipelineSO.FindProperty("m_pipelinesName");
+            pipelinesNameProperty.ClearArray();
+            var pipelinesPathProperty = pipelineSO.FindProperty("m_pipelinesPath");
+            pipelinesPathProperty.ClearArray();
+
             foreach (var file in files)
             {
                 int index = file.IndexOf(Application.dataPath);
@@ -417,43 +431,54 @@ namespace SolAR
                         string pipelineName = component.Attribute("name").Value;
                         if (!string.IsNullOrEmpty(pipelineName))
                         {
-                            namesList.Add(pipelineName);
+                            pipelinesNameProperty.InsertArrayElementAtIndex(pipelinesNameProperty.arraySize);
+                            pipelinesNameProperty.GetArrayElementAtIndex(pipelinesNameProperty.arraySize-1).stringValue = pipelineName;
+                            //namesList.Add(pipelineName);
                             //string pipelineUuid = component.Attribute("uuid").Value;
                             //uuidList.Add(pipelineUuid);
                             string relative_file_temp = file_temp.Substring(Application.dataPath.Length);
-                            pathList.Add(relative_file_temp);
+                            pipelinesPathProperty.InsertArrayElementAtIndex(pipelinesPathProperty.arraySize);
+                            pipelinesPathProperty.GetArrayElementAtIndex(pipelinesPathProperty.arraySize-1).stringValue = relative_file_temp;
+
+                            //uuidList.Add(pipelineUuid);
+                            //pathList.Add(relative_file_temp);
                         }
                     }
                 }
             }
-            target.m_pipelinesName = namesList.ToArray();
-            target.m_pipelinesPath = pathList.ToArray();
+            //target.m_pipelinesName = namesList.ToArray();
+            //target.m_pipelinesPath = pathList.ToArray();
             //target.m_pipelinesUUID = uuidList.ToArray();
 
-            if (namesList.Count == 0)
+            if (pipelinesNameProperty.arraySize == 0)
             {
-                target.m_selectedPipeline = -1;
+                pipelineSO.FindProperty("m_selectedPipeline").intValue = -1;
             }
-            else if ((target.m_selectedPipeline >= namesList.Count()) || target.m_selectedPipeline == -1)
+            else if (pipelineSO.FindProperty("m_selectedPipeline").intValue >= pipelinesNameProperty.arraySize || pipelineSO.FindProperty("m_selectedPipeline").intValue == -1)
             {
-                target.m_selectedPipeline = 0;
+                pipelineSO.FindProperty("m_selectedPipeline").intValue = -1;
             }
-            serializedObject.Update();
+            pipelineSO.ApplyModifiedProperties();
         }
 
         void SaveConfig()
         {
+            pipelineSO.ApplyModifiedProperties();
             target.conf.autoAlias = true;
-            using (var stringWriter = File.CreateText(Application.dataPath + target.m_configurationPath))
+
+            using (var stringWriter = File.CreateText(Application.dataPath + pipelineSO.FindProperty("m_configurationPath").stringValue))
             {
                 var serializer = new XmlSerializer(typeof(XpcfRegistry));
                 serializer.Serialize(stringWriter, target.conf);
             }
+            pipelineSO.Update();
         }
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
+            pipelineSO.Update();
 
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
@@ -473,13 +498,13 @@ namespace SolAR
                     {
                         while (true)
                         {
-                            string folder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", target.m_pipelineFolder, "");
+                            string folder = EditorUtility.OpenFolderPanel("Select a new pipelines folder", pipelineSO.FindProperty("m_pipelineFolder").stringValue, "");
                             if (string.IsNullOrEmpty(folder)) break;
                             int indexApplicationDataPath = folder.IndexOf(Application.dataPath);
                             int indexStreamingAssetsPath = folder.IndexOf(Application.streamingAssetsPath);
                             if (indexApplicationDataPath == 0 && indexStreamingAssetsPath == -1)
                             {
-                                target.m_pipelineFolder = folder.Substring(Application.dataPath.Length);
+                                pipelineSO.FindProperty("m_pipelineFolder").stringValue = folder.Substring(Application.dataPath.Length);
                                 LoadPipelines();
                                 break;
                             }
@@ -489,14 +514,11 @@ namespace SolAR
                     }
                 }
 
-                if (target.m_pipelinesName == null) return;
-
-                if (target.m_pipelinesName.Length == 0 || target.m_selectedPipeline < 0)
+                if ((pipelineSO.FindProperty("m_pipelinesName").arraySize == 0) || (pipelineSO.FindProperty("m_selectedPipeline").intValue < 0))
                 {
-                    //target.m_uuid = "";
-                    target.m_configurationPath = "";
+                    pipelineSO.FindProperty("m_configurationPath").stringValue = "";
                     target.conf = null;
-                    serializedObject.Update();
+                    pipelineSO.ApplyModifiedProperties();
                     return;
                 }
 
@@ -508,30 +530,34 @@ namespace SolAR
                         fixedHeight = 15.0f,
                     };
 
-                    target.m_selectedPipeline = EditorGUILayout.Popup(target.m_selectedPipeline, target.m_pipelinesName, style);
+                    pipelineSO.FindProperty("m_selectedPipeline").intValue = EditorGUILayout.Popup(pipelineSO.FindProperty("m_selectedPipeline").intValue, target.m_pipelinesName, style);
 
                     if (scope.changed)
                     {
-                        SelectPipeline(target.m_selectedPipeline);
+                        SelectPipeline(pipelineSO.FindProperty("m_selectedPipeline").intValue);
                     }
                 }
 
-                var conf = serializedObject.FindProperty("conf");
+                var conf = pipelineSO.FindProperty("conf");
 
                 bool modified = false;
                 if (conf != null)
                     OnConfGUI(conf, ref modified);
 
-                serializedObject.ApplyModifiedProperties();
-
+                pipelineSO.ApplyModifiedProperties();
                 if (modified) { SaveConfig(); }
             }
+            pipelineSO.ApplyModifiedProperties();
         }
 
         void WebcamGUI()
         {
-            target.isUnityWebcam = EditorGUILayout.Toggle("Use Unity Webcam", target.isUnityWebcam);
-            if (target.isUnityWebcam)
+            //pipelineSO.Update();
+            bool isUnityWebCam = EditorGUILayout.Toggle("Use Unity Webcam", pipelineSO.FindProperty("isUnityWebcam").boolValue);
+            pipelineSO.FindProperty("isUnityWebcam").boolValue = isUnityWebCam;
+            //target.isUnityWebcam = EditorGUILayout.Toggle("Use Unity Webcam", target.isUnityWebcam);
+            if (isUnityWebCam)
+            //if (target.isUnityWebcam)
             {
                 var webCams = WebCamTexture.devices;
                 var webCamNames = Array.ConvertAll(webCams, webCam =>
@@ -542,26 +568,39 @@ namespace SolAR
                     return webCamName;
                 });
                 var label = new GUIContent("Video Camera");
-                target.webcamIndex = EditorGUILayout.Popup(label, target.webcamIndex, webCamNames);
+                pipelineSO.FindProperty("webcamIndex").intValue = EditorGUILayout.Popup(label, target.webcamIndex, webCamNames);
+                //target.webcamIndex = EditorGUILayout.Popup(label, target.webcamIndex, webCamNames);
 
+                pipelineSO.FindProperty("focalX").floatValue = EditorGUILayout.DelayedFloatField("focalX ", target.focalX);
+                pipelineSO.FindProperty("focalY").floatValue = EditorGUILayout.DelayedFloatField("focalY ", target.focalY);
+                pipelineSO.FindProperty("centerX").floatValue = EditorGUILayout.DelayedFloatField("centerX ", target.centerX);
+                pipelineSO.FindProperty("centerY").floatValue = EditorGUILayout.DelayedFloatField("centerY ", target.centerY);
+                pipelineSO.FindProperty("width").intValue = EditorGUILayout.DelayedIntField("width ", target.width);
+                pipelineSO.FindProperty("height").intValue = EditorGUILayout.DelayedIntField("height ", target.height);
+
+                /*
                 target.focalX = EditorGUILayout.FloatField("focalX ", target.focalX);
                 target.focalY = EditorGUILayout.FloatField("focalY ", target.focalY);
                 target.centerX = EditorGUILayout.FloatField("centerX ", target.centerX);
                 target.centerY = EditorGUILayout.FloatField("centerY ", target.centerY);
                 target.width = EditorGUILayout.IntField("width ", target.width);
                 target.height = EditorGUILayout.IntField("height ", target.height);
+                */
             }
+            //pipelineSO.ApplyModifiedProperties();
         }
 
         void CanvasGUI()
         {
-            target.hasCustomCanvas = EditorGUILayout.Toggle("Custom_Canvas", target.hasCustomCanvas);
-
+            bool hasCustomCanvas = EditorGUILayout.Toggle("Custom_Canvas", pipelineSO.FindProperty("hasCustomCanvas").boolValue);
+            pipelineSO.FindProperty("hasCustomCanvas").boolValue = hasCustomCanvas;
             if (target.hasCustomCanvas)
             {
+                pipelineSO.ApplyModifiedProperties();
                 target.canvas = (Canvas)EditorGUILayout.ObjectField("Static Canvas UI", target.canvas, typeof(Canvas), true);
                 target.material = (Material)EditorGUILayout.ObjectField("Static Canvas Material", target.material, typeof(Material), true);
-            }
+                pipelineSO.Update();
+            }           
         }
     }
 }
