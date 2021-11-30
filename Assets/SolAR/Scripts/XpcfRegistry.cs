@@ -104,8 +104,8 @@ namespace SolAR
                 [DefaultValue("")]
                 public string name;
                 [XmlAttribute]
-                [DefaultValue("")]
-                public string scope; // Singleton
+                [DefaultValue("transient")]
+                public string scope =  "transient"; // Singleton
                 [XmlAttribute]
                 [DefaultValue("")]
                 public string properties;
@@ -145,8 +145,8 @@ namespace SolAR
                     [DefaultValue("")]
                     public string name;
                     [XmlAttribute]
-                    [DefaultValue("")]
-                    public string scope; // Singleton
+                    [DefaultValue("transient")]
+                    public string scope = "transient"; // Singleton
                     [XmlAttribute]
                     [DefaultValue("")]
                     public string properties;
