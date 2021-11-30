@@ -13,7 +13,8 @@ ECHO Bundle third parties : %bconfig%
 :: Bunlde all third parties in the ./Assets/plugins folder based on the packagedependencies.txt file. More information on remaken is available on https://github.com/b-com-software-basis/remaken
 
 ::bundle for windows
-remaken bundle -d ./Assets/Plugins -c %bconfig% --cpp-std 17 -b cl-14.1 -o win -a x86_64 packagedependencies.txt
+ECHO Bundle third parties for windows platform: %bconfig%
+remaken bundle --recurse -d ./Assets/Plugins -c %bconfig% --cpp-std 17 -b cl-14.1 -o win -a x86_64 packagedependencies.txt
 
 ::bundle for Android
 conan profile update settings.os="Android" default
@@ -27,8 +28,8 @@ conan profile update settings.compiler.cppstd="17" default
 
 if not exist "./Assets/Plugins/Android" mkdir "./Assets/Plugins/Android"
 
-
-remaken bundle -d ./Assets/Plugins/Android -c %bconfig% --cpp-std 17 -b clang -o android -a arm64-v8a packagedependencies.txt 
+ECHO Bundle third parties for android platform: %bconfig%
+remaken bundle --recurse -d ./Assets/Plugins/Android -c %bconfig% --cpp-std 17 -b clang -o android -a arm64-v8a packagedependencies.txt 
 
 conan profile update settings.os="Windows" default
 conan profile update settings.os_build="Windows" default
@@ -51,6 +52,6 @@ ECHO Copy wrapper files
 XCOPY "%REMAKEN_PKG_ROOT%\%COMPILER_ANDROID%\SolARBuild\SolARPipelineManager\%SOLAR_PIPELINE_MANAGER_VERSION%\csharp\*" ^
  ".\Assets\SolAR\Scripts\Swig\" /Q /S
  
-XCOPY "%REMAKEN_PKG_ROOT%\%COMPILER_ANDROID%\SolARBuild\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\*" ^
- ".\Assets\SolAR\Scripts\Swig\Expert\" /Q /S
+::XCOPY "%REMAKEN_PKG_ROOT%\%COMPILER_ANDROID%\SolARBuild\SolARWrapper\%SOLAR_WRAPPER_VERSION%\csharp\*" ^
+:: ".\Assets\SolAR\Scripts\Swig\Expert\" /Q /S
  
