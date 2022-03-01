@@ -5,7 +5,7 @@
     <!--/!\ Don't use overWrite attribute for configuration, if you want to use the configuration xml in the .apk delete this configuration xml otherwise it will use this one-->
     <file path="./assets/StreamingAssets/SolAR/Android/android.xml" />
     <!--CameraCalibration-->
-    <file path="./assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.yml" overWrite="true" />
+    <file path="./assets/StreamingAssets/SolAR/CameraCalibration/camera_calibration.json" overWrite="true" />
     <!--FBOW-->
     <file path="./assets/StreamingAssets/SolAR/FBOW/akaze.fbow" overWrite="true" />
     <!--Markers-->
