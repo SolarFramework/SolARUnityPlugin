@@ -12,7 +12,6 @@ namespace SolAR
             switch (layout)
             {
                 case Image.ImageLayout.LAYOUT_RGB:
-                case Image.ImageLayout.LAYOUT_GRB:
                 case Image.ImageLayout.LAYOUT_BGR:
                     return TextureFormat.RGB24;
                 case Image.ImageLayout.LAYOUT_GREY:
