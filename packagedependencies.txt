@@ -1,9 +1,9 @@
-SolARPipelineFiducialMarker|0.10.0|SolARPipelineFiducialMarker|SolARBuild@github|https://github.com/SolarFramework/Sample-FiducialMarker/releases/download
-SolARPipelineNaturalImageMarker|0.10.0|SolARPipelineNaturalImageMarker|SolARBuild@github|https://github.com/SolarFramework/Sample-NaturalImageMarker/releases/download
-SolARPipelineSLAM|0.10.0|SolARPipelineSLAM|SolARBuild@github|https://github.com/SolarFramework/Sample-Slam/releases/download
-SolARPipelineManager|0.10.0|SolARPipelineManager|SolARBuild@github|https://github.com/SolarFramework/SolARPipelineManager/releases/download
-SolARModuleOpenCV|0.10.0|SolARModuleOpenCV|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenCV/releases/download
-SolARModuleTools|0.10.0|SolARModuleTools|SolARBuild@github|https://github.com/SolarFramework/SolARModuleTools/releases/download
-// SolARWrapper|0.10.0|SolARWrapper|SolARBuild@github|https://github.com/SolarFramework/SwigWrapper/releases/download
-SolARModuleFBOW|0.10.0|SolARModuleFBOW|SolARBuild@github|https://github.com/SolarFramework/SolARModuleFBOW/releases/download
-SolARModuleG2O|0.10.0|SolARModuleG2O|SolARBuild@github|https://github.com/SolarFramework/SolARModuleG2O/releases/download
+SolARPipelineFiducialMarker|0.11.0|SolARPipeline_FiducialMarker|SolARBuild@github|https://github.com/SolarFramework/Sample-FiducialMarker/releases/download
+SolARPipelineNaturalImageMarker|0.11.0|SolARPipeline_NaturalImageMarker|SolARBuild@github|https://github.com/SolarFramework/Sample-NaturalImageMarker/releases/download
+SolARPipelineSLAM|0.11.0|SolARPipeline_SLAM|SolARBuild@github|https://github.com/SolarFramework/Sample-Slam/releases/download
+SolARPipelineManager|0.11.0|SolARPipelineManager|SolARBuild@github|https://github.com/SolarFramework/SolARPipelineManager/releases/download
+SolARModuleOpenCV|0.11.0|SolARModuleOpenCV|SolARBuild@github|https://github.com/SolarFramework/SolARModuleOpenCV/releases/download
+SolARModuleTools|0.11.0|SolARModuleTools|SolARBuild@github|https://github.com/SolarFramework/SolARModuleTools/releases/download
+SolARWrapper|0.11.0|SolARWrapper|SolARBuild@github|https://github.com/SolarFramework/SwigWrapper/releases/download
+SolARModuleFBOW|0.11.0|SolARModuleFBOW|SolARBuild@github|https://github.com/SolarFramework/SolARModuleFBOW/releases/download
+SolARModuleG2O|0.11.0|SolARModuleG2O|SolARBuild@github|https://github.com/SolarFramework/SolARModuleG2O/releases/download

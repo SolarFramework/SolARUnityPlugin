@@ -283,13 +283,13 @@
       <property name="minWeightNeighbor" type="float" value="20.0" />
       <property name="displayTrackedPoints" type="int" value="1" />
       <property name="thresAngleViewDirection" type="float" value="0.87" />
+      <property name="nbPassedFrameAtLeast" type="int" value="10"/>
+      <property name="ratioCPRefKeyframe" type="float" value="0.6"/>
+      <property name="minTrackedPoints" type="int" value="200"/>
     </configure>
     <configure component="SolARSLAMMapping">
       <property name="minWeightNeighbor" type="float" value="20.0" />
       <property name="maxNbNeighborKfs" type="int" value="10" />
-      <property name="nbPassedFrameAtLeast" type="int" value="4" />
-      <property name="ratioCPRefKeyframe" type="float" value="0.5" />
-      <property name="minTrackedPoints" type="int" value="200" />
     </configure>
     <configure component="SolARMapManager">
       <property name="directory" type="string" value="./Assets/map" />
@@ -304,7 +304,7 @@
     </configure>
     <configure component="SolARKeypointDetectorOpencv">
       <property name="type" type="string" value="AKAZE2" />
-      <property name="imageRatio" type="float" value="1.0" />
+      <property name="imageRatio" type="float" value="0.5" />
       <property name="nbDescriptors" type="int" value="2000" />
       <property name="threshold" type="float" value="0.0001" />
     </configure>
@@ -354,7 +354,7 @@
     </configure>
     <configure component="SolARKeyframeSelector">
       <property name="minNbMatchesIsKeyframe" type="int" value="50" />
-      <property name="minMeanDistanceIsKeyframe" type="float" value="0.05" />
+      <property name="minMeanDistanceIsKeyframe" type="float" value="0.03" />
     </configure>
     <configure component="SolARKeyframeRetrieverFBOW">
       <property name="VOCpath" type="string" value="./Assets/StreamingAssets/SolAR/FBOW/akaze.fbow" />
