@@ -28,6 +28,11 @@ namespace SolAR.ci
             buildPlayerOptions.target = BuildTarget.Android;
             BuildPipeline.BuildPlayer(buildPlayerOptions);
         }
+
+        static void ExportPackage()
+        {
+            AssetDatabase.ExportPackage(AssetDatabase.GetAllAssetPaths(), "./SolARUnityPackage.unitypackage", ExportPackageOptions.IncludeDependencies | ExportPackageOptions.Recurse);
+        }
     }
 
 } // namespace SolAR.ci

@@ -20,4 +20,5 @@ then
 fi
 
 "$SOLAR_UNITY_EXEC_PATH" -quit -batchmode -projectPath . -executeMethod SolAR.ci.ReleaseBuilder.BuildAndroidApk
+"$SOLAR_UNITY_EXEC_PATH" -quit -batchmode -projectPath . -executeMethod SolAR.ci.ReleaseBuilder.ExportPackage
 
