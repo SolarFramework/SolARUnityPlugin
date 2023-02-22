@@ -13,12 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ "SOLAR_UNITY_EXEC_PATH" == "" ]
+if [ "$SOLAR_UNITY_EXEC_PATH" == "" ]
 then
   echo "Set SOLAR_UNITY_EXEC_PATH to the version of Unity you want to use with this script"
   exit -1
 fi
 
-"$SOLAR_UNITY_EXEC_PATH" -quit -batchmode -projectPath . -executeMethod SolAR.ci.ReleaseBuilder.BuildAndroidApk
-"$SOLAR_UNITY_EXEC_PATH" -quit -batchmode -projectPath . -executeMethod SolAR.ci.ReleaseBuilder.ExportPackage
+"$SOLAR_UNITY_EXEC_PATH" -quit -nographics -batchmode -projectPath . -executeMethod SolAR.ci.ReleaseBuilder.BuildAndroidApk
+"$SOLAR_UNITY_EXEC_PATH" -quit -nographics -batchmode -projectPath . -executeMethod SolAR.ci.ReleaseBuilder.ExportPackage
 
